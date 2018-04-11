@@ -1,9 +1,8 @@
-import base_config from './webpack.config.base';
-import webpack from 'webpack';
+const base_config = require('./webpack.config.base');
+const webpack = require('webpack');
 
-export default {
-    ...base_config
-    debug: true,
+module.exports = {
+    ...base_config,
     output: {
         ...base_config.output,
         publicPath: 'http://frontend:3000' + base_config.output.publicPath,

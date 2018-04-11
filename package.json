@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-server": "babel-node webpack/dev-server.js",
+    "dev-server": "node webpack/dev-server.js",
     "npminstall": "npm i -q",
     "develop": "npm run npminstall && npm run dev-server",
     "build": "babel-node ./node_modules/webpack/bin/webpack --config webpack/webpack.config.production.js --progress --profile --color",

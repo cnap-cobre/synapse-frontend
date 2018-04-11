@@ -1,9 +1,9 @@
-import base_config from './webpack.config.base';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import AssetsWebpackPlugin from 'assets-webpack-plugin';
+const base_config = require('./webpack.config.base');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const AssetsWebpackPlugin = require('assets-webpack-plugin');
 
-export default {
+module.exports = {
     ...base_config,
 
     output: {
@@ -15,7 +15,7 @@ export default {
         ...base_config.module,
 
         //wrap style loaders with extract text plugin
-        loaders: base_config.module.loaders.map(function(conf) {
+        rules: base_config.module.rules.map(function(conf) {
             return {
                 ...conf,
                 loader: conf.loader && conf.loader.includes('style!') ? ExtractTextPlugin.extract('style', conf.loader.replace('style!', '')) : conf.loader

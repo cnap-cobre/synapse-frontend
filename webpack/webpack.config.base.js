@@ -1,8 +1,10 @@
-import webpack from 'webpack';
+const webpack = require('webpack');
 
-export default {
+module.exports = {
+    mode: 'development',
+    context: '/frontend/src/js',
     entry: [
-        '/frontend/src/js/index.js'
+        './index.js'
     ],
     devtool: 'source-map',
     output: {
@@ -10,11 +12,11 @@ export default {
         publicPath: '/static/',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel',
+                loader: 'babel-loader',
             },
             {
                 test: /\.css$/,
@@ -32,6 +34,6 @@ export default {
     },
     target: 'web',
     plugins: [
-        new webpack.NoErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin()
     ]
 };
