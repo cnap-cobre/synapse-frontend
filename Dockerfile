@@ -8,5 +8,6 @@ RUN chown -R app:app $HOME/*
 
 USER app
 WORKDIR $HOME/frontend
+RUN chown -R app:app $HOME/frontend/
 RUN npm install
 RUN npm cache clean --force
