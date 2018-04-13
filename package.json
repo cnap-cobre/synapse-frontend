@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.2.0",
   "private": true,
+  "homepage" : "http://dataverse.cnap.ksu.edu/browse",
   "dependencies": {
     "ajv": "^6.4.0",
     "asap": "^2.0.6",
