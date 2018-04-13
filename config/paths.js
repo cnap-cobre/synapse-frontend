@@ -34,7 +34,9 @@ const getPublicUrl = appPackageJson =>
 function getServedPath(appPackageJson) {
   const publicUrl = getPublicUrl(appPackageJson);
   const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/wp/');
+  console.log(envPublicUrl);
+  console.log(servedUrl);
   return ensureSlash(servedUrl, true);
 }
 

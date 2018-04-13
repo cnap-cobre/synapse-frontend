@@ -15,11 +15,11 @@ const BundleTracker = require('webpack-bundle-tracker');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
-const publicPath = 'http://dataverse.cnap.ksu.edu/browse/';
+const publicPath = 'https://dataverse.cnap.ksu.edu/wp/';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
-const publicUrl = 'http://dataverse.cnap.ksu.edu/browse';
+const publicUrl = 'https://dataverse.cnap.ksu.edu/wp';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
 
@@ -27,7 +27,7 @@ const env = getClientEnvironment(publicUrl);
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
 module.exports = {
-  context: __dirname,
+  //context: __dirname,
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
@@ -47,7 +47,7 @@ module.exports = {
     // the line below with these two lines if you prefer the stock client:
     // require.resolve('webpack-dev-server/client') + '?/',
     // require.resolve('webpack/hot/dev-server'),
-    require.resolve('webpack-dev-server/client') + '?http://dataverse.cnap.ksu.edu/browse',
+    require.resolve('webpack-dev-server/client') + '?https://dataverse.cnap.ksu.edu/wp',
     require.resolve('webpack/hot/dev-server'),
     //require.resolve('react-dev-utils/webpackHotDevClient'),
     // Finally, this is your app's code:

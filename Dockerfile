@@ -15,5 +15,8 @@ RUN npm cache clean --force
 RUN npm install --silent
 
 # start app
+
+ENV PUBLIC_URL /wp/
+
 #CMD ["npm", "ls", "--depth=0"]
 CMD ["npm", "start"]
