@@ -16,7 +16,8 @@ class App extends Component {
         <p>
           Do you like cake?
         </p>
-        <p>No</p>
+        <p>Why yes, yes, I do!</p>
+        <h1>Testing</h1>
       </div>
     );
   }
