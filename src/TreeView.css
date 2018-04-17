@@ -1,0 +1,31 @@
+.tree-view-folder-closed:before {
+    content: "\25b8 "
+}
+
+.tree-view-folder-open:before {
+    content: "\25be "
+}
+
+ul.tree-view-node {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li.tree-view-node {
+    padding-left: 2em;
+}
+
+.tree-view-node-label:hover {
+    background-color: lightcyan;
+    cursor: pointer;
+}
+
+.tree-view-node-selected {
+    background-color: lightblue;
+}
+
+.TreeView {
+    border: 1px solid lightgray;
+    padding: 5px;
+}
