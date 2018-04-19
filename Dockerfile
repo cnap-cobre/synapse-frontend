@@ -15,6 +15,9 @@ RUN chown node:node /usr/src/app && chmod -R 755 /usr/src/app
 # Don't run stuff as root
 USER node
 
+# Add so we own it
+RUN mkdir /usr/src/app/stats
+
 # install app dependencies
 COPY package.json /usr/src/app/package.json
 RUN npm install --silent \
