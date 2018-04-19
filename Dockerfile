@@ -1,22 +1,24 @@
 # base image
 FROM node:8
 
-# set working directory
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
-
 # add `/usr/src/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-# install and cache app dependencies
-RUN npm install react-scripts@1.1.1 -g --silent
+# install and cache react-scripts globally
+RUN npm install react-scripts@1.1.1 -g --silent \
+    && npm cache clean --force --silent
+
+# set working directory
+WORKDIR /usr/src/app
+RUN chown node:node /usr/src/app && chmod -R 755 /usr/src/app
+
+# Don't run stuff as root
+USER node
+
+# install app dependencies
 COPY package.json /usr/src/app/package.json
-RUN npm cache clean --force
-RUN npm install --silent
+RUN npm install --silent \
+    && npm cache clean --force --silent
 
 # start app
-
-ENV PUBLIC_URL /wp/
-
-#CMD ["npm", "ls", "--depth=0"]
 CMD ["npm", "start"]

@@ -1,13 +1,22 @@
 # build environment
-FROM node:9.6.1 as builder
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+FROM node:8 as builder
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+RUN npm install react-scripts@1.1.1 -g --silent \
+    && npm cache clean --force --silent
+
+WORKDIR /usr/src/app
+RUN chown node:node /usr/src/app && chmod -R 755 /usr/src/app
+
+USER node
+
 COPY package.json /usr/src/app/package.json
-RUN npm install --silent
-RUN npm install react-scripts@1.1.1 -g --silent
+RUN npm install --silent \
+    && npm cache clean --force --silent
+
 COPY . /usr/src/app
 RUN npm run build
+
 
 # production environment
 FROM nginx:1.13.9-alpine
