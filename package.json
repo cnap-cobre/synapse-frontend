@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "agaveapi-js": "^1.0.0",
     "dropbox": "^4.0.3"
   },
   "devDependencies": {
