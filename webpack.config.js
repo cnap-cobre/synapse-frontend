@@ -3,6 +3,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
+  entry: {
+    browse: [
+      './src/browse.js'
+    ]
+  },
   module: {
     rules: [
       {
