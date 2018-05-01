@@ -5,6 +5,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
   entry: {
     browse: [
+      './polyfills.js',
       './src/browse.js'
     ]
   },
