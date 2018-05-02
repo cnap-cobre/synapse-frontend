@@ -1,4 +1,6 @@
 import React from "react";
+import { humanFileSize } from "./util/FileSize.js";
+import moment from 'moment';
 
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
@@ -24,28 +26,42 @@ export default class AgaveBrowser extends React.Component {
     });
   }
 
-  handleClick(name, e) {
-    console.log(name);
-    if (name == '..'){
-      this.setState({ 'path': this.state.path.slice(0, this.state.path.length - 1) });
-    } else{
-      this.setState({ 'path': this.state.path.concat([name])});
+  handleClick(item, e) {
+    console.log(item.name);
+    if (item.name == '..'){
+      this.setState({
+        'path': this.state.path.slice(0, this.state.path.length - 1)
+      }, () => { this.AgaveBrowser(); });
+    } else if (item.format == "folder"){
+      this.setState({
+        'path': this.state.path.concat([item.name])
+      }, () => { this.AgaveBrowser(); });
+    } else {
+      alert("Would you like to download " + item.path + "?");
     }
-
-    this.AgaveBrowser();
   }
 
   render() {
-    const list = ['..'].concat(this.state.list);
+    const list = [{ name: '..', length: 0, lastModified: '-'}].concat(this.state.list);
+    console.log('cake', list);
     const files = list.map((item, i) => (
-      <div>
-        <a onClick={(e) => this.handleClick(item.name, e)}>{ item.name }</a>
-      </div>
+      <tr onClick={(e) => this.handleClick(item, e)}>
+        <td>{ item.name }</td>
+        <td>{ humanFileSize(item.length) }</td>
+        <td>{ moment(item.lastModified).toString() }</td>
+      </tr>
     ));
 
     return (
-      <div className="container">
-       <div className="list">{ files }</div>
+      <div className="card-content table-responsive table-full-width">
+        <table className="table table-hover">
+          <thead>
+          <tr><th>Name</th><th>Size</th><th>Last Modified</th></tr>
+          </thead>
+          <tbody>
+          { files }
+          </tbody>
+        </table>
       </div>
     );
   }
