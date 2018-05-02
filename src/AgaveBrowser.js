@@ -4,7 +4,7 @@ export default class AgaveBrowser extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { list: [] }
+    this.state = { list: [], path: [] }
   }
 
   componentDidMount() {
@@ -12,7 +12,9 @@ export default class AgaveBrowser extends React.Component {
   }
 
   AgaveBrowser() {
-    fetch('/agave/files/v2/listings/', {
+    const url = '/agave/files/v2/listings/' + this.state.path.join('/');
+    console.log('fetching...', url, this.state.path);
+    fetch(url, {
       credentials: "same-origin"
     }).then((response) => {
       return response.json();
@@ -22,17 +24,28 @@ export default class AgaveBrowser extends React.Component {
     });
   }
 
+  handleClick(name, e) {
+    console.log(name);
+    if (name == '..'){
+      this.setState({ 'path': this.state.path.slice(0, this.state.path.length - 1) });
+    } else{
+      this.setState({ 'path': this.state.path.concat([name])});
+    }
+
+    this.AgaveBrowser();
+  }
+
   render() {
-    console.log('cake', this.state.list);
-    const list = this.state.list.map((item, i) => (
+    const list = ['..'].concat(this.state.list);
+    const files = list.map((item, i) => (
       <div>
-        <p>{ item.name }</p>
+        <a onClick={(e) => this.handleClick(item.name, e)}>{ item.name }</a>
       </div>
     ));
 
     return (
       <div className="container">
-       <div className="list">{ list }</div>
+       <div className="list">{ files }</div>
       </div>
     );
   }
