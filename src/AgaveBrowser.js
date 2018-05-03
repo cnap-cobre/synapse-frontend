@@ -1,6 +1,7 @@
 import React from "react";
 import { humanFileSize } from "./util/FileSize.js";
 import moment from 'moment';
+import Agave from 'agaveapi-js';
 
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class AgaveBrowser extends React.Component {
       <tr onClick={(e) => this.handleClick(item, e)}>
         <td>{ item.name }</td>
         <td>{ humanFileSize(item.length) }</td>
-        <td>{ moment(item.lastModified).toString() }</td>
+        <td>{ moment(item.lastModified).format('l LT') }</td>
       </tr>
     ));
 
