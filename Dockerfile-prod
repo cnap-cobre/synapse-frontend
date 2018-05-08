@@ -1,20 +1,36 @@
 # build environment
 FROM node:8 as builder
+
+# add `/usr/src/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
+# install and cache react-scripts globally
 RUN npm install react-scripts@1.1.1 -g --silent \
     && npm cache clean --force --silent
 
+# set working directory
 WORKDIR /usr/src/app
 RUN chown node:node /usr/src/app && chmod -R 755 /usr/src/app
 
+# Don't run stuff as root
 USER node
+RUN echo $UID
 
+# Add so we own it
+RUN mkdir /usr/src/app/stats
+
+# install app dependencies
 COPY package.json /usr/src/app/package.json
 RUN npm install --silent \
     && npm cache clean --force --silent
 
+# build our frontend assets
 COPY . /usr/src/app
+
+USER root
+RUN chown -R node:node /usr/src/app/
+USER node
+
 RUN npm run build
 
 
