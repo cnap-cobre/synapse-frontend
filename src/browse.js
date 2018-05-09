@@ -1,4 +1,4 @@
-import AgaveBrowser from "./AgaveBrowser";
+import AgaveBrowser from "./components/AgaveBrowser";
 import style from "./main.css";
 import React from "react";
 import ReactDOM from "react-dom";
