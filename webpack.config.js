@@ -1,12 +1,13 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
+const path = require('path');
 
 module.exports = {
   entry: {
     browse: [
       './polyfills.js',
-      './src/browse.js'
+      './src/entrypoints/browse.js'
     ]
   },
   module: {
@@ -46,5 +47,11 @@ module.exports = {
       path: __dirname,
       filename: "./stats/stats.json"
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      'Utils': path.resolve(__dirname, 'src/util/'),
+      'Components': path.resolve(__dirname, 'src/components/')
+    }
+  }
 };

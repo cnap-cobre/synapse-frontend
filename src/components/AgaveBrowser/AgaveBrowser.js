@@ -1,7 +1,6 @@
 import React from "react";
-import { humanFileSize } from "../util/FileSize.js";
+import { humanFileSize } from "Utils/FileSize.js";
 import moment from 'moment';
-import Agave from 'agaveapi-js';
 
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
