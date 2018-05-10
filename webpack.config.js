@@ -31,6 +31,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"]
+      },
+      {
+        test: /\.inline\.svg$/,
+        loader: 'babel-loader!svg-react-loader'
+      },
+      {
+        test: /\.jpe?g$|\.gif$|\.png$|^(?!.*\.inline\.svg$).*\.svg$/,
+        loader: 'url-loader'
       }
     ]
   },
@@ -51,7 +59,9 @@ module.exports = {
   resolve: {
     alias: {
       'Utils': path.resolve(__dirname, 'src/util/'),
-      'Components': path.resolve(__dirname, 'src/components/')
+      'Components': path.resolve(__dirname, 'src/components/'),
+      'Views': path.resolve(__dirname, 'src/views/'),
+      'Containers': path.resolve(__dirname, 'src/containers/'),
     }
   }
 };
