@@ -5,9 +5,9 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    browse: [
+    app: [
       './polyfills.js',
-      './src/entrypoints/browse.js'
+      './src/index.js'
     ]
   },
   module: {
