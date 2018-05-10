@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import AgaveBroser from 'Components/AgaveBrowser';
+import AgaveBrowser from "../components/AgaveBrowser";
 
 export default class Files extends Component {
   render() {
     return (
-      <h1>Files coming soon.</h1>
+        <div className="card">
+          <div className="card-content">
+            <AgaveBrowser/>
+          </div>
+        </div>
     );
   }
 }

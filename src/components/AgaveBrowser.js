@@ -5,7 +5,11 @@ import moment from 'moment';
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { list: [], path: [] }
+    this.state = {
+      list: [],
+      path: [],
+      loading: true
+    }
   }
 
   componentDidMount() {
@@ -13,6 +17,7 @@ export default class AgaveBrowser extends React.Component {
   }
 
   AgaveBrowser() {
+    this.setState({ list: [], loading: true });
     const url = '/agave/files/v2/listings/' + this.state.path.join('/');
     console.log('fetching...', url, this.state.path);
     fetch(url, {
@@ -21,7 +26,7 @@ export default class AgaveBrowser extends React.Component {
       return response.json();
     }).then(({ result }) => {
       console.log('pizza', result);
-      this.setState({ list: result });
+      this.setState({ list: result, loading: false });
     });
   }
 
