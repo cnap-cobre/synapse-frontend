@@ -19,8 +19,9 @@ USER node
 RUN mkdir /usr/src/app/stats
 
 # install app dependencies
+RUN npm -v
 COPY package.json /usr/src/app/package.json
-RUN npm install --silent \
+RUN npm install \
     && npm cache clean --force --silent
 
 # start app

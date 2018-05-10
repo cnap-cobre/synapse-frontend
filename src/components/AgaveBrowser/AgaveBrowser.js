@@ -5,7 +5,6 @@ import moment from 'moment';
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { list: [], path: [] }
   }
 
