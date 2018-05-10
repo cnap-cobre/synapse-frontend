@@ -6,6 +6,7 @@
   "dependencies": {
     "agaveapi-js": "^1.0.0",
     "dropbox": "^4.0.3",
+    "react-ace": "^6.1.1",
     "react-spinners": "^0.3.2"
   },
   "devDependencies": {

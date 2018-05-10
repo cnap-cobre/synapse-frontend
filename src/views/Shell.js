@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-class Shell extends Component {
+export default class Shell extends Component {
   render() {
     return (
-      <h1>Shell coming soon.</h1>
+        <div className="content">
+          <div className="container-fluid">
+            <h1>Shell coming soon.</h1>
+          </div>
+        </div>
     );
   }
 }
