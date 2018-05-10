@@ -2,6 +2,7 @@ import React from "react";
 import { humanFileSize } from "Utils/FileSize.js";
 import moment from 'moment';
 import {PropagateLoader} from 'react-spinners';
+import {Fade} from 'react-bootstrap';
 import './AgaveBrowser.css';
 
 export default class AgaveBrowser extends React.Component {
@@ -19,7 +20,9 @@ export default class AgaveBrowser extends React.Component {
   }
 
   AgaveBrowser() {
-    this.setState({ list: [], loading: true });
+    setTimeout(()=>{
+      this.setState({ list: [], loading: true });
+    }, 300);
     const url = '/agave/files/v2/listings/' + this.state.path.join('/');
     console.log('fetching...', url, this.state.path);
     fetch(url, {
@@ -62,14 +65,16 @@ export default class AgaveBrowser extends React.Component {
 
     return (
       <div className="card-content table-responsive table-full-width">
-        <table className="table table-hover">
-          <thead>
-          <tr><th>Name</th><th>Size</th><th>Last Modified</th></tr>
-          </thead>
-          <tbody>
-          { files }
-          </tbody>
-        </table>
+        <Fade in={!this.state.loading}>
+          <table className="table table-hover">
+            <thead>
+            <tr><th>Name</th><th>Size</th><th>Last Modified</th></tr>
+            </thead>
+            <tbody>
+            { files }
+            </tbody>
+          </table>
+        </Fade>
         <div
             className="agave-browser"
             style={{display: this.state.loading ? 'block' : 'none'}}>
