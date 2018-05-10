@@ -11,7 +11,9 @@ export default class AgaveBrowser extends React.Component {
     this.state = {
       list: [],
       path: [],
-      loading: true
+      loading: true,
+      error: false,
+      errorMessage: ""
     }
   }
 
@@ -28,10 +30,21 @@ export default class AgaveBrowser extends React.Component {
     fetch(url, {
       credentials: "same-origin"
     }).then((response) => {
+      if(!response.ok) {
+        throw Error(response.statusText);
+        this.setState({ errorMessage: response.statusText });
+      }
+      return response;
+    }).then((response) => {
       return response.json();
     }).then(({ result }) => {
       console.log('pizza', result);
       this.setState({ list: result, loading: false });
+    }).catch(( error ) => {
+      setTimeout(()=> {
+        this.setState({error: true, loading: false});
+        console.log(error);
+      }, 300);
     });
   }
 
@@ -66,7 +79,7 @@ export default class AgaveBrowser extends React.Component {
     return (
       <div className="card-content table-responsive table-full-width">
         <Fade in={!this.state.loading}>
-          <table className="table table-hover">
+          <table className="table table-hover" style={{display: this.state.error ? 'none' : 'table'}}>
             <thead>
             <tr><th>Name</th><th>Size</th><th>Last Modified</th></tr>
             </thead>
@@ -82,6 +95,14 @@ export default class AgaveBrowser extends React.Component {
               color={'#512888'}
               loading={this.state.loading}
           />
+        </div>
+        <div
+            className="alert alert-warning"
+            style={{display: this.state.error ? 'block' : 'none'}}
+        >
+          <p><b>Service Unavailable - </b>The Agave API appears to be experienceing a service disruption.  Please try again later.</p>
+          <p>Check <a href="http://status.agaveapi.co/">status.agaveapi.co</a> for the status of the Agave API services.</p>
+          <p><pre><code>{this.state.errorMessage}</code></pre></p>
         </div>
       </div>
     );
