@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import AgaveBroser from 'Components/AgaveBrowser';
-import AgaveBrowser from "../components/AgaveBrowser";
+import AgaveBrowser from "Components/AgaveBrowser/AgaveBrowser";
 
 export default class Files extends Component {
   render() {

@@ -1,6 +1,8 @@
 import React from "react";
 import { humanFileSize } from "Utils/FileSize.js";
 import moment from 'moment';
+import {PropagateLoader} from 'react-spinners';
+import './AgaveBrowser.css';
 
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
@@ -36,6 +38,8 @@ export default class AgaveBrowser extends React.Component {
       this.setState({
         'path': this.state.path.slice(0, this.state.path.length - 1)
       }, () => { this.AgaveBrowser(); });
+    } else if (item.name == '.') {
+      // do nothing
     } else if (item.format == "folder"){
       this.setState({
         'path': this.state.path.concat([item.name])
@@ -66,6 +70,14 @@ export default class AgaveBrowser extends React.Component {
           { files }
           </tbody>
         </table>
+        <div
+            className="agave-browser"
+            style={{display: this.state.loading ? 'block' : 'none'}}>
+          <PropagateLoader
+              color={'#512888'}
+              loading={this.state.loading}
+          />
+        </div>
       </div>
     );
   }
