@@ -13,7 +13,7 @@ export default class DefaultNavbar extends Component {
             </div>
             <div className="navbar-header">
               <NavbarButton/>
-              <a className="navbar-brand" href="#sweetalert">Sweet Alert</a>
+              <a className="navbar-brand">CNAP</a>
             </div>
             <div className="collapse navbar-collapse">
               <SearchBox/>

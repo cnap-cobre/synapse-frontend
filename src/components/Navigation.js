@@ -31,7 +31,7 @@ export default class Navigation extends Component {
             <p>Shell</p>
           </NavigationLink>
 
-          <NavigationGroup to='/desktop/' icon='ti-layout-tab-window' label='Desktop Apps' activeOnlyWhenExact={true}>
+          <NavigationGroup to='/desktop/' icon='ti-layout-tab-window' label='Desktop Apps' activeOnlyWhenExact={false}>
             <NavigationLink
                 to='/desktop/jupyter/'
                 activeOnlyWhenExact={true}>
