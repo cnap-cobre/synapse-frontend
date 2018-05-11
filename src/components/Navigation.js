@@ -1,66 +1,51 @@
 import React, {Component} from 'react';
 import NavigationLink from 'Components/NavigationLink';
 import NavigationGroup from 'Components/NavigationGroup';
+import nav from '../nav.js';
 
 export default class Navigation extends Component {
   render(){
+    console.log(nav);
+
+    const mapGroupChildren = (children) => {
+      return children.map((item) => {
+        return (
+            <NavigationLink to={item.url}
+                            key={item.url}
+                            activeOnlyWhenExact={item.exact}>
+              <span className="sidebar-mini">{item.mini}</span>
+              <span className="sidebar-normal">{item.name}</span>
+            </NavigationLink>
+        );
+      });
+    }
+
+    const links = nav.map((item) => {
+      if (item.hasOwnProperty('children')) {
+        return (
+            <NavigationGroup to={item.url}
+                             key={item.url}
+                             icon={item.icon}
+                             label={item.name}
+                             activeOnlyWhenExact={item.exact}>
+              {mapGroupChildren(item.children)}
+            </NavigationGroup>
+        );
+      } else {
+        return (
+          <NavigationLink to={item.url}
+                          key={item.url}
+                          activeOnlyWhenExact={item.exact}>
+            <i className={item.icon}></i>
+            <p>{item.name}</p>
+          </NavigationLink>
+        );
+      }
+    });
+
     return(
         <ul className="nav">
-          <NavigationLink to='/' activeOnlyWhenExact={true}>
-            <i className="ti-dashboard"/>
-            <p>Dashboard</p>
-          </NavigationLink>
-
-          <NavigationLink to='/files/' activeOnlyWhenExact={true}>
-            <i className="ti-folder"/>
-            <p>Files</p>
-          </NavigationLink>
-
-          <NavigationLink to='/editor/' activeOnlyWhenExact={true}>
-            <i className="ti-paragraph"/>
-            <p>Code Editor</p>
-          </NavigationLink>
-
-          <NavigationLink to='/compute/' activeOnlyWhenExact={true}>
-            <i className="ti-cloud"/>
-            <p>Compute Jobs</p>
-          </NavigationLink>
-
-          <NavigationLink to='/shell/' activeOnlyWhenExact={true}>
-            <i className="ti-layout-cta-left"/>
-            <p>Shell</p>
-          </NavigationLink>
-
-          <NavigationGroup to='/desktop/' icon='ti-layout-tab-window' label='Desktop Apps' activeOnlyWhenExact={false}>
-            <NavigationLink
-                to='/desktop/jupyter/'
-                activeOnlyWhenExact={true}>
-              <span className="sidebar-mini">J</span>
-              <span className="sidebar-normal">Jupyter Notebooks</span>
-            </NavigationLink>
-
-            <NavigationLink
-                to='/desktop/matlab/'
-                icon='ti-panel'
-                activeOnlyWhenExact={true}>
-              <span className="sidebar-mini">M</span>
-              <span className="sidebar-normal">Matlab</span>
-            </NavigationLink>
-
-            <NavigationLink
-                to='/desktop/octave/'
-                activeOnlyWhenExact={true}>
-              <span className="sidebar-mini">O</span>
-              <span className="sidebar-normal">Octave</span>
-            </NavigationLink>
-
-            <NavigationLink
-                to='/desktop/xnat/'
-                activeOnlyWhenExact={true}>
-              <span className="sidebar-mini">X</span>
-              <span className="sidebar-normal">XNAT</span>
-            </NavigationLink>
-          </NavigationGroup>
+          {links}
         </ul>
     );
   }

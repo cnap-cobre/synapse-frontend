@@ -68,8 +68,9 @@ export default class AgaveBrowser extends React.Component {
   render() {
     const list = [{ name: '..', length: 0, lastModified: '-'}].concat(this.state.list);
     console.log('cake', list);
+
     const files = list.map((item, i) => (
-      <tr onClick={(e) => this.handleClick(item, e)}>
+      <tr key={ item.name } onClick={(e) => this.handleClick(item, e)}>
         <td>{ item.name }</td>
         <td>{ humanFileSize(item.length) }</td>
         <td>{ moment(item.lastModified).format('l LT') }</td>
@@ -102,7 +103,7 @@ export default class AgaveBrowser extends React.Component {
         >
           <p><b>Service Unavailable - </b>The Agave API appears to be experienceing a service disruption.  Please try again later.</p>
           <p>Check <a href="http://status.agaveapi.co/">status.agaveapi.co</a> for the status of the Agave API services.</p>
-          <p><pre><code>{this.state.errorMessage}</code></pre></p>
+          <pre><code>{this.state.errorMessage}</code></pre>
         </div>
       </div>
     );
