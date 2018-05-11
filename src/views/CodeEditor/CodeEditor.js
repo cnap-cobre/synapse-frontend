@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Editor from 'Components/Editor';
+import Editor from 'Components/Editor/Editor';
 
 import './CodeEditor.css'
 

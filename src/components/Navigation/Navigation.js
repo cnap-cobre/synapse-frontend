@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import NavigationLink from 'Components/NavigationLink';
 import NavigationGroup from 'Components/NavigationGroup';
-import nav from '../nav.js';
+import nav from '../../nav.js';
 
 export default class Navigation extends Component {
   render(){
