@@ -5,10 +5,27 @@ import nav from '../nav.js';
 
 export default class Navigation extends Component {
   render(){
-    console.log(nav);
-
-    const mapGroupChildren = (children) => {
-      return children.map((item) => {
+    const buildLinks = (item) => {
+      if (item.hasOwnProperty('children')) {
+        return(
+            <NavigationGroup to={item.url}
+                             key={item.url}
+                             icon={item.icon}
+                             label={item.name}
+                             activeOnlyWhenExact={item.exact}>
+              {item.children.map(buildLinks)}
+            </NavigationGroup>
+        );
+      } else if (item.hasOwnProperty('icon')) {
+        return (
+            <NavigationLink to={item.url}
+                            key={item.url}
+                            activeOnlyWhenExact={item.exact}>
+              <i className={item.icon}></i>
+              <p>{item.name}</p>
+            </NavigationLink>
+        );
+      } else {
         return (
             <NavigationLink to={item.url}
                             key={item.url}
@@ -17,35 +34,12 @@ export default class Navigation extends Component {
               <span className="sidebar-normal">{item.name}</span>
             </NavigationLink>
         );
-      });
-    }
-
-    const links = nav.map((item) => {
-      if (item.hasOwnProperty('children')) {
-        return (
-            <NavigationGroup to={item.url}
-                             key={item.url}
-                             icon={item.icon}
-                             label={item.name}
-                             activeOnlyWhenExact={item.exact}>
-              {mapGroupChildren(item.children)}
-            </NavigationGroup>
-        );
-      } else {
-        return (
-          <NavigationLink to={item.url}
-                          key={item.url}
-                          activeOnlyWhenExact={item.exact}>
-            <i className={item.icon}></i>
-            <p>{item.name}</p>
-          </NavigationLink>
-        );
       }
-    });
+    };
 
     return(
         <ul className="nav">
-          {links}
+          {nav.map(buildLinks)}
         </ul>
     );
   }
