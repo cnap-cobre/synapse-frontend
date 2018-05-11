@@ -4,7 +4,7 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import DefaultSidebar from './DefaultSidebar';
 import DefaultNavbar from './DefaultNavbar';
 import DefaultFooter from './DefaultFooter';
-import {routes} from '../routes';
+import routes from '../routes';
 
 export default class DefaultLayout extends Component {
   render() {
