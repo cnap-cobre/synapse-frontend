@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SecondaryNavigation from 'Components/SecondaryNavigation';
-import SearchBox from 'Components/SearchBox';
+import SecondaryNavigation from 'Components/SecondaryNavigation/SecondaryNavigation';
+import SearchBox from 'Components/SearchBox/SearchBox';
 import NavbarButton from "Components/NavbarButton/NavbarButton";
 
 export default class DefaultNavbar extends Component {

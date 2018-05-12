@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
-import NavigationLink from 'Components/NavigationLink';
+import NavigationLink from 'Components/NavigationLink/NavigationLink';
 import {Collapse} from 'react-bootstrap';
 
 /*

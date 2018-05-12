@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import NavigationLink from 'Components/NavigationLink';
+import NavigationLink from 'Components/NavigationLink/NavigationLink';
 import NavigationGroup from 'Components/NavigationGroup/NavigationGroup';
 import nav from '../../nav.js';
 

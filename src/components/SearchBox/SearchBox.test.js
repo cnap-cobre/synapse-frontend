@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MockRouter from 'react-mock-router';
-import NavigationLink from './NavigationLink';
+import SearchBox from './SearchBox';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
-  ReactDOM.render(<MockRouter><NavigationLink/></MockRouter>, div);
+  ReactDOM.render(<SearchBox/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });

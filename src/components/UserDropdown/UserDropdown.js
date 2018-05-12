@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import face from '../face-2.jpg';
+import face from '../../face-2.jpg';
 
 export default class UserDropdown extends Component {
   render() {
