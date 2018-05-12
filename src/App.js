@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import DefaultLayout from "./containers/DefaultLayout";
+import DefaultLayout from "./containers/DefaultLayout/DefaultLayout";
 
 export default class App extends Component {
   render() {

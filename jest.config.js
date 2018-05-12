@@ -17,4 +17,8 @@ module.exports = {
   "verbose": true,
   "moduleNameMapper": moduleNameMapper,
   "moduleFileExtensions": ["js", "jsx"],
+  "automock": false,
+  "setupFiles": [
+      "./setupJest.js"
+  ]
 }

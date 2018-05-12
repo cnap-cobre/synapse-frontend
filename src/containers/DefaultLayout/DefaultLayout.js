@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from "react-router-dom";
 
-import DefaultSidebar from './DefaultSidebar';
-import DefaultNavbar from './DefaultNavbar';
-import DefaultFooter from './DefaultFooter';
-import routes from '../routes';
+import DefaultSidebar from '../DefaultSidebar/DefaultSidebar';
+import DefaultNavbar from '../DefaultNavbar/DefaultNavbar';
+import DefaultFooter from '../DefaultFooter/DefaultFooter';
+import routes from '../../routes';
 
 export default class DefaultLayout extends Component {
   render() {

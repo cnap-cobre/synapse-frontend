@@ -26,7 +26,6 @@ export default class AgaveBrowser extends React.Component {
       this.setState({ list: [], loading: true });
     }, 300);
     const url = '/agave/files/v2/listings/' + this.state.path.join('/');
-    console.log('fetching...', url, this.state.path);
     fetch(url, {
       credentials: "same-origin"
     }).then((response) => {
@@ -38,7 +37,6 @@ export default class AgaveBrowser extends React.Component {
     }).then((response) => {
       return response.json();
     }).then(({ result }) => {
-      console.log('pizza', result);
       this.setState({ list: result, loading: false });
     }).catch(( error ) => {
       setTimeout(()=> {
@@ -49,7 +47,6 @@ export default class AgaveBrowser extends React.Component {
   }
 
   handleClick(item, e) {
-    console.log(item.name);
     if (item.name == '..'){
       this.setState({
         'path': this.state.path.slice(0, this.state.path.length - 1)
@@ -67,7 +64,6 @@ export default class AgaveBrowser extends React.Component {
 
   render() {
     const list = [{ name: '..', length: 0, lastModified: '-'}].concat(this.state.list);
-    console.log('cake', list);
 
     const files = list.map((item, i) => (
       <tr key={ item.name } onClick={(e) => this.handleClick(item, e)}>
