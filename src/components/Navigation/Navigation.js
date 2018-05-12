@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavigationLink from 'Components/NavigationLink';
-import NavigationGroup from 'Components/NavigationGroup';
+import NavigationGroup from 'Components/NavigationGroup/NavigationGroup';
 import nav from '../../nav.js';
 
 export default class Navigation extends Component {
