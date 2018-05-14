@@ -1,9 +1,10 @@
 import React from "react";
 import { humanFileSize } from "Utils/FileSize.js";
-import moment from 'moment';
-import {PropagateLoader} from 'react-spinners';
-import {Fade} from 'react-bootstrap';
-import './AgaveBrowser.css';
+
+import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
+import FileList from "Components/FileList/FileList";
+import ErrorMessage from "Components/ErrorMessage/ErrorMessage";
+import Loader from "Components/Loader/Loader";
 
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
@@ -63,44 +64,14 @@ export default class AgaveBrowser extends React.Component {
   }
 
   render() {
-    const list = [{ name: '..', length: 0, lastModified: '-'}].concat(this.state.list);
-
-    const files = list.map((item, i) => (
-      <tr key={ item.name } onClick={(e) => this.handleClick(item, e)}>
-        <td>{ item.name }</td>
-        <td>{ humanFileSize(item.length) }</td>
-        <td>{ moment(item.lastModified).format('l LT') }</td>
-      </tr>
-    ));
-
     return (
       <div className="card-content table-responsive table-full-width">
-        <Fade in={!this.state.loading}>
-          <table className="table table-hover" style={{display: this.state.error ? 'none' : 'table'}}>
-            <thead>
-            <tr><th>Name</th><th>Size</th><th>Last Modified</th></tr>
-            </thead>
-            <tbody>
-            { files }
-            </tbody>
-          </table>
-        </Fade>
-        <div
-            className="agave-browser"
-            style={{display: this.state.loading ? 'block' : 'none'}}>
-          <PropagateLoader
-              color={'#512888'}
-              loading={this.state.loading}
-          />
-        </div>
-        <div
-            className="alert alert-warning"
-            style={{display: this.state.error ? 'block' : 'none'}}
-        >
-          <p><b>Service Unavailable - </b>The Agave API appears to be experienceing a service disruption.  Please try again later.</p>
-          <p>Check <a href="http://status.agaveapi.co/">status.agaveapi.co</a> for the status of the Agave API services.</p>
-          <pre><code>{this.state.errorMessage}</code></pre>
-        </div>
+        <table className="table table-hover" style={{display: this.state.error ? 'none' : 'table'}}>
+          <FieldFieldHeader/>
+          <FileList list={this.state.list}/>
+        </table>
+        <Loader visible={this.state.loading}/>
+        <ErrorMessage visible={this.state.error} message={this.state.errorMessage}/>
       </div>
     );
   }
