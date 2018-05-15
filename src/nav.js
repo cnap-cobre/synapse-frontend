@@ -9,7 +9,7 @@ const nav = [
     name: 'Files',
     url: '/files/',
     icon: 'ti-folder',
-    exact: true
+    exact: false
   },
   {
     name: 'Code Editor',

@@ -1,17 +1,21 @@
 import React from "react";
+import path from 'path';
 import { humanFileSize } from "Utils/FileSize.js";
+
+import { Breadcrumb } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
 import FileList from "Components/FileList/FileList";
 import ErrorMessage from "Components/ErrorMessage/ErrorMessage";
 import Loader from "Components/Loader/Loader";
+import FileBreadcrumbs from "Components/Breadcrumbs/Breadcrumbs";
 
 export default class AgaveBrowser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       list: [],
-      path: [],
       loading: true,
       error: false,
       errorMessage: ""
@@ -19,56 +23,96 @@ export default class AgaveBrowser extends React.Component {
   }
 
   componentDidMount() {
-    this.AgaveBrowser();
+    const history = this.props.history;
+
+    this.abortController = new AbortController();
+
+
+    this.FetchFiles();
+    this.stopListeningToHistoryChange = history.listen((location, action) => {
+      this.FetchFiles();
+      console.log("History changed!");
+    });
+    console.log("history", this.props.history);
   }
 
-  AgaveBrowser() {
-    setTimeout(()=>{
-      this.setState({ list: [], loading: true });
-    }, 300);
-    const url = '/agave/files/v2/listings/' + this.state.path.join('/');
+  componentWillUnmount() {
+    this._unmounted = true;
+
+    // Call to kill listener
+    this.stopListeningToHistoryChange();
+
+    // Kill any existing fetch calls
+    this.abortController.abort();
+  }
+
+  getPath() {
+    return this.props.history.location.pathname.slice(
+        this.props.prefix.length
+    ).split('/').slice(1).slice(0, -1);
+  }
+
+  FetchFiles() {
+    // Reinitialize state as loading without errors
+    if (!this._unmounted) {
+      this.setState({list: [], loading: true, error: false, errorMessage: ""});
+    }
+
+    const filePath = this.getPath();
+
+    const url = '/agave/files/v2/listings/' + filePath.join('/');
+    console.log('url', path.normalize(url));
+
     fetch(url, {
-      credentials: "same-origin"
+      credentials: "same-origin",
+      signal: this.abortController.signal
+    }).then((res) => {
+      this.request = null;
+      return res;
     }).then((response) => {
+      // Throw a proper error
       if(!response.ok) {
+        if (this.isMounted()) {
+          this.setState({errorMessage: response.statusText});
+        }
         throw Error(response.statusText);
-        this.setState({ errorMessage: response.statusText });
       }
       return response;
     }).then((response) => {
       return response.json();
     }).then(({ result }) => {
-      this.setState({ list: result, loading: false });
+      this.setState({
+        list: result.filter(e => e.name !== '.'),
+        loading: false
+      });
     }).catch(( error ) => {
-      setTimeout(()=> {
+      if (!this._unmounted) {
         this.setState({error: true, loading: false});
-        console.log(error);
-      }, 300);
+      }
     });
   }
 
   handleClick(item, e) {
-    if (item.name == '..'){
-      this.setState({
-        'path': this.state.path.slice(0, this.state.path.length - 1)
-      }, () => { this.AgaveBrowser(); });
-    } else if (item.name == '.') {
-      // do nothing
-    } else if (item.format == "folder"){
-      this.setState({
-        'path': this.state.path.concat([item.name])
-      }, () => { this.AgaveBrowser(); });
-    } else {
-      alert("Would you like to download " + item.path + "?");
+    const history = this.props.history;
+    if (item.format === 'folder' && item.name !== '.') {
+      console.log(this);
+      history.push('./' + item.name + '/');
+      this.FetchFiles();
     }
   }
 
   render() {
     return (
       <div className="card-content table-responsive table-full-width">
-        <table className="table table-hover" style={{display: this.state.error ? 'none' : 'table'}}>
+        <FileBreadcrumbs systemDisplayName={this.props.systemDisplayName}
+                         history={this.props.history}
+                         prefix={this.props.prefix}
+        />
+        <table className="table table-hover"
+               style={{display: this.state.error || this.state.loading ? 'none' : 'table'}}>
           <FieldFieldHeader/>
-          <FileList list={this.state.list}/>
+          <FileList list={this.state.list}
+                    onSelectFile={this.handleClick.bind(this)}/>
         </table>
         <Loader visible={this.state.loading}/>
         <ErrorMessage visible={this.state.error} message={this.state.errorMessage}/>

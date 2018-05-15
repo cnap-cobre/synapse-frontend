@@ -6,7 +6,7 @@ import ComputeJobs from "Views/ComputeJobs/ComputeJobs";
 
 const routes = [
   { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
-  { path: '/files/', exact: true, name: 'Files', component: Files },
+  { path: '/files/', exact: false, name: 'Files', component: Files },
   { path: '/shell/', exact: true, name: 'Shell', component: Shell },
   { path: '/editor/', exact: true, name: 'Code Editor', component: CodeEditor },
   { path: '/compute/', exact: true, name: 'Code Editor', component: ComputeJobs },
