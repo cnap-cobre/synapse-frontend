@@ -29,8 +29,10 @@ export default class FileBreadcrumbs extends Component {
           }
         });
 
-    return (<Breadcrumb>
-      {breadcrumbs}
-    </Breadcrumb>);
+    return (
+        <Breadcrumb>
+          {breadcrumbs}
+        </Breadcrumb>
+    );
   }
 }
