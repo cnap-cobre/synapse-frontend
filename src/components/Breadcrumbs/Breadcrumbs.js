@@ -12,22 +12,27 @@ export default class FileBreadcrumbs extends Component {
   }
 
   render(){
-    const breadcrumbs = [this.props.systemDisplayName]
-        .concat(this.getPath())
-        .map((val, index, array) => {
-          const invIndex = array.length - index - 1;
-          if (invIndex) {
-            return <li key={invIndex}>
-              <Link to={path.normalize(
-                  this.props.history.location.pathname + "../".repeat(invIndex)
-              )}>
-                {val}
-              </Link>
-            </li>
-          } else {
-            return <Breadcrumb.Item active={true} key={invIndex}>{val}</Breadcrumb.Item>
-          }
-        });
+    const breadcrumbs = [
+        this.props.systemDisplayName,
+        ...this.getPath()
+    ].map((val, index, array) => {
+      const invIndex = array.length - index - 1;
+      const to = path.normalize(
+          this.props.history.location.pathname + "../".repeat(invIndex)
+      );
+
+      if (invIndex) {
+        return <li key={invIndex}>
+          <Link to={to}>{val}</Link>
+        </li>
+      } else {
+        return (
+            <Breadcrumb.Item active={true} key={invIndex}>
+              {val}
+            </Breadcrumb.Item>
+        );
+      }
+    });
 
     return (
         <Breadcrumb>

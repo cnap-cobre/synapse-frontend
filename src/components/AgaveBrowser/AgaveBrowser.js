@@ -33,9 +33,7 @@ export default class AgaveBrowser extends React.Component {
       this.abortController.abort();
       this.abortController = new AbortController();
       this.FetchFiles();
-      console.log("History changed!");
     });
-    console.log("history", this.props.history);
   }
 
   componentWillUnmount() {
@@ -63,7 +61,6 @@ export default class AgaveBrowser extends React.Component {
     const filePath = this.getPath();
 
     const url = '/agave/files/v2/listings/' + filePath.join('/');
-    console.log('url', path.normalize(url));
 
     fetch(url, {
       credentials: "same-origin",
@@ -100,9 +97,7 @@ export default class AgaveBrowser extends React.Component {
   handleClick(item, e) {
     const history = this.props.history;
     if (item.format === 'folder' && item.name !== '.') {
-      console.log(this);
       history.push('./' + item.name + '/');
-      this.FetchFiles();
     }
   }
 
