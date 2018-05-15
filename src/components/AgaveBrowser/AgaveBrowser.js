@@ -30,6 +30,8 @@ export default class AgaveBrowser extends React.Component {
 
     this.FetchFiles();
     this.stopListeningToHistoryChange = history.listen((location, action) => {
+      this.abortController.abort();
+      this.abortController = new AbortController();
       this.FetchFiles();
       console.log("History changed!");
     });
@@ -83,10 +85,13 @@ export default class AgaveBrowser extends React.Component {
     }).then(({ result }) => {
       this.setState({
         list: result.filter(e => e.name !== '.'),
-        loading: false
+        loading: false,
+        error: false
       });
     }).catch(( error ) => {
-      if (!this._unmounted) {
+      if (error.name === "AbortError") {
+        // no-op
+      } else if (!this._unmounted) {
         this.setState({error: true, loading: false});
       }
     });
