@@ -26,6 +26,17 @@ export default class FileActions extends Component {
   }
 
   render() {
+    const actions = ['Share', 'Download', 'Rename', 'Move', 'Copy', 'Delete'];
+    const menuItems = actions.map((item, index) => {
+      return (
+          <MenuItem
+              eventKey={index}
+              onClick={this.stopClickPropagation}>
+            {item}
+          </MenuItem>
+      );
+    });
+
     return (
         <ButtonToolbar onClick={FileActions.noOpAndStopClickPropagation}>
           <DropdownButton
@@ -37,36 +48,7 @@ export default class FileActions extends Component {
             id={"ddbtn" + this.props.id}
             className="fileActionBtn btn-simple"
           >
-            <MenuItem
-                eventKey="1"
-                onClick={this.stopClickPropagation}>
-              Share
-            </MenuItem>
-            <MenuItem
-                eventKey="2"
-                onClick={this.stopClickPropagation}>
-              Download
-            </MenuItem>
-            <MenuItem
-                eventKey="3"
-                onClick={this.stopClickPropagation}>
-              Rename
-            </MenuItem>
-            <MenuItem
-                eventKey="4"
-                onClick={this.stopClickPropagation}>
-              Move
-            </MenuItem>
-            <MenuItem
-                eventKey="5"
-                onClick={this.stopClickPropagation}>
-              Copy
-            </MenuItem>
-            <MenuItem
-                eventKey="6"
-                onClick={this.stopClickPropagation}>
-              Delete
-            </MenuItem>
+            {menuItems}
           </DropdownButton>
         </ButtonToolbar>
     );
