@@ -31,7 +31,8 @@ export default class FileActions extends Component {
       return (
           <MenuItem
               eventKey={index}
-              onClick={this.stopClickPropagation}>
+              onClick={this.stopClickPropagation}
+              key={index}>
             {item}
           </MenuItem>
       );
