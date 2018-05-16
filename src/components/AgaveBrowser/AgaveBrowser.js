@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { humanFileSize } from "Utils/FileSize.js";
 import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
-import {history} from 'react-router-dom';
 
 import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
 import FileList from "Components/FileList/FileList";

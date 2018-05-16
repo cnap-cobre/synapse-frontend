@@ -1,9 +1,15 @@
 import React, {Component} from "react";
 import {PropagateLoader} from 'react-spinners';
 
+import PropTypes from 'prop-types';
+
 import './Loader.css';
 
-export default class Lader extends Component {
+export default class Loader extends Component {
+  static propTypes = {
+    visible: PropTypes.bool.isRequired
+  };
+
   render() {
     return (
         <div

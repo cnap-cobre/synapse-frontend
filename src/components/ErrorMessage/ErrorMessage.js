@@ -1,6 +1,13 @@
 import React, {Component} from "react";
 
+import PropTypes from 'prop-types';
+
 export default class ErrorMessage extends Component {
+  static propTypes = {
+    visible: PropTypes.bool.isRequired,
+    message: PropTypes.string.isRequired
+  };
+
   render() {
     return (
         <div

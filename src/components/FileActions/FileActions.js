@@ -1,7 +1,16 @@
 import React, {Component} from "react";
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 
+import PropTypes from 'prop-types';
+
 export default class FileActions extends Component {
+  static propTypes = {
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired
+  };
+
   static noOpAndStopClickPropagation(e) {
     e.stopPropagation();
   }

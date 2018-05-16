@@ -4,7 +4,19 @@ import path from 'path';
 import { Breadcrumb } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import PropTypes from 'prop-types';
+
 export default class FileBreadcrumbs extends Component {
+  static propTypes = {
+    systemDisplayName: PropTypes.string.isRequired,
+    prefix: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      length: PropTypes.number.isRequired,
+      location: PropTypes.object.isRequired,
+      action: PropTypes.string.isRequired,
+    }).isRequired
+  };
+
   getPath() {
     return this.props.history.location.pathname.slice(
         this.props.prefix.length

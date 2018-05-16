@@ -3,6 +3,8 @@ import {Route, Link} from "react-router-dom";
 import NavigationLink from 'Components/NavigationLink/NavigationLink';
 import {Collapse} from 'react-bootstrap';
 
+import PropTypes from 'prop-types';
+
 /*
  Note:
 
@@ -13,13 +15,16 @@ import {Collapse} from 'react-bootstrap';
 */
 
 export default class NavigationGroup extends Component {
-  constructor(props, context) {
-    super(props, context);
+  static propTypes = {
+    to: PropTypes.string.isRequired,
+    activeOnlyWhenExact: PropTypes.bool.isRequired,
+    icon: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  };
 
-    this.state = {
-      open: false
-    };
-  }
+  state = {
+    open: false
+  };
 
   render() {
     return (
@@ -31,7 +36,7 @@ export default class NavigationGroup extends Component {
                 <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
                   <i className={this.props.icon}/>
                   <p>{this.props.label}
-                    <b className="caret"></b>
+                    <b className="caret"/>
                   </p>
                 </a>
                 <Collapse in={this.state.open}>

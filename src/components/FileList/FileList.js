@@ -3,7 +3,14 @@ import FileActions from "Components/FileActions/FileActions";
 import { humanFileSize } from "Utils/FileSize.js";
 import moment from 'moment';
 
+import PropTypes from 'prop-types';
+
 export default class FileList extends Component {
+  static propTypes = {
+    list: PropTypes.array.isRequired,
+    onSelectFile: PropTypes.func
+  };
+
   static defaultProps = {
     ...Component.defaultProps,
     list: [],
