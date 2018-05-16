@@ -1,0 +1,62 @@
+import React, {Component} from "react";
+import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
+
+export default class FileActions extends Component {
+  static noOpAndStopClickPropagation(e) {
+    e.stopPropagation();
+  }
+
+  stopClickPropagation(e) {
+    e.stopPropagation();
+    console.log('child click event');
+    console.log(e);
+    console.log(e.target);
+    console.log(this);
+  }
+
+  render() {
+    return (
+        <ButtonToolbar onClick={this.noOpAndStopClickPropagation}>
+          <DropdownButton
+            bsStyle="default"
+            title={(<i className="ti-more"/>)}
+            pullRight
+            noCaret
+            onClick={this.noOpAndStopClickPropagation}
+            id={"ddbtn" + this.props.id}
+          >
+            <MenuItem
+                eventKey="1"
+                onClick={this.stopClickPropagation}>
+              Share
+            </MenuItem>
+            <MenuItem
+                eventKey="2"
+                onClick={this.stopClickPropagation}>
+              Download
+            </MenuItem>
+            <MenuItem
+                eventKey="3"
+                onClick={this.stopClickPropagation}>
+              Rename
+            </MenuItem>
+            <MenuItem
+                eventKey="4"
+                onClick={this.stopClickPropagation}>
+              Move
+            </MenuItem>
+            <MenuItem
+                eventKey="5"
+                onClick={this.stopClickPropagation}>
+              Copy
+            </MenuItem>
+            <MenuItem
+                eventKey="6"
+                onClick={this.stopClickPropagation}>
+              Delete
+            </MenuItem>
+          </DropdownButton>
+        </ButtonToolbar>
+    );
+  }
+}

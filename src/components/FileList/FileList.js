@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Link } from "react-router-dom";
+import FileActions from "Components/FileActions/FileActions";
 import { humanFileSize } from "Utils/FileSize.js";
 import moment from 'moment';
 
@@ -18,6 +18,9 @@ export default class FileList extends Component {
             <td>{ item.name }</td>
             <td>{ humanFileSize(item.length) }</td>
             <td>{ moment(item.lastModified).format('l LT') }</td>
+            <td>
+              <FileActions file={item} id={i} />
+            </td>
           </tr>
 
     ));
