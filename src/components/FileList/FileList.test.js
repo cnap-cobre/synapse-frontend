@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SecondaryNavigation from './SecondaryNavigation';
+import {Route, MemoryRouter} from 'react-router-dom';
+import FileList from './FileList';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
   ReactDOM.render((
-        <SecondaryNavigation/>
-      ),
-      div);
+      <table>
+        <FileList/>
+      </table>
+  ), div);
   ReactDOM.unmountComponentAtNode(div);
 });

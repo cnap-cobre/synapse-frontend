@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SecondaryNavigation from './SecondaryNavigation';
+import FileFieldHeader from './FileFieldHeader';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
   ReactDOM.render((
-        <SecondaryNavigation/>
-      ),
-      div);
+      <table>
+        <FileFieldHeader/>
+      </table>
+  ), div);
   ReactDOM.unmountComponentAtNode(div);
 });

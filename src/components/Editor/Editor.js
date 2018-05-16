@@ -17,6 +17,7 @@ export default class Editor extends Component {
             width={this.props.width}
             height={this.props.height}
             value={this.props.value}
+            editorProps={{$blockScrolling: true}}
         />
     );
   }

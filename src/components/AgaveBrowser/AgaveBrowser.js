@@ -7,7 +7,7 @@ import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
 import FileList from "Components/FileList/FileList";
 import ErrorMessage from "Components/ErrorMessage/ErrorMessage";
 import Loader from "Components/Loader/Loader";
-import FileBreadcrumbs from "Components/Breadcrumbs/Breadcrumbs";
+import FileBreadcrumbs from "Components/FileBreadcrumbs/FileBreadcrumbs";
 
 export default class AgaveBrowser extends Component {
   state = {

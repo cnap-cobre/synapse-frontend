@@ -43,7 +43,7 @@
     "start": "webpack-dev-server --mode development --port 3000 --host 0.0.0.0 --public localhost",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "keywords": [],
   "author": "",

@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SecondaryNavigation from './SecondaryNavigation';
+import Loader from './Loader';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
-  ReactDOM.render((
-        <SecondaryNavigation/>
-      ),
-      div);
+  ReactDOM.render(<Loader visible={true}/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
