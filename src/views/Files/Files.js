@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import TabbedFileBrowser from "Components/TabbedFileBrowser/TabbedFileBrowser";
 import AgaveBrowser from "Components/AgaveBrowser/AgaveBrowser";
 
 export default class Files extends Component {
@@ -10,10 +11,7 @@ export default class Files extends Component {
               <div className="container-fluid">
                 <div className="card">
                   <div className="card-content">
-                    <AgaveBrowser history={history}
-                                  prefix="/files"
-                                  system="beocat"
-                                  systemDisplayName="Beocat" />
+                    <TabbedFileBrowser history={history}/>
                   </div>
                 </div>
               </div>

@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 import PropTypes from 'prop-types';
 
+import './breadcrumbs.css';
+
 export default class FileBreadcrumbs extends Component {
   static propTypes = {
     systemDisplayName: PropTypes.string.isRequired,
