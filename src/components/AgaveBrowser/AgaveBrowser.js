@@ -70,28 +70,34 @@ export default class AgaveBrowser extends Component {
       credentials: "same-origin",
       signal: this.abortController.signal
     })
+        // Throw a proper error if we get a 500, etc. response code
         .then((res) => {
-          // Throw a proper error for a 500, etc. response code
           if(!res.ok) throw Error(res.statusText);
           return res;
         })
+
+        // Convert to JSON
         .then((res) => {
-          // Convert to JSON
           return res.json();
         })
+
+        // Update UI with result file list
         .then(({ result }) => {
-          // Update UI with result file list
           this.setState({
             list: result.filter(e => e.name !== '.'),
             loading: false,
             error: false
           });
         })
+
         .catch(( error ) => {
-          // Handle errors
           if (error.name === "AbortError") {
-            // no-op
+            // We have aborted this request because it's no longer necessary
+            // i.e. The user has navigated to a different directory or away
+            // from this file browser alltogether.
           } else if (!this._unmounted) {
+            // Update UI with any other error message if the component is
+            // still mounted.
             this.setState({error: true, loading: false, errorMessage: error});
           }
         });
