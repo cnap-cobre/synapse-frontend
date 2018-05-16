@@ -83,11 +83,13 @@ export default class AgaveBrowser extends Component {
 
         // Update UI with result file list
         .then(({ result }) => {
-          this.setState({
-            list: result.filter(e => e.name !== '.'),
-            loading: false,
-            error: false
-          });
+          if (!this._unmounted) {
+            this.setState({
+              list: result.filter(e => e.name !== '.'),
+              loading: false,
+              error: false
+            });
+          }
         })
 
         .catch(( error ) => {
