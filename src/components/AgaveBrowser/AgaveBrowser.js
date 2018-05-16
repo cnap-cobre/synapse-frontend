@@ -58,9 +58,9 @@ export default class AgaveBrowser extends React.Component {
       this.setState({list: [], loading: true, error: false, errorMessage: ""});
     }
 
-    const filePath = this.getPath();
+    const filePath = [this.props.system, ...this.getPath()];
 
-    const url = '/agave/files/v2/listings/' + filePath.join('/');
+    const url = '/agave/files/v2/listings/system/' + filePath.join('/');
 
     fetch(url, {
       credentials: "same-origin",
