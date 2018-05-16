@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { humanFileSize } from "Utils/FileSize.js";
+import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 import {history} from 'react-router-dom';
 
@@ -71,38 +72,37 @@ export default class AgaveBrowser extends Component {
       signal: this.abortController.signal
     })
         // Throw a proper error if we get a 500, etc. response code
-        .then((res) => {
-          if(!res.ok) throw Error(res.statusText);
-          return res;
-        })
+        .then(fetchErrorThrower)
 
         // Convert to JSON
-        .then((res) => {
-          return res.json();
-        })
+        .then(fetchToJson)
 
         // Update UI with result file list
-        .then(({ result }) => {
-          if (!this._unmounted) {
-            this.setState({
-              list: result.filter(e => e.name !== '.'),
-              loading: false,
-              error: false
-            });
-          }
-        })
+        .then(this.updateUIWithNewFiles.bind(this))
 
         .catch(( error ) => {
           if (error.name === "AbortError") {
             // We have aborted this request because it's no longer necessary
             // i.e. The user has navigated to a different directory or away
-            // from this file browser alltogether.
+            // from this file browser alltogether.  Nothing to do here.
           } else if (!this._unmounted) {
             // Update UI with any other error message if the component is
             // still mounted.
             this.setState({error: true, loading: false, errorMessage: error});
           }
-        });
+        })
+    ;
+  }
+
+  updateUIWithNewFiles({ result }) {
+    const list = result;
+    if (!this._unmounted) {
+      this.setState({
+        list: list.filter(e => e.name !== '.'),
+        loading: false,
+        error: false
+      });
+    }
   }
 
   handleClick(item, e) {
