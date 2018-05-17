@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import FileActions from "Components/FileActions/FileActions";
 import { humanFileSize } from "Utils/FileSize.js";
+import { fileIconResolver } from "Utils/FileIconResolver";
 import moment from 'moment';
 
 import PropTypes from 'prop-types';
@@ -22,7 +23,10 @@ export default class FileList extends Component {
 
           <tr onClick={(e) => this.props.onSelectFile(item, e)}
               key={ item.name }>
-            <td>{ item.name }</td>
+            <td>
+              <i className={fileIconResolver(item)}></i>&nbsp;&nbsp;&nbsp;
+              { item.name }
+            </td>
             <td>{ humanFileSize(item.length) }</td>
             <td>{ moment(item.lastModified).format('l LT') }</td>
             <td>
