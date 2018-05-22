@@ -40,7 +40,9 @@ export default class AgaveBrowser extends Component {
     this.stopListeningToHistoryChange = history.listen((location, action) => {
       this.abortController.abort();
       this.abortController = new AbortController();
-      this.FetchFiles();
+      if (history.location.pathname.indexOf(this.props.system) !== -1){
+        this.FetchFiles();
+      }
     });
 
     this.abortController = new AbortController();
@@ -64,7 +66,7 @@ export default class AgaveBrowser extends Component {
     }
 
     const filePath = [this.props.system, ...this.getPath()].join('/');
-    const url = '/agave/files/v2/listings/system/' + filePath;
+    const url = '/agave/files/v2/listings/system/' + filePath + '?limit=1000';
 
     fetch(url, {
       credentials: "same-origin",
@@ -76,7 +78,17 @@ export default class AgaveBrowser extends Component {
         // Convert to JSON
         .then(fetchToJson)
 
+        // extract result list
+        .then((response) => response.result)
+
         // Update UI with result file list
+        .then(this.updateUIWithNewFiles.bind(this))
+
+        // Clarify possible directory symlinks
+        .then(this.ClarifyPossibleDirectorySymlinks.bind(this))
+
+        // Update UI with new, corrected result list
+        .then((list) => {console.log('Corrected List', list); return list;})
         .then(this.updateUIWithNewFiles.bind(this))
 
         .catch(( error ) => {
@@ -87,14 +99,50 @@ export default class AgaveBrowser extends Component {
           } else if (!this._unmounted) {
             // Update UI with any other error message if the component is
             // still mounted.
-            this.setState({error: true, loading: false, errorMessage: error});
+            this.setState({error: true, loading: false, errorMessage: error.message});
           }
         })
     ;
   }
 
-  updateUIWithNewFiles({ result }) {
-    const list = result;
+  ClarifyPossibleDirectorySymlinks(list){
+    const filePath = [this.props.system, ...this.getPath()].join('/');
+    const url = '/agave/files/v2/listings/system/' + filePath;
+
+    return Promise.all(
+        list.map((file) => {
+          if (file.type === 'file' &&
+              file.length < 1024 &&
+              'ALLEXECUTE'.indexOf(file.permissions) !== -1) {
+            return fetch(url + '/' + file.name, {
+              credentials: "same-origin",
+              signal: this.abortController.signal
+            }).then(fetchErrorThrower)
+                .then(fetchToJson)
+                .then((response) => response.result)
+                .then((result) => {
+                  if(result.length !== 1 || result[0].name !== file.name) {
+                    const updated = file;
+                    updated.type = 'dir';
+                    updated.format = 'folder';
+                    updated.mimeType = 'text/directory';
+                    console.log('Corrected!', updated);
+                    return updated;
+                  } else {
+                    return file;
+                  }
+                }).catch(() => {
+                  // on error, just return the original file
+                  return file;
+                })
+          } else {
+            return file;
+          }
+        }
+    ));
+  }
+
+  updateUIWithNewFiles( list ) {
     if (!this._unmounted) {
       this.setState({
         list: list.filter(e => e.name !== '.'),
@@ -102,6 +150,8 @@ export default class AgaveBrowser extends Component {
         error: false
       });
     }
+
+    return list;
   }
 
   handleClick(item, e) {
