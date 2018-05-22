@@ -13,6 +13,7 @@ function resolve(item) {
         position: 'relative',
         fontSize: '0.4em',
         left: '-1.7em',
+        marginRight: '-1em'
       }} />
     </span>);
   }
