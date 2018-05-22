@@ -3,8 +3,6 @@ import { humanFileSize } from "Utils/FileSize.js";
 import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 
-import {Checkbox, FormGroup} from 'react-bootstrap';
-
 import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
 import FileList from "Components/FileList/FileList";
 import ErrorMessage from "Components/ErrorMessage/ErrorMessage";
@@ -176,22 +174,26 @@ export default class AgaveBrowser extends Component {
         <FileBreadcrumbs systemDisplayName={this.props.systemDisplayName}
                          history={this.props.history}
                          prefix={this.props.prefix}
+                         style={{marginBottom: "0px"}}
         />
-        <div className="checkbox"
-             style={{
-          position: 'relative',
-          float: 'right',
-          top: '-4.2em',
-          paddingRight: '1em'
+        <div className="browserControls" style={{
+          padding: "1px 15px",
+          backgroundColor: "#e4e4e4",
+          borderRadius: "4px",
+          textAlign: "left",
+          marginBottom: "20px"
         }}>
-          <input id="checkbox5" type="checkbox" onChange={(event) => {
-            console.log(event);
-            this.setState((state) => {
-              return {showDotfiles: !state.showDotfiles}
-            })
-          }} />
-          <label for="checkbox5">Show Dotfiles</label>
+          <div className="checkbox">
+            <input id="dotFilesCheckbox" type="checkbox" onChange={(event) => {
+              console.log(event);
+              this.setState((state) => {
+                return {showDotfiles: !state.showDotfiles}
+              })
+            }}/>
+            <label htmlFor="dotFilesCheckbox">Show Dotfiles</label>
+          </div>
         </div>
+
 
         <table className="table table-hover"
                style={{display: this.state.error || this.state.loading ? 'none' : 'table'}}>

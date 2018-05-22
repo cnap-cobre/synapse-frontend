@@ -49,7 +49,7 @@ export default class FileBreadcrumbs extends Component {
     });
 
     return (
-        <Breadcrumb>
+        <Breadcrumb style={this.props.style}>
           {breadcrumbs}
         </Breadcrumb>
     );
