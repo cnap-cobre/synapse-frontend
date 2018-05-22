@@ -10,9 +10,11 @@ import {IoSocialPython, IoSocialJavascript,
 
 import {GoRuby, GoGitBranch, GoDatabase} from 'react-icons/lib/go';
 
-function resolve(item) {
-  if (item.type === "dir" && item.name.match(/^\.git$/i)) {
-    return (<span className="fa-layers fa-fw">
+const fileExtensionMappings = [
+  {
+    type: "dir",
+    name: /^\.git$/i,
+    icon: (<span className="fa-layers fa-fw">
       <FaFolderO/>
       <GoGitBranch style={{
         position: 'relative',
@@ -20,10 +22,12 @@ function resolve(item) {
         left: '-1.7em',
         marginRight: '-1em'
       }} />
-    </span>);
-  }
-  if (item.type === "dir" && item.name.match(/^\./i)){
-    return (<span className="fa-layers fa-fw">
+    </span>)
+  },
+  {
+    type: "dir",
+    name: /^\./i,
+    icon: (<span className="fa-layers fa-fw">
       <FaFolderO/>
       <FaCogs style={{
         position: 'relative',
@@ -31,67 +35,99 @@ function resolve(item) {
         left: '-1.7em',
         marginRight: '-1em'
       }} />
-    </span>);
+    </span>)
+  },
+  {
+    type: "dir",
+    icon: <FaFolderO />
+  },
+  {
+    name: /\.(docx?|odt|rtf)$/i,
+    icon: <FaFileWordO/>
+  },
+  {
+    name: /\.(pptx?|key|odp|pps)$/i,
+    icon: <FaFilePowerpointO/>
+  },
+  {
+    name: /\.(xlsx?|ods|xlr)$/i,
+    icon: <FaFileExcelO/>
+  },
+  {
+    name: /\.(zip|tar|gz|7z|rar|z)$/i,
+    icon: <FaFileArchiveO/>
+  },
+  {
+    name: /\.pdf$/i,
+    icon: <FaFilePdfO/>
+  },
+  {
+    name: /\.(jpe?g|gif|bmp|tiff?|png|svg|eps|ai|ico)$/i,
+    icon: <FaFileImageO/>
+  },
+  {
+    name: /^\.(bash|zsh|ksh|tsh|csh|profile)/i,
+    icon: <FaTerminal/>
+  },
+  {
+    name: /^\.git/i,
+    icon: <GoGitBranch/>
+  },
+  {
+    name: /^\./i,
+    icon: <FaCogs/>
+  },
+  {
+    name: /\.(mp4|mov|wmv|flv|avi|ogg|vob|m4v|mpeg|mp2|3g([p2]))$/i,
+    icon: <FaFileMovieO/>
+  },
+  {
+    name: /\.(wav|mp3|wma|m4a|acc|oga|flac|aiff|)$/i,
+    icon: <FaFileAudioO/>
+  },
+  {
+    name: /\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|jsp|php|pl|pm|r|sh|swift|tex|vb|xml|zsh)$/i,
+    icon: <FaFileCodeO/>
+  },
+  {
+    name: /\.(sql|psql)$/i,
+    icon: <GoDatabase/>
+  },
+  {
+    name: /\.(sass|scss)$/i,
+    icon: <IoSocialSass/>
+  },
+  {
+    name: /\.(js|jsx|json)$/i,
+    icon: <IoSocialJavascript/>
+  },
+  {
+    name: /\.py$/i,
+    icon: <IoSocialPython/>
+  },
+  {
+    name: /\.rb$/i,
+    icon: <GoRuby/>
+  },
+  {
+    name: /\.(txt|csv|tsv|log|md|rst|out)$/i,
+    icon: <FaFileTextO/>
+  },
+  {
+    icon: <FaFileO/>
   }
-  if (item.type === "dir"){
-    return (<FaFolderO />);
-  }
-  if (item.name.match(/\.(docx?|odt|rtf)$/i)) {
-    return (<FaFileWordO/>);
-  }
-  if (item.name.match(/\.(pptx?|key|odp|pps)$/i)) {
-    return (<FaFilePowerpointO/>);
-  }
-  if (item.name.match(/\.(xlsx?|ods|xlr)$/i)) {
-    return (<FaFileExcelO/>);
-  }
-  if (item.name.match(/\.(zip|tar|gz|7z|rar|z|)$/i)) {
-    return (<FaFileArchiveO/>);
-  }
-  if (item.name.match(/\.pdf?$/i)) {
-    return (<FaFilePdfO/>);
-  }
-  if (item.name.match(/\.(jpe?g|gif|bmp|tiff?|png|svg|eps|ai|ico)$/i)) {
-    return (<FaFileImageO/>);
-  }
-  if (item.name.match(/^\.(bash|zsh|ksh|tsh|csh|profile)/i)) {
-    return (<FaTerminal/>);
-  }
-  if (item.name.match(/^\.git/i)) {
-    return (<GoGitBranch/>);
-  }
-  if (item.name.match(/^\./i)) {
-    return (<FaCogs/>);
-  }
-  if (item.name.match(/\.(mp4|mov|wmv|flv|avi|ogg|vob|m4v|mpeg|mp2|3g([p2]))$/i)) {
-    return (<FaFileMovieO/>);
-  }
-  if (item.name.match(/\.(wav|mp3|wma|m4a|acc|oga|flac|aiff|)$/i)) {
-    return (<FaFileAudioO/>);
-  }
-  if (item.name.match(/\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|jsp|php|pl|pm|r|sh|swift|tex|vb|xml|zsh)$/i)) {
-    return (<FaFileCodeO/>);
-  }
-  if (item.name.match(/\.(sql)$/i)) {
-    return (<GoDatabase/>);
-  }
-  if (item.name.match(/\.(sass|scss)$/i)) {
-    return (<IoSocialSass/>);
-  }
-  if (item.name.match(/\.(js|jsx|json)$/i)) {
-    return (<IoSocialJavascript/>);
-  }
-  if (item.name.match(/\.py$/i)) {
-    return (<IoSocialPython/>);
-  }
-  if (item.name.match(/\.rb$/i)) {
-    return (<GoRuby/>);
-  }
-  if (item.name.match(/\.(txt|csv|tsv|log|md|rst|out)$/i)) {
-    return (<FaFileTextO/>);
-  }
-  else {
-    return (<FaFileO />);
+];
+
+function resolve(item) {
+  for (let type of fileExtensionMappings) {
+    if (type.hasOwnProperty('type') && type.type !== item.type) {
+      continue;
+    }
+    if (type.hasOwnProperty('name') && !item.name.match(type.name)) {
+      continue;
+    }
+
+    return type.icon;
   }
 }
 
