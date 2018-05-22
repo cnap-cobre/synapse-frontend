@@ -17,6 +17,7 @@ USER node
 
 # Add so we own it
 RUN mkdir /usr/src/app/stats
+RUN mkdir /usr/src/app/dist
 
 # install app dependencies
 RUN npm -v
