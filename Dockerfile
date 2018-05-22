@@ -10,14 +10,12 @@ RUN npm install react-scripts@1.1.1 -g --silent \
 
 # set working directory
 WORKDIR /usr/src/app
-RUN chown node:node /usr/src/app && chmod -R 755 /usr/src/app
+RUN mkdir /usr/src/app/stats
+RUN mkdir /usr/src/app/dist
+RUN chown -R node:node /usr/src/app && chmod -R 755 /usr/src/app
 
 # Don't run stuff as root
 USER node
-
-# Add so we own it
-RUN mkdir /usr/src/app/stats
-RUN mkdir /usr/src/app/dist
 
 # install app dependencies
 RUN npm -v
