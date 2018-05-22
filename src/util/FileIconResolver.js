@@ -1,28 +1,65 @@
-export function fileIconResolver(item) {
-  console.log(item.permissions);
-  if (item.permissions === "READ_WRITE" || item.permissions === "READ") {
-    if (item.name.match(/^\./)) {
-      return 'ti-settings';
-    } else if (item.name.match(/\.(txt|tsv|csv)$/i)) {
-      return 'ti-text';
-    } else if (item.name.match(/\.(gz|tar|zip)$/i)) {
-      return 'ti-archive';
-    } else if (item.name.match(/\.(jpe?g|gif|tiff|png|svg|eps|ai)$/i)) {
-      return 'ti-gallery';
-    } else if (item.name.match(/\.(wav|mp3|m4a|aac|oga)$/i)) {
-      return 'ti-music-alt';
-    } else if (item.name.match(/\.(mp4|mov|wmv|flv|avi|ogg|vob|m4v|mpeg|mp2|3g([p2]))$/i)) {
-      return 'ti-video-camera';
-    } else {
-      return 'ti-file';
-    }
-  } else {
-    if (item.type === 'dir') {
-      return 'ti-folder';
-    } else {
-      return 'ti-file';
-    }
+import React from 'react';
+
+import {FaFolderO, FaFileO,
+  FaFileWordO, FaFilePowerpointO, FaFileExcelO, FaFileImageO,
+  FaFileMovieO, FaFileTextO, FaFileArchiveO, FaFilePdfO,
+  FaFileCodeO, FaFileAudioO, FaCogs} from 'react-icons/lib/fa';
+
+function resolve(item) {
+  if (item.type === "dir" && item.name.match(/^\./i)){
+    return (<span className="fa-layers fa-fw">
+      <FaFolderO/>
+      <FaCogs style={{
+        position: 'relative',
+        fontSize: '0.4em',
+        left: '-1.7em',
+      }} />
+    </span>);
   }
+  if (item.type === "dir"){
+    return (<FaFolderO />);
+  }
+  if (item.name.match(/\.(docx?|odt|rtf)$/i)) {
+    return (<FaFileWordO/>);
+  }
+  if (item.name.match(/\.(pptx?|key|odp|pps)$/i)) {
+    return (<FaFilePowerpointO/>);
+  }
+  if (item.name.match(/\.(xlsx?|ods|xlr)$/i)) {
+    return (<FaFileExcelO/>);
+  }
+  if (item.name.match(/\.(zip|tar|gz|7z|rar|z|)$/i)) {
+    return (<FaFileArchiveO/>);
+  }
+  if (item.name.match(/\.pdf?$/i)) {
+    return (<FaFilePdfO/>);
+  }
+  if (item.name.match(/\.(jpe?g|gif|bmp|tiff?|png|svg|eps|ai|ico)$/i)) {
+    return (<FaFileImageO/>);
+  }
+  if (item.name.match(/^\./i)) {
+    return (<FaCogs/>);
+  }
+  if (item.name.match(/\.(mp4|mov|wmv|flv|avi|ogg|vob|m4v|mpeg|mp2|3g([p2]))$/i)) {
+    return (<FaFileMovieO/>);
+  }
+  if (item.name.match(/\.(wav|mp3|wma|m4a|acc|oga|flac|aiff|)$/i)) {
+    return (<FaFileAudioO/>);
+  }
+  if (item.name.match(/\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|js|jsp|jsx|php|pl|pm|py|rb?|sh|sql|swift|tex|vb|xml)$/i)) {
+    return (<FaFileCodeO/>);
+  }
+  if (item.name.match(/\.(txt|csv|tsv|log|md|rst)$/i)) {
+    return (<FaFileTextO/>);
+  }
+  else {
+    return (<FaFileO />);
+  }
+}
+
+export function fileIconResolver(item) {
+  const X = resolve(item);
+  return React.cloneElement(X, {className: "fa-2x far"});
 }
 
 // Executable files under 8kb may in fact be symlinks to directories

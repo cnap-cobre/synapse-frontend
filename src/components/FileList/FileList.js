@@ -24,7 +24,7 @@ export default class FileList extends Component {
           <tr onClick={(e) => this.props.onSelectFile(item, e)}
               key={ item.name }>
             <td>
-              <i className={fileIconResolver(item)}></i>&nbsp;&nbsp;&nbsp;
+              {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
               { item.name }
             </td>
             <td>{ humanFileSize(item.length) }</td>
