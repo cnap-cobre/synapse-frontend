@@ -90,7 +90,7 @@ export default class AgaveBrowser extends Component {
 
         // Update UI with new, corrected result list
         .then((list) => {console.log('Corrected List', list); return list;})
-        .then(this.updateUIWithNewFiles.bind(this))
+        .then(this.updateUIWithCorrectedFiles.bind(this))
 
         .catch(( error ) => {
           if (error.name === "AbortError") {
@@ -153,6 +153,14 @@ export default class AgaveBrowser extends Component {
     }
 
     return list;
+  }
+
+  updateUIWithCorrectedFiles( list ) {
+    if (!this._unmounted) {
+      this.setState({
+        list: list.filter(e => e.name !== '.')
+      });
+    }
   }
 
   handleClick(item, e) {
