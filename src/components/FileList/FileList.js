@@ -19,7 +19,9 @@ export default class FileList extends Component {
   };
 
   render() {
-    const files = this.props.list.map((item, i) => (
+    const files = this.props.list.filter(
+        (item, i) => (this.props.showDotfiles || !item.name.match(/^\./i))
+    ).map((item, i) => (
 
           <tr onClick={(e) => this.props.onSelectFile(item, e)}
               key={ item.name }>
