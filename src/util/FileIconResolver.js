@@ -86,7 +86,7 @@ const fileExtensionMappings = [
     icon: <FaFileAudioO/>
   },
   {
-    name: /\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|jsp|php|pl|pm|r|sh|swift|tex|vb|xml|zsh)$/i,
+    name: /\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|jsp|php|pl|pm|r|sh|swift|tex|vb|xml)$/i,
     icon: <FaFileCodeO/>
   },
   {
