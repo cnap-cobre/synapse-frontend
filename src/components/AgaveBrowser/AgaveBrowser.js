@@ -204,10 +204,10 @@ export default class AgaveBrowser extends Component {
 
 
         <FileBrowserList list={this.state.list}
-                         showDotfiles={this.state.showDotfiles}
-                         handleClick={this.handleClick.bind(this)}
                          error={this.state.error}
-                         loading={this.state.loading} />
+                         loading={this.state.loading}
+                         showDotfiles={this.state.showDotfiles}
+                         handleClick={this.handleClick.bind(this)} />
 
 
         <Loader visible={this.state.loading}/>
