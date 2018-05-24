@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 export default class FileList extends Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
-    onSelectFile: PropTypes.func
+    onSelectFile: PropTypes.func,
+    showDotfiles: PropTypes.bool
   };
 
   static defaultProps = {

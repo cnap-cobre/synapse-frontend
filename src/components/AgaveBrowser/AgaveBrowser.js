@@ -3,11 +3,11 @@ import { humanFileSize } from "Utils/FileSize.js";
 import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 
-import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
-import FileList from "Components/FileList/FileList";
+
 import ErrorMessage from "Components/ErrorMessage/ErrorMessage";
 import Loader from "Components/Loader/Loader";
 import FileBreadcrumbs from "Components/FileBreadcrumbs/FileBreadcrumbs";
+import FileBrowserList from "Components/FileBrowserList/FileBrowserList";
 
 export default class AgaveBrowser extends Component {
   state = {
@@ -203,13 +203,13 @@ export default class AgaveBrowser extends Component {
         </div>
 
 
-        <table className="table table-hover"
-               style={{display: this.state.error || this.state.loading ? 'none' : 'table'}}>
-          <FieldFieldHeader/>
-          <FileList list={this.state.list}
-                    showDotfiles={this.state.showDotfiles}
-                    onSelectFile={this.handleClick.bind(this)}/>
-        </table>
+        <FileBrowserList list={this.state.list}
+                         showDotfiles={this.state.showDotfiles}
+                         handleClick={this.handleClick.bind(this)}
+                         error={this.state.error}
+                         loading={this.state.loading} />
+
+
         <Loader visible={this.state.loading}/>
         <ErrorMessage visible={this.state.error} message={this.state.errorMessage}/>
       </div>
