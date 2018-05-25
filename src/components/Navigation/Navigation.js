@@ -4,6 +4,8 @@ import NavigationGroup from './NavigationGroup/NavigationGroup';
 import nav from '../../nav.js';
 
 export default class Navigation extends Component {
+  static propTypes = {};
+
   static buildLinks = (item) => {
     if (item.hasOwnProperty('children')) {
       return(

@@ -5,6 +5,8 @@ import {FaPlus} from 'react-icons/lib/fa';
 
 import AgaveBrowser from './AgaveBrowser/AgaveBrowser';
 
+import PropTypes from 'prop-types';
+
 import './fileTabs.css'
 
 const fileSystems = [
@@ -34,7 +36,15 @@ const addFileSystem = (
 );
 
 
-export default class TabbedFileBrowser extends Component{
+export default class TabbedFileBrowser extends Component {
+  static propTypes = {
+    history: PropTypes.shape({
+      length: PropTypes.number.isRequired,
+      location: PropTypes.object.isRequired,
+      action: PropTypes.string.isRequired,
+    }).isRequired
+  };
+
   componentWillMount() {
     const path = this.props.history.location.pathname;
     const matches = [...fileSystems, {name:'new_file_system'}].map((fs)=>(path.indexOf(fs.name) !== -1))

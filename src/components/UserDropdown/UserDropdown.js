@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import face from '../../face-2.jpg';
 
-export default class UserDropdown extends Component {
-  render() {
+export default function UserDropdown() {
     return (
         <div className="user">
           <div className="photo">
@@ -42,5 +41,4 @@ export default class UserDropdown extends Component {
           </div>
         </div>
     );
-  }
 }

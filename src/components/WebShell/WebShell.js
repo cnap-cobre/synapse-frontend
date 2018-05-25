@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
-export default class WebShell extends Component {
-  render() {
+export default function WebShell() {
     return (
       <h1>Web Shell coming soon.</h1>
     );
-  }
 }

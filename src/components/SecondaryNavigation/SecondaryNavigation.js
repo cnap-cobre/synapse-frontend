@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class SecondaryNavigation extends Component {
-  render(){
+export default function SecondaryNavigation(){
     return (
         <ul className="nav navbar-nav navbar-right">
           <li>
@@ -38,5 +37,4 @@ export default class SecondaryNavigation extends Component {
           </li>
         </ul>
     );
-  }
 }

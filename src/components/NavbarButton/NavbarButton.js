@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-export default class NavbarButton extends Component{
-  render() {
+export default function NavbarButton() {
     return (
         <button type="button" className="navbar-toggle" data-toggle="collapse">
           <span className="sr-only">Toggle navigation</span>
@@ -10,5 +9,4 @@ export default class NavbarButton extends Component{
           <span className="icon-bar"></span>
         </button>
     );
-  }
 }

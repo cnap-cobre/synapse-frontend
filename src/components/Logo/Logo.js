@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import powercat from './ksu-logo.svg';
 
-export default class Logo extends Component {
-  render() {
+export default function Logo() {
     return (
         <div className="logo">
           <a href="/" className="simple-text logo-mini">
@@ -15,5 +14,4 @@ export default class Logo extends Component {
           </a>
         </div>
     );
-  }
 }

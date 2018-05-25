@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 
-import brace from 'brace';
 import AceEditor from 'react-ace';
+
+import PropTypes from 'prop-types';
 
 import 'brace/mode/python';
 import 'brace/theme/monokai';
 
 export default class Editor extends Component {
+  static propTypes = {
+    fontSize: PropTypes.number.isRequired,
+    width: PropTypes.string.isRequired,
+    height: PropTypes.string.isRequired
+  };
+
   render() {
     return (
         <AceEditor

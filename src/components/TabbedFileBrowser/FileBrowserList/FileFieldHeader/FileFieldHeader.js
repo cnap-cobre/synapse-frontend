@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
-export default class FieldFieldHeader extends Component {
-  render() {
+export default function FieldFieldHeader() {
     return (
         <thead>
         <tr>
@@ -12,5 +11,4 @@ export default class FieldFieldHeader extends Component {
         </tr>
         </thead>
     );
-  }
 }

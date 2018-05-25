@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-export default class SearchBox extends Component{
-  render() {
+export default function SearchBox() {
     return (
         <form className="navbar-form navbar-left navbar-search-form" role="search">
           <div className="input-group">
@@ -10,5 +9,4 @@ export default class SearchBox extends Component{
           </div>
         </form>
     );
-  }
 }
