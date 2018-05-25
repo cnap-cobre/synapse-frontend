@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import FileActions from "Components/FileActions/FileActions";
+import FileActions from "../../FileActions/FileActions";
 import { humanFileSize } from "Utils/FileSize.js";
 import { fileIconResolver } from "Utils/FileIconResolver";
 import moment from 'moment';
