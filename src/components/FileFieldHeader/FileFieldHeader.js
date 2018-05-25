@@ -8,7 +8,7 @@ export default class FieldFieldHeader extends Component {
           <th>Name</th>
           <th>Size</th>
           <th>Last Modified</th>
-          <th><i className="ti-view-list-alt" /></th>
+          <th></th>
         </tr>
         </thead>
     );
