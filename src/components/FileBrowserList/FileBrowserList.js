@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import FieldFieldHeader from "Components/FileFieldHeader/FileFieldHeader";
-import FileList from "Components/FileList/FileList";
+import FieldFieldHeader from "./FileFieldHeader/FileFieldHeader";
+import FileList from "./FileList/FileList";
 
 export default class FileBrowserList extends Component {
   render(){
