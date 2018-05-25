@@ -4,10 +4,10 @@ import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 
 
-import ErrorMessage from "Components/ErrorMessage/ErrorMessage";
-import Loader from "Components/Loader/Loader";
-import FileBreadcrumbs from "Components/FileBreadcrumbs/FileBreadcrumbs";
-import FileBrowserList from "Components/FileBrowserList/FileBrowserList";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import Loader from "../../Loader/Loader";
+import FileBreadcrumbs from "../FileBreadcrumbs/FileBreadcrumbs";
+import FileBrowserList from "../FileBrowserList/FileBrowserList";
 
 export default class AgaveBrowser extends Component {
   state = {

@@ -3,7 +3,7 @@ import {Tabs, Tab} from 'react-bootstrap';
 
 import {FaPlus} from 'react-icons/lib/fa';
 
-import AgaveBrowser from 'Components/AgaveBrowser/AgaveBrowser';
+import AgaveBrowser from './AgaveBrowser/AgaveBrowser';
 
 import './fileTabs.css'
 
