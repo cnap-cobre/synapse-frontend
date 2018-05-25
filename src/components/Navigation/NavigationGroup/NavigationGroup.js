@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
-import NavigationLink from 'Components/NavigationLink/NavigationLink';
 import {Collapse} from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
