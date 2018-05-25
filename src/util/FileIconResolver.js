@@ -10,18 +10,20 @@ import {IoSocialPython, IoSocialJavascript,
 
 import {GoRuby, GoGitBranch, GoDatabase} from 'react-icons/lib/go';
 
+const insetIconStyle = {
+  position: 'relative',
+  fontSize: '0.4em',
+  left: '-1.7em',
+  marginRight: '-1em'
+};
+
 const fileExtensionMappings = [
   {
     type: "dir",
     name: /^\.git$/i,
     icon: (<span className="fa-layers fa-fw">
       <FaFolderO/>
-      <GoGitBranch style={{
-        position: 'relative',
-        fontSize: '0.4em',
-        left: '-1.7em',
-        marginRight: '-1em'
-      }} />
+      <GoGitBranch style={insetIconStyle} />
     </span>)
   },
   {
@@ -29,12 +31,7 @@ const fileExtensionMappings = [
     name: /^\./i,
     icon: (<span className="fa-layers fa-fw">
       <FaFolderO/>
-      <FaCogs style={{
-        position: 'relative',
-        fontSize: '0.4em',
-        left: '-1.7em',
-        marginRight: '-1em'
-      }} />
+      <FaCogs style={insetIconStyle} />
     </span>)
   },
   {
