@@ -7,6 +7,7 @@
     "agaveapi-js": "^1.0.0",
     "dropbox": "^4.0.3",
     "react-ace": "^6.1.1",
+    "react-cookie": "^2.1.6",
     "react-icons": "^2.2.7",
     "react-mock-router": "^1.0.15",
     "react-spinners": "^0.3.2"

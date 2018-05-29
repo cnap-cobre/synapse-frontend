@@ -33,17 +33,15 @@ export default class UserDropdown extends Component {
               <div>
                 <ul className="nav">
 
-                  <NavigationLink to="/account/" activeOnlyWhenExact={false}>
+                  <NavigationLink to="/account/" activeOnlyWhenExact={true}>
                     <span className="sidebar-mini">A</span>
                     <span className="sidebar-normal">Account</span>
                   </NavigationLink>
 
-                  <li>
-                    <a href="/accounts/logout/">
-                      <span className="sidebar-mini">L</span>
-                      <span className="sidebar-normal">Logout</span>
-                    </a>
-                  </li>
+                  <NavigationLink to="/account/logout/" activeOnlyWhenExact={true}>
+                    <span className="sidebar-mini">L</span>
+                    <span className="sidebar-normal">Logout</span>
+                  </NavigationLink>
 
                 </ul>
               </div>
