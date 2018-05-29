@@ -12,10 +12,7 @@ class LogoutButton extends Component {
 
     return (
         <form method="post" action="/accounts/logout/">
-          <button className="btn btn-wd btn-danger btn-fill" type="submit">
-            <span className="btn-label">
-              <i className="fa fa-times"></i>
-            </span>
+          <button className="btn btn-danger btn-fill" type="submit">
             Sign Out
           </button>
           <input type="hidden" name="csrfmiddlewaretoken" value={csrf} />
