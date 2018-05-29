@@ -12,8 +12,8 @@ RUN useradd -m -u $UID -g $GID -s /bin/bash $UNAME
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install and cache react-scripts globally
-RUN npm install react-scripts@1.1.1 -g --silent \
-    && npm cache clean --force --silent
+RUN npm install react-scripts@1.1.1 -g \
+    && npm cache clean --force
 
 # set working directory
 WORKDIR /usr/src/app
@@ -28,7 +28,7 @@ USER $UNAME
 RUN npm -v
 COPY package.json /usr/src/app/package.json
 RUN npm install \
-    && npm cache clean --force --silent
+    && npm cache clean --force
 
 # start app
 CMD ["npm", "start"]
