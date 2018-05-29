@@ -34,8 +34,8 @@ export default class UserDropdown extends Component {
                 <ul className="nav">
 
                   <NavigationLink to="/account/" activeOnlyWhenExact={false}>
-                    <span className="sidebar-mini">MA</span>
-                    <span className="sidebar-normal">My Account</span>
+                    <span className="sidebar-mini">A</span>
+                    <span className="sidebar-normal">Account</span>
                   </NavigationLink>
 
                   <li>
