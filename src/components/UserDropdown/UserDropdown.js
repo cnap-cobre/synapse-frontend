@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import {Route, Link} from "react-router-dom";
 import {Collapse} from 'react-bootstrap';
+import NavigationLink from '../../components/Navigation/NavigationLink/NavigationLink';
 import face from '../../face-2.jpg';
 
 export default class UserDropdown extends Component {
@@ -30,24 +32,19 @@ export default class UserDropdown extends Component {
             <Collapse in={this.state.open}>
               <div>
                 <ul className="nav">
+
+                  <NavigationLink to="/account/" activeOnlyWhenExact={false}>
+                    <span className="sidebar-mini">MA</span>
+                    <span className="sidebar-normal">My Account</span>
+                  </NavigationLink>
+
                   <li>
-                    <a href="#profile">
-                      <span className="sidebar-mini">Mp</span>
-                      <span className="sidebar-normal">My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#edit">
-                      <span className="sidebar-mini">Ep</span>
-                      <span className="sidebar-normal">Edit Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/account/logout/">
+                    <a href="/accounts/logout/">
                       <span className="sidebar-mini">L</span>
                       <span className="sidebar-normal">Logout</span>
                     </a>
                   </li>
+
                 </ul>
               </div>
             </Collapse>
