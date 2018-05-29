@@ -8,6 +8,8 @@ export default class UserDropdown extends Component {
     this.state = {open: false};
   }
 
+  static propTypes = {};
+
   render() {
     return (
         <div className="user">
