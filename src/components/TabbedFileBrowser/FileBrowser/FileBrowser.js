@@ -33,19 +33,8 @@ export default class FileBrowser extends Component {
                            prefix={this.props.prefix}
                            style={{marginBottom: "0px"}}
           />
-          <div className="browserControls" style={{
-            padding: "1px 15px",
-            backgroundColor: "#e4e4e4",
-            borderRadius: "4px",
-            textAlign: "left",
-            marginBottom: "20px"
-          }}>
-            <div className="checkbox">
-              <input id="dotFilesCheckbox" type="checkbox" onChange={this.props.toggleDotfiles} />
-              <label htmlFor="dotFilesCheckbox">Show Dotfiles</label>
-            </div>
-          </div>
 
+          <AgaveBrowserControls showDotfiles = {this.props.showDotfiles} />
 
           <FileBrowserList list={this.props.list}
                            error={this.props.error}

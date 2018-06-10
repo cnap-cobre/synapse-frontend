@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import FileBrowserPropTypes from '../../../proptypes/FileBrowserPropTypes.js';
 import AgaveService from '../../../services/Agave';
 
-
 import FileBrowser from "../FileBrowser/FileBrowser";
 import {withCookies, Cookies} from "react-cookie";
+
 
 class AgaveBrowser extends Component {
   state = {
