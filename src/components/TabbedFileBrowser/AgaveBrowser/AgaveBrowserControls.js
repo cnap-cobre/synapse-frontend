@@ -8,7 +8,11 @@ import DotFilesCheckbox from './DotFilesCheckBox.js'
 export default class AgaveBrowserControls extends Component {
 
 	static propTypes = {
-		showDotfiles: PropTypes.bool.isRequired
+		//showDotfiles: PropTypes.bool.isRequired
+	};
+
+	passDotFiles() {
+		this.props.toggleDotFiles()
 	};
 
 	render(){
@@ -20,7 +24,7 @@ export default class AgaveBrowserControls extends Component {
           textAlign: "left",
           marginBottom: "20px"
         }}>
-        	<DotFilesCheckbox showDotfiles={this.props.showDotfiles} />
+        	<DotFilesCheckbox toggleDotFiles={this.passDotFiles} />
         </div>
 	)
 	}

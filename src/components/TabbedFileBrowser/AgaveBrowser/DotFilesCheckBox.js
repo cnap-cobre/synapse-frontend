@@ -8,18 +8,17 @@ import PropTypes from 'prop-types';
 export default class DotFilesCheckBox extends Component {
 
 	static propTypes = {
-		showDotfiles: PropTypes.bool.isRequired
+		//showDotfiles: PropTypes.bool.isRequired
+		toggleDotFiles: PropTypes.func.isRequired
 	};
 
 	render(){
 		return (
 			<div className="checkbox">
     			<input id="DotFilesCheckbox" type="checkbox" onChange={(event) => {
-    			console.log(event);
-    			this.setState((state) => {
-    	    		return {showDotfiles: !showDotfiles}
-    			})
+    				this.toggleDotFiles
     			}}/>
+
     			<label htmlFor="DotFilesCheckbox">Show Dotfiles</label>
 			</div>
 		)
