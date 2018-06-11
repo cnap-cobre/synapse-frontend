@@ -1,0 +1,23 @@
+import React, { Component } from "react";
+import { humanFileSize } from "Utils/FileSize.js";
+import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
+import PropTypes from 'prop-types';
+
+
+
+export default class DotfilesCheckBox extends Component {
+
+	static propTypes = {
+		toggleDotfiles: PropTypes.func.isRequired
+	};
+
+	render(){
+		return (
+			<div className="checkbox">
+    			<input checked={this.props.showDotfiles} id="DotfilesCheckbox" type="checkbox" onChange={this.props.toggleDotfiles} />
+
+    			<label htmlFor="DotfilesCheckbox">Show Dotfiles</label>
+			</div>
+		)
+	}
+}

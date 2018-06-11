@@ -7,6 +7,7 @@ import {withCookies, Cookies} from "react-cookie";
 
 
 class AgaveBrowser extends Component {
+
   state = {
     list: [],
     loading: true,
@@ -157,8 +158,8 @@ class AgaveBrowser extends Component {
   }
 
   toggleDotFiles() {
-    this.setState((state) => {
-      return {showDotfiles: !showDotfiles}
+    this.setState((prevState) => {
+      return {showDotfiles: !prevState.showDotfiles}
     })
   };
 

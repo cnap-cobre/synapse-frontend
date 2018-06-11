@@ -5,6 +5,8 @@ import Loader from "../../Loader/Loader";
 import FileBreadcrumbs from "../FileBreadcrumbs/FileBreadcrumbs";
 import FileBrowserList from "../FileBrowserList/FileBrowserList";
 
+import FileBrowserControls from "../AgaveBrowser/FileBrowserControls";
+
 import PropTypes from "prop-types";
 import HistoryPropTypes from '../../../proptypes/HistoryPropTypes';
 import FileActionsServicePropTypes from '../../../proptypes/FileActionsServicePropTypes';
@@ -34,7 +36,8 @@ export default class FileBrowser extends Component {
                            style={{marginBottom: "0px"}}
           />
 
-          <AgaveBrowserControls showDotfiles = {this.props.showDotfiles} />
+          <FileBrowserControls toggleDotfiles={this.props.toggleDotfiles}
+                               showDotfiles={this.props.showDotfiles} />
 
           <FileBrowserList list={this.props.list}
                            error={this.props.error}
