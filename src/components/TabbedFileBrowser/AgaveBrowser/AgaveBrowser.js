@@ -157,12 +157,6 @@ class AgaveBrowser extends Component {
     ).split('/').slice(1).slice(0, -1);
   }
 
-  toggleDotFiles() {
-    this.setState((prevState) => {
-      return {showDotfiles: !prevState.showDotfiles}
-    })
-  };
-
   render() {
     return (
         <FileBrowser systemDisplayName={this.props.systemDisplayName}
