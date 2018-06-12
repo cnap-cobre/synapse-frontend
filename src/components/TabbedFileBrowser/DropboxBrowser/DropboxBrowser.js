@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withCookies, Cookies } from "react-cookie";
-import { fetchErrorThrower, fetchToJson, DropboxToAgaveFormat } from "Utils/FetchUtils";
+import { fetchErrorThrower, fetchToJson, DropboxToAgaveFormat } from "../../../util/FetchUtils";
 import PropTypes, {instanceOf} from 'prop-types';
 
 

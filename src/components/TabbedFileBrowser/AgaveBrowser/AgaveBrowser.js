@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
+import { fetchErrorThrower, fetchToJson } from "../../../util/FetchUtils";
 import PropTypes from 'prop-types';
 
 

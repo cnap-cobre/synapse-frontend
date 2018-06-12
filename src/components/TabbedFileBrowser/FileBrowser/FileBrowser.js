@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { humanFileSize } from "Utils/FileSize.js";
-
 
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../../Loader/Loader";
