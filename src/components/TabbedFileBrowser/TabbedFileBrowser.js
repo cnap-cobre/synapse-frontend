@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {Tabs, Tab} from 'react-bootstrap';
+import { CookiesProvider } from 'react-cookie';
 
 import {FaPlus} from 'react-icons/lib/fa';
 
 import AgaveBrowser from './AgaveBrowser/AgaveBrowser';
+import DropboxBrowser from './DropboxBrowser/DropboxBrowser';
 
 import PropTypes from 'prop-types';
 
@@ -19,6 +21,11 @@ const fileSystems = [
     type: 'agave',
     name: 'viper',
     displayName: 'Viper'
+  },
+  {
+    type: 'dropbox',
+    name: 'dropbox',
+    displayName: 'Dropbox'
   }
 ];
 
@@ -54,16 +61,32 @@ export default class TabbedFileBrowser extends Component {
   }
 
   browserMapper(system, index) {
-    return (
-        <Tab eventKey={index}
-             key={index}
-             title={system.displayName}>
-          <AgaveBrowser history={this.props.history}
-                        prefix={'/files/' + system.name}
-                        system={system.name}
-                        systemDisplayName={system.displayName} />
-        </Tab>
-    );
+    if (system.type === 'agave') {
+      return (
+          <Tab eventKey={index}
+               key={index}
+               title={system.displayName}>
+            <AgaveBrowser history={this.props.history}
+                          prefix={'/files/' + system.name}
+                          system={system.name}
+                          systemDisplayName={system.displayName} />
+          </Tab>
+      );
+    } else {
+      return (
+          <Tab eventKey={index}
+               key={index}
+               title={system.displayName}>
+            <CookiesProvider>
+              <DropboxBrowser history={this.props.history}
+                              prefix={'/files/' + system.name}
+                              system={system.name}
+                              systemDisplayName={system.displayName} />
+            </CookiesProvider>
+          </Tab>
+      );
+    }
+
   }
 
   render(){

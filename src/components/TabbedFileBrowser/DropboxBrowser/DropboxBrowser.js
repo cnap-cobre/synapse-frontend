@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
-import PropTypes from 'prop-types';
+import { withCookies, Cookies } from "react-cookie";
+import { fetchErrorThrower, fetchToJson, DropboxToAgaveFormat } from "Utils/FetchUtils";
+import PropTypes, {instanceOf} from 'prop-types';
 
 
-import FileBrowser from "./FileBrowser";
+import FileBrowser from "../AgaveBrowser/FileBrowser";
 
-export default class AgaveBrowser extends Component {
+class DropboxBrowser extends Component {
   state = {
     list: [],
     loading: true,
@@ -15,6 +16,7 @@ export default class AgaveBrowser extends Component {
   };
 
   static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
     prefix: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     systemDisplayName: PropTypes.string.isRequired,
@@ -62,31 +64,38 @@ export default class AgaveBrowser extends Component {
       this.setState({list: [], loading: true, error: false, errorMessage: ""});
     }
 
-    const filePath = [this.props.system, ...this.getPath()].join('/');
-    const url = '/agave/files/v2/listings/system/' + filePath + '?limit=1000';
+    const filePath = ['', ...this.getPath()].join('/');
+    const url = '/dropbox/api/2/files/list_folder';
+    console.log(filePath);
+    let form = {
+      'path': filePath
+    };
+
 
     fetch(url, {
+      body: JSON.stringify(form),
+      cache: 'no-cache',
       credentials: "same-origin",
+      headers: {
+        'content-type': 'application/json',
+        'X-CSRFToken': this.props.cookies.get('csrftoken')
+      },
+      method: 'POST',
+      mode: 'cors',
       signal: this.abortController.signal
     })
-        // Throw a proper error if we get a 500, etc. response code
+    // Throw a proper error if we get a 500, etc. response code
         .then(fetchErrorThrower)
 
         // Convert to JSON
         .then(fetchToJson)
 
-        // extract result list
-        .then((response) => response.result)
+        // map Dropbox to Agave response format
+        .then((response) => {console.log(response); return response;})
+        .then(DropboxToAgaveFormat)
 
         // Update UI with result file list
         .then(this.updateUIWithNewFiles.bind(this))
-
-        // Clarify possible directory symlinks
-        .then(this.ClarifyPossibleDirectorySymlinks.bind(this))
-
-        // Update UI with new, corrected result list
-        .then((list) => {console.log('Corrected List', list); return list;})
-        .then(this.updateUIWithCorrectedFiles.bind(this))
 
         .catch(( error ) => {
           if (error.name === "AbortError") {
@@ -102,43 +111,6 @@ export default class AgaveBrowser extends Component {
     ;
   }
 
-  ClarifyPossibleDirectorySymlinks(list){
-    const filePath = [this.props.system, ...this.getPath()].join('/');
-    const url = '/agave/files/v2/listings/system/' + filePath;
-
-    return Promise.all(
-        list.map((file) => {
-          if (file.type === 'file' &&
-              file.length < 1024 &&
-              'ALLEXECUTE'.indexOf(file.permissions) !== -1) {
-            return fetch(url + '/' + file.name, {
-              credentials: "same-origin",
-              signal: this.abortController.signal
-            }).then(fetchErrorThrower)
-                .then(fetchToJson)
-                .then((response) => response.result)
-                .then((result) => {
-                  if(result.length !== 1 || result[0].name !== file.name) {
-                    const updated = file;
-                    updated.type = 'dir';
-                    updated.format = 'folder';
-                    updated.mimeType = 'text/directory';
-                    console.log('Corrected!', updated);
-                    return updated;
-                  } else {
-                    return file;
-                  }
-                }).catch(() => {
-                  // on error, just return the original file
-                  return file;
-                })
-          } else {
-            return file;
-          }
-        }
-    ));
-  }
-
   updateUIWithNewFiles( list ) {
     if (!this._unmounted) {
       this.setState({
@@ -149,14 +121,6 @@ export default class AgaveBrowser extends Component {
     }
 
     return list;
-  }
-
-  updateUIWithCorrectedFiles( list ) {
-    if (!this._unmounted) {
-      this.setState({
-        list: list.filter(e => e.name !== '.')
-      });
-    }
   }
 
   handleFileClick(item, e) {
@@ -194,3 +158,5 @@ export default class AgaveBrowser extends Component {
     );
   }
 }
+
+export default withCookies(DropboxBrowser);
