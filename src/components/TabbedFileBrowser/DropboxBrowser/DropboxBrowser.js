@@ -4,7 +4,7 @@ import { fetchErrorThrower, fetchToJson, DropboxToAgaveFormat } from "Utils/Fetc
 import PropTypes, {instanceOf} from 'prop-types';
 
 
-import FileBrowser from "../AgaveBrowser/FileBrowser";
+import FileBrowser from "../FileBrowser/FileBrowser";
 
 class DropboxBrowser extends Component {
   state = {

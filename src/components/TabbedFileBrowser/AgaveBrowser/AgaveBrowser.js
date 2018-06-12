@@ -3,7 +3,7 @@ import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 
 
-import FileBrowser from "./FileBrowser";
+import FileBrowser from "../FileBrowser/FileBrowser";
 
 export default class AgaveBrowser extends Component {
   state = {
