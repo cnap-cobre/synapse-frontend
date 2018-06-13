@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withCookies, Cookies } from "react-cookie";
-import { fetchErrorThrower, fetchToJson, DropboxToAgaveFormat } from "../../../util/FetchUtils";
-import PropTypes, {instanceOf} from 'prop-types';
+import FileBrowserPropTypes from '../../../proptypes/FileBrowserPropTypes.js';
 
 import FileBrowser from "../FileBrowser/FileBrowser";
 import DropboxService from '../../../services/Dropbox';
@@ -16,17 +15,7 @@ class DropboxBrowser extends Component {
     showDotfiles: false
   };
 
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
-    prefix: PropTypes.string.isRequired,
-    system: PropTypes.string.isRequired,
-    systemDisplayName: PropTypes.string.isRequired,
-    history: PropTypes.shape({
-      length: PropTypes.number.isRequired,
-      location: PropTypes.object.isRequired,
-      action: PropTypes.string.isRequired,
-    }).isRequired
-  };
+  static propTypes = FileBrowserPropTypes;
 
   FileActionsService = DropboxService(this.props.cookies.get('csrftoken'));
 
