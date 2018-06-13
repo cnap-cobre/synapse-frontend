@@ -7,7 +7,7 @@ import {FaPlus} from 'react-icons/lib/fa';
 import AgaveBrowser from './AgaveBrowser/AgaveBrowser';
 import DropboxBrowser from './DropboxBrowser/DropboxBrowser';
 
-import PropTypes from 'prop-types';
+import HistoryPropTypes from '../../proptypes/HistoryPropTypes';
 
 import './fileTabs.css'
 
@@ -45,11 +45,7 @@ const addFileSystem = (
 
 export default class TabbedFileBrowser extends Component {
   static propTypes = {
-    history: PropTypes.shape({
-      length: PropTypes.number.isRequired,
-      location: PropTypes.object.isRequired,
-      action: PropTypes.string.isRequired,
-    }).isRequired
+    history: HistoryPropTypes
   };
 
   componentWillMount() {

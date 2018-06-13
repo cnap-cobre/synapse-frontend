@@ -4,7 +4,10 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../../Loader/Loader";
 import FileBreadcrumbs from "../FileBreadcrumbs/FileBreadcrumbs";
 import FileBrowserList from "../FileBrowserList/FileBrowserList";
+
 import PropTypes from "prop-types";
+import HistoryPropTypes from '../../../proptypes/HistoryPropTypes';
+import FileActionsServicePropTypes from '../../../proptypes/FileActionsServicePropTypes';
 
 export default class FileBrowser extends Component {
   static propTypes = {
@@ -17,12 +20,8 @@ export default class FileBrowser extends Component {
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired,
     handleFileClick: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      length: PropTypes.number.isRequired,
-      location: PropTypes.object.isRequired,
-      action: PropTypes.string.isRequired,
-    }).isRequired,
-    fileActionsService: PropTypes.object.isRequired
+    history: HistoryPropTypes,
+    fileActionsService: FileActionsServicePropTypes
   };
 
 

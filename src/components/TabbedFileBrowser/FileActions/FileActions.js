@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
+import FileActionsServicePropTypes from '../../../proptypes/FileActionsServicePropTypes';
+import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
 
 import './fileActionMenu.css';
 
@@ -11,20 +13,8 @@ export default class FileActions extends Component {
       PropTypes.string,
       PropTypes.number
     ]).isRequired,
-    fileActionsService: PropTypes.shape({
-      share: PropTypes.func.isRequired,
-      wget: PropTypes.func.isRequired,
-      rename: PropTypes.func.isRequired,
-      mv: PropTypes.func.isRequired,
-      cp: PropTypes.func.isRequired,
-      rm: PropTypes.func.isRequired
-    }).isRequired,
-    file: PropTypes.shape({
-      format: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      path: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }).isRequired
+    fileActionsService: FileActionsServicePropTypes,
+    file: FileItemPropTypes
   };
 
   static noOpAndStopClickPropagation(e) {
