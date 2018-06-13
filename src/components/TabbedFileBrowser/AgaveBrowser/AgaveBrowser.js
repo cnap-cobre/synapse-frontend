@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { fetchErrorThrower, fetchToJson } from "../../../util/FetchUtils";
-import PropTypes from 'prop-types';
+import PropTypes, {instanceOf} from 'prop-types';
 import AgaveService from '../../../services/Agave';
 
 
 import FileBrowser from "../FileBrowser/FileBrowser";
+import {withCookies, Cookies} from "react-cookie";
 
-export default class AgaveBrowser extends Component {
+class AgaveBrowser extends Component {
   state = {
     list: [],
     loading: true,
@@ -16,6 +17,7 @@ export default class AgaveBrowser extends Component {
   };
 
   static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
     prefix: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
     systemDisplayName: PropTypes.string.isRequired,
@@ -25,6 +27,8 @@ export default class AgaveBrowser extends Component {
       action: PropTypes.string.isRequired,
     }).isRequired
   };
+
+  FileActionsService = AgaveService(this.props.cookies.get('csrftoken'));
 
   componentDidMount() {
     /*
@@ -65,7 +69,7 @@ export default class AgaveBrowser extends Component {
 
     const filePath = [this.props.system, ...this.getPath()].join('/');
 
-    AgaveService.list(filePath, this.abortController.signal)
+    this.FileActionsService.list(filePath, this.abortController.signal)
 
         // Update UI with result file list
         .then(this.updateUIWithNewFiles.bind(this))
@@ -101,7 +105,7 @@ export default class AgaveBrowser extends Component {
               file.length < 1024 &&
               'ALLEXECUTE'.indexOf(file.permissions) !== -1)
           {
-            return AgaveService.list(filePath, this.abortController.signal)
+            return this.FileActionsService.list(filePath, this.abortController.signal)
                 .then((result) => {
                   if(result.length !== 1 || result[0].name !== file.name) {
                     const updated = file;
@@ -175,8 +179,11 @@ export default class AgaveBrowser extends Component {
                      showDotfiles={this.state.showDotfiles}
                      toggleDotfiles={this.toggleDotfiles.bind(this)}
                      handleFileClick={this.handleFileClick.bind(this)}
-                     fileActionsService={AgaveService}
+                     fileActionsService={this.FileActionsService}
         />
     );
   }
 }
+
+
+export default withCookies(AgaveBrowser);

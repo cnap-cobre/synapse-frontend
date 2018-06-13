@@ -28,6 +28,8 @@ class DropboxBrowser extends Component {
     }).isRequired
   };
 
+  FileActionsService = DropboxService(this.props.cookies.get('csrftoken'));
+
   componentDidMount() {
     /*
     * 1. Register a listener for browser location changes to update UI accordingly
@@ -73,9 +75,8 @@ class DropboxBrowser extends Component {
     };
 
 
-    DropboxService.list(
+    this.FileActionsService.list(
         filePath,
-        this.props.cookies.get('csrftoken'),
         this.abortController.signal
     )
         // Update UI with result file list
@@ -137,7 +138,7 @@ class DropboxBrowser extends Component {
                      showDotfiles={this.state.showDotfiles}
                      toggleDotfiles={this.toggleDotfiles.bind(this)}
                      handleFileClick={this.handleFileClick.bind(this)}
-                     fileActionsService={DropboxService}
+                     fileActionsService={this.FileActionsService}
         />
     );
   }

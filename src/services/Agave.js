@@ -30,12 +30,29 @@ const wget = (file) => () => {
   x.send();
 };
 
-export default {
+const rm = (csrftoken) => (file) => () => {
+  const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
+
+  return fetch(url, {
+    credentials: "same-origin",
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
+    mode: 'cors'
+  }).then((response) => {
+    console.log(response);
+    return response;
+  });
+}
+
+export default (csrftoken) => ({
   list: list,
   share: () => {console.log('Share')},
   wget: wget,
   rename: () => {console.log('rename')},
   mv: () => {console.log('mv')},
   cp: () => {console.log('cp')},
-  rm: () => {console.log('rm')},
-}
+  rm: rm(csrftoken),
+});

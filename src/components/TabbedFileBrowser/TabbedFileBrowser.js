@@ -66,10 +66,12 @@ export default class TabbedFileBrowser extends Component {
           <Tab eventKey={index}
                key={index}
                title={system.displayName}>
-            <AgaveBrowser history={this.props.history}
-                          prefix={'/files/' + system.name}
-                          system={system.name}
-                          systemDisplayName={system.displayName} />
+            <CookiesProvider>
+              <AgaveBrowser history={this.props.history}
+                            prefix={'/files/' + system.name}
+                            system={system.name}
+                            systemDisplayName={system.displayName} />
+            </CookiesProvider>
           </Tab>
       );
     } else {
@@ -93,13 +95,13 @@ export default class TabbedFileBrowser extends Component {
     const urlActive = fileSystems.map(
         (fs)=>(this.props.history.location.pathname.indexOf(fs.name) !== -1)
     ).indexOf(true);
-    console.log(urlActive);
+    //console.log(urlActive);
     return (
         <Tabs activeKey={(urlActive !== -1 ? urlActive : fileSystems.length)}
               id="FileBrowserTabs"
               animation={false}
               onSelect={(key)=>{
-                console.log(key);
+                //console.log(key);
                 if (key === fileSystems.length){
                   this.props.history.push('/files/new_file_system/');
                 } else {

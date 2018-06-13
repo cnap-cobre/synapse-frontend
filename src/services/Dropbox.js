@@ -1,6 +1,6 @@
 import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
-function list(filePath, csrftoken, signal){
+const list = (csrftoken) => (filePath, signal) => {
   const url = '/dropbox/api/2/files/list_folder';
   console.log(filePath);
   let form = {
@@ -30,12 +30,16 @@ function list(filePath, csrftoken, signal){
       .then(DropboxToAgaveFormat)
 }
 
-export default {
-  list: list,
+const rm = (file) => () => {
+  console.log('rm');
+}
+
+export default (csrftoken) => ({
+  list: list(csrftoken),
   share: () => {console.log('Share')},
   wget: () => () => {console.log('wget')},
   rename: () => {console.log('rename')},
   mv: () => {console.log('mv')},
   cp: () => {console.log('cp')},
-  rm: () => {console.log('rm')},
-}
+  rm: rm
+});

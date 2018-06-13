@@ -45,7 +45,9 @@ export default class FileActions extends Component {
       ['Rename', this.props.fileActionsService.rename],
       ['Move', this.props.fileActionsService.mv],
       ['Copy', this.props.fileActionsService.cp],
-      ['Delete', this.props.fileActionsService.rm]
+      ['Delete', this.props.fileActionsService.rm(
+          this.props.file
+      )]
     ];
     const menuItems = actions.map((item, index) => {
       return (
