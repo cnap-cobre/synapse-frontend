@@ -57,34 +57,25 @@ export default class TabbedFileBrowser extends Component {
   }
 
   browserMapper(system, index) {
-    if (system.type === 'agave') {
-      return (
-          <Tab eventKey={index}
-               key={index}
-               title={system.displayName}>
-            <CookiesProvider>
-              <AgaveBrowser history={this.props.history}
-                            prefix={'/files/' + system.name}
-                            system={system.name}
-                            systemDisplayName={system.displayName} />
-            </CookiesProvider>
-          </Tab>
-      );
-    } else {
-      return (
-          <Tab eventKey={index}
-               key={index}
-               title={system.displayName}>
-            <CookiesProvider>
-              <DropboxBrowser history={this.props.history}
+    return (
+        <Tab eventKey={index}
+             key={index}
+             title={system.displayName}>
+          <CookiesProvider>
+            {system.type === 'agave' ? (
+                <AgaveBrowser history={this.props.history}
                               prefix={'/files/' + system.name}
                               system={system.name}
                               systemDisplayName={system.displayName} />
-            </CookiesProvider>
-          </Tab>
-      );
-    }
-
+            ) : (
+                <DropboxBrowser history={this.props.history}
+                                prefix={'/files/' + system.name}
+                                system={system.name}
+                                systemDisplayName={system.displayName} />
+            )}
+          </CookiesProvider>
+        </Tab>
+    );
   }
 
   render(){
