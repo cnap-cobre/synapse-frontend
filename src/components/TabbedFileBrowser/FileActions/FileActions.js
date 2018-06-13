@@ -10,7 +10,15 @@ export default class FileActions extends Component {
     id: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ]).isRequired
+    ]).isRequired,
+    fileActionsService: PropTypes.shape({
+      share: PropTypes.func.isRequired,
+      wget: PropTypes.func.isRequired,
+      rename: PropTypes.func.isRequired,
+      mv: PropTypes.func.isRequired,
+      cp: PropTypes.func.isRequired,
+      rm: PropTypes.func.isRequired
+    }).isRequired
   };
 
   static noOpAndStopClickPropagation(e) {

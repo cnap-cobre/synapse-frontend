@@ -10,7 +10,8 @@ export default class FileList extends Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
     onSelectFile: PropTypes.func,
-    showDotfiles: PropTypes.bool
+    showDotfiles: PropTypes.bool,
+    fileActionsService: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -33,7 +34,10 @@ export default class FileList extends Component {
             <td>{ humanFileSize(item.length) }</td>
             <td>{ moment(item.lastModified).format('l LT') }</td>
             <td>
-              <FileActions file={item} id={i} />
+              <FileActions file={item}
+                           id={i}
+                           fileActionsService={this.props.fileActionsService}
+              />
             </td>
           </tr>
 

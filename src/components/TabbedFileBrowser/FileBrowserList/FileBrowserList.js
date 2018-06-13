@@ -11,7 +11,8 @@ export default class FileBrowserList extends Component {
     error: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
     list: PropTypes.array.isRequired,
-    handleFileClick: PropTypes.func.isRequired
+    handleFileClick: PropTypes.func.isRequired,
+    fileActionsService: PropTypes.object.isRequired
   };
 
   render(){
@@ -21,7 +22,9 @@ export default class FileBrowserList extends Component {
           <FieldFieldHeader/>
           <FileList list={this.props.list}
                     showDotfiles={this.props.showDotfiles}
-                    onSelectFile={this.props.handleFileClick}/>
+                    onSelectFile={this.props.handleFileClick}
+                    fileActionsService={this.props.fileActionsService}
+          />
         </table>
     );
   }

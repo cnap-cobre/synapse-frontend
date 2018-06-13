@@ -21,7 +21,8 @@ export default class FileBrowser extends Component {
       length: PropTypes.number.isRequired,
       location: PropTypes.object.isRequired,
       action: PropTypes.string.isRequired,
-    }).isRequired
+    }).isRequired,
+    fileActionsService: PropTypes.object.isRequired
   };
 
 
@@ -51,7 +52,9 @@ export default class FileBrowser extends Component {
                            error={this.props.error}
                            loading={this.props.loading}
                            showDotfiles={this.props.showDotfiles}
-                           handleFileClick={this.props.handleFileClick} />
+                           handleFileClick={this.props.handleFileClick}
+                           fileActionsService={this.props.fileActionsService}
+          />
 
 
           <Loader visible={this.props.loading}/>

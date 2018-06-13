@@ -3,8 +3,9 @@ import { withCookies, Cookies } from "react-cookie";
 import { fetchErrorThrower, fetchToJson, DropboxToAgaveFormat } from "../../../util/FetchUtils";
 import PropTypes, {instanceOf} from 'prop-types';
 
-
 import FileBrowser from "../FileBrowser/FileBrowser";
+import DropboxService from '../../../services/Dropbox';
+
 
 class DropboxBrowser extends Component {
   state = {
@@ -72,28 +73,11 @@ class DropboxBrowser extends Component {
     };
 
 
-    fetch(url, {
-      body: JSON.stringify(form),
-      cache: 'no-cache',
-      credentials: "same-origin",
-      headers: {
-        'content-type': 'application/json',
-        'X-CSRFToken': this.props.cookies.get('csrftoken')
-      },
-      method: 'POST',
-      mode: 'cors',
-      signal: this.abortController.signal
-    })
-    // Throw a proper error if we get a 500, etc. response code
-        .then(fetchErrorThrower)
-
-        // Convert to JSON
-        .then(fetchToJson)
-
-        // map Dropbox to Agave response format
-        .then((response) => {console.log(response); return response;})
-        .then(DropboxToAgaveFormat)
-
+    DropboxService.list(
+        filePath,
+        this.props.cookies.get('csrftoken'),
+        this.abortController.signal
+    )
         // Update UI with result file list
         .then(this.updateUIWithNewFiles.bind(this))
 
@@ -107,8 +91,7 @@ class DropboxBrowser extends Component {
             // still mounted.
             this.setState({error: true, loading: false, errorMessage: error.message});
           }
-        })
-    ;
+        });
   }
 
   updateUIWithNewFiles( list ) {
@@ -154,6 +137,7 @@ class DropboxBrowser extends Component {
                      showDotfiles={this.state.showDotfiles}
                      toggleDotfiles={this.toggleDotfiles.bind(this)}
                      handleFileClick={this.handleFileClick.bind(this)}
+                     fileActionsService={DropboxService}
         />
     );
   }

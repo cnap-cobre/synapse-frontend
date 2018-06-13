@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { fetchErrorThrower, fetchToJson } from "../../../util/FetchUtils";
 import PropTypes from 'prop-types';
+import AgaveService from '../../../services/Agave';
 
 
 import FileBrowser from "../FileBrowser/FileBrowser";
@@ -63,20 +64,8 @@ export default class AgaveBrowser extends Component {
     }
 
     const filePath = [this.props.system, ...this.getPath()].join('/');
-    const url = '/agave/files/v2/listings/system/' + filePath + '?limit=1000';
 
-    fetch(url, {
-      credentials: "same-origin",
-      signal: this.abortController.signal
-    })
-        // Throw a proper error if we get a 500, etc. response code
-        .then(fetchErrorThrower)
-
-        // Convert to JSON
-        .then(fetchToJson)
-
-        // extract result list
-        .then((response) => response.result)
+    AgaveService.list(filePath, this.abortController.signal)
 
         // Update UI with result file list
         .then(this.updateUIWithNewFiles.bind(this))
@@ -104,19 +93,15 @@ export default class AgaveBrowser extends Component {
 
   ClarifyPossibleDirectorySymlinks(list){
     const filePath = [this.props.system, ...this.getPath()].join('/');
-    const url = '/agave/files/v2/listings/system/' + filePath;
+
 
     return Promise.all(
         list.map((file) => {
           if (file.type === 'file' &&
               file.length < 1024 &&
-              'ALLEXECUTE'.indexOf(file.permissions) !== -1) {
-            return fetch(url + '/' + file.name, {
-              credentials: "same-origin",
-              signal: this.abortController.signal
-            }).then(fetchErrorThrower)
-                .then(fetchToJson)
-                .then((response) => response.result)
+              'ALLEXECUTE'.indexOf(file.permissions) !== -1)
+          {
+            return AgaveService.list(filePath, this.abortController.signal)
                 .then((result) => {
                   if(result.length !== 1 || result[0].name !== file.name) {
                     const updated = file;
@@ -190,6 +175,7 @@ export default class AgaveBrowser extends Component {
                      showDotfiles={this.state.showDotfiles}
                      toggleDotfiles={this.toggleDotfiles.bind(this)}
                      handleFileClick={this.handleFileClick.bind(this)}
+                     fileActionsService={AgaveService}
         />
     );
   }
