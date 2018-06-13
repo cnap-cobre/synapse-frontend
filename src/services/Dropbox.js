@@ -33,7 +33,7 @@ function list(filePath, csrftoken, signal){
 export default {
   list: list,
   share: () => {console.log('Share')},
-  wget: () => {console.log('wget')},
+  wget: () => () => {console.log('wget')},
   rename: () => {console.log('rename')},
   mv: () => {console.log('mv')},
   cp: () => {console.log('cp')},

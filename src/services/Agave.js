@@ -1,4 +1,5 @@
 import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
+import fileDownload from 'js-file-download';
 
 function list(filePath, signal){
   const url = '/agave/files/v2/listings/system/' + filePath + '?limit=1000';
@@ -17,10 +18,22 @@ function list(filePath, signal){
       .then((response) => response.result)
 }
 
+const wget = (file) => () => {
+  const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
+
+  let x = new XMLHttpRequest();
+  x.open("GET", url, true);
+  x.responseType = 'blob';
+  x.onload = (e) => {
+    fileDownload(x.response, file.name);
+  };
+  x.send();
+};
+
 export default {
   list: list,
   share: () => {console.log('Share')},
-  wget: () => {console.log('wget')},
+  wget: wget,
   rename: () => {console.log('rename')},
   mv: () => {console.log('mv')},
   cp: () => {console.log('cp')},

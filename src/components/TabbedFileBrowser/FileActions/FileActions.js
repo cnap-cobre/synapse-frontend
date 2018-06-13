@@ -18,6 +18,12 @@ export default class FileActions extends Component {
       mv: PropTypes.func.isRequired,
       cp: PropTypes.func.isRequired,
       rm: PropTypes.func.isRequired
+    }).isRequired,
+    file: PropTypes.shape({
+      format: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      path: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
     }).isRequired
   };
 
@@ -25,23 +31,29 @@ export default class FileActions extends Component {
     e.stopPropagation();
   }
 
-  stopClickPropagation(e) {
-    e.stopPropagation();
-    console.log('child click event');
-    console.log(e);
-    console.log(e.target);
-    console.log(this);
-  }
+  stopClickPropagation = (action) => (e) => {
+      e.stopPropagation();
+      action();
+  };
 
   render() {
-    const actions = ['Share', 'Download', 'Rename', 'Move', 'Copy', 'Delete'];
+    const actions = [
+      ['Share', this.props.fileActionsService.share],
+      ['Download', this.props.fileActionsService.wget(
+          this.props.file
+      )],
+      ['Rename', this.props.fileActionsService.rename],
+      ['Move', this.props.fileActionsService.mv],
+      ['Copy', this.props.fileActionsService.cp],
+      ['Delete', this.props.fileActionsService.rm]
+    ];
     const menuItems = actions.map((item, index) => {
       return (
           <MenuItem
               eventKey={index}
-              onClick={this.stopClickPropagation}
+              onClick={this.stopClickPropagation(item[1])}
               key={index}>
-            {item}
+            {item[0]}
           </MenuItem>
       );
     });
