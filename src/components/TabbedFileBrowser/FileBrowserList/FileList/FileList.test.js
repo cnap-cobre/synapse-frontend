@@ -7,7 +7,9 @@ it('renders without crashing', ()=>{
   const div = document.createElement('div');
   ReactDOM.render((
       <table>
-        <FileList/>
+        <FileList
+            fileActionsService={{}}
+        />
       </table>
   ), div);
   ReactDOM.unmountComponentAtNode(div);
