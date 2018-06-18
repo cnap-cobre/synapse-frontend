@@ -170,6 +170,7 @@ class AgaveBrowser extends Component {
                      toggleDotfiles={this.toggleDotfiles.bind(this)}
                      handleFileClick={this.handleFileClick.bind(this)}
                      fileActionsService={this.FileActionsService}
+                     updateUIWithNewFiles={this.updateUIWithNewFiles.bind(this)}
         />
     );
   }
