@@ -30,7 +30,7 @@ const wget = (file) => () => {
   x.send();
 };
 
-const rm = (csrftoken) => (file) => () => {
+const rm = (csrftoken, mutationCallback) => (file) => () => {
   const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
 
   return fetch(url, {
@@ -44,15 +44,15 @@ const rm = (csrftoken) => (file) => () => {
   }).then((response) => {
     console.log(response);
     return response;
-  });
+  }).then(mutationCallback);
 }
 
-export default (csrftoken) => ({
+export default (csrftoken, mutationCallback) => ({
   list: list,
   share: () => {console.log('Share')},
   wget: wget,
-  rename: () => {console.log('rename')},
+  rename: (csrftoken, mutationCallback) => {console.log('rename')},
   mv: () => {console.log('mv')},
   cp: () => {console.log('cp')},
-  rm: rm(csrftoken),
+  rm: rm(csrftoken, mutationCallback),
 });

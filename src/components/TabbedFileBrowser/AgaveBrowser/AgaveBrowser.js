@@ -18,7 +18,10 @@ class AgaveBrowser extends Component {
 
   static propTypes = FileBrowserPropTypes;
 
-  FileActionsService = AgaveService(this.props.cookies.get('csrftoken'));
+  FileActionsService = AgaveService(
+      this.props.cookies.get('csrftoken'),
+      this.FetchFiles.bind(this)
+  );
 
   componentDidMount() {
     /*

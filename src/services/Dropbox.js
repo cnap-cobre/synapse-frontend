@@ -30,16 +30,33 @@ const list = (csrftoken) => (filePath, signal) => {
       .then(DropboxToAgaveFormat)
 }
 
-const rm = (file) => () => {
-  console.log('rm');
+const rm = (csrftoken, mutationCallback) => (file) => () => {
+  const url = '/dropbox/api/2/files/delete_v2';
+  console.log('rm:   ' + file.path);
+  let form = {
+    'path': file.path
+  };
+
+  return fetch(url, {
+    body: JSON.stringify(form),
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'content-type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
+    method: 'POST',
+    mode: 'cors'
+  }).then(mutationCallback)
+
 }
 
-export default (csrftoken) => ({
-  list: list(csrftoken),
+export default (csrftoken, mutationCallback) => ({
+  list: list(csrftoken, mutationCallback),
   share: () => {console.log('Share')},
   wget: () => () => {console.log('wget')},
-  rename: () => {console.log('rename')},
-  mv: () => {console.log('mv')},
-  cp: () => {console.log('cp')},
-  rm: rm
+  rename: (csrftoken, mutationCallback) => {console.log('rename')},
+  mv: (csrftoken, mutationCallback) => {console.log('mv')},
+  cp: (csrftoken, mutationCallback) => {console.log('cp')},
+  rm: rm(csrftoken, mutationCallback)
 });

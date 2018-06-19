@@ -17,7 +17,10 @@ class DropboxBrowser extends Component {
 
   static propTypes = FileBrowserPropTypes;
 
-  FileActionsService = DropboxService(this.props.cookies.get('csrftoken'));
+  FileActionsService = DropboxService(
+      this.props.cookies.get('csrftoken'),
+      this.FetchFiles.bind(this)
+  );
 
   componentDidMount() {
     /*
