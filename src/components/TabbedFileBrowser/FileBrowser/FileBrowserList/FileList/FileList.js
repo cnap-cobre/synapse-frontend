@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import FileActions from "../../FileActions/FileActions";
-import { humanFileSize } from "../../../../util/FileSize.js";
-import { fileIconResolver } from "../../../../util/FileIconResolver";
+import FileActions from "../../../FileActions/FileActions";
+import { humanFileSize } from "../../../../../util/FileSize.js";
+import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import moment from 'moment';
 
 import PropTypes from 'prop-types';

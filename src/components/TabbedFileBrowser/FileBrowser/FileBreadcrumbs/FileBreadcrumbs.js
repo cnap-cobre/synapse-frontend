@@ -5,7 +5,7 @@ import { Breadcrumb } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import PropTypes from 'prop-types';
-import HistoryPropTypes from '../../../proptypes/HistoryPropTypes';
+import HistoryPropTypes from '../../../../proptypes/HistoryPropTypes';
 
 import './breadcrumbs.css';
 

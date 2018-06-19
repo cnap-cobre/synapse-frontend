@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { humanFileSize } from "Utils/FileSize.js";
 import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
-import DotfilesCheckbox from './DotfilesCheckBox.js'
-import BrowserRefresh from './BrowserRefresh.js'
+import DotfilesCheckbox from './DotfilesCheckBox/DotfilesCheckBox.js'
+import BrowserRefresh from './BrowserRefresh/BrowserRefresh.js'
 
 
 export default class FileBrowserControls extends Component {

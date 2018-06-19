@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../../Loader/Loader";
-import FileBreadcrumbs from "../FileBreadcrumbs/FileBreadcrumbs";
-import FileBrowserList from "../FileBrowserList/FileBrowserList";
+import FileBreadcrumbs from "./FileBreadcrumbs/FileBreadcrumbs";
+import FileBrowserList from "./FileBrowserList/FileBrowserList";
 
-import FileBrowserControls from "../AgaveBrowser/FileBrowserControls";
+import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 
 import PropTypes from "prop-types";
 import HistoryPropTypes from '../../../proptypes/HistoryPropTypes';
