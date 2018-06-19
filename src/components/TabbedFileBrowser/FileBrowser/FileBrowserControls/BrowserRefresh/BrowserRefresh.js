@@ -3,6 +3,7 @@ import { humanFileSize } from "Utils/FileSize.js";
 import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 import { FaRefresh } from 'react-icons/lib/fa/';
+import { Button } from 'react-bootstrap';
 
 
 export default class BrowserRefresh extends Component {
@@ -13,15 +14,19 @@ export default class BrowserRefresh extends Component {
 
 	render(){
 		return (
-			<div style={{marginTop:'10px', marginBottom:'12px'}} className="refresh">
-    			<button id="RefreshButton" 
-    					type="button"
-    					onClick={this.props.handleRefresh}
-    					style={{paddingLeft:'15px'}}>
-    				<FaRefresh name="refresh" />
-						Refresh
-    			</button>
-			</div>
+
+    			<Button id="RefreshButton"
+									bsSize="xsmall"
+    					    onClick={this.props.handleRefresh}
+									style={{
+										height: "2.7em",
+										marginLeft: "1.2em",
+										marginTop: "0.5em"
+									}}
+					>
+						<FaRefresh/>&nbsp;Refresh
+    			</Button>
+
 		)
 	}
 }
