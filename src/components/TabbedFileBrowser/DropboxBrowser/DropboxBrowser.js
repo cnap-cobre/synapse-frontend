@@ -127,6 +127,7 @@ class DropboxBrowser extends Component {
                      showDotfiles={this.state.showDotfiles}
                      toggleDotfiles={this.toggleDotfiles.bind(this)}
                      handleFileClick={this.handleFileClick.bind(this)}
+                     handleRefresh={this.FetchFiles.bind(this)}
                      fileActionsService={this.FileActionsService}
         />
     );

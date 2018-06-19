@@ -9,7 +9,7 @@ import BrowserRefresh from './BrowserRefresh.js'
 export default class FileBrowserControls extends Component {
 
 	static propTypes = {
-		updateUIWithNewFiles:PropTypes.func.isRequired,
+		handleRefresh:PropTypes.func.isRequired,
 		showDotfiles: PropTypes.bool.isRequired,
 		toggleDotfiles: PropTypes.func.isRequired
 	};
@@ -28,7 +28,7 @@ export default class FileBrowserControls extends Component {
 	        	<DotfilesCheckbox toggleDotfiles={this.props.toggleDotfiles}
 	        					  showDotfiles={this.props.showDotfiles} />
 
-	        	<BrowserRefresh updateUIWithNewFiles={this.props.updateUIWithNewFiles} />
+	        	<BrowserRefresh handleRefresh={this.props.handleRefresh} />
 
 	        </div>
 		)

@@ -22,6 +22,7 @@ export default class FileBrowser extends Component {
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired,
     handleFileClick: PropTypes.func.isRequired,
+    handleRefresh: PropTypes.func.isRequired,
     history: HistoryPropTypes,
     fileActionsService: FileActionsServicePropTypes
   };
@@ -37,7 +38,9 @@ export default class FileBrowser extends Component {
           />
 
           <FileBrowserControls toggleDotfiles={this.props.toggleDotfiles}
-                               showDotfiles={this.props.showDotfiles} />
+                               showDotfiles={this.props.showDotfiles}
+                               handleRefresh={this.props.handleRefresh}
+          />
 
           <FileBrowserList list={this.props.list}
                            error={this.props.error}
