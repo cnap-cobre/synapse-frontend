@@ -7,7 +7,7 @@ export function statusCodeToErrorMessage(error) {
   } else if (code === 401) {
     return "401 - Unauthorized.  You may need to sign in, or you may need to connect your Synapse account with a 3rd party account to access this service.";
   } else if (code === 403) {
-    return "403 - Forbidden.  You may not have permission to access this resource.";
+    return "403 - Forbidden.  You do not have permission to access this resource.  You may need to sign in or connect a 3rd party account to your Synapse account.";
   } else if (code === 404) {
     return "404 - Not Found.  The requested resource cannot be found.";
   } else if (code === 500) {

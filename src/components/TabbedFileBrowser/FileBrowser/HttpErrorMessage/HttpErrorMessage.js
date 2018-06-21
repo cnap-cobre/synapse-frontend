@@ -15,7 +15,7 @@ export default class HttpErrorMessage extends Component {
     }
 
     const message = statusCodeToErrorMessage(this.props.errorObject);
-    
+
     return (
         <div
             className="alert alert-warning"
