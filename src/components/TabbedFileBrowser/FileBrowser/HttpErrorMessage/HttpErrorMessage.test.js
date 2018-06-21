@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ErrorMessage from './ErrorMessage';
+import HttpErrorMessage from './HttpErrorMessage';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
   ReactDOM.render((
-      <ErrorMessage visible={true} message="You done messed up A-A-RON!"/>
+      <HttpErrorMessage visible={true} errorObject={{
+        message: "You done messed up A-A-RON!",
+        status: 403
+      }} />
   ), div);
   ReactDOM.unmountComponentAtNode(div);
 });

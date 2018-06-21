@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import HttpErrorMessage from "./HttpErrorMessage/HttpErrorMessage";
 import Loader from "../../Loader/Loader";
 import FileBreadcrumbs from "./FileBreadcrumbs/FileBreadcrumbs";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
@@ -17,7 +17,7 @@ export default class FileBrowser extends Component {
     systemDisplayName: PropTypes.string.isRequired,
     list: PropTypes.array.isRequired,
     error: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
+    errorObject: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired,
@@ -52,7 +52,8 @@ export default class FileBrowser extends Component {
 
 
           <Loader visible={this.props.loading}/>
-          <ErrorMessage visible={this.props.error} message={this.props.errorMessage}/>
+          <HttpErrorMessage visible={this.props.error}
+                            errorObject={this.props.errorObject} />
         </div>
     );
   }

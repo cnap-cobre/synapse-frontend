@@ -11,7 +11,7 @@ class DropboxBrowser extends Component {
     list: [],
     loading: true,
     error: false,
-    errorMessage: "",
+    errorObject: {},
     showDotfiles: false
   };
 
@@ -56,7 +56,12 @@ class DropboxBrowser extends Component {
   FetchFiles() {
     // Reinitialize state as loading without errors
     if (!this._unmounted) {
-      this.setState({list: [], loading: true, error: false, errorMessage: ""});
+      this.setState({
+        list: [],
+        loading: true,
+        error: false,
+        errorObject: {}
+      });
     }
 
     const filePath = ['', ...this.getPath()].join('/');
@@ -82,7 +87,11 @@ class DropboxBrowser extends Component {
           } else if (!this._unmounted) {
             // Update UI with any other error message if the component is
             // still mounted.
-            this.setState({error: true, loading: false, errorMessage: error.message});
+            this.setState({
+              error: true,
+              loading: false,
+              errorObject: error
+            });
           }
         });
   }
@@ -125,7 +134,7 @@ class DropboxBrowser extends Component {
                      history={this.props.history}
                      list={this.state.list}
                      error={this.state.error}
-                     errorMessage={this.state.errorMessage}
+                     errorObject={this.state.errorObject}
                      loading={this.state.loading}
                      showDotfiles={this.state.showDotfiles}
                      toggleDotfiles={this.toggleDotfiles.bind(this)}

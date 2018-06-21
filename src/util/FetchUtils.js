@@ -2,7 +2,7 @@ export const fetchToJson = (response) => response.json();
 
 export function fetchErrorThrower(response) {
   if(!response.ok) {
-    throw Error(response.statusText);
+    throw response;
   }
   return response;
 }
