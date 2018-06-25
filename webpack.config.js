@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     app: [
       './polyfills.js',
-      './src/app.js'
+      './src/index.js'
     ],
   },
   module: {
