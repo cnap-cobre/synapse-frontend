@@ -14,13 +14,8 @@ import './fileTabs.css'
 const fileSystems = [
   {
     type: 'agave',
-    name: 'beocat',
+    name: 'ksu.beocat',
     displayName: 'Beocat'
-  },
-  {
-    type: 'agave',
-    name: 'viper',
-    displayName: 'Viper'
   },
   {
     type: 'dropbox',

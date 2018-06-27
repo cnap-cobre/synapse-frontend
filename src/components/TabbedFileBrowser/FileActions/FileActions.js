@@ -7,6 +7,8 @@ import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
 
 import './fileActionMenu.css';
 
+import DeleteFileModal from './DeleteFileModal';
+
 export default class FileActions extends Component {
   static propTypes = {
     id: PropTypes.oneOfType([
@@ -26,6 +28,12 @@ export default class FileActions extends Component {
       action();
   };
 
+  showDeleteModal = () => {
+    return (<DeleteFileModal fileToBeDeleted={this.props.file}
+                            deleteFile={this.props.fileActionsService.rm(this.props.file)} />);
+    
+  };
+
   render() {
     const actions = [
       ['Share', this.props.fileActionsService.share],
@@ -35,9 +43,10 @@ export default class FileActions extends Component {
       ['Rename', this.props.fileActionsService.rename],
       ['Move', this.props.fileActionsService.mv],
       ['Copy', this.props.fileActionsService.cp],
-      ['Delete', this.props.fileActionsService.rm(
+      ['Delete', this.showDeleteModal]
+      /*['Delete', this.props.fileActionsService.rm(
           this.props.file
-      )]
+      )]*/
     ];
     const menuItems = actions.map((item, index) => {
       return (
