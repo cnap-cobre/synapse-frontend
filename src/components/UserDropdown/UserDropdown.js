@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Collapse} from 'react-bootstrap';
 import NavigationLink from '../../components/Navigation/NavigationLink/NavigationLink';
-import UserPhoto from './UserPhoto/UserPhoto';
 
 export default class UserDropdown extends Component {
   constructor(props) {
@@ -16,14 +15,14 @@ export default class UserDropdown extends Component {
         <div className="user">
           <div className="info">
             <div className="photo">
-              <UserPhoto></UserPhoto>
+              <img src={this.props.userProfile.gravatar.url} />
             </div>
 
             <a data-toggle="collapse"
                onClick={() => {this.setState({open: !this.state.open})}}>
-	                        <span>
-								Your Name
-		                        <b className="caret"></b>
+              <span>
+                {this.props.userProfile.user.full_name}
+		            <b className="caret"></b>
 							</span>
             </a>
             <div className="clearfix"></div>
