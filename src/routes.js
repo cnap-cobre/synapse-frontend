@@ -5,6 +5,7 @@ import Files from 'Views/Files/Files';
 import Shell from 'Views/Shell/Shell';
 import CodeEditor from 'Views/CodeEditor/CodeEditor';
 import ComputeJobs from "Views/ComputeJobs/ComputeJobs";
+import PageNotFound from 'Views/PageNotFound/PageNotFound';
 
 const routes = [
   { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
@@ -14,6 +15,7 @@ const routes = [
   { path: '/shell/', exact: true, name: 'Shell', component: Shell },
   { path: '/editor/', exact: true, name: 'Code Editor', component: CodeEditor },
   { path: '/compute/', exact: true, name: 'Code Editor', component: ComputeJobs },
+  { path: '*', exact: true, name: 'Not Found', component: PageNotFound },
 ];
 
 export default routes;

@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 
+import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
+
 import LogoutButton from '../../../components/LogoutButton/LogoutButton';
 
 class Logout extends Component {
   render() {
     return (
+        <DefaultLayout>
         <div className="content">
           <div className="container-fluid">
             <div className="card">
@@ -26,6 +29,7 @@ class Logout extends Component {
             </div>
           </div>
         </div>
+        </DefaultLayout>
     );
   }
 }

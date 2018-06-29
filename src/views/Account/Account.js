@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import DefaultLayout from '../../physical_layout/DefaultLayout/DefaultLayout';
 
 export default class Account extends Component {
   render() {
     return (
-        <div>
-          Hello World
-        </div>
+        <DefaultLayout>
+          <div>
+            Hello World
+          </div>
+        </DefaultLayout>
     );
   }
 }

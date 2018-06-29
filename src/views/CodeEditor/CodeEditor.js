@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Editor from 'Components/Editor/Editor';
 
 import './CodeEditor.css'
+import DefaultLayout from "../../physical_layout/DefaultLayout/DefaultLayout";
 
 export default class CodeEditor extends Component {
   render() {
     return (
+        <DefaultLayout>
         <Editor
           fontSize={20}
           width="100%"
@@ -29,6 +31,7 @@ export default class CodeEditor extends Component {
           '                 \'username\', \'email\', \'date_joined\',\n' +
           '                 \'profile\')\n'}
         />
+        </DefaultLayout>
     );
   }
 }
