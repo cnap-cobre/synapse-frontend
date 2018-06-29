@@ -1,6 +1,6 @@
 {
   "name": "synapse-frontend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Synapse is an open science gateway for reasearch in the Psychological Sciences",
   "repository": "https://github.com/cnap-cobre/synapse",
   "main": "index.js",
