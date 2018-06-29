@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Route, Link} from "react-router-dom";
 import {Collapse} from 'react-bootstrap';
 import NavigationLink from '../../components/Navigation/NavigationLink/NavigationLink';
-import face from '../../face-2.jpg';
+import UserPhoto from './UserPhoto/UserPhoto';
 
 export default class UserDropdown extends Component {
   constructor(props) {
@@ -17,7 +16,7 @@ export default class UserDropdown extends Component {
         <div className="user">
           <div className="info">
             <div className="photo">
-              <img src={face} />
+              <UserPhoto></UserPhoto>
             </div>
 
             <a data-toggle="collapse"
