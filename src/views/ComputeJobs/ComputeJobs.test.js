@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ComputeJobs from './ComputeJobs';
+import MockRouter from 'react-mock-router';
+import {MockGlobalContextWrapper} from "../../contexts/MockGlobalContextWrapper";
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
-  ReactDOM.render(<ComputeJobs/>, div);
+  ReactDOM.render(
+      <MockGlobalContextWrapper>
+        <MockRouter>
+          <ComputeJobs/>
+        </MockRouter>
+      </MockGlobalContextWrapper>, div);
   ReactDOM.unmountComponentAtNode(div);
 });

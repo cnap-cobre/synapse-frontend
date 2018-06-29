@@ -4,12 +4,12 @@ import DefaultLayout from "./physical_layout/DefaultLayout/DefaultLayout";
 
 import routes from './routes';
 
-import { UserProfileProvider } from './contexts/UserProfileContext';
+import { GlobalContextWrapper } from './contexts/GlobalContextWrapper';
 
 export default class App extends Component {
   render() {
     return (
-        <UserProfileProvider>
+        <GlobalContextWrapper>
           <BrowserRouter>
             <Switch>
               {routes.map((route, idx) => {
@@ -28,7 +28,7 @@ export default class App extends Component {
               <Route path="/" name="Home" component={DefaultLayout} />
             </Switch>
           </BrowserRouter>
-        </UserProfileProvider>
+        </GlobalContextWrapper>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
-const UserProfileDefaults = {
+export const UserProfileDefaults = {
   id: 0,
   institution: '',
   gravatar: {
@@ -17,12 +17,12 @@ const UserProfileDefaults = {
     id: 0,
     first_name: '',
     last_name: '',
+    full_name: '',
     username: '',
     email: '',
     groups: [],
   }
 };
-
 
 export const UserProfileContext = React.createContext({
   // Default values - Used if component is outside of a provider
@@ -31,9 +31,12 @@ export const UserProfileContext = React.createContext({
 });
 
 export class UserProfileProvider extends Component {
-  state = {
-    profile: UserProfileDefaults
-  };
+  constructor(){
+    super();
+    this.state = {
+      profile: UserProfileDefaults
+    }
+  }
 
   componentWillMount() {
     this.fetchUserProfile();
