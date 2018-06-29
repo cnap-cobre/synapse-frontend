@@ -1,18 +1,23 @@
 {
   "name": "synapse-frontend",
   "version": "0.2.7",
-  "description": "",
+  "description": "Synapse is an open science gateway for reasearch in the Psychological Sciences",
+  "repository": "https://github.com/cnap-cobre/synapse",
   "main": "index.js",
   "dependencies": {
     "agaveapi-js": "^1.0.0",
     "dropbox": "^4.0.3",
     "js-file-download": "^0.4.1",
+    "react": "^16.3.2",
     "react-ace": "^6.1.1",
+    "react-bootstrap": "^0.32.1",
     "react-cookie": "^2.1.6",
+    "react-dom": "^16.3.2",
     "react-icons": "^2.2.7",
     "react-mock-router": "^1.0.15",
-    "react-spinners": "^0.3.2",
-    "unstated": "^2.1.1"
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-spinners": "^0.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -31,11 +36,6 @@
     "jest-fetch-mock": "^1.5.0",
     "mini-css-extract-plugin": "^0.4.0",
     "prop-types": "^15.6.1",
-    "react": "^16.3.2",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.3.2",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.3.2",
     "recursive-readdir": "^2.2.2",
     "svg-react-loader": "^0.4.5",
