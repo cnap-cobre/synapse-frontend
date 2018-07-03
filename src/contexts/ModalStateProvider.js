@@ -8,12 +8,22 @@ export class ModalStateProvider extends React.Component {
 		modalsDisplayed: [],
 	};
 
-	pushModalToDisplayContainer() {
+	PushModalToDisplayContainer(modal) {
 			//create temporary shallow copy array, push new element on, and update state
 			//to treat state variables as immutable
-			const tempArray = this.state.ModalsDisplayed.slice();
+      console.log('the fucking modal', modal);
+		  console.log('before', this.state.modalsDisplayed);
+
+
+			const tempArray = this.state.modalsDisplayed.slice();
+
 			tempArray.push(modal);
-			this.setState({ModalsDisplayed:tempArray});
+
+			this.setState({
+        modalsDisplayed: tempArray
+      }, () => {
+			  console.log('after', this.state.modalsDisplayed)
+      });
 	}
 
 	render(){

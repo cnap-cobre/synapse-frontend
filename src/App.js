@@ -6,6 +6,9 @@ import routes from './routes';
 
 import { GlobalContextWrapper } from './contexts/GlobalContextWrapper';
 
+import { ModalContext } from "./contexts/ModalStateProvider";
+import EmptyWrapperForDrawingModals from './components/Modal/EmptyWrapperForDrawingModals';
+
 export default class App extends Component {
   render() {
     return (
@@ -28,6 +31,12 @@ export default class App extends Component {
               <Route path="/" name="Home" component={DefaultLayout} />
             </Switch>
           </BrowserRouter>
+
+          <ModalContext.Consumer>
+            {context => (
+                <EmptyWrapperForDrawingModals modalContext={context} />
+            )}
+          </ModalContext.Consumer>
         </GlobalContextWrapper>
     );
   }

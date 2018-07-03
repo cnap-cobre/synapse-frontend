@@ -1,22 +1,26 @@
 import React from 'react';
-import { ModalContext } from '../../contexts/ModalStateProvider'
 
 export default class EmptyWrapperForDrawingModals extends React.Component {
+	componentDidMount() {
+		console.log('Mounted');
+	}
 
 	render(){
+    console.log('pizza', this.props.modalContext);
 		return(
-			<ModalContext.Consumer>
-				{(context) => (
-					<div>
-						{context.state.modalsDisplayed.map((modal) => (
-							React.createElement(
-								DeleteFileModal,
-								[props = modal.props]
-								)
-						))}
-					</div>
-				)}
-			</ModalContext.Consumer>
-		)
+        <div>
+					<b>{this.props.modalContext.state.modalsDisplayed.map(
+							(modal) => <span>{modal.props.fileToBeDeleted.name}</span>
+					)}</b>
+
+
+          {this.props.modalContext.state.modalsDisplayed.map((modal) => (
+              React.cloneElement(
+                  modal.type,
+                  [...modal.props]
+              )
+          ))}
+        </div>
+		);
 	}
 }

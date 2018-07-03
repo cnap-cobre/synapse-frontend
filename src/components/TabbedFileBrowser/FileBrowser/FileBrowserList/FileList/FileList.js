@@ -3,6 +3,7 @@ import FileActions from "../../../FileActions/FileActions";
 import { humanFileSize } from "../../../../../util/FileSize.js";
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import moment from 'moment';
+import { ModalContext } from '../../../../../contexts/ModalStateProvider';
 
 import PropTypes from 'prop-types';
 
@@ -34,10 +35,15 @@ export default class FileList extends Component {
             <td>{ humanFileSize(item.length) }</td>
             <td>{ moment(item.lastModified).format('l LT') }</td>
             <td>
-              <FileActions file={item}
-                           id={i}
-                           fileActionsService={this.props.fileActionsService}
-              />
+              <ModalContext.Consumer>
+                {(context) => (
+                  <FileActions file={item}
+                               id={i}
+                               fileActionsService={this.props.fileActionsService}
+                               modalContext={context}
+                  />
+                )}
+              </ModalContext.Consumer>
             </td>
           </tr>
 
