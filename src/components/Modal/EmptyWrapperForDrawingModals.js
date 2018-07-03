@@ -9,16 +9,11 @@ export default class EmptyWrapperForDrawingModals extends React.Component {
     console.log('pizza', this.props.modalContext);
 		return(
         <div>
-					<b>{this.props.modalContext.state.modalsDisplayed.map(
-							(modal) => <span>{modal.props.fileToBeDeleted.name}</span>
-					)}</b>
-
-
-          {this.props.modalContext.state.modalsDisplayed.map((modal) => (
-              React.cloneElement(
-                  modal.type,
-                  [...modal.props]
-              )
+          {this.props.modalContext.modalsDisplayed.map((modal, i) => (
+          		React.cloneElement(
+          				modal,
+									{...modal.props, key: i}
+							)
           ))}
         </div>
 		);

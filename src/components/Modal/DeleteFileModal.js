@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import FileItemPropTypes from '../../proptypes/FileItemPropTypes';
-import { Modal } from 'react-bootstrap';
 
-export default class DeleteFileModal extends React.Component {
+import { Modal, Button } from 'react-bootstrap';
+
+export class DeleteFileModal extends Component {
   
   static propTypes = {
     fileToBeDeleted: FileItemPropTypes,
     deleteFile: PropTypes.func.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -24,33 +25,26 @@ export default class DeleteFileModal extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  render() {
-     console.log('render in DeleteFileModal is being called.');
+  render = () => (
+      <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
 
-    return (
-     
-      <div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
+        <Modal.Body>
+          <p>
+            Are you sure you want to delete {this.props.fileToBeDeleted.name}?
+          </p>
+        </Modal.Body>
 
-          <Modal.Body>
-            <p>
-              Are you sure you want to delete {fileToBeDeleted}?
-            </p>
-          </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.toggleShow}>Cancel</Button>
+          <Button bsStyle="danger"
+                  onClick={() => {this.props.deleteFile(); this.toggleShow();}}>
+            Delete
+          </Button>
+        </Modal.Footer>
 
-          <Modal.Footer>
-            <Button onClick={this.toggleShow}>Cancel</Button>
-            <Button bsStyle="danger" 
-                    onClick={() => {this.props.DeleteFile; this.toggleShow;}}>
-              Delete
-            </Button>
-          </Modal.Footer>
-
-        </Modal>
-      </div>
-    );
-  }
+      </Modal>
+  )
 }
