@@ -4,6 +4,8 @@ import DefaultSidebar from './DefaultSidebar/DefaultSidebar';
 import DefaultNavbar from './DefaultNavbar/DefaultNavbar';
 import DefaultFooter from './DefaultFooter/DefaultFooter';
 
+import EmptyWrapperForDrawingModals from '../../components/Modal/EmptyWrapperForDrawingModals';
+
 export default class DefaultLayout extends Component {
   render() {
     return (
@@ -14,6 +16,8 @@ export default class DefaultLayout extends Component {
           <DefaultNavbar/>
 
           {this.props.children}
+
+          <EmptyWrapperForDrawingModals />
 
           <DefaultFooter/>
         </div>

@@ -8,6 +8,7 @@ import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
 import './fileActionMenu.css';
 
 import DeleteFileModal from './DeleteFileModal';
+import ModalContext from '../../../contexts/ModalStateProvider';
 
 export default class FileActions extends Component {
   static propTypes = {
@@ -29,8 +30,16 @@ export default class FileActions extends Component {
   };
 
   showDeleteModal = () => {
-    return (<DeleteFileModal fileToBeDeleted={this.props.file}
-                            deleteFile={this.props.fileActionsService.rm(this.props.file)} />);
+    return (
+      <ModalContext.Consumer>
+        {(context) => {
+          this.state.PushModalToDisplayContainer(
+            <DeleteFileModal fileToBeDeleted={this.props.file}
+                             deleteFile={this.props.fileActionsService.rm(this.props.file)} />
+          )
+        }}
+      </ModalContext.Consumer>
+    );
     
   };
 

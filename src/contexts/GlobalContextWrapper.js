@@ -1,9 +1,12 @@
 import React from 'react';
 
 import {UserProfileProvider} from "./UserProfileContext";
+import {ModalStateProvider} from './ModalStateProvider';
 
 export const GlobalContextWrapper = (props) => (
   <UserProfileProvider>
-    {props.children}
+  	<ModalStateProvider>
+    	{props.children}
+    </ModalStateProvider>
   </UserProfileProvider>
 );
