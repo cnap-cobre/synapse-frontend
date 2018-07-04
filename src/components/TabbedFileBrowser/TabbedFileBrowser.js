@@ -11,19 +11,6 @@ import HistoryPropTypes from '../../proptypes/HistoryPropTypes';
 
 import './fileTabs.css'
 
-const fileSystems = [
-  {
-    type: 'agave',
-    name: 'ksu.beocat',
-    displayName: 'Beocat'
-  },
-  {
-    type: 'dropbox',
-    name: 'dropbox',
-    displayName: 'Dropbox'
-  }
-];
-
 const addFileSystem = (
     <span style={{
       color: '#5dc56c'
@@ -43,12 +30,34 @@ export default class TabbedFileBrowser extends Component {
     history: HistoryPropTypes
   };
 
-  componentWillMount() {
-    const path = this.props.history.location.pathname;
-    const matches = [...fileSystems, {name:'new_file_system'}].map((fs)=>(path.indexOf(fs.name) !== -1))
-    if (matches.indexOf(true) === -1){
-      this.props.history.replace(fileSystems[0].name + '/');
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      fileSystems: []
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const path = props.history.location.pathname;
+
+    const fileSystems = [
+      ...props.agaveSystems.map((sys) => {
+        sys.type = 'agave';
+        sys.displayName = sys.name;
+        sys.name = sys.id;
+        return sys;
+      })
+    ];
+
+
+    setTimeout(function(){
+      const matches = [...fileSystems, {name:'new_file_system'}].map((fs)=>(path.indexOf(fs.name) !== -1))
+      if (matches.indexOf(true) === -1) {
+        props.history.replace(fileSystems[0].name + '/');
+      }
+    }, 1500);
+
+    return {fileSystems: fileSystems};
   }
 
   browserMapper(system, index) {
@@ -74,10 +83,14 @@ export default class TabbedFileBrowser extends Component {
   }
 
   render(){
+    console.log('look at that', this.props.agaveSystems);
+
+    const fileSystems = this.state.fileSystems;
+
     const urlActive = fileSystems.map(
         (fs)=>(this.props.history.location.pathname.indexOf(fs.name) !== -1)
     ).indexOf(true);
-    //console.log(urlActive);
+    console.log(urlActive);
     return (
         <Tabs activeKey={(urlActive !== -1 ? urlActive : fileSystems.length)}
               id="FileBrowserTabs"

@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import TabbedFileBrowser from "Components/TabbedFileBrowser/TabbedFileBrowser";
-import DefaultLayout from "../../physical_layout/DefaultLayout/DefaultLayout";
+import CardLayout from '../../physical_layout/CardLayout/CardLayout';
+import { UserProfileContext } from '../../contexts/UserProfileContext';
 
 export default class Files extends Component {
   render() {
     return (
-        <DefaultLayout>
+        <CardLayout>
         <Route render={({history}) => (
-            <div className="content">
-              <div className="container-fluid">
-                <div className="card">
-                  <div className="card-content">
-                    <TabbedFileBrowser history={history}/>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <UserProfileContext.Consumer>
+              {(userProfileContext) => (
+                  <TabbedFileBrowser history={history}
+                                     agaveSystems={userProfileContext.agaveSystems.filter((sys) => (
+                                         !sys.public
+                                     ))}
+                  />
+              )}
+            </UserProfileContext.Consumer>
         )} />
-        </DefaultLayout>
+        </CardLayout>
     );
   }
 }

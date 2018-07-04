@@ -38,6 +38,7 @@ class AgaveBrowser extends Component {
       if (history.location.pathname.indexOf(this.props.system) !== -1){
         this.FetchFiles();
       }
+      console.log('history changed');
     });
 
     this.abortController = new AbortController();

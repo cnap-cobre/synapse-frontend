@@ -27,19 +27,24 @@ export const UserProfileDefaults = {
 export const UserProfileContext = React.createContext({
   // Default values - Used if component is outside of a provider
   // Otherwise, this is generally replaced right away.
-  ...UserProfileDefaults
+  profile: {
+    ...UserProfileDefaults
+  },
+  agaveSystems: []
 });
 
 export class UserProfileProvider extends Component {
   constructor(){
     super();
     this.state = {
-      profile: UserProfileDefaults
+      profile: UserProfileDefaults,
+      agaveSystems: []
     }
   }
 
   componentWillMount() {
     this.fetchUserProfile();
+    this.fetchAgaveSystems();
   }
 
   fetchUserProfile() {
@@ -59,9 +64,27 @@ export class UserProfileProvider extends Component {
         })
   }
 
+  fetchAgaveSystems() {
+    const url = '/agave/systems/v2/'
+    fetch(url, {
+      credentials: "same-origin",
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).then(fetchErrorThrower)
+        .then(fetchToJson)
+        .then((agave) => {
+          this.setState({
+            agaveSystems: agave.result
+          });
+          console.log(agave);
+        })
+  }
+
   render() {
     return (
-        <UserProfileContext.Provider value={{profile: this.state.profile}}>
+        <UserProfileContext.Provider value={this.state}>
           {this.props.children}
         </UserProfileContext.Provider>
     );
