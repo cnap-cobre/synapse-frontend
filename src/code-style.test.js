@@ -37,3 +37,16 @@ test("all class-based components define proptypes", () => {
     return Promise.all(promises);
   });
 });
+
+
+test("indentation should be done with spaces, not tabs", () => {
+  return recursive("/usr/src/app/src", ["!*.js"]).then(function(files){
+    return files.map((file) => {
+      return readFilePromise(file, 'utf8').then((contents) => {
+        expect(contents).not.toMatch(/\t/g);
+      });
+    });
+  }).then((promises) => {
+    return Promise.all(promises);
+  });
+});
