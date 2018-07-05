@@ -1,37 +1,27 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import App from './App';
+import { render } from "react-dom";
+import { Provider } from 'react-redux';
+import { createBrowserHistory, startListener, Router } from 'redux-json-router';
+import configureStore from './store';
+import routes from './routes.json';
 
-import { combineReducers, applyMiddleware, createStore } from 'redux';
-import { createBrowserHistory } from 'history';
-import { routerReducer } from "./routing/reducer";
-import { routerMiddleware } from "./routing/middleware";
-import { startListener } from "./routing/listener";
-import { push } from "./routing/actions";
+import App from './App';
 
 // Create the history object
 const history = createBrowserHistory();
 
-// Build the root reducer
-const rootReducer = combineReducers({
-  // ...otherReducers
-  router: routerReducer,
-});
-
-// Build the middleware
-const middleware = routerMiddleware(history);
-
 // Create the store
-const store = createStore(rootReducer, {}, applyMiddleware(middleware));
+const store = configureStore(history);
 
 // Start the history listener
 startListener(history, store);
 
-
 // Render the application
 const rootElement = document.getElementById("root");
-const render = () => ReactDOM.render((
-  <App />
+render((
+    <App>
+      <Provider store={store}>
+        <Router routes={routes} />
+      </Provider>
+    </App>
 ), rootElement);
-
-render();

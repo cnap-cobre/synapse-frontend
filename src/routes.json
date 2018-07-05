@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/",
+    "name": "Dashboard",
+    "page": "./pages/Dashboard/Dashboard"
+  },
+  {
+    "path": "/account",
+    "name": "Account",
+    "page": "./pages/Account/Account",
+    "children": [
+      {
+        "path": "/logout",
+        "name": "Logout",
+        "page": "./pages/Account/Logout/Logout"
+      }
+    ]
+  },
+  {
+    "path": "/files",
+    "name": "Files",
+    "page": "./pages/Files/Files"
+  },
+  {
+    "path": "/shell",
+    "name": "Shell",
+    "page": "./pages/Shell/Shell"
+  },
+  {
+    "path": "/editor",
+    "name": "Code Editor",
+    "page": "./pages/CodeEditor/CodeEditor"
+  },
+  {
+    "path": "/compute",
+    "name": "Code Editor",
+    "page": "./pages/ComputeJobs/ComputeJobs"
+  },
+  {
+    "path": "*",
+    "name": "Not Found",
+    "page": "./pages/PageNotFound/PageNotFound"
+  }
+]

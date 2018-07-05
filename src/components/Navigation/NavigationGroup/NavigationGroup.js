@@ -1,7 +1,5 @@
 import React, {Component} from "react";
-import {Route, Link} from "react-router-dom";
 import {Collapse} from 'react-bootstrap';
-
 import PropTypes from 'prop-types';
 
 /*
@@ -26,28 +24,31 @@ export default class NavigationGroup extends Component {
   };
 
   render() {
+    const match = false;
     return (
-      <Route
-          path={this.props.to}
-          exact={this.props.activeOnlyWhenExact}
-          children={({ match }) => (
-              <li className={match ? "active" : ""}>
-                <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
-                  <i className={this.props.icon}/>
-                  <p>{this.props.label}
-                    <b className="caret"/>
-                  </p>
-                </a>
-                <Collapse in={this.state.open}>
-                  <div>
-                    <ul className="nav">
-                      {this.props.children}
-                    </ul>
-                  </div>
-                </Collapse>
-              </li>
-          )}
-      />
+        <li className={match ? "active" : ""}>
+          <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
+            <i className={this.props.icon}/>
+            <p>{this.props.label}
+              <b className="caret"/>
+            </p>
+          </a>
+          <Collapse in={this.state.open}>
+            <div>
+              <ul className="nav">
+                {this.props.children}
+              </ul>
+            </div>
+          </Collapse>
+        </li>
     );
   }
 }
+
+// <Route
+//           path={this.props.to}
+//           exact={this.props.activeOnlyWhenExact}
+//           children={({ match }) => (
+//
+//           )}
+// />

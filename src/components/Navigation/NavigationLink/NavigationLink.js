@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Route, Link} from "react-router-dom";
+import {Link} from 'redux-json-router';
 
 import PropTypes from 'prop-types';
 
@@ -10,18 +10,23 @@ export default class NavigationLink extends Component {
   }
 
   render() {
+    const match = false;
     return(
-        <Route
-            path={this.props.to}
-            exact={this.props.activeOnlyWhenExact}
-            children={({ match }) => (
-                <li className={match ? "active" : ""}>
-                  <Link to={this.props.to}>
-                    {this.props.children}
-                  </Link>
-                </li>
-            )}
-        />
+        <li className={match ? "active" : ""}>
+          <Link to={this.props.to}>
+            {this.props.children}
+          </Link>
+        </li>
     );
   }
 }
+
+
+
+
+// <Route
+//             path={this.props.to}
+//             exact={this.props.activeOnlyWhenExact}
+//             children={({ match }) => (
+//             )}
+// />

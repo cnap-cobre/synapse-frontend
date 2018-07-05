@@ -1,7 +1,10 @@
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 const aliases = require('./aliases');
+const routes = [path.resolve(__dirname, './src/routes.json')];
+console.log('Hello world', routes);
 
 module.exports = {
   entry: {
@@ -12,6 +15,21 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.json$/,
+        exclude: routes,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.json$/,
+        type: "javascript/auto",
+        include: routes,
+        loader: 'redux-json-router/lib/route-loader',
+        options: {
+          debug: true,
+          chunks: false
+        }
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
