@@ -22,8 +22,8 @@ export default class UserDropdown extends Component {
                onClick={() => {this.setState({open: !this.state.open})}}>
               <span>
                 {this.props.userProfile.user.full_name}
-		            <b className="caret"></b>
-							</span>
+                <b className="caret"></b>
+              </span>
             </a>
             <div className="clearfix"></div>
 

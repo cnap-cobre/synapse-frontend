@@ -8,25 +8,24 @@ import { Button } from 'react-bootstrap';
 
 export default class BrowserRefresh extends Component {
 
-	static propTypes = {
-		handleRefresh: PropTypes.func.isRequired
-	};
+  static propTypes = {
+    handleRefresh: PropTypes.func.isRequired
+  };
 
-	render(){
-		return (
+  render(){
+    return (
 
-    			<Button id="RefreshButton"
-									bsSize="xsmall"
-    					    onClick={this.props.handleRefresh}
-									style={{
-										height: "2.7em",
-										marginLeft: "1.2em",
-										marginTop: "0.5em"
-									}}
-					>
-						<FaRefresh/>&nbsp;Refresh
-    			</Button>
+      <Button id="RefreshButton"
+              bsSize="xsmall"
+              onClick={this.props.handleRefresh}
+              style={{
+                height: "2.7em",
+                marginLeft: "1.2em",
+                marginTop: "0.5em"
+              }}>
+         <FaRefresh/>&nbsp;Refresh
+      </Button>
 
-		)
-	}
+    )
+  }
 }
