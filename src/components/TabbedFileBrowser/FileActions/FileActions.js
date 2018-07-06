@@ -30,7 +30,6 @@ export default class FileActions extends Component {
   };
 
   showDeleteModal = () => {
-    console.log('correct component?', DeleteFileModal);
     this.props.modalContext.PushModalToDisplayContainer(
         <DeleteFileModal fileToBeDeleted={this.props.file}
                          deleteFile={this.props.fileActionsService.rm(this.props.file)} />

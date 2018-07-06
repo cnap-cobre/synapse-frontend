@@ -26,9 +26,9 @@ export class DeleteFileModal extends Component {
   }
 
   render = () => (
-      <Modal show={this.state.show} onHide={this.handleClose}>
+      <Modal show={this.state.show} onHide={this.toggleShow}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Confirm Deletion</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
