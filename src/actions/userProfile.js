@@ -16,7 +16,7 @@ export function receiveProfile(json) {
   }
 }
 
-export function invalidateProfile(json) {
+export function invalidateProfile() {
   return {
     type: INVALIDATE_PROFILE,
   }
@@ -48,7 +48,7 @@ function shouldFetchProfile(state) {
 export function fetchProfileIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchProfile(getState())) {
-      return dispatch(fetchProfile())
+      return dispatch(fetchProfile());
     }
   }
 }

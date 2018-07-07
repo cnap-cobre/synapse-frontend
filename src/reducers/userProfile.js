@@ -27,7 +27,6 @@ const initialState = {
 };
 
 export default function userProfile(state = initialState, action) {
-  console.log('made it here', state, action);
   switch (action.type) {
     case INVALIDATE_PROFILE:
       return Object.assign({}, state, {

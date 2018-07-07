@@ -41,7 +41,9 @@ class TabbedFileBrowser extends Component {
     const path = props.pathname;
 
     const fileSystems = [
-      ...props.agaveSystems.map((sys) => {
+      ...props.agaveSystems.filter((sys) => (
+          !sys.public
+      )).map((sys) => {
         sys.type = 'agave';
         sys.displayName = sys.name;
         sys.name = sys.id;
@@ -110,7 +112,8 @@ class TabbedFileBrowser extends Component {
 const mapStateToProps = (store) => {
   console.log(store);
   return {
-    pathname: store.router.pathname
+    pathname: store.router.pathname,
+    agaveSystems: store.agaveFileSystems.systems
   }
 };
 
