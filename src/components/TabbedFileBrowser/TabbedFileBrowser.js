@@ -30,7 +30,8 @@ const addFileSystem = (
 class TabbedFileBrowser extends Component {
   static propTypes = {
     pathname: PropTypes.string.isRequired,
-    agaveFileSystems: PropTypes.array.isRequired
+    agaveFileSystems: PropTypes.array.isRequired,
+    hasDropbox: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -53,6 +54,14 @@ class TabbedFileBrowser extends Component {
         return sys;
       })
     ];
+
+    if (props.hasDropbox) {
+      fileSystems.push({
+        type: 'dropbox',
+        displayName: 'Dropbox',
+        name: 'dropbox'
+      })
+    }
 
     return {fileSystems: fileSystems};
   }
@@ -116,7 +125,8 @@ const mapStateToProps = (store) => {
   console.log(store);
   return {
     pathname: store.router.pathname,
-    agaveFileSystems: store.agaveFileSystems.systems
+    agaveFileSystems: store.agaveFileSystems.systems,
+    hasDropbox: store.userProfile.dropbox.length !== 0
   }
 };
 

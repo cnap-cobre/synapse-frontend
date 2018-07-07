@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withCookies, Cookies } from "react-cookie";
-import FileBrowserPropTypes from '../../../proptypes/FileBrowserPropTypes.js';
 
 import FileBrowser from "../FileBrowser/FileBrowser";
 import DropboxService from '../../../services/Dropbox';
@@ -15,7 +14,9 @@ class DropboxBrowser extends Component {
     showDotfiles: false
   };
 
-  static propTypes = FileBrowserPropTypes;
+  static propTypes = {
+
+  };
 
   FileActionsService = DropboxService(
       this.props.cookies.get('csrftoken'),
@@ -29,28 +30,10 @@ class DropboxBrowser extends Component {
     *    outdated requests.
     * 3. Fetch the files for the current path.
     * */
-
-    const history = this.props.history;
-    this.stopListeningToHistoryChange = history.listen((location, action) => {
-      this.abortController.abort();
-      this.abortController = new AbortController();
-      if (history.location.pathname.indexOf(this.props.system) !== -1){
-        this.FetchFiles();
-      }
-    });
-
-    this.abortController = new AbortController();
-    this.FetchFiles();
   }
 
   componentWillUnmount() {
     this._unmounted = true;
-
-    // History location listener
-    this.stopListeningToHistoryChange();
-
-    // Kill any existing fetch calls
-    this.abortController.abort();
   }
 
   FetchFiles() {
