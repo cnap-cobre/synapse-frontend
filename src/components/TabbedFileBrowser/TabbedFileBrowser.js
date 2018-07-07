@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { push } from 'redux-first-routing';
 import {Tabs, Tab} from 'react-bootstrap';
 import { CookiesProvider } from 'react-cookie';
 
@@ -8,7 +9,7 @@ import {FaPlus} from 'react-icons/lib/fa';
 import AgaveBrowser from './AgaveBrowser/AgaveBrowser';
 import DropboxBrowser from './DropboxBrowser/DropboxBrowser';
 
-import HistoryPropTypes from '../../proptypes/HistoryPropTypes';
+import PropTypes from 'prop-types';
 
 import './fileTabs.css'
 
@@ -28,6 +29,8 @@ const addFileSystem = (
 
 class TabbedFileBrowser extends Component {
   static propTypes = {
+    pathname: PropTypes.string.isRequired,
+    agaveFileSystems: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -41,7 +44,7 @@ class TabbedFileBrowser extends Component {
     const path = props.pathname;
 
     const fileSystems = [
-      ...props.agaveSystems.filter((sys) => (
+      ...props.agaveFileSystems.filter((sys) => (
           !sys.public
       )).map((sys) => {
         sys.type = 'agave';
@@ -75,7 +78,7 @@ class TabbedFileBrowser extends Component {
   }
 
   render(){
-    console.log('look at that', this.props.agaveSystems);
+    console.log('look at that', this.props.agaveFileSystems);
 
     const fileSystems = this.state.fileSystems;
 
@@ -88,14 +91,14 @@ class TabbedFileBrowser extends Component {
               id="FileBrowserTabs"
               animation={false}
               onSelect={(key)=>{
-                // //console.log(key);
-                // if (key === fileSystems.length){
-                //   this.props.history.push('/files/new_file_system/');
-                // } else {
-                //   this.props.history.push(
-                //       '/files/' + fileSystems[key].name + '/'
-                //   );
-                // }
+                console.log(key);
+                if (key === fileSystems.length){
+                  this.props.dispatch(push('/files/new_file_system/'));
+                } else {
+                  this.props.dispatch(push(
+                      '/files/' + fileSystems[key].name + '/'
+                  ));
+                }
               }}>
 
           {fileSystems.map(this.browserMapper.bind(this))}
@@ -113,7 +116,7 @@ const mapStateToProps = (store) => {
   console.log(store);
   return {
     pathname: store.router.pathname,
-    agaveSystems: store.agaveFileSystems.systems
+    agaveFileSystems: store.agaveFileSystems.systems
   }
 };
 
