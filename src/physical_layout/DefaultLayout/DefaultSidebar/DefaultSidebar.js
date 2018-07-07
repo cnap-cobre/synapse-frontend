@@ -3,8 +3,6 @@ import Logo from 'Components/Logo/Logo';
 import UserDropdown from 'Components/UserDropdown/UserDropdown';
 import Navigation from 'Components/Navigation/Navigation';
 
-import { UserProfileContext } from "../../../contexts/UserProfileContext";
-
 export default class DefaultSidebar extends Component {
   render() {
     return (
@@ -13,9 +11,9 @@ export default class DefaultSidebar extends Component {
              data-active-color="danger">
           <Logo/>
           <div className="sidebar-wrapper">
-            <UserProfileContext.Consumer>
-              {state => (<UserDropdown userProfile={state.profile} />)}
-            </UserProfileContext.Consumer>
+
+            <UserDropdown/>
+
             <Navigation/>
           </div>
         </div>

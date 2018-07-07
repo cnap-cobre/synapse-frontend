@@ -6,9 +6,4 @@ export default {
   prefix: PropTypes.string.isRequired,
   system: PropTypes.string.isRequired,
   systemDisplayName: PropTypes.string.isRequired,
-  history: PropTypes.shape({
-    length: PropTypes.number.isRequired,
-    location: PropTypes.object.isRequired,
-    action: PropTypes.string.isRequired,
-  }).isRequired
 };

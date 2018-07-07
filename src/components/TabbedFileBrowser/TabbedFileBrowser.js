@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {Tabs, Tab} from 'react-bootstrap';
 import { CookiesProvider } from 'react-cookie';
 
@@ -25,9 +26,8 @@ const addFileSystem = (
 );
 
 
-export default class TabbedFileBrowser extends Component {
+class TabbedFileBrowser extends Component {
   static propTypes = {
-    history: HistoryPropTypes
   };
 
   constructor(props) {
@@ -38,7 +38,7 @@ export default class TabbedFileBrowser extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const path = props.history.location.pathname;
+    const path = props.pathname;
 
     const fileSystems = [
       ...props.agaveSystems.map((sys) => {
@@ -48,14 +48,6 @@ export default class TabbedFileBrowser extends Component {
         return sys;
       })
     ];
-
-
-    setTimeout(function(){
-      const matches = [...fileSystems, {name:'new_file_system'}].map((fs)=>(path.indexOf(fs.name) !== -1))
-      if (matches.indexOf(true) === -1) {
-        props.history.replace(fileSystems[0].name + '/');
-      }
-    }, 1500);
 
     return {fileSystems: fileSystems};
   }
@@ -67,13 +59,11 @@ export default class TabbedFileBrowser extends Component {
              title={system.displayName}>
           <CookiesProvider>
             {system.type === 'agave' ? (
-                <AgaveBrowser history={this.props.history}
-                              prefix={'/files/' + system.name}
+                <AgaveBrowser prefix={'/files/' + system.name}
                               system={system.name}
                               systemDisplayName={system.displayName} />
             ) : (
-                <DropboxBrowser history={this.props.history}
-                                prefix={'/files/' + system.name}
+                <DropboxBrowser prefix={'/files/' + system.name}
                                 system={system.name}
                                 systemDisplayName={system.displayName} />
             )}
@@ -88,7 +78,7 @@ export default class TabbedFileBrowser extends Component {
     const fileSystems = this.state.fileSystems;
 
     const urlActive = fileSystems.map(
-        (fs)=>(this.props.history.location.pathname.indexOf(fs.name) !== -1)
+        (fs)=>(this.props.pathname.indexOf(fs.name) !== -1)
     ).indexOf(true);
     console.log(urlActive);
     return (
@@ -96,14 +86,14 @@ export default class TabbedFileBrowser extends Component {
               id="FileBrowserTabs"
               animation={false}
               onSelect={(key)=>{
-                //console.log(key);
-                if (key === fileSystems.length){
-                  this.props.history.push('/files/new_file_system/');
-                } else {
-                  this.props.history.push(
-                      '/files/' + fileSystems[key].name + '/'
-                  );
-                }
+                // //console.log(key);
+                // if (key === fileSystems.length){
+                //   this.props.history.push('/files/new_file_system/');
+                // } else {
+                //   this.props.history.push(
+                //       '/files/' + fileSystems[key].name + '/'
+                //   );
+                // }
               }}>
 
           {fileSystems.map(this.browserMapper.bind(this))}
@@ -116,3 +106,12 @@ export default class TabbedFileBrowser extends Component {
     );
   }
 }
+
+const mapStateToProps = (store) => {
+  console.log(store);
+  return {
+    pathname: store.router.pathname
+  }
+};
+
+export default connect(mapStateToProps)(TabbedFileBrowser);

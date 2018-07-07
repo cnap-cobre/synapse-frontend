@@ -1,27 +1,32 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {Collapse} from 'react-bootstrap';
 import NavigationLink from '../../components/Navigation/NavigationLink/NavigationLink';
+import PropTypes from 'prop-types';
 
-export default class UserDropdown extends Component {
+class UserDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {open: false};
   }
 
-  static propTypes = {};
+  static propTypes = {
+    fullName: PropTypes.string.isRequired,
+    gravatar: PropTypes.string.isRequired
+  };
 
   render() {
     return (
         <div className="user">
           <div className="info">
             <div className="photo">
-              <img src={this.props.userProfile.gravatar.url} />
+              <img src={this.props.gravatar} />
             </div>
 
             <a data-toggle="collapse"
                onClick={() => {this.setState({open: !this.state.open})}}>
               <span>
-                {this.props.userProfile.user.full_name}
+                {this.props.fullName}
                 <b className="caret"></b>
               </span>
             </a>
@@ -49,3 +54,11 @@ export default class UserDropdown extends Component {
     );
   }
 }
+
+
+const mapStateToProps = ({ userProfile }) => ({
+  fullName: userProfile.user.full_name,
+  gravatar: userProfile.gravatar.url
+});
+
+export default connect(mapStateToProps)(UserDropdown);

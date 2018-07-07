@@ -1,11 +1,18 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 
 import { GlobalContextWrapper } from './contexts/GlobalContextWrapper';
 
 import { ModalContext } from "./contexts/ModalStateProvider";
 import EmptyWrapperForDrawingModals from './components/Modal/EmptyWrapperForDrawingModals';
+import {fetchProfileIfNeeded} from "./actions/userProfile";
 
-export default class App extends Component {
+class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchProfileIfNeeded(2));
+  }
+
   render() {
     return (
         <GlobalContextWrapper>
@@ -21,3 +28,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect()(App);

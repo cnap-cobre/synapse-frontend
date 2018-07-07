@@ -19,9 +19,9 @@ startListener(history, store);
 // Render the application
 const rootElement = document.getElementById("root");
 render((
+    <Provider store={store}>
     <App>
-      <Provider store={store}>
         <Router routes={routes} />
-      </Provider>
     </App>
+    </Provider>
 ), rootElement);

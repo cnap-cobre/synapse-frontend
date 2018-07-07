@@ -30,29 +30,10 @@ class AgaveBrowser extends Component {
     *    outdated requests.
     * 3. Fetch the files for the current path.
     * */
-
-    const history = this.props.history;
-    this.stopListeningToHistoryChange = history.listen((location, action) => {
-      this.abortController.abort();
-      this.abortController = new AbortController();
-      if (history.location.pathname.indexOf(this.props.system) !== -1){
-        this.FetchFiles();
-      }
-      console.log('history changed');
-    });
-
-    this.abortController = new AbortController();
-    this.FetchFiles();
   }
 
   componentWillUnmount() {
     this._unmounted = true;
-
-    // History location listener
-    this.stopListeningToHistoryChange();
-
-    // Kill any existing fetch calls
-    this.abortController.abort();
   }
 
   FetchFiles() {
@@ -68,7 +49,7 @@ class AgaveBrowser extends Component {
 
     const filePath = [this.props.system, ...this.getPath()].join('/');
 
-    this.FileActionsService.list(filePath, this.abortController.signal)
+    this.FileActionsService.list(filePath)
 
         // Update UI with result file list
         .then(this.updateUIWithNewFiles.bind(this))

@@ -8,7 +8,6 @@ import FileBrowserList from "./FileBrowserList/FileBrowserList";
 import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 
 import PropTypes from "prop-types";
-import HistoryPropTypes from '../../../proptypes/HistoryPropTypes';
 import FileActionsServicePropTypes from '../../../proptypes/FileActionsServicePropTypes';
 
 export default class FileBrowser extends Component {
@@ -23,7 +22,6 @@ export default class FileBrowser extends Component {
     toggleDotfiles: PropTypes.func.isRequired,
     handleFileClick: PropTypes.func.isRequired,
     handleRefresh: PropTypes.func.isRequired,
-    history: HistoryPropTypes,
     fileActionsService: FileActionsServicePropTypes
   };
 
