@@ -1,6 +1,6 @@
 import {INVALIDATE_PROFILE, RECEIVE_PROFILE, REQUEST_PROFILE} from "../actions/userProfile";
 
-const initialState = {
+export const initialUserProfileState = {
   id: 0,
   institution: '',
   gravatar: {
@@ -26,7 +26,7 @@ const initialState = {
   lastUpdated: 0
 };
 
-export default function userProfile(state = initialState, action) {
+export default function userProfile(state = initialUserProfileState, action) {
   switch (action.type) {
     case INVALIDATE_PROFILE:
       return Object.assign({}, state, {

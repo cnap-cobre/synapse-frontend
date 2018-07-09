@@ -4,14 +4,14 @@ import {
   REQUEST_AGAVE_FILE_SYSTEMS
 } from "../actions/agaveFileSystems";
 
-const initialState = {
+export const initialAgaveFileSystemsState = {
   systems: [],
   isFetching: false,
   didInvalidate: false,
   lastUpdated: 0
 };
 
-export default function agaveFileSystems(state = initialState, action) {
+export default function agaveFileSystems(state = initialAgaveFileSystemsState, action) {
   switch (action.type) {
     case INVALIDATE_AGAVE_FILE_SYSTEMS:
       return Object.assign({}, state, {

@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MockRouter from 'react-mock-router';
 import DefaultSidebar from './DefaultSidebar';
-import {MockGlobalContextWrapper} from "../../../contexts/MockGlobalContextWrapper";
+import { Provider } from 'react-redux';
+import { initialUserProfileState } from "../../../reducers/userProfile";
+import configureStore from 'redux-mock-store';
+
+const mockStore = configureStore([]);
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');
-  ReactDOM.render(
-      <MockGlobalContextWrapper>
-        <MockRouter>
+  ReactDOM.render((
+      <Provider store={mockStore({
+        userProfile: initialUserProfileState
+      })}>
           <DefaultSidebar/>
-        </MockRouter>
-      </MockGlobalContextWrapper>, div);
+      </Provider>
+  ), div);
   ReactDOM.unmountComponentAtNode(div);
 });
