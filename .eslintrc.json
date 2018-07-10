@@ -8,6 +8,9 @@
     }
   },
   "rules": {
-    "extends": "eslint:recommended"
+    "extends": [
+      "eslint:all",
+      "plugin:react/all"
+    ]
   }
 }
