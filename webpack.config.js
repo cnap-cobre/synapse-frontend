@@ -26,7 +26,6 @@ module.exports = {
         include: routes,
         loader: 'redux-json-router/lib/route-loader',
         options: {
-          debug: true,
           chunks: false
         }
       },
