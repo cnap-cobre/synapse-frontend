@@ -7,7 +7,6 @@ import {withCookies, Cookies} from "react-cookie";
 
 
 class AgaveBrowser extends Component {
-
   state = {
     list: [],
     loading: true,
