@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Editor from 'Components/Editor/Editor';
+import Editor from '../../components/Editor/Editor';
 
 import './CodeEditor.css'
 import DefaultLayout from "../../physical_layout/DefaultLayout/DefaultLayout";

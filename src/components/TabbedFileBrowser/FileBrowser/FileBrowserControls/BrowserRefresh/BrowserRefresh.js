@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { humanFileSize } from "Utils/FileSize.js";
-import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 import { FaRefresh } from 'react-icons/lib/fa/';
 import { Button } from 'react-bootstrap';

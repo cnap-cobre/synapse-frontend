@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Logo from 'Components/Logo/Logo';
-import UserDropdown from 'Components/UserDropdown/UserDropdown';
-import Navigation from 'Components/Navigation/Navigation';
+import Logo from '../../../components/Logo/Logo';
+import UserDropdown from '../../../components/UserDropdown/UserDropdown';
+import Navigation from '../../../components/Navigation/Navigation';
 
 export default class DefaultSidebar extends Component {
   render() {

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { humanFileSize } from "Utils/FileSize.js";
-import { fetchErrorThrower, fetchToJson } from "Utils/FetchUtils";
 import PropTypes from 'prop-types';
 import DotfilesCheckbox from './DotfilesCheckBox/DotfilesCheckBox.js'
 import BrowserRefresh from './BrowserRefresh/BrowserRefresh.js'
