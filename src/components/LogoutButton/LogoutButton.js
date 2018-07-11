@@ -28,4 +28,6 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect()(LogoutButton);
+export default connect(
+    mapStateToProps
+)(LogoutButton);
