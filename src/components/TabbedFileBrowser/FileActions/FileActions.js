@@ -1,11 +1,11 @@
 import { addModal } from "../../../actions/modals";
 import { connect } from 'react-redux';
+import {deleteFile} from "../../../actions/files";
 import { DeleteFileModal } from '../../Modal/DeleteFileModal';
 import PropTypes from 'prop-types';
 import React from "react";
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 import './fileActionMenu.css';
-import {deleteFile} from "../../../actions/files";
 
 
 class FileActions extends React.Component {

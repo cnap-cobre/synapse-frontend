@@ -1,28 +1,20 @@
+import configureStore from 'redux-mock-store';
 import FileActions from './FileActions';
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const mockStore = configureStore([]);
 
-it('renders without crashing', ()=>{
+it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render((
-      <FileActions id={42}
-                   file={{
-                     format: 'raw',
-                     name: 'asdf.jpg',
-                     path: '/homes/kmdice/asdf.jpg',
-                     type: 'file'
-                   }}
-                   fileActionsService={{
-                     list: () => {console.log('list')},
-                     share: () => {console.log('share')},
-                     wget: () => {console.log('wget')},
-                     rename: () => {console.log('rename')},
-                     mv: () => {console.log('mv')},
-                     cp: () => {console.log('cp')},
-                     rm: () => {console.log('rm')}
-                   }}
-      />
+      <Provider store={mockStore()}>
+        <FileActions id={42}
+                     fileName="cake.jpg"
+                     filePath="/viper/home/k/kmdice/cake.jpg"
+        />
+      </Provider>
   ), div);
   ReactDOM.unmountComponentAtNode(div);
 });

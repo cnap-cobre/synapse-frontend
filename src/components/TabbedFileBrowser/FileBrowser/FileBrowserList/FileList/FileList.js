@@ -1,9 +1,9 @@
+import FileActions from "../../../FileActions/FileActions";
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import { humanFileSize } from "../../../../../util/FileSize.js";
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from "react";
-import FileActions from "../../../FileActions/FileActions";
 
 
 export default class FileList extends React.Component {
