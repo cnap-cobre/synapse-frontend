@@ -3,11 +3,13 @@ import { humanFileSize } from "../../../../../util/FileSize.js";
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from "react";
+import FileActions from "../../../FileActions/FileActions";
 
 
 export default class FileList extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
+    path: PropTypes.string.isRequired,
     onSelectFile: PropTypes.func,
     showDotfiles: PropTypes.bool,
   };
@@ -32,7 +34,10 @@ export default class FileList extends React.Component {
             <td>{ humanFileSize(item.length) }</td>
             <td>{ moment(item.lastModified).format('l LT') }</td>
             <td>
-              FileActionsGoHere
+              <FileActions id={i}
+                           fileName={item.name}
+                           filePath={this.props.path + item.name}
+              />
             </td>
           </tr>
 

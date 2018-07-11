@@ -5,6 +5,7 @@ export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
 export const FAIL_FILES = 'FAIL_FILES';
 export const INVALIDATE_FILES = 'INVALIDATE_FILES';
+export const DELETE_FILE = 'DELETE_FILE';
 
 export function requestFiles(path) {
   return {
@@ -35,6 +36,13 @@ export function invalidateFiles(path) {
   return {
     type: INVALIDATE_FILES,
     path
+  }
+}
+
+export function deleteFile(filePath) {
+  return {
+    type: DELETE_FILE,
+    filePath
   }
 }
 

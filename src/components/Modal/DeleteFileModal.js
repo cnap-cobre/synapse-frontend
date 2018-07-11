@@ -1,45 +1,52 @@
-import FileItemPropTypes from '../../proptypes/FileItemPropTypes';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from "react";
+import { removeModal } from "../../actions/modals";
 import { Button, Modal } from 'react-bootstrap';
 
-export class DeleteFileModal extends React.Component {
+class DeleteFileModal extends React.Component {
   
   static propTypes = {
-    fileToBeDeleted: FileItemPropTypes,
-    deleteFile: PropTypes.func.isRequired
+    id: PropTypes.string.isRequired,
+    action: PropTypes.object.isRequired,
+    fileName: PropTypes.string.isRequired,
   };
 
   constructor(props) {
     super(props);
-
-    this.toggleShow = this.toggleShow.bind(this);
 
     this.state = {
       show: true
     };
   }
 
-  toggleShow() {
-    this.setState({ show: !this.state.show });
-  }
-
   render = () => (
-      <Modal show={this.state.show} onHide={this.toggleShow}>
+      <Modal show={true}>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Deletion</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <p>
-            Are you sure you want to delete {this.props.fileToBeDeleted.name}?
+            Are you sure you want to delete {this.props.fileName}?
           </p>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={this.toggleShow}>Cancel</Button>
+          <Button onClick={() => {
+            this.props.dispatch(
+                removeModal(this.props.id)
+            );
+          }}>Cancel</Button>
           <Button bsStyle="danger"
-                  onClick={() => {this.props.deleteFile(); this.toggleShow();}}>
+                  onClick={() => {
+                    this.props.dispatch(
+                      removeModal(this.props.id)
+                    );
+                    this.props.dispatch(
+                      this.props.action
+                    );
+                  }}>
             Delete
           </Button>
         </Modal.Footer>
@@ -47,3 +54,5 @@ export class DeleteFileModal extends React.Component {
       </Modal>
   )
 }
+
+export default connect()(DeleteFileModal);

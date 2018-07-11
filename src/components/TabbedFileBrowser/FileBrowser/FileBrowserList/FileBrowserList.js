@@ -20,6 +20,7 @@ export default class FileBrowserList extends React.Component {
                style={{display: this.props.error || this.props.loading ? 'none' : 'table'}}>
           <FieldFieldHeader/>
           <FileList list={this.props.list}
+                    path={this.props.path}
                     showDotfiles={this.props.showDotfiles}
                     onSelectFile={this.props.handleFileClick}
           />

@@ -1,20 +1,21 @@
+import { addModal } from "../../../actions/modals";
+import { connect } from 'react-redux';
 import { DeleteFileModal } from '../../Modal/DeleteFileModal';
-import FileActionsServicePropTypes from '../../../proptypes/FileActionsServicePropTypes';
-import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
 import PropTypes from 'prop-types';
 import React from "react";
 import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 import './fileActionMenu.css';
+import {deleteFile} from "../../../actions/files";
 
 
-export default class FileActions extends React.Component {
+class FileActions extends React.Component {
   static propTypes = {
     id: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]).isRequired,
-    fileActionsService: FileActionsServicePropTypes,
-    file: FileItemPropTypes
+    fileName: PropTypes.string.isRequired,
+    filePath: PropTypes.string.isRequired,
   };
 
   static noOpAndStopClickPropagation(e) {
@@ -26,26 +27,19 @@ export default class FileActions extends React.Component {
       action();
   };
 
-  showDeleteModal = () => {
-    this.props.modalContext.PushModalToDisplayContainer(
-        <DeleteFileModal fileToBeDeleted={this.props.file}
-                         deleteFile={this.props.fileActionsService.rm(this.props.file)} />
-    );
-  };
-
   render() {
     const actions = [
-      ['Share', this.props.fileActionsService.share],
-      ['Download', this.props.fileActionsService.wget(
-          this.props.file
-      )],
-      ['Rename', this.props.fileActionsService.rename],
-      ['Move', this.props.fileActionsService.mv],
-      ['Copy', this.props.fileActionsService.cp],
-      ['Delete', this.showDeleteModal]
-      /*['Delete', this.props.fileActionsService.rm(
-          this.props.file
-      )]*/
+      ['Share', () => {console.log('share')}],
+      ['Download', () => {console.log('download')}],
+      ['Rename', () => {console.log('rename')}],
+      ['Move', () => {console.log('move')}],
+      ['Copy', () => {console.log('copy')}],
+      ['Delete', () => {
+        this.props.dispatch(addModal({
+          fileName: this.props.fileName,
+          action: deleteFile(this.props.filePath)
+        }));
+      }]
     ];
     const menuItems = actions.map((item, index) => {
       return (
@@ -75,3 +69,6 @@ export default class FileActions extends React.Component {
     );
   }
 }
+
+
+export default connect()(FileActions);

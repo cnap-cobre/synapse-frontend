@@ -4,6 +4,7 @@ import {fetchAgaveFileSystemsIfNeeded} from "./actions/agaveFileSystems";
 import {fetchProfileIfNeeded} from "./actions/userProfile";
 import { GlobalContextWrapper } from './contexts/GlobalContextWrapper';
 import { ModalContext } from "./contexts/ModalStateProvider";
+import NewModalWrapper from './components/Modal/NewModalWrapper';
 import {putCSRFTokenInStore} from "./actions/csrf";
 import React from "react";
 
@@ -27,6 +28,8 @@ class App extends React.Component {
                 <EmptyWrapperForDrawingModals modalContext={context} />
             )}
           </ModalContext.Consumer>
+
+          <NewModalWrapper />
         </GlobalContextWrapper>
     );
   }

@@ -1,4 +1,5 @@
 import {
+  DELETE_FILE,
   FAIL_FILES,
   INVALIDATE_FILES,
   RECEIVE_FILES,
@@ -43,6 +44,9 @@ export default function files(state = initialFilesState, action) {
           didInvalidate: true
         })
       });
+    case DELETE_FILE:
+      alert('Delete ' + action.filePath + '!');
+      return state;
     default:
       return state;
   }
