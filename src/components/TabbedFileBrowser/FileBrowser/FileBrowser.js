@@ -5,6 +5,7 @@ import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
 import {connect} from "react-redux";
 import Loader from "../../Loader/Loader";
+import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 
 class FileBrowser extends Component {
   static propTypes = {
@@ -22,6 +23,7 @@ class FileBrowser extends Component {
     pathname: PropTypes.string.isRequired,
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired,
+    handleRefresh: PropTypes.func.isRequired,
     fetchFiles: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
@@ -44,7 +46,7 @@ class FileBrowser extends Component {
           />
 
           <FileBrowserControls id={this.props.system.id}
-                               handleRefresh={() => (null)}
+                               handleRefresh={this.props.handleRefresh(this.props.path)}
                                showDotfiles={this.props.showDotfiles}
                                toggleDotfiles={this.props.toggleDotfiles}
           />
@@ -92,4 +94,16 @@ const mapStateToProps = (store, ownProps) => {
   }
 };
 
-export default connect(mapStateToProps)(FileBrowser);
+const mapDispatchToProps = dispatch => {
+  return {
+    handleRefresh: (path) => () => {
+      dispatch(invalidateFiles(path));
+      setTimeout(() => dispatch(fetchFilesIfNeeded(path)), 20);
+    }
+  };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FileBrowser);

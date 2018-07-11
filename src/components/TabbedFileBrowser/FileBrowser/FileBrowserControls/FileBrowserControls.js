@@ -7,6 +7,7 @@ import BrowserRefresh
 export default class FileBrowserControls extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    handleRefresh: PropTypes.func.isRequired,
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired
   };
@@ -25,7 +26,7 @@ export default class FileBrowserControls extends Component {
         <DotfilesCheckBox id={this.props.id}
                           showDotfiles={this.props.showDotfiles}
                           toggleDotfiles={this.props.toggleDotfiles} />
-        <BrowserRefresh handleRefresh={() => {alert('Impliment me')}}/>
+        <BrowserRefresh handleRefresh={this.props.handleRefresh} />
       </div>
     );
   }
