@@ -1,4 +1,3 @@
-import { CookiesProvider } from 'react-cookie';
 import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
 import { instanceOf } from 'prop-types';
 import LogoutButton from '../../../components/LogoutButton/LogoutButton';
@@ -19,10 +18,7 @@ class Logout extends React.Component {
               <div className="card-content">
                 <p>Are you sure you want to sign out?</p>
 
-                <CookiesProvider>
-                  <LogoutButton/>
-                </CookiesProvider>
-
+                <LogoutButton/>
 
               </div>
             </div>

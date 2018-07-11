@@ -1,26 +1,31 @@
-import { instanceOf } from "prop-types";
+import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 import React from 'react';
-import { Cookies, withCookies } from "react-cookie";
-
 
 
 class LogoutButton extends React.Component {
   static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
+    csrftoken: PropTypes.string.isRequired
   };
 
   render(){
-    const csrf = this.props.cookies.get('csrftoken');
-
     return (
         <form method="post" action="/accounts/logout/">
           <button className="btn btn-danger btn-fill" type="submit">
             Sign Out
           </button>
-          <input type="hidden" name="csrfmiddlewaretoken" value={csrf} />
+          <input type="hidden"
+                 name="csrfmiddlewaretoken"
+                 value={this.props.csrftoken} />
         </form>
     );
   }
 }
 
-export default withCookies(LogoutButton);
+const mapStateToProps = store => {
+  return {
+    csrftoken: store.csrf.token,
+  };
+};
+
+export default connect()(LogoutButton);
