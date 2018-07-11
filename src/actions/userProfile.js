@@ -35,7 +35,7 @@ function fetchProfile() {
 
 function shouldFetchProfile(state) {
   const userProfile = state.userProfile;
-  console.log('pizza', state);
+
   if (userProfile.id !== userProfile.user.id) {
     return true;
   } else if (userProfile.isFetching) {

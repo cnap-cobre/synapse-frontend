@@ -27,13 +27,11 @@ export default class FileBreadcrumbs extends React.Component {
   }
 
   render(){
-    console.log('-----');
     const breadcrumbs = [
         this.props.system.name,
         ...this.getPath()
     ].map((val, index, array) => {
       const invIndex = array.length - index - 1;
-      console.log(val, index, array, invIndex);
       const to = path.normalize(
           this.props.pathname + "../".repeat(invIndex)
       );

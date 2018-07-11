@@ -39,7 +39,6 @@ export default function userProfile(state = initialUserProfileState, action) {
         didInvalidate: false
       });
     case RECEIVE_PROFILE:
-      console.log('should be here', action.userProfile);
       return Object.assign({}, state, {
         ...action.userProfile,
         isFetching: false,

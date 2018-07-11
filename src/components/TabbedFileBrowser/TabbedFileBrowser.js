@@ -21,7 +21,6 @@ class TabbedFileBrowser extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log('next props', nextProps);
     const matches = nextProps.fileSystems.map(
         (sys) => nextProps.path.indexOf('/' + sys.id) !== -1
     );
@@ -91,7 +90,9 @@ class TabbedFileBrowser extends React.Component {
 }
 
 const systemUrlResolverAndRedirector = (props) => {
-  console.assert(props.pathname.indexOf(props.prefix) === 0);
+  if(props.pathname.indexOf(props.prefix) !== 0) {
+    return 0;
+  }
   const remainingUrl = props.pathname.slice(props.prefix.length);
   const urlActive = props.fileSystems.map(
       (fs) => (remainingUrl.indexOf('/' + fs.id + '/') === 0)
@@ -117,8 +118,6 @@ const systemUrlResolverAndRedirector = (props) => {
 };
 
 const mapStateToProps = (store, ownProps) => {
-  console.log('TabbedFileBrowserStore', store);
-
   const fileSystems = [
       ...store.agaveFileSystems.systems.filter((sys) => (
           !sys.public
@@ -138,8 +137,6 @@ const mapStateToProps = (store, ownProps) => {
       type: 'STORAGE'
     });
   }
-
-  console.log('fileSystems', fileSystems);
 
   return{
     ...ownProps,
