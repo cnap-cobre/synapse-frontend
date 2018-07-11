@@ -1,12 +1,11 @@
 import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 import fileDownload from 'js-file-download';
 
-function list(filePath, signal){
-  const url = '/agave/files/v2/listings/system/' + filePath + '?limit=1000';
+function list(filePath){
+  const url = '/agave/files/v2/listings/system' + filePath + '?limit=1000';
 
   return fetch(url, {
     credentials: "same-origin",
-    signal: signal
   })
   // Throw a proper error if we get a 500, etc. response code
       .then(fetchErrorThrower)
@@ -30,7 +29,7 @@ const wget = (file) => () => {
   x.send();
 };
 
-const rm = (csrftoken, mutationCallback) => (file) => () => {
+const rm = (file) => () => {
   const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
 
   return fetch(url, {
@@ -47,12 +46,12 @@ const rm = (csrftoken, mutationCallback) => (file) => () => {
   }).then(mutationCallback);
 }
 
-export default (csrftoken, mutationCallback) => ({
+export default {
   list: list,
   share: () => {console.log('Share')},
   wget: wget,
-  rename: (csrftoken, mutationCallback) => {console.log('rename')},
+  rename: () => {console.log('rename')},
   mv: () => {console.log('mv')},
   cp: () => {console.log('cp')},
-  rm: rm(csrftoken, mutationCallback),
-});
+  rm: rm,
+};

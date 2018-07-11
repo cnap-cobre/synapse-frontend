@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FileBreadcrumbs from './FileBreadcrumbs';
+import FileBreadcrumbs from '../../../TabbedFileBrowserOld/FileBrowser/FileBreadcrumbs/FileBreadcrumbs';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 

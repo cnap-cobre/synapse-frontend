@@ -23,7 +23,8 @@ export const initialUserProfileState = {
   },
   isFetching: false,
   didInvalidate: false,
-  lastUpdated: 0
+  lastUpdated: 0,
+  hasFetched: false
 };
 
 export default function userProfile(state = initialUserProfileState, action) {
@@ -43,7 +44,8 @@ export default function userProfile(state = initialUserProfileState, action) {
         ...action.userProfile,
         isFetching: false,
         didInvalidate: false,
-        lastUpdated: action.receivedAt
+        lastUpdated: action.receivedAt,
+        hasFetched: true
       });
     default:
       return state;

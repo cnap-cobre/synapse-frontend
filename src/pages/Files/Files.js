@@ -6,7 +6,7 @@ export default class Files extends Component {
   render() {
     return (
         <CardLayout>
-          <TabbedFileBrowser />
+          <TabbedFileBrowser prefix="/files" />
         </CardLayout>
     );
   }

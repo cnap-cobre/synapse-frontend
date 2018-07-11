@@ -8,6 +8,7 @@
     "agaveapi-js": "^1.0.0",
     "dropbox": "^4.0.7",
     "history": "^4.7.2",
+    "js-cookie": "^2.2.0",
     "js-file-download": "^0.4.1",
     "react": "^16.4.1",
     "react-ace": "^6.1.3",

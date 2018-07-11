@@ -1,12 +1,10 @@
 import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
-const list = (csrftoken) => (filePath, signal) => {
+const list = (csrftoken, filePath) => {
   const url = '/dropbox/api/2/files/list_folder';
-  console.log(filePath);
   let form = {
-    'path': filePath
+    'path': filePath.slice(1)
   };
-
 
   return fetch(url, {
     body: JSON.stringify(form),
@@ -18,7 +16,6 @@ const list = (csrftoken) => (filePath, signal) => {
     },
     method: 'POST',
     mode: 'cors',
-    signal: signal
   })
   // Throw a proper error if we get a 500, etc. response code
       .then(fetchErrorThrower)
@@ -28,9 +25,9 @@ const list = (csrftoken) => (filePath, signal) => {
 
       // map Dropbox to Agave response format
       .then(DropboxToAgaveFormat)
-}
+};
 
-const rm = (csrftoken, mutationCallback) => (file) => () => {
+const rm = (file) => () => {
   const url = '/dropbox/api/2/files/delete_v2';
   console.log('rm:   ' + file.path);
   let form = {
@@ -49,14 +46,14 @@ const rm = (csrftoken, mutationCallback) => (file) => () => {
     mode: 'cors'
   }).then(mutationCallback)
 
-}
+};
 
-export default (csrftoken, mutationCallback) => ({
-  list: list(csrftoken, mutationCallback),
+export default {
+  list: list,
   share: () => {console.log('Share')},
   wget: () => () => {console.log('wget')},
-  rename: (csrftoken, mutationCallback) => {console.log('rename')},
-  mv: (csrftoken, mutationCallback) => {console.log('mv')},
-  cp: (csrftoken, mutationCallback) => {console.log('cp')},
-  rm: rm(csrftoken, mutationCallback)
-});
+  rename: () => {console.log('rename')},
+  mv: () => {console.log('mv')},
+  cp: () => {console.log('cp')},
+  rm: rm()
+};

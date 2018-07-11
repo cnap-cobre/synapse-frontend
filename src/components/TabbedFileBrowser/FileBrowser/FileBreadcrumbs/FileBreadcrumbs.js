@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux';
 import path from 'path';
 
 import { Breadcrumb } from "react-bootstrap";
@@ -9,10 +8,18 @@ import PropTypes from 'prop-types';
 
 import './breadcrumbs.css';
 
-class FileBreadcrumbs extends Component {
+export default class FileBreadcrumbs extends Component {
   static propTypes = {
-    systemDisplayName: PropTypes.string.isRequired,
+    system: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      provider: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired
+    }).isRequired,
     prefix: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired
   };
 
   getPath() {
@@ -22,11 +29,13 @@ class FileBreadcrumbs extends Component {
   }
 
   render(){
+    console.log('-----');
     const breadcrumbs = [
-        this.props.systemDisplayName,
+        this.props.system.name,
         ...this.getPath()
     ].map((val, index, array) => {
       const invIndex = array.length - index - 1;
+      console.log(val, index, array, invIndex);
       const to = path.normalize(
           this.props.pathname + "../".repeat(invIndex)
       );
@@ -51,10 +60,3 @@ class FileBreadcrumbs extends Component {
     );
   }
 }
-
-
-const mapStateToProps = ({ router }) => ({
-  pathname: router.pathname
-});
-
-export default connect(mapStateToProps)(FileBreadcrumbs);

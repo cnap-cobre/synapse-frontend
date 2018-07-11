@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import DotfilesCheckbox from './DotfilesCheckBox/DotfilesCheckBox.js'
-import BrowserRefresh from './BrowserRefresh/BrowserRefresh.js'
-
+import DotfilesCheckBox from "./DotfilesCheckBox/DotfilesCheckBox";
+import BrowserRefresh
+  from "./BrowserRefresh/BrowserRefresh";
 
 export default class FileBrowserControls extends Component {
-
   static propTypes = {
-    handleRefresh:PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired
   };
 
-  render(){
+  render() {
     return (
       <div className="browserControls" style={{
         padding: "1px 15px",
@@ -23,11 +22,11 @@ export default class FileBrowserControls extends Component {
         display: "flex",
         flexDirection: "row"
       }}>
-        <DotfilesCheckbox toggleDotfiles={this.props.toggleDotfiles}
-                          showDotfiles={this.props.showDotfiles} />
-        <BrowserRefresh handleRefresh={this.props.handleRefresh} />
+        <DotfilesCheckBox id={this.props.id}
+                          showDotfiles={this.props.showDotfiles}
+                          toggleDotfiles={this.props.toggleDotfiles} />
+        <BrowserRefresh handleRefresh={() => {alert('Impliment me')}}/>
       </div>
-    )
+    );
   }
 }
-

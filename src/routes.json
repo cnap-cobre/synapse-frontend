@@ -19,7 +19,14 @@
   {
     "path": "/files",
     "name": "Files",
-    "page": "./pages/Files/Files"
+    "page": "./pages/Files/Files",
+    "children": [
+      {
+        "path": "/add_new_filesystem",
+        "name": "New File System",
+        "page": "./pages/Files/AddNewFileSystem/AddNewFileSystem"
+      }
+    ]
   },
   {
     "path": "/shell",

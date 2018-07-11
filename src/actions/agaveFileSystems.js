@@ -1,5 +1,6 @@
 export const REQUEST_AGAVE_FILE_SYSTEMS = 'REQUEST_AGAVE_FILE_SYSTEMS';
 export const RECEIVE_AGAVE_FILE_SYSTEMS = 'RECEIVE_AGAVE_FILE_SYSTEMS';
+export const FAIL_AGAVE_FILE_SYSTEMS = 'FAIL_AGAVE_FILE_SYSTEMS';
 export const INVALIDATE_AGAVE_FILE_SYSTEMS = 'INVALIDATE_AGAVE_FILE_SYSTEMS';
 
 export function requestAgaveFileSystems() {
@@ -16,6 +17,14 @@ export function receiveAgaveFileSystems(json) {
   }
 }
 
+export function failAgaveFileSystems(message) {
+  return {
+    type: FAIL_AGAVE_FILE_SYSTEMS,
+    message,
+    receivedAt: Date.now()
+  }
+}
+
 export function invalidateAgaveFileSystems() {
   return {
     type: INVALIDATE_AGAVE_FILE_SYSTEMS
@@ -28,8 +37,21 @@ function fetchAgaveFileSystems() {
     return fetch(`/agave/systems/v2/`, {
       credentials: 'same-origin'
     })
+        .then(response => {
+          if (response.status >= 400) {
+            throw response;
+          }
+          return response;
+        })
         .then(response => response.json())
-        .then(json => dispatch(receiveAgaveFileSystems(json)));
+        .then(json => dispatch(receiveAgaveFileSystems(json)))
+        .catch(response => {
+          if (response.status === 403) {
+            dispatch(failAgaveFileSystems("Unauthorized"))
+          } else if (response.status > 404) {
+            dispatch(failAgaveFileSystems("Error"))
+          }
+        })
   }
 }
 
