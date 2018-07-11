@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
 import { CookiesProvider } from 'react-cookie';
-import { instanceOf } from 'prop-types';
-
 import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
-
+import { instanceOf } from 'prop-types';
 import LogoutButton from '../../../components/LogoutButton/LogoutButton';
+import React from 'react';
 
-class Logout extends Component {
+
+class Logout extends React.Component {
   render() {
     return (
         <DefaultLayout>

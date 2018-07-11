@@ -1,17 +1,12 @@
-import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { push } from 'redux-first-routing';
-import {Tabs, Tab} from 'react-bootstrap';
 import { CookiesProvider } from 'react-cookie';
-
 import {FaPlus} from 'react-icons/lib/fa';
-
-import AgaveBrowser from './AgaveBrowser/AgaveBrowser';
-import DropboxBrowser from './DropboxBrowser/DropboxBrowser';
-
 import PropTypes from 'prop-types';
-
+import { push } from 'redux-first-routing';
+import React from 'react';
+import {Tab, Tabs} from 'react-bootstrap';
 import '../TabbedFileBrowser/fileTabs.css'
+
 
 const addFileSystem = (
     <span style={{
@@ -27,7 +22,7 @@ const addFileSystem = (
 );
 
 
-class TabbedFileBrowser extends Component {
+class TabbedFileBrowser extends React.Component {
   static propTypes = {
     pathname: PropTypes.string.isRequired,
     agaveFileSystems: PropTypes.array.isRequired,

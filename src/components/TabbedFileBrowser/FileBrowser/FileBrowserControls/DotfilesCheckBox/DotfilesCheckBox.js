@@ -1,7 +1,7 @@
-import React, { Component } from "react";
 import PropTypes from 'prop-types';
+import React from "react";
 
-export default class DotfilesCheckBox extends Component {
+export default class DotfilesCheckBox extends React.Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,

@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
 import {Collapse} from 'react-bootstrap';
+import { connect } from 'react-redux';
 import NavigationLink from '../../components/Navigation/NavigationLink/NavigationLink';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-class UserDropdown extends Component {
+class UserDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {open: false};

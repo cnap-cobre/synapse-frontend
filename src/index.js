@@ -1,11 +1,10 @@
+import App from './App';
+import configureStore from './store';
+import { Provider } from 'react-redux';
 import React from "react";
 import { render } from "react-dom";
-import { Provider } from 'react-redux';
-import { createBrowserHistory, startListener, Router } from 'redux-json-router';
-import configureStore from './store';
 import routes from './routes.json';
-
-import App from './App';
+import { createBrowserHistory, Router, startListener } from 'redux-json-router';
 
 // Create the history object
 const history = createBrowserHistory();

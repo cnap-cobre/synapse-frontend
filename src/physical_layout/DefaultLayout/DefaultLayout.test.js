@@ -1,9 +1,9 @@
+import configureStore from 'redux-mock-store';
+import DefaultLayout from './DefaultLayout';
+import { initialUserProfileState } from "../../reducers/userProfile";
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DefaultLayout from './DefaultLayout';
-import { Provider } from 'react-redux';
-import { initialUserProfileState } from "../../reducers/userProfile";
-import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore([]);
 

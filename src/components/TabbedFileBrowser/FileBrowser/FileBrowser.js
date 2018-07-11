@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 import FileBreadcrumbs from './FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
-import {connect} from "react-redux";
 import Loader from "../../Loader/Loader";
+import PropTypes from 'prop-types';
+import React from 'react';
 import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 
-class FileBrowser extends Component {
+
+class FileBrowser extends React.Component {
   static propTypes = {
     system: PropTypes.shape({
       id: PropTypes.string.isRequired,

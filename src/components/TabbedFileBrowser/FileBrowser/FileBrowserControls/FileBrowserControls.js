@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import BrowserRefresh from "./BrowserRefresh/BrowserRefresh";
 import DotfilesCheckBox from "./DotfilesCheckBox/DotfilesCheckBox";
-import BrowserRefresh
-  from "./BrowserRefresh/BrowserRefresh";
+import PropTypes from 'prop-types';
+import React from "react";
 
-export default class FileBrowserControls extends Component {
+
+export default class FileBrowserControls extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     handleRefresh: PropTypes.func.isRequired,

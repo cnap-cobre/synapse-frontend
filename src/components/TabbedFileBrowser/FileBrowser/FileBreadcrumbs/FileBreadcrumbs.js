@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import path from 'path';
-
 import { Breadcrumb } from "react-bootstrap";
 import { Link } from "redux-json-router";
-
+import path from 'path';
 import PropTypes from 'prop-types';
-
+import React from "react";
 import './breadcrumbs.css';
 
-export default class FileBreadcrumbs extends Component {
+
+export default class FileBreadcrumbs extends React.Component {
   static propTypes = {
     system: PropTypes.shape({
       id: PropTypes.string.isRequired,

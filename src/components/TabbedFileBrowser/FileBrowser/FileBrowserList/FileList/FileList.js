@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import { humanFileSize } from "../../../../../util/FileSize.js";
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
+import { humanFileSize } from "../../../../../util/FileSize.js";
 import moment from 'moment';
-
 import PropTypes from 'prop-types';
+import React from "react";
 
-export default class FileList extends Component {
+
+export default class FileList extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
     onSelectFile: PropTypes.func,
@@ -13,7 +13,7 @@ export default class FileList extends Component {
   };
 
   static defaultProps = {
-    ...Component.defaultProps,
+    ...React.Component.defaultProps,
     list: [],
     onSelectFile: (item, e) => alert(item.name)
   };

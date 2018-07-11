@@ -1,5 +1,5 @@
-import React from 'react';
 import DefaultLayout from '../../physical_layout/DefaultLayout/DefaultLayout';
+import React from 'react';
 
 export default function(){
   return (

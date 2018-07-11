@@ -1,16 +1,13 @@
-import React, {Component} from "react";
-import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
-
-import PropTypes from 'prop-types';
+import { DeleteFileModal } from '../../Modal/DeleteFileModal';
 import FileActionsServicePropTypes from '../../../proptypes/FileActionsServicePropTypes';
 import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
-
+import PropTypes from 'prop-types';
+import React from "react";
+import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 import './fileActionMenu.css';
 
-import { DeleteFileModal } from '../../Modal/DeleteFileModal';
 
-
-export default class FileActions extends Component {
+export default class FileActions extends React.Component {
   static propTypes = {
     id: PropTypes.oneOfType([
       PropTypes.string,

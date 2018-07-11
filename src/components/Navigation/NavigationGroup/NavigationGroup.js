@@ -1,6 +1,7 @@
-import React, {Component} from "react";
 import {Collapse} from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import React from "react";
+
 
 /*
  Note:
@@ -11,7 +12,7 @@ import PropTypes from 'prop-types';
  this React implementation does not.
 */
 
-export default class NavigationGroup extends Component {
+export default class NavigationGroup extends React.Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
     activeOnlyWhenExact: PropTypes.bool.isRequired,

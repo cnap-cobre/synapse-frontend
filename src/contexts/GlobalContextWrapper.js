@@ -1,6 +1,5 @@
-import React from 'react';
-
 import {ModalStateProvider} from './ModalStateProvider';
+import React from 'react';
 
 export const GlobalContextWrapper = (props) => (
     <ModalStateProvider>

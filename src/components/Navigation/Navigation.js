@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import NavigationLink from './NavigationLink/NavigationLink';
-import NavigationGroup from './NavigationGroup/NavigationGroup';
 import nav from '../../nav.js';
+import NavigationGroup from './NavigationGroup/NavigationGroup';
+import NavigationLink from './NavigationLink/NavigationLink';
+import React from 'react';
 
-export default class Navigation extends Component {
+export default class Navigation extends React.Component {
   static propTypes = {};
 
   static buildLinks = (item) => {

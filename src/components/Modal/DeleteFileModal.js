@@ -1,10 +1,9 @@
-import React, {Component} from "react";
-import PropTypes from 'prop-types';
 import FileItemPropTypes from '../../proptypes/FileItemPropTypes';
+import PropTypes from 'prop-types';
+import React from "react";
+import { Button, Modal } from 'react-bootstrap';
 
-import { Modal, Button } from 'react-bootstrap';
-
-export class DeleteFileModal extends Component {
+export class DeleteFileModal extends React.Component {
   
   static propTypes = {
     fileToBeDeleted: FileItemPropTypes,

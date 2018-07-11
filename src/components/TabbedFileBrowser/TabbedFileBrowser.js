@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { replace, push } from 'redux-json-router';
-import {Alert, Tabs, Tab} from 'react-bootstrap';
+import {fetchFilesIfNeeded} from "../../actions/files";
+import FileBrowser from "./FileBrowser/FileBrowser";
 import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
+import React from 'react';
 import {toggle_dotfiles} from "../../actions/visualOptions";
-import FileBrowser from "./FileBrowser/FileBrowser";
+import {Alert, Tab, Tabs} from 'react-bootstrap';
+import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
-import {fetchFilesIfNeeded} from "../../actions/files";
 
-class TabbedFileBrowser extends Component {
+class TabbedFileBrowser extends React.Component {
   static propTypes = {
     isReady: PropTypes.bool.isRequired,
     fileSystems: PropTypes.array.isRequired,

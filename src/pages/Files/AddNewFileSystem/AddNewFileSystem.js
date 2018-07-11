@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import CardLayout from '../../../physical_layout/CardLayout/CardLayout';
+import React from 'react';
 
-export default class Files extends Component {
+export default class Files extends React.Component {
   render() {
     return (
         <CardLayout>

@@ -1,11 +1,10 @@
-import React, {Component} from "react";
 import {PropagateLoader} from 'react-spinners';
-
 import PropTypes from 'prop-types';
-
+import React from "react";
 import './Loader.css';
 
-export default class Loader extends Component {
+
+export default class Loader extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired
   };

@@ -1,6 +1,6 @@
+import DefaultNavbar from './DefaultNavbar';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DefaultNavbar from './DefaultNavbar';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');

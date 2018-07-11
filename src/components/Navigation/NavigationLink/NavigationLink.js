@@ -1,9 +1,8 @@
-import React, {Component} from "react";
 import {Link} from 'redux-json-router';
-
 import PropTypes from 'prop-types';
+import React from "react";
 
-export default class NavigationLink extends Component {
+export default class NavigationLink extends React.Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
     activeOnlyWhenExact: PropTypes.bool.isRequired,

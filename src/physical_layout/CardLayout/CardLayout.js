@@ -1,5 +1,5 @@
-import React from 'react';
 import DefaultLayout from '../DefaultLayout/DefaultLayout';
+import React from 'react';
 
 export default (props) => (
     <DefaultLayout>

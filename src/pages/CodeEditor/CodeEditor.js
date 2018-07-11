@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import Editor from '../../components/Editor/Editor';
-
-import './CodeEditor.css'
 import DefaultLayout from "../../physical_layout/DefaultLayout/DefaultLayout";
+import Editor from '../../components/Editor/Editor';
+import React from 'react';
+import './CodeEditor.css'
 
-export default class CodeEditor extends Component {
+
+export default class CodeEditor extends React.Component {
   render() {
     return (
         <DefaultLayout>

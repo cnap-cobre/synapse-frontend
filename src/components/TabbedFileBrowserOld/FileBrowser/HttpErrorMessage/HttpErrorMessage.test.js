@@ -1,6 +1,6 @@
+import HttpErrorMessage from './HttpErrorMessage';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HttpErrorMessage from './HttpErrorMessage';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');

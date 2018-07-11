@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-
-import DefaultSidebar from './DefaultSidebar/DefaultSidebar';
-import DefaultNavbar from './DefaultNavbar/DefaultNavbar';
 import DefaultFooter from './DefaultFooter/DefaultFooter';
+import DefaultNavbar from './DefaultNavbar/DefaultNavbar';
+import DefaultSidebar from './DefaultSidebar/DefaultSidebar';
+import React, { Component } from 'react';
 
 export default class DefaultLayout extends Component {
   render() {

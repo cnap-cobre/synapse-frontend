@@ -1,15 +1,14 @@
-import React, { Component } from "react";
 import { connect } from 'react-redux';
-
-import { GlobalContextWrapper } from './contexts/GlobalContextWrapper';
-
-import { ModalContext } from "./contexts/ModalStateProvider";
 import EmptyWrapperForDrawingModals from './components/Modal/EmptyWrapperForDrawingModals';
-import {fetchProfileIfNeeded} from "./actions/userProfile";
 import {fetchAgaveFileSystemsIfNeeded} from "./actions/agaveFileSystems";
+import {fetchProfileIfNeeded} from "./actions/userProfile";
+import { GlobalContextWrapper } from './contexts/GlobalContextWrapper';
+import { ModalContext } from "./contexts/ModalStateProvider";
 import {putCSRFTokenInStore} from "./actions/csrf";
+import React from "react";
 
-class App extends Component {
+
+class App extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchProfileIfNeeded());

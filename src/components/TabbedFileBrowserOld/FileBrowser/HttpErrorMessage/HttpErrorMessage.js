@@ -1,9 +1,10 @@
-import React, {Component} from "react";
+import PropTypes from 'prop-types';
+import React from "react";
 import {statusCodeToErrorMessage} from "../../../../util/ErrorMessage";
 
-import PropTypes from 'prop-types';
 
-export default class HttpErrorMessage extends Component {
+
+export default class HttpErrorMessage extends React.Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     errorObject: PropTypes.object.isRequired

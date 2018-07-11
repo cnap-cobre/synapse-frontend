@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import DefaultLayout from "../../physical_layout/DefaultLayout/DefaultLayout";
+import React from 'react';
 
-export default class Dashboard extends Component {
+export default class Dashboard extends React.Component {
   render() {
     return (
         <DefaultLayout>

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { FaRefresh } from 'react-icons/lib/fa/';
 import { Button } from 'react-bootstrap';
+import { FaRefresh } from 'react-icons/lib/fa/';
+import PropTypes from 'prop-types';
+import React, { Component } from "react";
 
 
 export default class BrowserRefresh extends Component {

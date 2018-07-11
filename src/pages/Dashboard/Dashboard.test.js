@@ -1,9 +1,9 @@
-import React from 'react';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom';
 import Dashboard from './Dashboard';
 import { initialUserProfileState } from "../../reducers/userProfile";
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const mockStore = configureStore([]);
 

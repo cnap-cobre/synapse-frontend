@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import DefaultLayout from "../../physical_layout/DefaultLayout/DefaultLayout";
+import React from 'react';
 
-export default class Shell extends Component {
+export default class Shell extends React.Component {
   render() {
     return (
         <DefaultLayout>

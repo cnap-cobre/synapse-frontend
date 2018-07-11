@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import synapse_logo from './logo.png';
+import React, { Component } from 'react';
 
 export default function Logo() {
     return (

@@ -1,8 +1,10 @@
-import React from 'react';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom';
 import Navigation from './Navigation';
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
 
 const mockStore = configureStore([]);
 

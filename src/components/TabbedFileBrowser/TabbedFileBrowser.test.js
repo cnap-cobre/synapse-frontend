@@ -1,10 +1,11 @@
+import configureStore from 'redux-mock-store';
+import { initialAgaveFileSystemsState } from "../../reducers/agaveFileSystems";
+import { initialUserProfileState } from "../../reducers/userProfile";
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TabbedFileBrowser from './TabbedFileBrowser';
-import { Provider } from 'react-redux';
-import { initialUserProfileState } from "../../reducers/userProfile";
-import { initialAgaveFileSystemsState } from "../../reducers/agaveFileSystems";
-import configureStore from 'redux-mock-store';
+
 
 const mockStore = configureStore([]);
 
@@ -14,11 +15,14 @@ it('renders without crashing', ()=>{
       <Provider store={mockStore({
         userProfile: initialUserProfileState,
         agaveFileSystems: initialAgaveFileSystemsState,
+        visualOptions: {
+          showDotfiles: true
+        },
         router: {
           pathname: '/files/beocat/',
         },
       })}>
-        <TabbedFileBrowser/>
+        <TabbedFileBrowser prefix="/files" />
       </Provider>
   ), div);
   ReactDOM.unmountComponentAtNode(div);

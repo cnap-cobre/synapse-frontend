@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
 import FieldFieldHeader from "./FileFieldHeader/FileFieldHeader";
 import FileList from "./FileList/FileList";
-
 import PropTypes from 'prop-types';
+import React from 'react';
 
-export default class FileBrowserList extends Component {
+
+export default class FileBrowserList extends React.Component {
   static propTypes = {
     showDotfiles: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,

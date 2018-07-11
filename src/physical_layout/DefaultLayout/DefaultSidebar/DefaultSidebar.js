@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
 import Logo from '../../../components/Logo/Logo';
-import UserDropdown from '../../../components/UserDropdown/UserDropdown';
 import Navigation from '../../../components/Navigation/Navigation';
+import React from 'react';
+import UserDropdown from '../../../components/UserDropdown/UserDropdown';
 
-export default class DefaultSidebar extends Component {
+export default class DefaultSidebar extends React.Component {
   render() {
     return (
         <div className="sidebar"

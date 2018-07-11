@@ -1,11 +1,12 @@
+import configureStore from 'redux-mock-store';
+import ExampleFileListing from './ExampleFileListing.json'
+import Files from './Files';
+import {initialAgaveFileSystemsState} from "../../reducers/agaveFileSystems";
+import {initialUserProfileState} from "../../reducers/userProfile";
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Files from './Files';
-import ExampleFileListing from './ExampleFileListing.json'
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
-import {initialUserProfileState} from "../../reducers/userProfile";
-import {initialAgaveFileSystemsState} from "../../reducers/agaveFileSystems";
+
 
 const mockStore = configureStore([]);
 
@@ -17,6 +18,9 @@ it('renders without crashing', ()=>{
       <Provider store={mockStore({
         router: {
           pathname: '/files/beocat/homes/kmdice/',
+        },
+        visualOptions: {
+          showDotfiles: true
         },
         userProfile: initialUserProfileState,
         agaveFileSystems: initialAgaveFileSystemsState,

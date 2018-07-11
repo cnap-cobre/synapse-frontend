@@ -1,7 +1,7 @@
-import React, {Component} from "react";
-import PropTypes from 'prop-types';
 import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
 import { Modal } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import React from "react";
 
 export default class DeleteFileModal extends React.Component {
   

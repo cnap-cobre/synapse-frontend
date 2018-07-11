@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import SecondaryNavigation from '../../../components/SecondaryNavigation/SecondaryNavigation';
-import SearchBox from '../../../components/SearchBox/SearchBox';
 import NavbarButton from "../../../components/NavbarButton/NavbarButton";
+import React from 'react';
+import SearchBox from '../../../components/SearchBox/SearchBox';
+import SecondaryNavigation from '../../../components/SecondaryNavigation/SecondaryNavigation';
 
-export default class DefaultNavbar extends Component {
+
+export default class DefaultNavbar extends React.Component {
   render() {
     return (
         <nav className="navbar navbar-default">

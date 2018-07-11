@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import MockRouter from 'react-mock-router';
 import NavigationGroup from './NavigationGroup';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 it('renders without crashing', ()=>{
   const div = document.createElement('div');

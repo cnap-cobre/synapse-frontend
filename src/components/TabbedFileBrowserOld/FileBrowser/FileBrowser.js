@@ -1,15 +1,13 @@
-import React, { Component } from "react";
-
+import FileBreadcrumbs from "./FileBreadcrumbs/FileBreadcrumbs";
+import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
+import FileBrowserList from "./FileBrowserList/FileBrowserList";
 import HttpErrorMessage from "./HttpErrorMessage/HttpErrorMessage";
 import Loader from "../../Loader/Loader";
-import FileBreadcrumbs from "./FileBreadcrumbs/FileBreadcrumbs";
-import FileBrowserList from "./FileBrowserList/FileBrowserList";
-
-import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
-
 import PropTypes from "prop-types";
+import React from "react";
 
-export default class FileBrowser extends Component {
+
+export default class FileBrowser extends React.Component {
   static propTypes = {
     prefix: PropTypes.string.isRequired,
     systemDisplayName: PropTypes.string.isRequired,

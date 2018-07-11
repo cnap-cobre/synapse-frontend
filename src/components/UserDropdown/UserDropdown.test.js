@@ -1,10 +1,11 @@
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
 import UserDropdown from './UserDropdown';
 
 const mockStore = configureStore([]);
+
 const storeData = {
   userProfile: {
     user: {

@@ -1,5 +1,5 @@
-import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 import fileDownload from 'js-file-download';
+import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
 function list(filePath){
   const url = '/agave/files/v2/listings/system' + filePath + '?limit=1000';

@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { initialUserProfileState } from "../../reducers/userProfile";
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import Shell from './Shell';
 
 const mockStore = configureStore([]);

@@ -1,9 +1,9 @@
+import configureStore from 'redux-mock-store';
+import DefaultSidebar from './DefaultSidebar';
+import { initialUserProfileState } from "../../../reducers/userProfile";
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DefaultSidebar from './DefaultSidebar';
-import { Provider } from 'react-redux';
-import { initialUserProfileState } from "../../../reducers/userProfile";
-import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore([]);
 

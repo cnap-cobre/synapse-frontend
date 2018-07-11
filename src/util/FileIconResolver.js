@@ -1,14 +1,34 @@
 import React from 'react';
 
-import {FaFolderO, FaFileO,
-  FaFileWordO, FaFilePowerpointO, FaFileExcelO, FaFileImageO,
-  FaFileMovieO, FaFileTextO, FaFileArchiveO, FaFilePdfO,
-  FaFileCodeO, FaFileAudioO, FaCogs, FaTerminal} from 'react-icons/lib/fa';
+import {
+  FaCogs,
+  FaFileArchiveO,
+  FaFileAudioO,
+  FaFileCodeO,
+  FaFileExcelO,
+  FaFileImageO,
+  FaFileMovieO,
+  FaFileO,
+  FaFilePdfO,
+  FaFilePowerpointO,
+  FaFileTextO,
+  FaFileWordO,
+  FaFolderO,
+  FaTerminal
+} from 'react-icons/lib/fa';
 
-import {IoSocialPython, IoSocialJavascript,
-  IoSocialSass} from 'react-icons/lib/io';
+import {
+  GoDatabase,
+  GoGitBranch,
+  GoRuby
+} from 'react-icons/lib/go';
 
-import {GoRuby, GoGitBranch, GoDatabase} from 'react-icons/lib/go';
+import {
+  IoSocialJavascript,
+  IoSocialPython,
+  IoSocialSass
+} from 'react-icons/lib/io';
+
 
 const insetIconStyle = {
   position: 'relative',

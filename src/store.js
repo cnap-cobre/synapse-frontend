@@ -1,10 +1,9 @@
-import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
-import { routerReducer, routerMiddleware } from 'redux-json-router';
-import { otherMiddlewares } from './other';
-import reducer from './reducers';
-import monitorReducerEnhancer from "./enhancers/monitorReducer";
 import loggerMiddleware from './middleware/logger';
+import monitorReducerEnhancer from "./enhancers/monitorReducer";
+import reducer from './reducers';
 import thunkMiddleware from 'redux-thunk';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { routerMiddleware, routerReducer } from 'redux-json-router';
 
 // add `routerReducer` to your root reducer
 const makeRootReducer = () => combineReducers({

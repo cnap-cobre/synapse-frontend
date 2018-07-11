@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { withCookies, Cookies } from "react-cookie";
-import {instanceOf} from "prop-types";
+import { instanceOf } from "prop-types";
+import React from 'react';
+import { Cookies, withCookies } from "react-cookie";
 
-class LogoutButton extends Component {
+
+
+class LogoutButton extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
