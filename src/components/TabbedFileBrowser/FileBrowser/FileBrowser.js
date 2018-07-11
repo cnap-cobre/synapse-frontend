@@ -4,6 +4,7 @@ import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
 import Loader from "../../Loader/Loader";
 import PropTypes from 'prop-types';
+import {push} from 'redux-json-router';
 import React from 'react';
 import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 
@@ -54,7 +55,7 @@ class FileBrowser extends React.Component {
 
           <FileBrowserList showDotfiles={this.props.showDotfiles}
                            path={this.props.path}
-                           handleFileClick={() => {alert('impliment me')}}
+                           handleFileClick={this.props.handleFileClick}
                            loading={this.props.error}
                            error={this.props.error}
                            list={this.props.list}
@@ -100,6 +101,15 @@ const mapDispatchToProps = dispatch => {
     handleRefresh: (path) => () => {
       dispatch(invalidateFiles(path));
       setTimeout(() => dispatch(fetchFilesIfNeeded(path)), 20);
+    },
+    handleFileClick: (file) => {
+      if (file.type === 'dir') {
+        dispatch(push([
+            '.',
+            file.name,
+            ''
+        ].join('/')))
+      }
     }
   };
 };
