@@ -23,10 +23,13 @@ export default class FileBrowserControls extends React.Component {
         display: "flex",
         flexDirection: "row"
       }}>
+        <BrowserRefresh handleRefresh={this.props.handleRefresh} />
+
         <DotfilesCheckBox id={this.props.id}
                           showDotfiles={this.props.showDotfiles}
-                          toggleDotfiles={this.props.toggleDotfiles} />
-        <BrowserRefresh handleRefresh={this.props.handleRefresh} />
+                          toggleDotfiles={this.props.toggleDotfiles}
+        />
+
       </div>
     );
   }

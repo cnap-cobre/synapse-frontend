@@ -11,7 +11,9 @@ export default class DotfilesCheckBox extends React.Component {
 
   render(){
     return (
-        <div className="checkbox">
+        <div className="checkbox" style={{
+          marginLeft: '1.0em'
+        }}>
           <input  checked={this.props.showDotfiles}
                   id={"DotfilesCheckbox" + this.props.id}
                   type="checkbox"

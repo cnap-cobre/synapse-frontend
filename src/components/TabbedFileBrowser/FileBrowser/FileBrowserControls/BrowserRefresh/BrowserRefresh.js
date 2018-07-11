@@ -18,7 +18,6 @@ export default class BrowserRefresh extends Component {
               onClick={this.props.handleRefresh}
               style={{
                 height: "2.7em",
-                marginLeft: "1.2em",
                 marginTop: "0.5em"
               }}>
          <FaRefresh/>&nbsp;Refresh
