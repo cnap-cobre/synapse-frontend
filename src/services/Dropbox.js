@@ -3,7 +3,7 @@ import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../util/Fetc
 const list = (csrftoken, filePath) => {
   const url = '/dropbox/api/2/files/list_folder';
   let form = {
-    'path': filePath.slice(1)
+    'path': filePath === '/' ? '' : filePath
   };
 
   return fetch(url, {
