@@ -20,9 +20,23 @@ class DeleteFileModal extends React.Component {
     };
   }
 
+  closeModal = () => {
+    this.setState({
+      show: false
+    });
+    setTimeout(() => {
+      this.props.dispatch(
+          removeModal(this.props.id)
+      );
+    }, 500);
+  }
+
   render = () => (
-      <Modal show={true}>
-        <Modal.Header closeButton>
+      <Modal show={this.state.show}
+             backdrop={true}
+             onHide={this.closeModal}
+      >
+        <Modal.Header closeButton={true}>
           <Modal.Title>Confirm Deletion</Modal.Title>
         </Modal.Header>
 
@@ -33,16 +47,10 @@ class DeleteFileModal extends React.Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => {
-            this.props.dispatch(
-                removeModal(this.props.id)
-            );
-          }}>Cancel</Button>
+          <Button onClick={this.closeModal}>Cancel</Button>
           <Button bsStyle="danger"
                   onClick={() => {
-                    this.props.dispatch(
-                      removeModal(this.props.id)
-                    );
+                    this.closeModal();
                     this.props.dispatch(
                       this.props.action
                     );
