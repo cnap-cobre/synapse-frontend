@@ -1,14 +1,14 @@
-import DefaultLayout from '../../physical_layout/DefaultLayout/DefaultLayout';
+import CardLayout from '../../physical_layout/CardLayout/CardLayout';
 import React from 'react';
+import UserProfilePhoto from '../../components/UserProfilePhoto/UserProfilePhoto';
 
 export default class Account extends React.Component {
   render() {
     return (
-        <DefaultLayout>
-          <div>
-            Hello World
-          </div>
-        </DefaultLayout>
+        <CardLayout>
+          <h3>My Account</h3>
+          <UserProfilePhoto/>
+        </CardLayout>
     );
   }
 }
