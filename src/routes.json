@@ -2,12 +2,14 @@
   {
     "path": "/",
     "name": "Dashboard",
-    "page": "./pages/Dashboard/Dashboard"
+    "page": "./pages/Dashboard/Dashboard",
+    "chunk": "dashboard"
   },
   {
     "path": "/account",
     "name": "Account",
     "page": "./pages/Account/Account",
+    "chunk": "account",
     "children": [
       {
         "path": "/logout",
@@ -20,6 +22,7 @@
     "path": "/files",
     "name": "Files",
     "page": "./pages/Files/Files",
+    "chunk": "files",
     "children": [
       {
         "path": "/add_new_filesystem",
@@ -31,17 +34,20 @@
   {
     "path": "/shell",
     "name": "Shell",
-    "page": "./pages/Shell/Shell"
+    "page": "./pages/Shell/Shell",
+    "chunk": "shell"
   },
   {
     "path": "/editor",
     "name": "Code Editor",
-    "page": "./pages/CodeEditor/CodeEditor"
+    "page": "./pages/CodeEditor/CodeEditor",
+    "chunk": "editor"
   },
   {
     "path": "/compute",
     "name": "Code Editor",
-    "page": "./pages/ComputeJobs/ComputeJobs"
+    "page": "./pages/ComputeJobs/ComputeJobs",
+    "chunk": "compute"
   },
   {
     "path": "*",
