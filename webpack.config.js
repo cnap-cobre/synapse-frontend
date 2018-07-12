@@ -6,7 +6,7 @@ const routes = [path.resolve(__dirname, './src/routes.json')];
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
-module.exports = {
+module.exports = env => ({
   entry: {
     app: [
       './polyfills.js',
@@ -76,6 +76,8 @@ module.exports = {
       path: __dirname,
       filename: "./stats/stats.json"
     }),
-    new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: (env.DISABLE_ANALYZER_SERVER || env.CI ? "disabled" : "server")
+    }),
   ],
-};
+});
