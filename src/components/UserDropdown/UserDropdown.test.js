@@ -14,7 +14,10 @@ const storeData = {
     gravatar: {
       url: 'http://asdfasdfasdf.com/'
     }
-  }
+  },
+  router: {
+    pathname: '/files/viper/home/kmdice/625/hw3/'
+  },
 };
 
 it('renders without crashing', ()=>{

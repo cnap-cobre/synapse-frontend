@@ -11,7 +11,10 @@ it('renders without crashing', ()=>{
   const div = document.createElement('div');
   ReactDOM.render((
       <Provider store={mockStore({
-        userProfile: initialUserProfileState
+        userProfile: initialUserProfileState,
+        router: {
+          pathname: '/files/viper/home/kmdice/625/hw3/'
+        },
       })}>
         <CodeEditor/>
       </Provider>
