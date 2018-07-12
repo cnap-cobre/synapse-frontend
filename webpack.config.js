@@ -13,6 +13,10 @@ module.exports = {
       './src/index.js'
     ],
   },
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/static/'
+  },
   module: {
     rules: [
       {
@@ -73,5 +77,5 @@ module.exports = {
       filename: "./stats/stats.json"
     }),
     new BundleAnalyzerPlugin(),
-  ]
+  ],
 };
