@@ -1,10 +1,12 @@
 import { addModal } from "../../../actions/modals";
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import { connect } from 'react-redux';
 import {deleteFile} from "../../../actions/files";
 import { DeleteFileModal } from '../../Modal/DeleteFileModal';
+import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 import PropTypes from 'prop-types';
 import React from "react";
-import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
 import './fileActionMenu.css';
 
 

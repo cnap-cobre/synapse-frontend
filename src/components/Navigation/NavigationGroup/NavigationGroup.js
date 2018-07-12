@@ -1,4 +1,4 @@
-import {Collapse} from 'react-bootstrap';
+import Collapse from 'react-bootstrap/lib/Collapse';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from "react";

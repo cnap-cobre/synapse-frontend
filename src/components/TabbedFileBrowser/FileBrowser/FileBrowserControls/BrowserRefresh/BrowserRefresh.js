@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
 import FaRefresh from 'react-icons/lib/fa/refresh';
 import PropTypes from 'prop-types';
 import React, { Component } from "react";

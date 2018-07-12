@@ -1,4 +1,4 @@
-import { Breadcrumb } from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/lib/Breadcrumb";
 import { Link } from "redux-json-router";
 import path from 'path';
 import PropTypes from 'prop-types';

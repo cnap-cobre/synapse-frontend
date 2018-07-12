@@ -1,5 +1,5 @@
 import FileItemPropTypes from '../../../proptypes/FileItemPropTypes';
-import { Modal } from 'react-bootstrap';
+import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from "react";
 
