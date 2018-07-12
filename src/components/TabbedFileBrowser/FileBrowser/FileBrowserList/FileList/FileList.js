@@ -1,7 +1,6 @@
 import FileActions from "../../../FileActions/FileActions";
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import { humanFileSize } from "../../../../../util/FileSize.js";
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from "react";
 
@@ -32,7 +31,7 @@ export default class FileList extends React.Component {
               { item.name }
             </td>
             <td>{ humanFileSize(item.length) }</td>
-            <td>{ moment(item.lastModified).format('l LT') }</td>
+            <td>{ item.lastModified }</td>
             <td>
               <FileActions id={i}
                            fileName={item.name}

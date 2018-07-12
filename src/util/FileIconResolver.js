@@ -1,33 +1,30 @@
 import React from 'react';
 
-import {
-  FaCogs,
-  FaFileArchiveO,
-  FaFileAudioO,
-  FaFileCodeO,
-  FaFileExcelO,
-  FaFileImageO,
-  FaFileMovieO,
-  FaFileO,
-  FaFilePdfO,
-  FaFilePowerpointO,
-  FaFileTextO,
-  FaFileWordO,
-  FaFolderO,
-  FaTerminal
-} from 'react-icons/lib/fa';
+// Individual imports like this save massively on the Webpack
+// bundle size.  Importing the index.js from each of these
+// would result in more than double the bundle size.  Yuge.
+import FaCogs from 'react-icons/lib/fa/cogs';
+import FaFileArchiveO from 'react-icons/lib/fa/file-archive-o';
+import FaFileAudioO from 'react-icons/lib/fa/file-audio-o';
+import FaFileCodeO from 'react-icons/lib/fa/file-code-o';
+import FaFileExcelO from 'react-icons/lib/fa/file-excel-o';
+import FaFileImageO from 'react-icons/lib/fa/file-image-o';
+import FaFileMovieO from 'react-icons/lib/fa/file-movie-o';
+import FaFileO from 'react-icons/lib/fa/file-o';
+import FaFilePdfO from 'react-icons/lib/fa/file-pdf-o';
+import FaFilePowerpointO from 'react-icons/lib/fa/file-powerpoint-o';
+import FaFileTextO from 'react-icons/lib/fa/file-text-o';
+import FaFileWordO from 'react-icons/lib/fa/file-word-o';
+import FaFolderO from 'react-icons/lib/fa/folder-o';
+import FaTerminal from 'react-icons/lib/fa/terminal';
 
-import {
-  GoDatabase,
-  GoGitBranch,
-  GoRuby
-} from 'react-icons/lib/go';
+import GoDatabase from 'react-icons/lib/go/database';
+import GoGitBranch from 'react-icons/lib/go/git-branch';
+import GoRuby from 'react-icons/lib/go/ruby';
 
-import {
-  IoSocialJavascript,
-  IoSocialPython,
-  IoSocialSass
-} from 'react-icons/lib/io';
+import IoSocialJavascript from 'react-icons/lib/io/social-javascript';
+import IoSocialPython from 'react-icons/lib/io/social-python';
+import IoSocialSass from 'react-icons/lib/io/social-sass';
 
 
 const insetIconStyle = {
