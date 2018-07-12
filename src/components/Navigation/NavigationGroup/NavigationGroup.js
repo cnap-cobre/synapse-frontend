@@ -1,7 +1,7 @@
 import {Collapse} from 'react-bootstrap';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from "react";
-
 
 /*
  Note:
@@ -12,7 +12,7 @@ import React from "react";
  this React implementation does not.
 */
 
-export default class NavigationGroup extends React.Component {
+class NavigationGroup extends React.Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
     activeOnlyWhenExact: PropTypes.bool.isRequired,
@@ -25,7 +25,13 @@ export default class NavigationGroup extends React.Component {
   };
 
   render() {
-    const match = false;
+    let match;
+    if (this.props.activeOnlyWhenExact) {
+      match = this.props.to === this.props.pathname;
+    } else {
+      match = this.props.pathname.indexOf(this.props.to) === 0;
+    }
+
     return (
         <li className={match ? "active" : ""}>
           <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
@@ -46,10 +52,8 @@ export default class NavigationGroup extends React.Component {
   }
 }
 
-// <Route
-//           path={this.props.to}
-//           exact={this.props.activeOnlyWhenExact}
-//           children={({ match }) => (
-//
-//           )}
-// />
+const mapStateToProps = (store) => ({ pathname: store.router.pathname });
+
+export default connect(
+    mapStateToProps
+)(NavigationGroup);
