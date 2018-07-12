@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Individual imports like this save massively on the Webpack
 // bundle size.  Importing the index.js from each of these
@@ -25,6 +24,8 @@ import GoRuby from 'react-icons/lib/go/ruby';
 import IoSocialJavascript from 'react-icons/lib/io/social-javascript';
 import IoSocialPython from 'react-icons/lib/io/social-python';
 import IoSocialSass from 'react-icons/lib/io/social-sass';
+
+import React from 'react';
 
 
 const insetIconStyle = {
