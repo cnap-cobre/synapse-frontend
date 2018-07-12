@@ -4,9 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 const routes = [path.resolve(__dirname, './src/routes.json')];
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const env = process.env;
 
-
-module.exports = env => ({
+module.exports = {
   entry: {
     app: [
       './polyfills.js',
@@ -80,4 +80,4 @@ module.exports = env => ({
       analyzerMode: (env.DISABLE_ANALYZER_SERVER || env.CI ? "disabled" : "server")
     }),
   ],
-});
+};
