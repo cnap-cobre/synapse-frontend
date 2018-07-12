@@ -103,7 +103,13 @@ const systemUrlResolverAndRedirector = (props) => {
   if (props.isReady && urlActive === -1 ) {
     setTimeout(function(){
 
+      // Stop if we are on a different section of the site
       if(props.pathname.indexOf(props.prefix) !== 0) {
+        return;
+      }
+
+      // Stop if we are on the page to add new filesystems
+      if(props.pathname.indexOf('/files/add_new_filesystem') === 0) {
         return;
       }
 
