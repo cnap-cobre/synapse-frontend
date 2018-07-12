@@ -2,9 +2,9 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
-const aliases = require('./aliases');
 const routes = [path.resolve(__dirname, './src/routes.json')];
-console.log('Hello world', routes);
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports = {
   entry: {
@@ -71,9 +71,7 @@ module.exports = {
     new BundleTracker({
       path: __dirname,
       filename: "./stats/stats.json"
-    })
-  ],
-  resolve: {
-    alias: aliases
-  }
+    }),
+    new BundleAnalyzerPlugin(),
+  ]
 };
