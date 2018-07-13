@@ -43,3 +43,27 @@ export function toggleSidebar() {
     type: TOGGLE_SIDEBAR
   };
 }
+
+// --------------------------------------------
+
+export const SET_MOBILE_NAV_OPEN = 'SET_MOBILE_NAV_OPEN';
+export const SET_MOBILE_NAV_CLOSED = 'SET_MOBILE_NAV_CLOSED';
+export const TOGGLE_MOBILE_NAV = 'TOGGLE_MOBILE_NAV';
+
+export function setMobileNavOpen() {
+  return {
+    type: SET_MOBILE_NAV_OPEN
+  };
+}
+
+export function setMobileNavClose() {
+  return {
+    type: SET_MOBILE_NAV_CLOSED
+  };
+}
+
+export function toggleMobileNav() {
+  return {
+    type: TOGGLE_MOBILE_NAV
+  };
+}
