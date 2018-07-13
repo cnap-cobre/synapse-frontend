@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const routes = [path.resolve(__dirname, './src/routes.json')];
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const env = process.env;
@@ -80,4 +81,14 @@ module.exports = {
       analyzerMode: (env.DISABLE_ANALYZER_SERVER || env.CI ? "disabled" : "server")
     }),
   ],
+  optimization: {
+    minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            mangle: true,
+            compress: true,
+          }
+        })
+    ]
+  }
 };
