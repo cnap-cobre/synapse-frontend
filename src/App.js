@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {fetchAgaveFileSystemsIfNeeded} from "./actions/agaveFileSystems";
 import {fetchProfileIfNeeded} from "./actions/userProfile";
-import NewModalWrapper from './components/Modal/NewModalWrapper';
+import ModalWrapper from './components/Modal/ModalWrapper';
 import {putCSRFTokenInStore} from "./actions/csrf";
 import React from "react";
 
@@ -18,7 +18,7 @@ class App extends React.Component {
     return (
         <div>
           {this.props.children}
-          <NewModalWrapper />
+          <ModalWrapper />
         </div>
     );
   }

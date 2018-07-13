@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import DeleteFileModal from './DeleteFileModal';
 import React from 'react';
 
-class NewModalWrapper extends React.Component {
+class ModalWrapper extends React.Component {
   render() {
     return (
         <div>
@@ -24,4 +24,4 @@ const mapStateToProps = (store) => {
   };
 };
 
-export default connect(mapStateToProps)(NewModalWrapper);
+export default connect(mapStateToProps)(ModalWrapper);
