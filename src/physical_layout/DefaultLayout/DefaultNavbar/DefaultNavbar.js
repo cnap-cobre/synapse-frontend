@@ -18,8 +18,8 @@ export default class DefaultNavbar extends React.Component {
               <a className="navbar-brand">CNAP</a>
             </div>
             <div className="collapse navbar-collapse">
-              <SearchBox/>
-              <SecondaryNavigation/>
+              {/*<SearchBox/>*/}
+              {/*<SecondaryNavigation/>*/}
             </div>
           </div>
         </nav>
