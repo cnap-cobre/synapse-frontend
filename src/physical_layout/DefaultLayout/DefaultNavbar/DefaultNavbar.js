@@ -1,3 +1,4 @@
+import MinimizeSidebarButton from "../../../components/MinimizeSidebarButton/MinimizeSidebarButton";
 import NavbarButton from "../../../components/NavbarButton/NavbarButton";
 import React from 'react';
 import SearchBox from '../../../components/SearchBox/SearchBox';
@@ -10,7 +11,7 @@ export default class DefaultNavbar extends React.Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-minimize">
-              <button id="minimizeSidebar" className="btn btn-fill btn-icon"><i className="ti-more-alt"></i></button>
+              <MinimizeSidebarButton />
             </div>
             <div className="navbar-header">
               <NavbarButton/>

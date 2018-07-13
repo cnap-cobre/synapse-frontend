@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import EmptyWrapperForDrawingModals from './components/Modal/EmptyWrapperForDrawingModals';
 import {fetchAgaveFileSystemsIfNeeded} from "./actions/agaveFileSystems";
 import {fetchProfileIfNeeded} from "./actions/userProfile";
 import NewModalWrapper from './components/Modal/NewModalWrapper';
