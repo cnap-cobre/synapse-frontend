@@ -1,39 +1,7 @@
+import fileDownload from 'js-file-download';
 import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
-const list = (csrftoken, filePath) => {
-  const url = '/dropbox/api/2/files/list_folder';
-  let form = {
-    'path': filePath === '/' ? '' : filePath
-  };
-
-  return fetch(url, {
-    body: JSON.stringify(form),
-    cache: 'no-cache',
-    credentials: "same-origin",
-    headers: {
-      'content-type': 'application/json',
-      'X-CSRFToken': csrftoken
-    },
-    method: 'POST',
-    mode: 'cors',
-  })
-  // Throw a proper error if we get a 500, etc. response code
-      .then(fetchErrorThrower)
-
-      // Convert to JSON
-      .then(fetchToJson)
-
-      // map Dropbox to Agave response format
-      .then(DropboxToAgaveFormat)
-};
-
-const rm = (file) => () => {
-  const url = '/dropbox/api/2/files/delete_v2';
-  console.log('rm:   ' + file.path);
-  let form = {
-    'path': file.path
-  };
-
+const dropboxRequest = (csrftoken, url, form) => {
   return fetch(url, {
     body: JSON.stringify(form),
     cache: 'no-cache',
@@ -44,16 +12,94 @@ const rm = (file) => () => {
     },
     method: 'POST',
     mode: 'cors'
-  }).then(mutationCallback)
+  });
+};
 
+const listFiles = (csrftoken, filePath) => {
+  const url = '/dropbox/api/2/files/list_folder';
+  const form = {
+    'path': filePath === '/' ? '' : filePath
+  };
+
+  return dropboxRequest(csrftoken, url, form)
+  // Throw a proper error if we get a 500, etc. response code
+      .then(fetchErrorThrower)
+
+      // Convert to JSON
+      .then(fetchToJson)
+
+      // map Dropbox to Agave response format
+      .then(DropboxToAgaveFormat)
+};
+
+const wget = (csrftoken, file) => {
+  const url = '/dropbox/content/2/files/download';
+  const form = {
+    path: file.path
+  };
+
+  console.log('Download dropbox file 2');
+
+  let x = new XMLHttpRequest();
+  x.open("POST", url, true);
+  x.responseType = 'blob';
+  x.setRequestHeader('X-CSRFToken', csrftoken);
+  x.setRequestHeader('Dropbox-API-Arg', JSON.stringify(form));
+  x.onload = (e) => {
+    fileDownload(x.response, file.name);
+  };
+  x.send();
+};
+
+const rm = (csrftoken, file) => {
+  const url = '/dropbox/api/2/files/delete_v2';
+
+  const form = {
+    'path': file.path
+  };
+
+  return dropboxRequest(csrftoken, url, form);
+};
+
+const mv = (csrftoken, file, toPath) => {
+  const url = '/dropbox/api/2/files/move_v2';
+
+  const form = {
+    'from_path': file.path,
+    'to_path': toPath,
+  };
+
+  return dropboxRequest(url, form);
+};
+
+const cp = (csrftoken, file, toPath) => {
+  const url = '/dropbox/api/2/files/copy_v2';
+
+  const form = {
+    'from_path': file.path,
+    'to_path': toPath
+  };
+
+  return dropboxRequest(csrftoken, url, form)
+};
+
+const mkdir = (csrftoken, path) => {
+  const url = '/dropbox/api/2/files/create_folder_v2';
+
+  const form = {
+    path,
+  };
+
+  return dropboxRequest(csrftoken, url, form);
 };
 
 export default {
-  list: list,
+  listFiles,
+  wget,
+  rm,
   share: () => {console.log('Share')},
-  wget: () => () => {console.log('wget')},
-  rename: () => {console.log('rename')},
-  mv: () => {console.log('mv')},
-  cp: () => {console.log('cp')},
-  rm: rm()
+  mv,
+  cp,
+  rename: mv,
+  mkdir
 };

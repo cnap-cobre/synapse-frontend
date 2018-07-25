@@ -1,7 +1,7 @@
 import fileDownload from 'js-file-download';
 import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
-function list(filePath){
+const listFiles = (filePath) => {
   const url = '/agave/files/v2/listings/system' + filePath + '?limit=1000';
 
   return fetch(url, {
@@ -15,9 +15,18 @@ function list(filePath){
 
       // extract result list
       .then((response) => response.result)
-}
+};
 
-const wget = (file) => () => {
+const listFileSystems = () => {
+  return fetch(`/agave/systems/v2/`, {
+    credentials: 'same-origin'
+  })
+  // Throw a propper error
+      .then(fetchErrorThrower)
+      .then(fetchToJson)
+};
+
+const wget = (csrftoken, file) => {
   const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
 
   let x = new XMLHttpRequest();
@@ -29,7 +38,7 @@ const wget = (file) => () => {
   x.send();
 };
 
-const rm = (file) => () => {
+const rm = (csrftoken, file) => {
   const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
 
   return fetch(url, {
@@ -43,15 +52,37 @@ const rm = (file) => () => {
   }).then((response) => {
     console.log(response);
     return response;
-  }).then(mutationCallback);
-}
+  });
+};
+
+const moveCopyRenameMkdir = (action) => (file, path) => {
+  const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
+
+  const form = {
+    action,
+    path,
+  };
+
+  return fetch(url, {
+    body: JSON.stringify(form),
+    credentials: "same-origin",
+    headers: {
+      'content-type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
+    method: 'POST',
+    mode: 'cors'
+  });
+};
 
 export default {
-  list: list,
+  listFiles,
+  listFileSystems,
+  wget,
+  rm,
   share: () => {console.log('Share')},
-  wget: wget,
-  rename: () => {console.log('rename')},
-  mv: () => {console.log('mv')},
-  cp: () => {console.log('cp')},
-  rm: rm,
+  mv: (file, dest) => moveCopyRenameMkdir('move')(file, dest),
+  cp: (file, dest) => moveCopyRenameMkdir('copy')(file, dest),
+  rename: (file, newName) => moveCopyRenameMkdir('rename')(file, newName),
+  mkdir: (system, path, dirName) => moveCopyRenameMkdir('mkdir')({system, path}, dirName)
 };
