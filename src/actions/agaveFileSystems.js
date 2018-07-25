@@ -1,3 +1,5 @@
+import Agave from '../services/Agave';
+
 export const REQUEST_AGAVE_FILE_SYSTEMS = 'REQUEST_AGAVE_FILE_SYSTEMS';
 export const RECEIVE_AGAVE_FILE_SYSTEMS = 'RECEIVE_AGAVE_FILE_SYSTEMS';
 export const FAIL_AGAVE_FILE_SYSTEMS = 'FAIL_AGAVE_FILE_SYSTEMS';
@@ -34,16 +36,8 @@ export function invalidateAgaveFileSystems() {
 function fetchAgaveFileSystems() {
   return dispatch => {
     dispatch(requestAgaveFileSystems());
-    return fetch(`/agave/systems/v2/`, {
-      credentials: 'same-origin'
-    })
-        .then(response => {
-          if (response.status >= 400) {
-            throw response;
-          }
-          return response;
-        })
-        .then(response => response.json())
+
+    return Agave.listFileSystems()
         .then(json => dispatch(receiveAgaveFileSystems(json)))
         .catch(response => {
           if (response.status === 403) {
