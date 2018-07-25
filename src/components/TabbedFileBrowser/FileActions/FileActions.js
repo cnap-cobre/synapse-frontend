@@ -42,6 +42,7 @@ class FileActions extends React.Component {
       ['Copy', () => {console.log('copy')}],
       ['Delete', () => {
         this.props.dispatch(addModal({
+          modalType: 'deleteFile',
           fileName: this.props.fileName,
           action: () => {
             this.props.dispatch(

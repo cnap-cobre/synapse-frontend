@@ -6,13 +6,20 @@ class ModalWrapper extends React.Component {
   render() {
     return (
         <div>
-          {Object.keys(this.props.modals).map((id, i) => (
-              <DeleteFileModal key={i}
-                               id={id}
-                               action={this.props.modals[id].action}
-                               fileName={this.props.modals[id].fileName}
-              />
-          ))}
+          {Object.keys(this.props.modals).map((id, i) => {
+            switch (this.props.modals[id].modalType) {
+              case 'deleteFile':
+                return (
+                    <DeleteFileModal key={i}
+                                     id={id}
+                                     action={this.props.modals[id].action}
+                                     fileName={this.props.modals[id].fileName}
+                    />
+                );
+              default:
+                return (null);
+            }
+          })}
         </div>
     );
   }
