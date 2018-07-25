@@ -55,12 +55,15 @@ const rm = (csrftoken, file) => {
   });
 };
 
-const moveCopyRenameMkdir = (action) => (file, path) => {
-  const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
+const moveCopyRenameMkdir = (action) => (csrftoken, file, path) => {
+  const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path + '?naked=true';
+
+  console.log(file, path);
 
   const form = {
     action,
     path,
+    append: false
   };
 
   return fetch(url, {
@@ -70,7 +73,7 @@ const moveCopyRenameMkdir = (action) => (file, path) => {
       'content-type': 'application/json',
       'X-CSRFToken': csrftoken
     },
-    method: 'POST',
+    method: 'PUT',
     mode: 'cors'
   });
 };
@@ -81,8 +84,8 @@ export default {
   wget,
   rm,
   share: () => {console.log('Share')},
-  mv: (file, dest) => moveCopyRenameMkdir('move')(file, dest),
-  cp: (file, dest) => moveCopyRenameMkdir('copy')(file, dest),
-  rename: (file, newName) => moveCopyRenameMkdir('rename')(file, newName),
-  mkdir: (system, path, dirName) => moveCopyRenameMkdir('mkdir')({system, path}, dirName)
+  mv: (csrftoken, file, dest) => moveCopyRenameMkdir('MOVE')(csrftoken, file, dest),
+  cp: (csrftoken, file, dest) => moveCopyRenameMkdir('COPY')(csrftoken, file, dest),
+  rename: (csrftoken, file, newName) => moveCopyRenameMkdir('RENAME')(csrftoken, file, newName),
+  mkdir: (system, path, dirName) => moveCopyRenameMkdir('MKDIR')({system, path}, dirName)
 };

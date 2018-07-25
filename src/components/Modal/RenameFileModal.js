@@ -1,12 +1,14 @@
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
-import React from "react";
-import { removeModal } from "../../actions/modals";
+import React from 'react';
+import { removeModal } from '../../actions/modals';
 
-class DeleteFileModal extends React.Component {
-  
+class RenameFileModal extends React.Component {
+
   static propTypes = {
     id: PropTypes.string.isRequired,
     action: PropTypes.oneOfType([
@@ -21,6 +23,7 @@ class DeleteFileModal extends React.Component {
 
     this.state = {
       show: true,
+      fileName: props.fileName
     };
   }
 
@@ -35,9 +38,9 @@ class DeleteFileModal extends React.Component {
     }, 500);
   };
 
-  doDelete = () => {
+  doRename = () => {
     this.closeModal();
-    this.props.action();
+    this.props.action(this.state.fileName);
   };
 
   render = () => (
@@ -45,21 +48,27 @@ class DeleteFileModal extends React.Component {
              backdrop={true}
              onHide={this.closeModal}
       >
-        <Modal.Header closeButton={true}>
-          <Modal.Title>Confirm Deletion</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>Rename {this.props.fileName}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <p>
-            Are you sure you want to delete {this.props.fileName}?
+            Please enter a new name for this file:
           </p>
+
+          <FormGroup>
+            <FormControl type="text"
+                         value={this.state.fileName}
+                         onChange={(e) => {this.setState({fileName: e.target.value})}} />
+          </FormGroup>
         </Modal.Body>
 
         <Modal.Footer>
           <Button onClick={this.closeModal}>Cancel</Button>
           <Button bsStyle="danger"
-                  onClick={this.doDelete}>
-            Delete
+                  onClick={this.doRename}>
+            Rename
           </Button>
         </Modal.Footer>
 
@@ -67,4 +76,4 @@ class DeleteFileModal extends React.Component {
   )
 }
 
-export default connect()(DeleteFileModal);
+export default connect()(RenameFileModal);

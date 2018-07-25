@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import DeleteFileModal from './DeleteFileModal';
 import React from 'react';
+import RenameFileModal from './RenameFileModal';
 
 class ModalWrapper extends React.Component {
   render() {
@@ -11,6 +12,14 @@ class ModalWrapper extends React.Component {
               case 'deleteFile':
                 return (
                     <DeleteFileModal key={i}
+                                     id={id}
+                                     action={this.props.modals[id].action}
+                                     fileName={this.props.modals[id].fileName}
+                    />
+                );
+              case 'renameFile':
+                return (
+                    <RenameFileModal key={i}
                                      id={id}
                                      action={this.props.modals[id].action}
                                      fileName={this.props.modals[id].fileName}

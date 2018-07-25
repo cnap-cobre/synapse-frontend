@@ -66,6 +66,20 @@ export function downloadFile(file) {
   return action;
 }
 
+export function renameFile(file, newName) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+
+    if (file.system === 'dropbox') {
+      return Dropbox.rename(csrftoken, file, newName);
+    } else {
+      return Agave.rename(csrftoken, file, newName);
+    }
+  };
+  action.type = 'RENAME_FILE';
+  return action;
+}
+
 function fetchFiles(path) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;

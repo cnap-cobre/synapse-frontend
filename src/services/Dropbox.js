@@ -1,4 +1,5 @@
 import fileDownload from 'js-file-download';
+import path from 'path';
 import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
 const dropboxRequest = (csrftoken, url, form) => {
@@ -66,10 +67,10 @@ const mv = (csrftoken, file, toPath) => {
 
   const form = {
     'from_path': file.path,
-    'to_path': toPath,
+    'to_path': path.resolve(path.dirname(file.path), toPath),
   };
 
-  return dropboxRequest(url, form);
+  return dropboxRequest(csrftoken, url, form);
 };
 
 const cp = (csrftoken, file, toPath) => {
