@@ -5,7 +5,6 @@ export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
 export const FAIL_FILES = 'FAIL_FILES';
 export const INVALIDATE_FILES = 'INVALIDATE_FILES';
-export const DELETE_FILE = 'DELETE_FILE';
 
 export function requestFiles(path) {
   return {
@@ -39,29 +38,52 @@ export function invalidateFiles(path) {
   }
 }
 
-export function deleteFile(filePath) {
-  return {
-    type: DELETE_FILE,
-    filePath
-  }
+export function deleteFile(file) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+
+    if (file.system === 'dropbox') {
+      return Dropbox.rm(csrftoken, file);
+    } else {
+      return Agave.rm(csrftoken, file);
+    }
+  };
+  action.type = 'DELETE_FILE';
+  return action;
+}
+
+export function downloadFile(file) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+
+    if (file.system === 'dropbox') {
+      return Dropbox.wget(csrftoken, file);
+    } else {
+      return Agave.wget(csrftoken, file);
+    }
+  };
+  action.type = 'DOWNLOAD_FILE';
+  return action;
 }
 
 function fetchFiles(path) {
-  return (dispatch, getState) => {
+  const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
     dispatch(requestFiles(path));
 
     let query;
 
     if (path.indexOf('/dropbox') === 0) {
-      query = Dropbox.list(csrftoken, path.slice('/dropbox'.length));
+      query = Dropbox.listFiles(csrftoken, path.slice('/dropbox'.length));
     } else {
-      query = Agave.list(path)
+      query = Agave.listFiles(path)
     }
 
     return query.then(files => dispatch(receiveFiles(path, files)))
         .catch(response => dispatch(failFiles(path, response.status)));
-  }
+  };
+  action.type = 'FETCH_FILES';
+  return action;
 }
 
 function shouldFetchFiles(state, path) {
@@ -76,9 +98,11 @@ function shouldFetchFiles(state, path) {
 }
 
 export function fetchFilesIfNeeded(path) {
-  return (dispatch, getState) => {
+  const action = (dispatch, getState) => {
     if (shouldFetchFiles(getState(), path)) {
       return dispatch(fetchFiles(path));
     }
-  }
+  };
+  action.type = 'FETCH_FILES_IF_NEEDED';
+  return action;
 }

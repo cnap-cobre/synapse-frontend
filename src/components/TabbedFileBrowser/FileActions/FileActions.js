@@ -1,7 +1,7 @@
 import { addModal } from "../../../actions/modals";
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import { connect } from 'react-redux';
-import {deleteFile} from "../../../actions/files";
+import {deleteFile, downloadFile, fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 import { DeleteFileModal } from '../../Modal/DeleteFileModal';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
@@ -16,6 +16,8 @@ class FileActions extends React.Component {
       PropTypes.string,
       PropTypes.number
     ]).isRequired,
+    path: PropTypes.string.isRequired,
+    file: PropTypes.object.isRequired,
     fileName: PropTypes.string.isRequired,
     filePath: PropTypes.string.isRequired,
   };
@@ -32,17 +34,33 @@ class FileActions extends React.Component {
   render() {
     const actions = [
       ['Share', () => {console.log('share')}],
-      ['Download', () => {console.log('download')}],
+      ['Download', () => {
+        this.props.dispatch(downloadFile(this.props.file))
+      }],
       ['Rename', () => {console.log('rename')}],
       ['Move', () => {console.log('move')}],
       ['Copy', () => {console.log('copy')}],
       ['Delete', () => {
         this.props.dispatch(addModal({
           fileName: this.props.fileName,
-          action: deleteFile(this.props.filePath)
+          action: () => {
+            this.props.dispatch(
+                deleteFile(this.props.file)
+            )
+                .then(
+                    // We delay a bit here so that Dropbox has a chance to be consistent.
+                    // See "Brewers Cap Theorem" - Consistency, Availability, Partition tolerance
+                    setTimeout(() => {
+                      console.log('Displayed after timeout');
+                      this.props.dispatch(invalidateFiles(this.props.path));
+                      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
+                    }, 1000)
+                )
+          }
         }));
       }]
     ];
+
     const menuItems = actions.map((item, index) => {
       return (
           <MenuItem

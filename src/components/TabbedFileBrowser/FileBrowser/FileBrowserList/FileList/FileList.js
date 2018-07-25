@@ -34,6 +34,8 @@ export default class FileList extends React.Component {
             <td>{ item.lastModified }</td>
             <td>
               <FileActions id={i}
+                           path={this.props.path}
+                           file={item}
                            fileName={item.name}
                            filePath={this.props.path + item.name}
               />

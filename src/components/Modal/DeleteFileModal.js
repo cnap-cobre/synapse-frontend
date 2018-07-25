@@ -9,7 +9,10 @@ class DeleteFileModal extends React.Component {
   
   static propTypes = {
     id: PropTypes.string.isRequired,
-    action: PropTypes.object.isRequired,
+    action: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func
+    ]).isRequired,
     fileName: PropTypes.string.isRequired,
   };
 
@@ -52,9 +55,7 @@ class DeleteFileModal extends React.Component {
           <Button bsStyle="danger"
                   onClick={() => {
                     this.closeModal();
-                    this.props.dispatch(
-                      this.props.action
-                    );
+                    this.props.action();
                   }}>
             Delete
           </Button>

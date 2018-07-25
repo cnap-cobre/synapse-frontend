@@ -44,9 +44,6 @@ export default function files(state = initialFilesState, action) {
           didInvalidate: true
         })
       });
-    case DELETE_FILE:
-      alert('Delete ' + action.filePath + '!');
-      return state;
     default:
       return state;
   }
