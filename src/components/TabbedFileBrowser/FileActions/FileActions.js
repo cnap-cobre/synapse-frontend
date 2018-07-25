@@ -1,12 +1,12 @@
 import { addModal } from "../../../actions/modals";
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import { connect } from 'react-redux';
-import {deleteFile, downloadFile, fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 import { DeleteFileModal } from '../../Modal/DeleteFileModal';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import PropTypes from 'prop-types';
 import React from "react";
+import {deleteFile, downloadFile, fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 import './fileActionMenu.css';
 
 
@@ -19,7 +19,6 @@ class FileActions extends React.Component {
     path: PropTypes.string.isRequired,
     file: PropTypes.object.isRequired,
     fileName: PropTypes.string.isRequired,
-    filePath: PropTypes.string.isRequired,
   };
 
   static noOpAndStopClickPropagation(e) {

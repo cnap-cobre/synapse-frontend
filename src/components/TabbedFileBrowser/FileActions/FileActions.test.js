@@ -11,8 +11,9 @@ it('renders without crashing', () => {
   ReactDOM.render((
       <Provider store={mockStore()}>
         <FileActions id={42}
+                     path="/home/k/kmdice/cake.jpg"
+                     file={{}}
                      fileName="cake.jpg"
-                     filePath="/viper/home/k/kmdice/cake.jpg"
         />
       </Provider>
   ), div);
