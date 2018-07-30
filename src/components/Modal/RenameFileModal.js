@@ -60,6 +60,7 @@ class RenameFileModal extends React.Component {
           <FormGroup>
             <FormControl type="text"
                          value={this.state.fileName}
+                         autoFocus={true}
                          onChange={(e) => {this.setState({fileName: e.target.value})}} />
           </FormGroup>
         </Modal.Body>
