@@ -43,6 +43,11 @@ class RenameFileModal extends React.Component {
     this.props.action(this.state.fileName);
   };
 
+  handleKeyPress = (event) => {
+    if (event.key !== 'Enter') { return; }
+    this.doRename();
+  };
+
   render = () => (
       <Modal show={this.state.show}
              backdrop={true}
@@ -61,7 +66,9 @@ class RenameFileModal extends React.Component {
             <FormControl type="text"
                          value={this.state.fileName}
                          autoFocus={true}
-                         onChange={(e) => {this.setState({fileName: e.target.value})}} />
+                         onChange={(e) => {this.setState({fileName: e.target.value})}}
+                         onKeyPress={this.handleKeyPress}
+            />
           </FormGroup>
         </Modal.Body>
 
