@@ -1,5 +1,6 @@
 import configureStore from 'redux-mock-store';
 import FileBreadcrumbs from './FileBreadcrumbs';
+import {Link} from 'redux-json-router';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,18 +16,12 @@ it('renders without crashing', ()=>{
           pathname: '/files/viper/home/k/kmdice/'
         }
       })}>
-      <FileBreadcrumbs
-            prefix="/files"
-            pathname="/files/viper/home/k/kmdice/"
-            system={{
-              id: 'viper',
-              provider: 'agave',
-              description: 'asdf',
-              name: 'Viper',
-              status: 'UP',
-              type: 'STORAGE'
-            }}
-          />
+        <FileBreadcrumbs
+          system="Viper"
+          prefix="/files"
+          pathname="/files/viper/home/k/kmdice/"
+          crumbComponent={Link}
+        />
       </Provider>
   ), div);
   ReactDOM.unmountComponentAtNode(div);

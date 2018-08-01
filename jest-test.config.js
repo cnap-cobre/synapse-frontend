@@ -14,5 +14,6 @@ module.exports = {
   "automock": false,
   "setupFiles": [
       "./setupJest.js"
-  ]
+  ],
+  "testURL": 'http://localhost'
 };
