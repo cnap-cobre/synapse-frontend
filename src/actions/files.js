@@ -66,6 +66,34 @@ export function downloadFile(file) {
   return action;
 }
 
+export function moveFile(file, newPath) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+
+    if (file.system === 'dropbox') {
+      return Dropbox.mv(csrftoken, file, newPath);
+    } else {
+      return Agave.mv(csrftoken, file, newPath);
+    }
+  };
+  action.type = 'MOVE_FILE';
+  return action;
+}
+
+export function copyFile(file, newPath) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+
+    if (file.system === 'dropbox') {
+      return Dropbox.cp(csrftoken, file, newPath);
+    } else {
+      return Agave.cp(csrftoken, file, newPath);
+    }
+  };
+  action.type = 'MOVE_FILE';
+  return action;
+}
+
 export function renameFile(file, newName) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;

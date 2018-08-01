@@ -8,16 +8,13 @@ import './breadcrumbs.css';
 
 export default class FileBreadcrumbs extends React.Component {
   static propTypes = {
-    system: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      provider: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired
-    }).isRequired,
+    systemName: PropTypes.string.isRequired,
     prefix: PropTypes.string.isRequired,
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
+    crumbComponent: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.object,
+    ]).isRequired,
   };
 
   getPath() {
@@ -27,8 +24,10 @@ export default class FileBreadcrumbs extends React.Component {
   }
 
   render(){
+    console.log(this.props);
+
     const breadcrumbs = [
-        this.props.system.name,
+        this.props.systemName,
         ...this.getPath()
     ].map((val, index, array) => {
       const invIndex = array.length - index - 1;
@@ -38,7 +37,13 @@ export default class FileBreadcrumbs extends React.Component {
 
       if (invIndex) {
         return <li key={invIndex}>
-          <Link to={to}>{val}</Link>
+          {(() => {
+            if (typeof(this.props.crumbComponent) === 'function'){
+              return (<this.props.crumbComponent to={to}>{val}</this.props.crumbComponent>);
+            } else {
+              return React.cloneElement(this.props.crumbComponent, {to, children: val});
+            }
+          })()}
         </li>
       } else {
         return (

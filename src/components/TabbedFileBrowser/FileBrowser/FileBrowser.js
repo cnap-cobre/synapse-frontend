@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import FileBreadcrumbs from './FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
+import { Link } from "redux-json-router";
 import Loader from "../../Loader/Loader";
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
@@ -42,9 +43,10 @@ class FileBrowser extends React.Component {
   render() {
     return (
         <div className="card-content table-responsive table-full-width">
-          <FileBreadcrumbs system={this.props.system}
+          <FileBreadcrumbs systemName={this.props.system.name}
                            prefix={this.props.systemPrefix}
                            pathname={this.props.pathname}
+                           crumbComponent={Link}
           />
 
           <FileBrowserControls id={this.props.system.id}
