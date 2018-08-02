@@ -14,6 +14,7 @@
     "react-ace": "^6.1.3",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.1",
+    "react-hot-loader": "^4.3.4",
     "react-icons": "^2.2.7",
     "react-redux": "^5.0.7",
     "react-redux-notify": "^4.1.0",
@@ -59,7 +60,7 @@
     "webpack-dev-server": "^3.1.3"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --port 3000 --host 0.0.0.0 --public localhost",
+    "start": "webpack-dev-server --hot --mode development --port 3000 --host 0.0.0.0 --public localhost",
     "dev": "webpack --mode development",
     "build": "webpack --optimize-minimize --mode production",
     "test": "jest --runInBand"

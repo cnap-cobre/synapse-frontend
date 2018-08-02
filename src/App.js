@@ -6,6 +6,9 @@ import {Notify} from 'react-redux-notify';
 import {putCSRFTokenInStore} from "./actions/csrf";
 import React from "react";
 import 'react-redux-notify/dist/ReactReduxNotify.css';
+import {Router} from 'redux-json-router';
+import routes from './routes.json';
+
 
 class App extends React.Component {
   componentDidMount() {
@@ -18,7 +21,7 @@ class App extends React.Component {
   render() {
     return (
         <div>
-          {this.props.children}
+          <Router routes={routes} />
           <ModalWrapper />
           <Notify />
         </div>
