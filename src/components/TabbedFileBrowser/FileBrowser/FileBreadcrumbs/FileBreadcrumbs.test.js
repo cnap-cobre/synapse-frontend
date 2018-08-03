@@ -17,7 +17,7 @@ it('renders without crashing', ()=>{
         }
       })}>
         <FileBreadcrumbs
-          system="Viper"
+          systemName="Viper"
           prefix="/files"
           pathname="/files/viper/home/k/kmdice/"
           crumbComponent={Link}
