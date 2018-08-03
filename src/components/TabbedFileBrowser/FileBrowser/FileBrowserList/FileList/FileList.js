@@ -24,7 +24,7 @@ export default class FileList extends React.Component {
         (item, i) => (this.props.showDotfiles || !item.name.match(/^\./i))
     ).map((item, i) => (
 
-          <tr onClick={(e) => this.props.onSelectFile(item, e)}
+          <tr onDoubleClick={(e) => this.props.onSelectFile(item, e)}
               key={ item.name }>
             <td>
               {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
