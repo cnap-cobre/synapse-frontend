@@ -1,5 +1,6 @@
 import BrowserRefresh from "./BrowserRefresh/BrowserRefresh";
 import DotfilesCheckBox from "./DotfilesCheckBox/DotfilesCheckBox";
+import ListGridToggle from "./ListGridToggle/ListGridToggle";
 import PropTypes from 'prop-types';
 import React from "react";
 
@@ -29,6 +30,8 @@ export default class FileBrowserControls extends React.Component {
                           showDotfiles={this.props.showDotfiles}
                           toggleDotfiles={this.props.toggleDotfiles}
         />
+
+        <ListGridToggle />
 
       </div>
     );

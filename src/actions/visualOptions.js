@@ -67,3 +67,27 @@ export function toggleMobileNav() {
     type: TOGGLE_MOBILE_NAV
   };
 }
+
+// --------------------------------------------
+
+export const SET_FILE_VIEW_FORMAT_LIST = 'SET_FILE_VIEW_FORMAT_LIST';
+export const SET_FILE_VIEW_FORMAT_GRID = 'SET_FILE_VIEW_FORMAT_GRID';
+export const TOGGLE_FILE_VIEW_FORMAT = 'TOGGLE_FILE_VIEW_FORMAT';
+
+export function setFileViewFormatList() {
+  return {
+    type: SET_FILE_VIEW_FORMAT_LIST
+  };
+}
+
+export function setFileViewFormatGrid() {
+  return {
+    type: SET_FILE_VIEW_FORMAT_GRID
+  };
+}
+
+export function toggleFileViewFormat() {
+  return {
+    type: TOGGLE_FILE_VIEW_FORMAT
+  };
+}

@@ -1,6 +1,7 @@
 import {connect} from "react-redux";
 import FileBreadcrumbs from './FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
+import FileBrowserGrid from "./FileBrowserGrid/FileBrowserGrid";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
 import { Link } from "redux-json-router";
 import Loader from "../../Loader/Loader";
@@ -30,7 +31,8 @@ class FileBrowser extends React.Component {
     fetchFiles: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
-    list: PropTypes.array.isRequired
+    list: PropTypes.array.isRequired,
+    fileViewFormat: PropTypes.bool.isRequired,
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -41,6 +43,8 @@ class FileBrowser extends React.Component {
   }
 
   render() {
+    const FileViewComponent = (this.props.fileViewFormat ? FileBrowserGrid : FileBrowserList);
+
     return (
         <div className="card-content table-responsive table-full-width">
           <FileBreadcrumbs systemName={this.props.system.name}
@@ -55,7 +59,7 @@ class FileBrowser extends React.Component {
                                toggleDotfiles={this.props.toggleDotfiles}
           />
 
-          <FileBrowserList showDotfiles={this.props.showDotfiles}
+          <FileViewComponent showDotfiles={this.props.showDotfiles}
                            path={this.props.path}
                            handleFileClick={this.props.handleFileClick}
                            loading={this.props.error}
@@ -71,31 +75,17 @@ class FileBrowser extends React.Component {
 
 const mapStateToProps = (store, ownProps) => {
   const filesAtPath = store.files[ownProps.path];
-  if (filesAtPath === undefined || store.files[ownProps.path].isFetching) {
-    return {
-      loading: true,
-      error: false,
-      list: []
-    };
-  } else if (filesAtPath.errorCode) {
-    return {
-      loading: false,
-      error: true,
-      list: []
-    }
-  } else if(filesAtPath.hasFetched) {
-    return {
-      loading: false,
-      error: false,
-      list: filesAtPath.files
-    }
-  } else {
-    return {
-      loading: false,
-      error: true,
-      list: []
-    }
-  }
+
+  const loading = (filesAtPath === undefined || filesAtPath.isFetching);
+  const error = (!loading) && (filesAtPath.errorCode || !filesAtPath.hasFetched);
+  const list = (loading || error) ? [] : filesAtPath.files;
+
+  return {
+    loading,
+    error,
+    list,
+    fileViewFormat: store.visualOptions.fileViewFormat
+  };
 };
 
 const mapDispatchToProps = dispatch => {

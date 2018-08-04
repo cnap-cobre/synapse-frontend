@@ -1,9 +1,13 @@
 import {
-  HIDE_DOTFILES, SET_MOBILE_NAV_CLOSED, SET_MOBILE_NAV_OPEN,
+  HIDE_DOTFILES,
+  SET_FILE_VIEW_FORMAT_GRID,
+  SET_FILE_VIEW_FORMAT_LIST,
+  SET_MOBILE_NAV_CLOSED,
+  SET_MOBILE_NAV_OPEN,
   SET_SIDEBAR_MAXIMIZED,
   SET_SIDEBAR_MINIMIZED,
   SHOW_DOTFILES,
-  TOGGLE_DOTFILES, TOGGLE_MOBILE_NAV, TOGGLE_SIDEBAR
+  TOGGLE_DOTFILES, TOGGLE_FILE_VIEW_FORMAT, TOGGLE_MOBILE_NAV, TOGGLE_SIDEBAR
 } from "../actions/visualOptions";
 
 
@@ -11,6 +15,7 @@ export const initialVisualOptionsState = {
   showDotfiles: false,
   sidebarMinimized: false,
   mobileNavOpen: false,
+  fileViewFormat: false,
 };
 
 export default function visualOptions(state = initialVisualOptionsState, action) {
@@ -60,6 +65,22 @@ export default function visualOptions(state = initialVisualOptionsState, action)
       return Object.assign({}, state, {
         mobileNavOpen: !state.mobileNavOpen
       });
+    // -----------------------------
+    // File View - List or Grid view
+    // -----------------------------
+    case SET_FILE_VIEW_FORMAT_LIST:
+      return Object.assign({}, state, {
+        fileViewFormat: false
+      });
+    case SET_FILE_VIEW_FORMAT_GRID:
+      return Object.assign({}, state, {
+        fileViewFormat: true
+      });
+    case TOGGLE_FILE_VIEW_FORMAT:
+      return Object.assign({}, state, {
+        fileViewFormat: !state.fileViewFormat
+      });
+    // -----------------------------
     default:
       return state;
   }
