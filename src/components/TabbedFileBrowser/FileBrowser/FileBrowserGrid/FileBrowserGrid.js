@@ -13,8 +13,10 @@ export default class FileBrowserGrid extends React.Component {
 
   render() {
     return (
-      <div>
-        Hello World
+      <div style={{display: this.props.error || this.props.loading ? 'none' : 'block'}}>
+        {this.props.list.map((val, index) => (
+            <div>Hello World</div>
+        ))}
       </div>
     );
   }

@@ -62,7 +62,7 @@ class FileBrowser extends React.Component {
           <FileViewComponent showDotfiles={this.props.showDotfiles}
                            path={this.props.path}
                            handleFileClick={this.props.handleFileClick}
-                           loading={this.props.error}
+                           loading={this.props.loading}
                            error={this.props.error}
                            list={this.props.list}
           />
