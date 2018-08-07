@@ -1,9 +1,9 @@
 import Col from 'react-bootstrap/lib/Col';
+import {fileIconResolver} from "../../../../util/FileIconResolver";
 import Grid from 'react-bootstrap/lib/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
-import {fileIconResolver} from "../../../../util/FileIconResolver";
 import './fileGridIcon.css'
 
 
