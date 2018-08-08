@@ -17,44 +17,48 @@ export default class FileBrowserGrid extends React.Component {
     handleFileClick: PropTypes.func.isRequired,
   };
 
+  fileToComponent = (item, i) => (
+      <Col xs={6} sm={4} md={3} lg={2} key={item.name}
+           onDoubleClick={(e) => this.props.handleFileClick(item, e)}
+           className="fileGridIcon"
+      >
+        {fileIconResolver(item)}&nbsp;&nbsp;
+        {item.name}
+      </Col>
+  );
+
   render() {
+    const folders = this.props.list.filter(
+        (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
+    );
+
+    const files = this.props.list.filter(
+        (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "file")
+    );
+
     return (
         <Grid fluid={true}>
-          <Row style={{display: this.props.error || this.props.loading ? 'none' : 'block'}}
-          >
-            <Col xs={12}>
-              <h6>Folders</h6>
-              <hr />
-            </Col>
+          <Row style={{display: this.props.error || this.props.loading ? 'none' : 'block'}}>
 
-            {this.props.list.filter(
-                (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
-            ).map((item, i) => (
-              <Col xs={6} sm={4} md={3} lg={2} key={item.name}
-                   onDoubleClick={(e) => this.props.handleFileClick(item, e)}
-                   className="fileGridIcon"
-              >
-                {fileIconResolver(item)}&nbsp;&nbsp;
-                {item.name}
-              </Col>
-            ))}
-
-            <Col xs={12}>
-              <h6>Files</h6>
-              <hr />
-            </Col>
-
-            {this.props.list.filter(
-                (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "file")
-            ).map((item, i) => (
-                <Col xs={6} sm={4} md={3} lg={2} key={item.name}
-                     onDoubleClick={(e) => this.props.handleFileClick(item, e)}
-                     className="fileGridIcon"
-                >
-                  {fileIconResolver(item)}&nbsp;&nbsp;
-                  {item.name}
+            {folders.length ? (
+                <Col xs={12}>
+                  <h6>Folders</h6>
+                  <hr />
                 </Col>
-            ))}
+            ) : (null)}
+
+            {folders.map(this.fileToComponent)}
+
+
+            {files.length ? (
+                <Col xs={12}>
+                  <h6>Files</h6>
+                  <hr />
+                </Col>
+            ) : (null)}
+
+            {files.map(this.fileToComponent)}
+
           </Row>
         </Grid>
     );

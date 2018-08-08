@@ -19,57 +19,40 @@ export default class FileList extends React.Component {
     onSelectFile: (item, e) => alert(item.name)
   };
 
+  fileToComponent = (item, i) => (
+      <tr onDoubleClick={(e) => this.props.onSelectFile(item, e)}
+          key={ item.name }>
+        <td>
+          {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
+          { item.name }
+        </td>
+        <td>{ humanFileSize(item.length) }</td>
+        <td>{ item.lastModified }</td>
+        <td>
+          <FileActions id={i}
+                       dirPath={this.props.path}
+                       filePath={this.props.path + item.name}
+                       file={item}
+                       fileName={item.name}
+          />
+        </td>
+      </tr>
+  );
+
   render() {
+    const folders = this.props.list.filter(
+        (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
+    );
+
+    const files = this.props.list.filter(
+        (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "file")
+    );
+
     return (
         <tbody>
-          { this.props.list.filter(
-            (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
-          ).map((item, i) => (
+          { folders.map(this.fileToComponent) }
 
-            <tr onDoubleClick={(e) => this.props.onSelectFile(item, e)}
-                key={ item.name }>
-              <td>
-                {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
-                { item.name }
-              </td>
-              <td>{ humanFileSize(item.length) }</td>
-              <td>{ item.lastModified }</td>
-              <td>
-                <FileActions id={i}
-                             dirPath={this.props.path}
-                             filePath={this.props.path + item.name}
-                             file={item}
-                             fileName={item.name}
-                />
-              </td>
-            </tr>
-
-          )) }
-
-
-          { this.props.list.filter(
-              (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "file")
-          ).map((item, i) => (
-
-              <tr onDoubleClick={(e) => this.props.onSelectFile(item, e)}
-                  key={ item.name }>
-                <td>
-                  {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
-                  { item.name }
-                </td>
-                <td>{ humanFileSize(item.length) }</td>
-                <td>{ item.lastModified }</td>
-                <td>
-                  <FileActions id={i}
-                               dirPath={this.props.path}
-                               filePath={this.props.path + item.name}
-                               file={item}
-                               fileName={item.name}
-                  />
-                </td>
-              </tr>
-
-          ))}
+          { files.map(this.fileToComponent)}
         </tbody>
     );
   }
