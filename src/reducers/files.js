@@ -1,9 +1,9 @@
 import {
   DELETE_FILE,
-  FAIL_FILES,
+  FAIL_FILES, FIX_AGAVE_SYMLINK_BUG,
   INVALIDATE_FILES,
   RECEIVE_FILES,
-  REQUEST_FILES
+  REQUEST_FILES, SYMLINK_CORRECTION_STARTED
 } from "../actions/files";
 
 export const initialFilesState = {};
@@ -27,6 +27,7 @@ export default function files(state = initialFilesState, action) {
           hasFetched: true,
           didInvalidate: false,
           lastUpdated: action.receivedAt,
+          symlinkCorrectionStarted: false,
         })
       });
     case FAIL_FILES:
@@ -42,6 +43,23 @@ export default function files(state = initialFilesState, action) {
       return Object.assign({}, state, {
         [action.path]: Object.assign({}, stateForPath, {
           didInvalidate: true
+        })
+      });
+    case FIX_AGAVE_SYMLINK_BUG:
+      const fileList = stateForPath.files || [];
+      return Object.assign({}, state, {
+        [action.path]: Object.assign({}, stateForPath, {
+          files: fileList.map(item => ({
+            ...item,
+            format: (action.name === item.name ? 'folder' : item.format),
+            type: (action.name === item.name ? 'dir' : item.type)
+          }))
+        })
+      });
+    case SYMLINK_CORRECTION_STARTED:
+      return Object.assign({}, state, {
+        [action.path]: Object.assign({}, stateForPath, {
+          symlinkCorrectionStarted: true
         })
       });
     default:

@@ -1,0 +1,33 @@
+.fileGridIconBlock{
+    display: inline-block;
+    width: 30%;
+    margin-top: 16px;
+    margin-right: 20px;
+    border: 1px solid #e8eaed;
+    border-radius: 6px;
+    height: 48px;
+
+    .innerWrapper{
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .fileGridIcon{
+        padding: 0 16px 0 16px;
+        width: 68px;
+        position: relative;
+        float: left;
+    }
+
+    .fileName{
+        width: calc(100% - 68px);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+.fileGridIconBlock:hover, .fileGridIconBlock:focus{
+    background: #ddd;
+}

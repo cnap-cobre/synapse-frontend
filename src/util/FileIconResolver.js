@@ -69,7 +69,7 @@ const fileExtensionMappings = [
     icon: <FaFileExcelO/>
   },
   {
-    name: /\.(zip|tar|gz|7z|rar|z)$/i,
+    name: /\.(zip|tar|gz|7z|rar|z|bz2)$/i,
     icon: <FaFileArchiveO/>
   },
   {

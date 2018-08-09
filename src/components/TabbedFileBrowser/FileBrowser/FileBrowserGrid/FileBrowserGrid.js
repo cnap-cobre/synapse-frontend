@@ -4,7 +4,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
-import './fileGridIcon.css'
+import './fileGridIcon.scss'
 
 
 export default class FileBrowserGrid extends React.Component {
@@ -18,13 +18,19 @@ export default class FileBrowserGrid extends React.Component {
   };
 
   fileToComponent = (item, i) => (
-      <Col xs={6} sm={4} md={3} lg={2} key={item.name}
+      <div key={item.name}
            onDoubleClick={(e) => this.props.handleFileClick(item, e)}
-           className="fileGridIcon"
+           className="fileGridIconBlock"
       >
-        {fileIconResolver(item)}&nbsp;&nbsp;
-        {item.name}
-      </Col>
+        <div className="innerWrapper">
+          <div className="fileGridIcon">
+            {fileIconResolver(item)}&nbsp;&nbsp;
+          </div>
+          <div className="fileName">
+            {item.name}
+          </div>
+        </div>
+      </div>
   );
 
   render() {
@@ -47,8 +53,9 @@ export default class FileBrowserGrid extends React.Component {
                 </Col>
             ) : (null)}
 
-            {folders.map(this.fileToComponent)}
-
+            <Col xs={12}>
+              {folders.map(this.fileToComponent)}
+            </Col>
 
             {files.length ? (
                 <Col xs={12}>
@@ -57,7 +64,9 @@ export default class FileBrowserGrid extends React.Component {
                 </Col>
             ) : (null)}
 
-            {files.map(this.fileToComponent)}
+            <Col xs={12}>
+              {files.map(this.fileToComponent)}
+            </Col>
 
           </Row>
         </Grid>

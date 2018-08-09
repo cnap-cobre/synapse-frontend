@@ -6,9 +6,12 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import PropTypes from 'prop-types';
 import React from "react";
+import { ContextMenu, Item, Separator,
+  Submenu, ContextMenuProvider } from 'react-contexify';
 import {copyFile, deleteFile, downloadFile, fetchFilesIfNeeded,
   invalidateFiles, moveFile, renameFile} from "../../../actions/files";
 import './fileActionMenu.css';
+import 'react-contexify/dist/ReactContexify.min.css';
 
 
 class FileActions extends React.Component {
@@ -105,14 +108,19 @@ class FileActions extends React.Component {
   render() {
     const menuItems = this.actions.map((item, index) => {
       return (
-          <MenuItem
-              eventKey={index}
+          <Item
               onClick={this.stopClickPropagation(item[1])}
               key={index}>
             {item[0]}
-          </MenuItem>
+          </Item>
       );
     });
+
+    return (
+        <ContextMenu>
+          {menuItems}
+        </ContextMenu>
+    );
 
     return (
         <ButtonToolbar onClick={FileActions.noOpAndStopClickPropagation}>

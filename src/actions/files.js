@@ -5,6 +5,8 @@ export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
 export const FAIL_FILES = 'FAIL_FILES';
 export const INVALIDATE_FILES = 'INVALIDATE_FILES';
+export const FIX_AGAVE_SYMLINK_BUG = 'FIX_AGAVE_SYMLINK_BUG';
+export const SYMLINK_CORRECTION_STARTED = 'SYMLINK_CORRECTION_STARTED';
 
 export function requestFiles(path) {
   return {
@@ -34,6 +36,21 @@ export function failFiles(path, errorCode) {
 export function invalidateFiles(path) {
   return {
     type: INVALIDATE_FILES,
+    path
+  }
+}
+
+export function fixAgaveSymlinkBug(path, name) {
+  return {
+    type: FIX_AGAVE_SYMLINK_BUG,
+    path,
+    name
+  }
+}
+
+export function symlinkCorrectionStarted(path) {
+  return {
+    type: SYMLINK_CORRECTION_STARTED,
     path
   }
 }
@@ -108,21 +125,55 @@ export function renameFile(file, newName) {
   return action;
 }
 
+function fetchSymlinkCorrections(path) {
+  // Work-around for Agave symlink-to-directory bug
+
+  const action = (dispatch, getState) => {
+    dispatch(symlinkCorrectionStarted(path));
+
+    const files = getState().files[path].files;
+
+    files.filter(
+        item => item.type === 'file' && item.length < 1024 && 'ALLEXECUTE'.indexOf(item.permissions) !== -1
+    ).forEach((item, i) => {
+      const childPath = path + item.name + '/';
+      Agave.listFiles(childPath)
+          .then(childFiles => {
+            dispatch(receiveFiles(childPath, childFiles))
+            return childFiles;
+          })
+          .then(childFiles => {
+            dispatch(fixAgaveSymlinkBug(path, item.name))
+            return childFiles;
+          })
+          .catch(() => {
+            console.log(childPath + ' is not a directory.');
+          });
+    });
+  };
+  action.type = 'FETCH_SYMLINK_CORRECTIONS';
+  return action;
+}
+
 function fetchFiles(path) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
     dispatch(requestFiles(path));
 
-    let query;
-
     if (path.indexOf('/dropbox') === 0) {
-      query = Dropbox.listFiles(csrftoken, path.slice('/dropbox'.length));
+      return Dropbox.listFiles(csrftoken, path.slice('/dropbox'.length))
+          .then(files => dispatch(receiveFiles(path, files)))
+          .catch(response => dispatch(failFiles(path, response.status)));
     } else {
-      query = Agave.listFiles(path)
-    }
+      // Any agave directory listings
+      const query = Agave.listFiles(path)
+          .then(files => dispatch(receiveFiles(path, files)));
 
-    return query.then(files => dispatch(receiveFiles(path, files)))
-        .catch(response => dispatch(failFiles(path, response.status)));
+      // Trigger symlink directory corrections
+      query.then(() => dispatch(fetchSymlinkCorrections(path)));
+
+      return query.catch(response => dispatch(failFiles(path, response.status)));
+    }
   };
   action.type = 'FETCH_FILES';
   return action;
