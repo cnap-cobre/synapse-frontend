@@ -6,6 +6,7 @@ import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {setFocusedFile} from "../../actions/focusedFile";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import {toggleDotfiles} from "../../actions/visualOptions";
@@ -30,6 +31,18 @@ class TabbedFileBrowser extends React.Component {
       this.props.dispatch(fetchFilesIfNeeded(nextProps.path));
     }
   }
+
+  componentDidMount = () => {
+    document.body.addEventListener('click', this.unfocusFiles);
+  };
+
+  componentWillUnmount = () => {
+    document.body.removeEventListener('click', this.unfocusFiles);
+  };
+
+  unfocusFiles = (e) => {
+    this.props.dispatch(setFocusedFile(''));
+  };
 
   render() {
     if (!this.props.isReady) {

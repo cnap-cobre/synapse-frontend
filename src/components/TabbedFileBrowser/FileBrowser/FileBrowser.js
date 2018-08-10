@@ -43,18 +43,6 @@ class FileBrowser extends React.Component {
     ) === 0;
   }
 
-  componentDidMount = () => {
-    document.body.addEventListener('click', this.unfocusFiles);
-  };
-
-  componentWillUnmount = () => {
-    document.body.removeEventListener('click', this.unfocusFiles);
-  };
-
-  unfocusFiles = (e) => {
-    this.props.dispatch(setFocusedFile(''));
-  };
-
   render() {
     const FileViewComponent = (this.props.fileViewFormat ? FileBrowserGrid : FileBrowserList);
 
