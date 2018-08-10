@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { removeModal } from "../../actions/modals";
+import {fetchFilesIfNeeded} from "../../actions/files";
 
 const LinkComponent = (props) => (
     <a onClick={() => {
@@ -63,6 +64,7 @@ class MoveCopyModal extends React.Component {
   };
 
   updatePath = (path) => {
+    this.props.dispatch(fetchFilesIfNeeded(path));
     this.setState({
       path
     });
@@ -89,7 +91,13 @@ class MoveCopyModal extends React.Component {
                                <LinkComponent onClick={this.updatePath} />
                            )} />
 
-          <DirectoryBrowser path={this.state.path} />
+          <DirectoryBrowser path={this.state.path}
+                            handleDoubleClick={(path) => this.updatePath(path)}
+                            style={{
+                              maxHeight: '40vh',
+                              overflowY: 'auto'
+                            }}
+          />
 
 
           <FormGroup>
