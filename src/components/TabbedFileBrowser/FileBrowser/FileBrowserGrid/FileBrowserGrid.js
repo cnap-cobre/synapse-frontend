@@ -14,15 +14,17 @@ export default class FileBrowserGrid extends React.Component {
     loading: PropTypes.bool.isRequired,
     list: PropTypes.array.isRequired,
     path: PropTypes.string.isRequired,
-    handleFileClick: PropTypes.func.isRequired,
+    handleDoubleClick: PropTypes.func.isRequired,
+    handleSingleClick: PropTypes.func.isRequired,
   };
 
   fileToComponent = (item, i) => (
       <ContextMenuProvider
           id="fileActionsMenu"
           key={item.name}
-          onDoubleClick={(e) => this.props.handleFileClick(item, e)}
-          className="fileGridIconBlock"
+          onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
+          onClick={(e) => this.props.handleSingleClick(item, e)}
+          className={"fileGridIconBlock " + (('/' + item.system + item.path) === this.props.focusedFilePath ? 'focused' : '')}
           data={{
             file: item,
             dirPath: this.props.path,
@@ -64,7 +66,7 @@ export default class FileBrowserGrid extends React.Component {
 
             <Col xs={12} className="fileGridFlexContainer">
               {folders.map(this.fileToComponent)}
-              {Array(9).fill(<div className="fileGridPlaceholder" />)}
+              {Array.from(Array(9).keys()).map((i) => (<div className="fileGridPlaceholder" key={i} />))}
             </Col>
 
             {files.length ? (
@@ -76,7 +78,7 @@ export default class FileBrowserGrid extends React.Component {
 
             <Col xs={12} className="fileGridFlexContainer">
               {files.map(this.fileToComponent)}
-              {Array(9).fill(<div className="fileGridPlaceholder" />)}
+              {Array.from(Array(9).keys()).map((i) => (<div className="fileGridPlaceholder" key={i} />))}
             </Col>
 
           </Row>

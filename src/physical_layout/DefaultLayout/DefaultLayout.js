@@ -18,7 +18,9 @@ class DefaultLayout extends React.Component {
           <div className="main-panel">
             <DefaultNavbar/>
 
-            {this.props.children}
+
+                {this.props.children}
+
 
             <DefaultFooter/>
 

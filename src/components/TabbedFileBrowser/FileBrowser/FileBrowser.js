@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
 import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
+import {setFocusedFile} from "../../../actions/focusedFile";
 
 
 class FileBrowser extends React.Component {
@@ -42,6 +43,18 @@ class FileBrowser extends React.Component {
     ) === 0;
   }
 
+  componentDidMount = () => {
+    document.body.addEventListener('click', this.unfocusFiles);
+  };
+
+  componentWillUnmount = () => {
+    document.body.removeEventListener('click', this.unfocusFiles);
+  };
+
+  unfocusFiles = (e) => {
+    this.props.dispatch(setFocusedFile(''));
+  };
+
   render() {
     const FileViewComponent = (this.props.fileViewFormat ? FileBrowserGrid : FileBrowserList);
 
@@ -60,11 +73,13 @@ class FileBrowser extends React.Component {
           />
 
           <FileViewComponent showDotfiles={this.props.showDotfiles}
-                           path={this.props.path}
-                           handleFileClick={this.props.handleFileClick}
-                           loading={this.props.loading}
-                           error={this.props.error}
-                           list={this.props.list}
+                             path={this.props.path}
+                             handleDoubleClick={this.props.handleDoubleClick}
+                             handleSingleClick={this.props.handleSingleClick}
+                             loading={this.props.loading}
+                             error={this.props.error}
+                             list={this.props.list}
+                             focusedFilePath={this.props.focusedFilePath}
           />
 
           <Loader visible={this.props.loading} />
@@ -84,7 +99,8 @@ const mapStateToProps = (store, ownProps) => {
     loading,
     error,
     list,
-    fileViewFormat: store.visualOptions.fileViewFormat
+    fileViewFormat: store.visualOptions.fileViewFormat,
+    focusedFilePath: store.focusedFile.filePath
   };
 };
 
@@ -94,7 +110,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(invalidateFiles(path));
       setTimeout(() => dispatch(fetchFilesIfNeeded(path)), 20);
     },
-    handleFileClick: (file) => {
+    handleDoubleClick: (file, e) => {
       if (file.type === 'dir') {
         dispatch(push([
             '.',
@@ -102,7 +118,13 @@ const mapDispatchToProps = dispatch => {
             ''
         ].join('/')))
       }
-    }
+    },
+    handleSingleClick: (file, e) => {
+      e.preventDefault();
+      dispatch(setFocusedFile('/' + file.system + file.path));
+      // Set as focused item here.
+    },
+    dispatch
   };
 };
 

@@ -11,7 +11,8 @@ export default class FileBrowserList extends React.Component {
     loading: PropTypes.bool.isRequired,
     list: PropTypes.array.isRequired,
     path: PropTypes.string.isRequired,
-    handleFileClick: PropTypes.func.isRequired,
+    handleDoubleClick: PropTypes.func.isRequired,
+    handleSingleClick: PropTypes.func.isRequired,
   };
 
   render(){
@@ -22,7 +23,8 @@ export default class FileBrowserList extends React.Component {
           <FileList list={this.props.list}
                     path={this.props.path}
                     showDotfiles={this.props.showDotfiles}
-                    onSelectFile={this.props.handleFileClick}
+                    handleDoubleClick={this.props.handleDoubleClick}
+                    handleSingleClick={this.props.handleSingleClick}
           />
         </table>
     );

@@ -9,21 +9,22 @@ export default class FileList extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
     path: PropTypes.string.isRequired,
-    onSelectFile: PropTypes.func,
+    handleDoubleClick: PropTypes.func.isRequired,
+    handleSingleClick: PropTypes.func.isRequired,
     showDotfiles: PropTypes.bool,
   };
 
   static defaultProps = {
     ...React.Component.defaultProps,
     list: [],
-    onSelectFile: (item, e) => alert(item.name)
   };
 
   fileToComponent = (item, i) => (
       <ContextMenuProvider
           component="tr"
           id="fileActionsMenu"
-          onDoubleClick={(e) => this.props.onSelectFile(item, e)}
+          onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
+          onClick={(e) => this.props.handleSingleClick(item, e)}
           key={ item.name }
           data={{
             file: item,

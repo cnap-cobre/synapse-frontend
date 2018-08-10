@@ -34,6 +34,15 @@
         text-overflow: ellipsis;
         overflow: hidden;
     }
+
+    &:hover, &:focus{
+        background: #ddd;
+    }
+
+    &.focused{
+        border: 2px solid #509db5;
+        background: #bed6dd;
+    }
 }
 
 .fileGridPlaceholder{
@@ -43,8 +52,4 @@
     flex-basis: 0;
     margin-right: 20px;
     height: 2px;
-}
-
-.fileGridIconBlock:hover, .fileGridIconBlock:focus{
-    background: #ddd;
 }
