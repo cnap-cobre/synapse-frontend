@@ -1,9 +1,9 @@
+import {addModal} from "../../../actions/modals";
 import {connect} from 'react-redux';
 import React from 'react';
 import {ContextMenu, Item, Separator, Submenu } from 'react-contexify';
 import {copyFile, deleteFile, downloadFile, fetchFilesIfNeeded,
   invalidateFiles, moveFile, renameFile} from "../../../actions/files";
-import {addModal} from "../../../actions/modals";
 import 'react-contexify/dist/ReactContexify.min.css';
 
 class FileActionsMenu extends React.Component{
