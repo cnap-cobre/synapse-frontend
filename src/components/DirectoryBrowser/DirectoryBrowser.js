@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {toggle_dotfiles} from "../../actions/visualOptions";
+import {toggleDotfiles} from "../../actions/visualOptions";
 
 class DirectoryBrowser extends React.Component {
   static propTypes = {
@@ -21,7 +21,7 @@ const mapStateToProps = (store, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     toggleDotfiles: () => {
-      dispatch(toggle_dotfiles())
+      dispatch(toggleDotfiles())
     },
     dispatch
   };

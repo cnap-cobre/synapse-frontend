@@ -1,6 +1,14 @@
+.fileGridFlexContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
 .fileGridIconBlock{
-    display: inline-block;
-    width: 30%;
+    min-width: 220px;
+    width: 240px;
+    flex-grow: 1;
+    flex-basis: 0;
     margin-top: 16px;
     margin-right: 20px;
     border: 1px solid #e8eaed;
@@ -26,6 +34,15 @@
         text-overflow: ellipsis;
         overflow: hidden;
     }
+}
+
+.fileGridPlaceholder{
+    min-width: 220px;
+    width: 240px;
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-right: 20px;
+    height: 2px;
 }
 
 .fileGridIconBlock:hover, .fileGridIconBlock:focus{

@@ -62,8 +62,9 @@ export default class FileBrowserGrid extends React.Component {
                 </Col>
             ) : (null)}
 
-            <Col xs={12}>
+            <Col xs={12} className="fileGridFlexContainer">
               {folders.map(this.fileToComponent)}
+              {Array(9).fill(<div className="fileGridPlaceholder" />)}
             </Col>
 
             {files.length ? (
@@ -73,8 +74,9 @@ export default class FileBrowserGrid extends React.Component {
                 </Col>
             ) : (null)}
 
-            <Col xs={12}>
+            <Col xs={12} className="fileGridFlexContainer">
               {files.map(this.fileToComponent)}
+              {Array(9).fill(<div className="fileGridPlaceholder" />)}
             </Col>
 
           </Row>

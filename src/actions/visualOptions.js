@@ -2,19 +2,19 @@ export const SHOW_DOTFILES = 'SHOW_DOTFILES';
 export const HIDE_DOTFILES = 'HIDE_DOTFILES';
 export const TOGGLE_DOTFILES = 'TOGGLE_DOTFILES';
 
-export function show_dotifles() {
+export function showDotifles() {
   return {
     type: SHOW_DOTFILES
   };
 }
 
-export function hide_dotfiles() {
+export function hideDotfiles() {
   return {
     type: HIDE_DOTFILES
   };
 }
 
-export function toggle_dotfiles() {
+export function toggleDotfiles() {
   return {
     type: TOGGLE_DOTFILES
   };

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
-import {toggle_dotfiles} from "../../actions/visualOptions";
+import {toggleDotfiles} from "../../actions/visualOptions";
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
 
@@ -161,7 +161,7 @@ const mapStateToProps = (store, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     toggleDotfiles: () => {
-      dispatch(toggle_dotfiles())
+      dispatch(toggleDotfiles())
     },
     fetchFiles: (path) => {
       dispatch(fetchFilesIfNeeded(path))
