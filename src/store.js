@@ -1,5 +1,6 @@
 import loggerMiddleware from './middleware/logger';
 import monitorReducerEnhancer from "./enhancers/monitorReducer";
+import persistState from 'redux-localstorage';
 import reducer from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
@@ -20,7 +21,11 @@ export default function configureStore(history, initialState = {}) {
     routerMiddleware(history)
   );
 
-  const enhancers = compose(middlewareEnhancer, monitorReducerEnhancer);
+  const enhancers = compose(
+      middlewareEnhancer,
+      monitorReducerEnhancer,
+      persistState(['visualOptions'])
+  );
 
   return createStore(
       makeRootReducer(),
