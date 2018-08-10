@@ -8,8 +8,8 @@ import Loader from "../../Loader/Loader";
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
-import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 import {setFocusedFile} from "../../../actions/focusedFile";
+import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 
 
 class FileBrowser extends React.Component {

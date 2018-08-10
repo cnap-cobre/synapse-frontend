@@ -24,6 +24,9 @@ it('renders without crashing', ()=>{
         },
         userProfile: initialUserProfileState,
         agaveFileSystems: initialAgaveFileSystemsState,
+        focusedFile: {
+          filePath: ''
+        }
       })}>
         <Files/>
       </Provider>

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
-import React from 'react';
 import {fileIconResolver} from "../../util/FileIconResolver";
+import React from 'react';
 
 class FileMetadata extends React.Component{
   fileAttributesToComponents = () => {
