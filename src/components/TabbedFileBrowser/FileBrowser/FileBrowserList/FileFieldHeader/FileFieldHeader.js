@@ -7,7 +7,6 @@ export default function FieldFieldHeader() {
           <th>Name</th>
           <th>Size</th>
           <th>Last Modified</th>
-          <th></th>
         </tr>
         </thead>
     );

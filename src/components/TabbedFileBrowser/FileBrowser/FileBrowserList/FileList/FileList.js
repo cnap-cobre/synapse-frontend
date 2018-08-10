@@ -1,4 +1,4 @@
-import FileActions from "../../../FileActions/FileActions";
+import { ContextMenuProvider } from 'react-contexify';
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import { humanFileSize } from "../../../../../util/FileSize.js";
 import PropTypes from 'prop-types';
@@ -20,23 +20,25 @@ export default class FileList extends React.Component {
   };
 
   fileToComponent = (item, i) => (
-      <tr onDoubleClick={(e) => this.props.onSelectFile(item, e)}
-          key={ item.name }>
+      <ContextMenuProvider
+          component="tr"
+          id="fileActionsMenu"
+          onDoubleClick={(e) => this.props.onSelectFile(item, e)}
+          key={ item.name }
+          data={{
+            file: item,
+            dirPath: this.props.path,
+            filePath: this.props.path + item.name,
+            fileName: item.name
+          }}
+      >
         <td>
           {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
           { item.name }
         </td>
         <td>{ humanFileSize(item.length) }</td>
         <td>{ item.lastModified }</td>
-        <td>
-          <FileActions id={i}
-                       dirPath={this.props.path}
-                       filePath={this.props.path + item.name}
-                       file={item}
-                       fileName={item.name}
-          />
-        </td>
-      </tr>
+      </ContextMenuProvider>
   );
 
   render() {
@@ -52,7 +54,7 @@ export default class FileList extends React.Component {
         <tbody>
           { folders.map(this.fileToComponent) }
 
-          { files.map(this.fileToComponent)}
+          { files.map(this.fileToComponent) }
         </tbody>
     );
   }

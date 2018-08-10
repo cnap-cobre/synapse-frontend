@@ -4,8 +4,8 @@ import Grid from 'react-bootstrap/lib/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
+import {ContextMenuProvider} from 'react-contexify';
 import './fileGridIcon.scss'
-
 
 export default class FileBrowserGrid extends React.Component {
   static propTypes = {
@@ -18,9 +18,17 @@ export default class FileBrowserGrid extends React.Component {
   };
 
   fileToComponent = (item, i) => (
-      <div key={item.name}
-           onDoubleClick={(e) => this.props.handleFileClick(item, e)}
-           className="fileGridIconBlock"
+      <ContextMenuProvider
+          id="fileActionsMenu"
+          key={item.name}
+          onDoubleClick={(e) => this.props.handleFileClick(item, e)}
+          className="fileGridIconBlock"
+          data={{
+            file: item,
+            dirPath: this.props.path,
+            filePath: this.props.path + item.name,
+            fileName: item.name
+          }}
       >
         <div className="innerWrapper">
           <div className="fileGridIcon">
@@ -30,7 +38,7 @@ export default class FileBrowserGrid extends React.Component {
             {item.name}
           </div>
         </div>
-      </div>
+      </ContextMenuProvider>
   );
 
   render() {
@@ -43,6 +51,7 @@ export default class FileBrowserGrid extends React.Component {
     );
 
     return (
+
         <Grid fluid={true}>
           <Row style={{display: this.props.error || this.props.loading ? 'none' : 'block'}}>
 
@@ -58,7 +67,7 @@ export default class FileBrowserGrid extends React.Component {
             </Col>
 
             {files.length ? (
-                <Col xs={12}>
+                <Col xs={12} style={{marginTop: '1.5em'}}>
                   <h6>Files</h6>
                   <hr />
                 </Col>

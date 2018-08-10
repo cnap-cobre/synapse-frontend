@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import {fetchAgaveFileSystemsIfNeeded} from "./actions/agaveFileSystems";
 import {fetchProfileIfNeeded} from "./actions/userProfile";
+import FileActionsMenu from './components/ContextMenu/FileActionsMenu/FileActionsMenu';
 import ModalWrapper from './components/Modal/ModalWrapper';
 import {Notify} from 'react-redux-notify';
 import {putCSRFTokenInStore} from "./actions/csrf";
@@ -23,6 +24,7 @@ class App extends React.Component {
           <Router routes={routes} />
           <ModalWrapper />
           <Notify />
+          <FileActionsMenu />
         </div>
     );
   }
