@@ -12,6 +12,8 @@ it('renders without crashing', ()=>{
             path="/beocat/home/morty/"
             onSelectFile={() => (null)}
             showDotfiles={false}
+            handleDoubleClick={() => {}}
+            handleSingleClick={() => {}}
         />
       </table>
   ), div);

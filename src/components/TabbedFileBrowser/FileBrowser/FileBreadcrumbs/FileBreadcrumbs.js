@@ -23,8 +23,6 @@ export default class FileBreadcrumbs extends React.Component {
   }
 
   render(){
-    console.log(this.props);
-
     const breadcrumbs = [
         this.props.systemName,
         ...this.getPath()

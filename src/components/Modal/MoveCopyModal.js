@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
+import {fetchFilesIfNeeded} from "../../actions/files";
 import FileBreadcrumbs from "../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs";
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -8,7 +9,6 @@ import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { removeModal } from "../../actions/modals";
-import {fetchFilesIfNeeded} from "../../actions/files";
 
 const LinkComponent = (props) => (
     <a onClick={() => {
