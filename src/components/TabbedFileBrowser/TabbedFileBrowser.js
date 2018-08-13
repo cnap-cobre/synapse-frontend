@@ -32,14 +32,6 @@ class TabbedFileBrowser extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    document.body.addEventListener('click', this.unfocusFiles);
-  };
-
-  componentWillUnmount = () => {
-    document.body.removeEventListener('click', this.unfocusFiles);
-  };
-
   unfocusFiles = (e) => {
     this.props.dispatch(setFocusedFile(''));
   };
