@@ -6,6 +6,20 @@ import {copyFile, deleteFile, downloadFile, fetchFilesIfNeeded,
   invalidateFiles, moveFile, renameFile} from "../../../actions/files";
 import 'react-contexify/dist/ReactContexify.min.css';
 
+const DownloadLink = (props) => {
+  console.log(props);
+  return (
+      <div className="react-contexify__item">
+      <a className="react-contexify__item__data"
+         download
+         href={props.dataFromProvider.filePath}
+      >
+        {props.children}
+      </a>
+      </div>
+  );
+};
+
 class FileActionsMenu extends React.Component{
   // See https://github.com/fkhadra/react-contexify for the
   // expected method signature of the onClick method.
@@ -29,81 +43,97 @@ class FileActionsMenu extends React.Component{
     }, 200);
   };
 
-  actions = [
-    ['Share', () => {console.log('share')}],
-    ['Download', (refProps) => {
-      this.props.dispatch(downloadFile(refProps.file))
-    }],
-    ['Rename', (refProps) => {
-      this.props.dispatch(addModal({
-        modalType: 'renameFile',
-        fileName: refProps.fileName,
-        action: (newName) => {
-          this.props.dispatch(
-              renameFile(refProps.file, newName)
-          ).then(this.delayedRefresh(refProps.dirPath));
-        }
-      }));
-    }],
-    ['Move', (refProps) => {
-      this.props.dispatch(addModal({
-        modalType: 'moveCopyFile',
-        title: 'Move ' + refProps.fileName,
-        fileName: refProps.fileName,
-        prompt: 'Select a new location for ' + refProps.fileName,
-        submitText: 'Move',
-        path: refProps.dirPath,
-        systemName: refProps.file.system,
-        action: (newPath) => {
-          this.props.dispatch(
-              moveFile(refProps.file, newPath)
-          ).then(this.delayedRefresh(refProps.dirPath));
-        }
-      }));
-    }],
-    ['Copy', (refProps) => {
-      this.props.dispatch(addModal({
-        modalType: 'moveCopyFile',
-        title: 'Copy ' + refProps.fileName,
-        fileName: refProps.fileName,
-        prompt: 'Select a location to copy ' + refProps.fileName,
-        submitText: 'Copy',
-        path: refProps.dirPath,
-        systemName: refProps.file.system,
-        action: (newPath) => {
-          this.props.dispatch(
-              copyFile(refProps.file, newPath)
-          ).then(this.delayedRefresh(refProps.dirPath))
-        }
-      }));
-    }],
-    ['Delete', (refProps) => {
-      this.props.dispatch(addModal({
-        modalType: 'deleteFile',
-        fileName: refProps.fileName,
-        action: () => {
-          this.props.dispatch(
-              deleteFile(refProps.file)
-          ).then(this.delayedRefresh(refProps.dirPath));
-        }
-      }));
-    }]
-  ];
+  handleShareFile = () => {console.log('share')};
+  
+  handleRenameFile = (refProps) => {
+    this.props.dispatch(addModal({
+      modalType: 'renameFile',
+      fileName: refProps.fileName,
+      action: (newName) => {
+        this.props.dispatch(
+            renameFile(refProps.file, newName)
+        ).then(this.delayedRefresh(refProps.dirPath));
+      }
+    }));
+  };
+
+  handleMoveFile = (refProps) => {
+    this.props.dispatch(addModal({
+      modalType: 'moveCopyFile',
+      title: 'Move ' + refProps.fileName,
+      fileName: refProps.fileName,
+      prompt: 'Select a new location for ' + refProps.fileName,
+      submitText: 'Move',
+      path: refProps.dirPath,
+      systemName: refProps.file.system,
+      action: (newPath) => {
+        this.props.dispatch(
+            moveFile(refProps.file, newPath)
+        ).then(this.delayedRefresh(refProps.dirPath));
+      }
+    }));
+  };
+
+  handleCopyFile = (refProps) => {
+    this.props.dispatch(addModal({
+      modalType: 'moveCopyFile',
+      title: 'Copy ' + refProps.fileName,
+      fileName: refProps.fileName,
+      prompt: 'Select a location to copy ' + refProps.fileName,
+      submitText: 'Copy',
+      path: refProps.dirPath,
+      systemName: refProps.file.system,
+      action: (newPath) => {
+        this.props.dispatch(
+            copyFile(refProps.file, newPath)
+        ).then(this.delayedRefresh(refProps.dirPath))
+      }
+    }));
+  };
+
+  handleDeleteFile = (refProps) => {
+    this.props.dispatch(addModal({
+      modalType: 'deleteFile',
+      fileName: refProps.fileName,
+      action: () => {
+        this.props.dispatch(
+            deleteFile(refProps.file)
+        ).then(this.delayedRefresh(refProps.dirPath));
+      }
+    }));
+  };
 
   render = () => {
-    const menuItems = this.actions.map((item, index) => {
-      return (
-          <Item
-              onClick={this.stopClickPropagation(item[1])}
-              key={index}>
-            {item[0]}
-          </Item>
-      );
-    });
-
     return (
         <ContextMenu id="fileActionsMenu" style={{zIndex: '101'}}>
-          {menuItems}
+          <Item
+              onClick={this.stopClickPropagation(this.handleShareFile)}
+          >
+            Share
+          </Item>
+          <DownloadLink>
+            Download
+          </DownloadLink>
+          <Item
+              onClick={this.stopClickPropagation(this.handleRenameFile)}
+          >
+            Rename
+          </Item>
+          <Item
+              onClick={this.stopClickPropagation(this.handleMoveFile)}
+          >
+            Move
+          </Item>
+          <Item
+              onClick={this.stopClickPropagation(this.handleCopyFile)}
+          >
+            Copy
+          </Item>
+          <Item
+              onClick={this.stopClickPropagation(this.handleDeleteFile)}
+          >
+            Delete
+          </Item>
         </ContextMenu>
     );
   };
