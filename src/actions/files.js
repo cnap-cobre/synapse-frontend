@@ -1,5 +1,6 @@
 import Agave from '../services/Agave';
 import Dropbox from '../services/Dropbox';
+import {setFocusedFile} from "./focusedFile";
 
 export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
@@ -58,6 +59,7 @@ export function symlinkCorrectionStarted(path) {
 export function deleteFile(file) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
+    dispatch(setFocusedFile(''));
 
     if (file.system === 'dropbox') {
       return Dropbox.rm(csrftoken, file);
