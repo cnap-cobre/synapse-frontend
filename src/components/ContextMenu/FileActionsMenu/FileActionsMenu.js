@@ -44,7 +44,7 @@ class FileActionsMenu extends React.Component{
   };
 
   handleShareFile = () => {console.log('share')};
-  
+
   handleRenameFile = (refProps) => {
     this.props.dispatch(addModal({
       modalType: 'renameFile',

@@ -1,3 +1,4 @@
+import AddDirectory from "./AddDirectory/AddDirectory";
 import BrowserRefresh from "./BrowserRefresh/BrowserRefresh";
 import DotfilesCheckBox from "./DotfilesCheckBox/DotfilesCheckBox";
 import ListGridToggle from "./ListGridToggle/ListGridToggle";
@@ -21,17 +22,31 @@ export default class FileBrowserControls extends React.Component {
         borderRadius: "4px",
         textAlign: "left",
         marginBottom: "20px",
-        display: "flex",
-        flexDirection: "row"
+        display: 'flex',
+        justifyContent: 'space-between'
       }}>
-        <BrowserRefresh handleRefresh={this.props.handleRefresh} />
 
-        <DotfilesCheckBox id={this.props.id}
-                          showDotfiles={this.props.showDotfiles}
-                          toggleDotfiles={this.props.toggleDotfiles}
-        />
+        <div style={{
+          display: 'flex',
+          backgroundColor: "#e4e4e4"
+        }}>
+          <BrowserRefresh handleRefresh={this.props.handleRefresh} />
 
-        <ListGridToggle />
+          <DotfilesCheckBox id={this.props.id}
+                            showDotfiles={this.props.showDotfiles}
+                            toggleDotfiles={this.props.toggleDotfiles}
+          />
+
+          <ListGridToggle />
+        </div>
+
+        <div style={{
+          display: 'flex'
+        }}>
+          <AddDirectory />
+        </div>
+
+
 
       </div>
     );
