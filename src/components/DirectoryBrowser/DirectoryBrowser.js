@@ -22,7 +22,9 @@ class DirectoryBrowser extends React.Component {
                style={{display: this.props.error || this.props.loading ? 'none' : 'table'}}>
           <tbody>
           {this.props.list.map((item, i) => (
-              <tr onDoubleClick={() => {this.props.handleDoubleClick('/' + item.system + item.path + '/')}}>
+              <tr onDoubleClick={() => {this.props.handleDoubleClick('/' + item.system + item.path + '/')}}
+                  key={i}
+              >
                 <td>
                   {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
                   {item.name}

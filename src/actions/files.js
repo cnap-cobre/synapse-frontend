@@ -35,6 +35,7 @@ export function failFiles(path, errorCode) {
 }
 
 export function invalidateFiles(path) {
+  console.log("DISPATCHED INVALIDATE FILES - " + path);
   return {
     type: INVALIDATE_FILES,
     path
@@ -88,6 +89,11 @@ export function downloadFile(file) {
 export function moveFile(file, newPath) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
+    dispatch(setFocusedFile(''));
+    console.log(newPath, 'newpath');
+    dispatch(invalidateFiles(
+        ['', file.system, ...newPath.split('/').slice(1, -1), ''].join('/')
+    ));
 
     if (file.system === 'dropbox') {
       return Dropbox.mv(csrftoken, file, newPath);
@@ -102,6 +108,9 @@ export function moveFile(file, newPath) {
 export function copyFile(file, newPath) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
+    dispatch(invalidateFiles(
+        [file.system, ...newPath.split('/').slice(0, -1), ''].join('/')
+    ));
 
     if (file.system === 'dropbox') {
       return Dropbox.cp(csrftoken, file, newPath);
@@ -109,13 +118,17 @@ export function copyFile(file, newPath) {
       return Agave.cp(csrftoken, file, newPath);
     }
   };
-  action.type = 'MOVE_FILE';
+  action.type = 'COPY_FILE';
   return action;
 }
 
 export function renameFile(file, newName) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
+    dispatch(setFocusedFile(''));
+    dispatch(invalidateFiles(
+        [file.system, ...newPath.split('/').slice(0, -1), ''].join('/')
+    ));
 
     if (file.system === 'dropbox') {
       return Dropbox.rename(csrftoken, file, newName);
