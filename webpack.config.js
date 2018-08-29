@@ -92,7 +92,10 @@ module.exports = {
       filename: "./stats/stats.json"
     }),
     new BundleAnalyzerPlugin({
-      analyzerMode: (env.DISABLE_ANALYZER_SERVER || env.CI ? "disabled" : "server")
+      analyzerMode: (
+          (env.ENV === 'dev' || env.ENV === 'stage')
+              ? "server" : "disabled"
+      )
     }),
   ],
   optimization: {

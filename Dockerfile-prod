@@ -10,14 +10,14 @@ RUN npm install react-scripts@1.1.1 -g --silent \
 
 # set working directory
 WORKDIR /usr/src/app
-RUN chown node:node /usr/src/app && chmod -R 755 /usr/src/app
+RUN chown node:node /usr/src/app
+RUN mkdir -p /usr/src/app/stats
+RUN chown -R node:node /usr/src/app/stats
+RUN chmod 755 /usr/src/app/stats
 
 # Don't run stuff as root
 USER node
 RUN echo $UID
-
-# Add so we own it
-RUN mkdir /usr/src/app/stats
 
 # install app dependencies
 COPY package.json /usr/src/app/package.json
@@ -28,14 +28,16 @@ RUN npm install --silent \
 COPY . /usr/src/app
 
 USER root
-RUN chown -R node:node /usr/src/app/
+RUN chown -R node:node /usr/src/app/stats/
+RUN chown -R node:node /usr/src/app/dist/
 USER node
 
+RUN ls -alh /usr/src/app/stats/
 RUN npm run build
 
 
 # production environment
 FROM nginx:1.13.9-alpine
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
-EXPOSE 80
+expose 80
 
