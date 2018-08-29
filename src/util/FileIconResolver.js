@@ -1,4 +1,3 @@
-
 // Individual imports like this save massively on the Webpack
 // bundle size.  Importing the index.js from each of these
 // would result in more than double the bundle size.  Yuge.
@@ -150,7 +149,3 @@ export function fileIconResolver(item) {
   const X = resolve(item);
   return React.cloneElement(X, {className: "fa-2x far"});
 }
-
-// Executable files under 8kb may in fact be symlinks to directories
-// The Agave API does not clarify whether a raw file is a symlink,
-// let alone whether it is a symlink pointing to a directory.
