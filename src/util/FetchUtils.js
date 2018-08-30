@@ -19,7 +19,9 @@ export function DropboxToAgaveFormat(response) {
       system: 'dropbox',
       type: item['.tag'] === 'folder' ? 'dir' : 'file',
       "_links": {
-        self: "/dropbox/content/2/files/download" + item.path_display
+        self: {
+          href: "/dropbox/content/2/files/download" + item.path_display
+        }
       }
     }
   });

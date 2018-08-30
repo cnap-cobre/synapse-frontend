@@ -12,7 +12,7 @@ const DownloadLink = (props) => {
       <div className="react-contexify__item">
       <a className="react-contexify__item__data"
          download
-         href={props.dataFromProvider.file._links.self}
+         href={props.dataFromProvider.file._links.self.href}
       >
         {props.children}
       </a>
