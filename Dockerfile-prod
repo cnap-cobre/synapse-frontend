@@ -33,11 +33,4 @@ RUN chown -R node:node /usr/src/app/dist/
 USER node
 
 RUN ls -alh /usr/src/app/stats/
-RUN npm run build
-
-
-# production environment
-FROM nginx:1.13.9-alpine
-COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
-expose 80
 
