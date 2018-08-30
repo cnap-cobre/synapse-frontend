@@ -18,6 +18,9 @@ export function DropboxToAgaveFormat(response) {
       permissions: '',
       system: 'dropbox',
       type: item['.tag'] === 'folder' ? 'dir' : 'file',
+      "_links": {
+        self: "/dropbox/content" + item.path
+      }
     }
   });
 }
