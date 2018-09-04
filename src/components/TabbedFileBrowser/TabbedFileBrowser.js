@@ -47,7 +47,10 @@ class TabbedFileBrowser extends React.Component {
           <Alert bsStyle="info">
             <strong>No file systems found.</strong>
           </Alert>
-          <p>Learn how to add file
+          <p>
+            Connect your Dropbox account <a href="/accounts/social/connections/">here</a>.
+          </p>
+          <p>Add remote SFTP file
             systems <Link to='/files/add_new_filesystem'>here</Link>.</p>
           </React.Fragment>
       );
