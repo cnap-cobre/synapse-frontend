@@ -50,7 +50,7 @@ class TabbedFileBrowser extends React.Component {
           <p>
             Connect your Dropbox account <a href="/accounts/social/connections/">here</a>.
           </p>
-          <p>Add remote SFTP file
+          <p>Add your own remote SFTP file
             systems <Link to='/files/add_new_filesystem'>here</Link>.</p>
           </React.Fragment>
       );

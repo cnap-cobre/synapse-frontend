@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "agaveapi-js": "^1.0.0",
     "dropbox": "^4.0.7",

@@ -95,7 +95,9 @@ module.exports = {
       analyzerMode: (
           (env.ENV === 'dev' || env.ENV === 'stage')
               ? "server" : "disabled"
-      )
+      ),
+      analyzerHost: '0.0.0.0',
+      analyzerPort: 8888
     }),
   ],
   optimization: {
