@@ -1,7 +1,7 @@
 import CardLayout from '../../../physical_layout/CardLayout/CardLayout';
 import React from 'react';
 
-export default class Files extends React.Component {
+export default class FileSystems extends React.Component {
   render() {
     return (
         <CardLayout>

@@ -9,7 +9,27 @@ const nav = [
     name: 'Files',
     url: '/files',
     icon: 'ti-folder',
-    exact: false
+    exact: false,
+    children: [
+      {
+        name: 'Browse',
+        mini: 'B',
+        url: '/files/browse',
+        exact: false
+      },
+      {
+        name: 'File Systems',
+        mini: 'FS',
+        url: '/files/systems',
+        exact: true
+      },
+      {
+        name: 'Transfer History',
+        mini: 'TH',
+        url: '/files/transfers',
+        exact: true
+      },
+    ]
   },
   // {
   //   name: 'Code Editor',

@@ -25,29 +25,39 @@
     "chunk": "files",
     "children": [
       {
-        "path": "/add_new_filesystem",
-        "name": "New File System",
-        "page": "./pages/Files/AddNewFileSystem/AddNewFileSystem"
+        "path": "/browse",
+        "name": "Browse Files",
+        "page": "./pages/Files/Browse/Browse"
+      },
+      {
+        "path": "/systems",
+        "name": "File Systems",
+        "page": "./pages/Files/FileSystems/FileSystems"
+      },
+      {
+        "path": "/transfers",
+        "name": "Transfer History",
+        "page": "./pages/Files/TransferHistory/TransferHistory"
       }
     ]
   },
   {
     "path": "/shell",
     "name": "Shell",
-    "page": "./pages/Shell/Shell",
-    "chunk": "shell"
+    "chunk": "shell",
+    "page": "./pages/Shell/Shell"
   },
   {
     "path": "/editor",
     "name": "Code Editor",
-    "page": "./pages/CodeEditor/CodeEditor",
-    "chunk": "editor"
+    "chunk": "editor",
+    "page": "./pages/CodeEditor/CodeEditor"
   },
   {
     "path": "/compute",
-    "name": "Code Editor",
-    "page": "./pages/ComputeJobs/ComputeJobs",
-    "chunk": "compute"
+    "name": "Compute",
+    "chunk": "compute",
+    "page": "./pages/ComputeJobs/ComputeJobs"
   },
   {
     "path": "*",
