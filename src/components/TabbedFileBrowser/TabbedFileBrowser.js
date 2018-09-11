@@ -135,28 +135,14 @@ const systemUrlResolverAndRedirector = (props) => {
 
 const mapStateToProps = (store, ownProps) => {
   const fileSystems = [
-      ...store.agaveFileSystems.systems.filter((sys) => (
+      ...store.fileSystems.systems.filter((sys) => (
           !sys.public
-      )).map((sys) => {
-        sys.provider = 'agave';
-        return sys;
-      })
+      ))
   ];
-
-  if (store.userProfile.dropbox.length !== 0) {
-    fileSystems.push({
-      id: 'dropbox',
-      provider: 'dropbox',
-      description: 'Dropbox File System',
-      name: 'Dropbox',
-      status: 'UP',
-      type: 'STORAGE'
-    });
-  }
 
   return{
     ...ownProps,
-    isReady: store.userProfile.hasFetched && store.agaveFileSystems.hasFetched,
+    isReady: store.userProfile.hasFetched && store.fileSystems.hasFetched,
     fileSystems,
     pathname: store.router.pathname,
     path: store.router.pathname.slice(

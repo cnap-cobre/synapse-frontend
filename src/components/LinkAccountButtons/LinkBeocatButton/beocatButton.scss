@@ -1,0 +1,12 @@
+.btn-beocat {
+    background: #b48cdc;
+    color: #eee;
+    &:hover {
+        background: darken(#b48cdc, 10%);
+    }
+}
+
+.btn-beocat img {
+    margin-left: 3px;
+    margin-top: 5px;
+}
