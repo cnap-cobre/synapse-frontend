@@ -1,4 +1,4 @@
-import PropagateLoader from 'react-spinners/dist/spinners/PropagateLoader';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 import PropTypes from 'prop-types';
 import React from "react";
 import './Loader.css';
