@@ -1,8 +1,9 @@
+import {connect} from 'react-redux';
 import React from 'react';
 
-export default class LinkDropboxButton extends React.Component {
+class LinkDropboxButton extends React.Component {
   render() {
-    const button = (
+    const linkButton = (
         <a title="Dropbox"
            className="btn btn-block btn-social socialaccount_provider btn-dropbox"
            href="/accounts/dropbox/login/?process=connect">
@@ -11,6 +12,22 @@ export default class LinkDropboxButton extends React.Component {
         </a>
     );
 
-    return button;
+    const unlink = (
+        <p>
+          Dropbox is linked.
+          Click <a href="/accounts/social/connections/">here</a> to
+          unlink.
+        </p>
+    );
+
+    return (this.props.hasLinkedDropbox ? unlink : linkButton);
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    hasLinkedDropbox: state.userProfile.dropbox.length > 0
+  };
+};
+
+export default connect(mapStateToProps)(LinkDropboxButton);
