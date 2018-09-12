@@ -1,13 +1,17 @@
+import {addModal} from "../../actions/modals";
+import Agave from '../../services/Agave';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
+import {connect} from 'react-redux';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Form from 'react-bootstrap/lib/Form';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import React from 'react';
+import {invalidateAgaveFileSystems, requestAgaveFileSystems} from "../../actions/agaveFileSystems";
 
-export default class AddSftpFileSystemForm extends React.Component {
+class AddSftpFileSystemForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -23,6 +27,28 @@ export default class AddSftpFileSystemForm extends React.Component {
       privateKey: ''
     };
   }
+
+  mapToRequestShape = (config) => {
+    return {
+      id: config.id,
+      name: config.name,
+      status: 'UP',
+      type: 'STORAGE',
+      description: config.description,
+      site: config.site,
+      storage: {
+        host: config.host,
+        port: config.port,
+        protocol: 'SFTP',
+        auth: {
+          username: config.username,
+          publicKey: config.publicKey,
+          privateKey: config.privateKey,
+          type: 'SSHKEYS'
+        }
+      }
+    };
+  };
 
   render = () => (
         <Form horizontal>
@@ -186,7 +212,18 @@ export default class AddSftpFileSystemForm extends React.Component {
             textAlign: 'center'
           }}>
             <Button className="btn btn-success btn-fill"
-                    onClick={()=>{alert('hello world')}}
+                    onClick={() => {
+                      this.props.onFormSubmission(
+                          this.mapToRequestShape(this.state)
+                      ).then(() => {
+                        this.props.dispatch(invalidateAgaveFileSystems());
+                        this.props.dispatch(requestAgaveFileSystems());
+                        this.props.dispatch(addModal({
+                          modalType: 'successMessage',
+                          text: 'The new SFTP file system has been added successfully.'
+                        }));
+                      });
+                    }}
             >
               Add System
             </Button>
@@ -194,3 +231,11 @@ export default class AddSftpFileSystemForm extends React.Component {
         </Form>
   );
 }
+
+const mapStateToProps = (store) => {
+  return {
+    onFormSubmission: (config) => Agave.addFileSystem(store.csrf.token, config)
+  };
+};
+
+export default connect(mapStateToProps)(AddSftpFileSystemForm);

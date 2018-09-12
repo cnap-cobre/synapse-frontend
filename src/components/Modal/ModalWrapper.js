@@ -3,6 +3,7 @@ import DeleteFileModal from './DeleteFileModal';
 import MoveCopyModal from './MoveCopyModal';
 import React from 'react';
 import RenameFileModal from './RenameFileModal';
+import SuccessMessageModal from './SuccessMessageModal';
 
 class ModalWrapper extends React.Component {
   render() {
@@ -37,6 +38,13 @@ class ModalWrapper extends React.Component {
                                      id={id}
                                      action={this.props.modals[id].action}
                                      fileName={this.props.modals[id].fileName}
+                    />
+                );
+              case 'successMessage':
+                return (
+                    <SuccessMessageModal key={i}
+                                         id={id}
+                                         text={this.props.modals[id].text}
                     />
                 );
               default:

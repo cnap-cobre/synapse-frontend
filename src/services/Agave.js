@@ -26,6 +26,19 @@ const listFileSystems = () => {
       .then(fetchToJson)
 };
 
+const addFileSystem = (csrftoken, config) => {
+  return fetch(`/agave/systems/v2/`, {
+    body: JSON.stringify(config),
+    credentials: 'same-origin',
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'content-type': 'application/json'
+    }
+  }).then(fetchErrorThrower)
+    .then(fetchToJson);
+};
+
 const wget = (csrftoken, file) => {
   const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path;
 
@@ -85,6 +98,7 @@ const rename = moveCopyRenameMkdir('RENAME');
 export default {
   listFiles,
   listFileSystems,
+  addFileSystem,
   wget,
   rm,
   share: () => {console.log('Share')},
