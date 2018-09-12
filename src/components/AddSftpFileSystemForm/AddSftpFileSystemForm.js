@@ -8,15 +8,35 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import React from 'react';
 
 export default class AddSftpFileSystemForm extends React.Component {
-  render () {
-    return (
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      id: '',
+      name: '',
+      description: '',
+      site: '',
+      host: '',
+      port: 22,
+      username: '',
+      publicKey: '',
+      privateKey: ''
+    };
+  }
+
+  render = () => (
         <Form horizontal>
           <FormGroup controlId="systemId">
             <Col componentClass={ControlLabel} sm={3}>
               Id*
             </Col>
             <Col sm={9}>
-              <FormControl type="text" />
+              <FormControl type="text"
+                           value={this.state.id}
+                           onChange={
+                             (e) => {this.setState({id: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Id must be globally unique and cannot be reused once deleted.
               </HelpBlock>
@@ -28,7 +48,12 @@ export default class AddSftpFileSystemForm extends React.Component {
               Name*
             </Col>
             <Col sm={9}>
-              <FormControl type="text" />
+              <FormControl type="text"
+                           value={this.state.name}
+                           onChange={
+                             (e) => {this.setState({name: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Common display name for this system
               </HelpBlock>
@@ -41,7 +66,12 @@ export default class AddSftpFileSystemForm extends React.Component {
             </Col>
             <Col sm={9}>
               <FormControl componentClass="textarea"
-                           placeholder="System Description (Optional)" />
+                           placeholder="System Description (Optional)"
+                           value={this.state.description}
+                           onChange={
+                             (e) => {this.setState({description: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Verbose description of this system.  (Optional)
               </HelpBlock>
@@ -53,7 +83,12 @@ export default class AddSftpFileSystemForm extends React.Component {
               Site
             </Col>
             <Col sm={9}>
-              <FormControl type="text" />
+              <FormControl type="text"
+                           value={this.state.site}
+                           onChange={
+                             (e) => {this.setState({site: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Website URL associated with this system. (Optional)
               </HelpBlock>
@@ -65,7 +100,12 @@ export default class AddSftpFileSystemForm extends React.Component {
               Host URL*
             </Col>
             <Col sm={9}>
-              <FormControl type="text" />
+              <FormControl type="text"
+                           value={this.state.host}
+                           onChange={
+                             (e) => {this.setState({host: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Host URL for connecting via SSH/SFTP
               </HelpBlock>
@@ -77,7 +117,14 @@ export default class AddSftpFileSystemForm extends React.Component {
               Port Number*
             </Col>
             <Col sm={9}>
-              <FormControl type="number" defaultValue={22} />
+              <FormControl type="number"
+                           value={this.state.port}
+                           onChange={
+                             (e) => {this.setState({
+                               port: parseInt(e.target.value)
+                             })}
+                           }
+              />
               <HelpBlock>
                 Host Port for connecting via SSH/SFTP
               </HelpBlock>
@@ -89,7 +136,12 @@ export default class AddSftpFileSystemForm extends React.Component {
               Username*
             </Col>
             <Col sm={9}>
-              <FormControl type="text" />
+              <FormControl type="text"
+                           value={this.state.username}
+                           onChange={
+                             (e) => {this.setState({username: e.target.value})}
+                           }
+              />
             </Col>
           </FormGroup>
 
@@ -99,7 +151,12 @@ export default class AddSftpFileSystemForm extends React.Component {
             </Col>
             <Col sm={9}>
               <FormControl componentClass="textarea"
-                           placeholder="Public Key" />
+                           placeholder="Public Key"
+                           value={this.state.publicKey}
+                           onChange={
+                             (e) => {this.setState({publicKey: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Public Key (generated by ssh-keygen).  Ensure this is added
                 to your authorized_keys file in this system.
@@ -113,7 +170,12 @@ export default class AddSftpFileSystemForm extends React.Component {
             </Col>
             <Col sm={9}>
               <FormControl componentClass="textarea"
-                           placeholder="Private Key" />
+                           placeholder="Private Key"
+                           value={this.state.privateKey}
+                           onChange={
+                             (e) => {this.setState({privateKey: e.target.value})}
+                           }
+              />
               <HelpBlock>
                 Private Key.  Don't share this one.
               </HelpBlock>
@@ -123,12 +185,12 @@ export default class AddSftpFileSystemForm extends React.Component {
           <div style={{
             textAlign: 'center'
           }}>
-            <Button type="submit"
-                    className="btn btn-success btn-fill">
+            <Button className="btn btn-success btn-fill"
+                    onClick={()=>{alert('hello world')}}
+            >
               Add System
             </Button>
           </div>
         </Form>
-    );
-  }
+  );
 }
