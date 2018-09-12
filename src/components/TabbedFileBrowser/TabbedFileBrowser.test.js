@@ -1,5 +1,5 @@
 import configureStore from 'redux-mock-store';
-import { initialAgaveFileSystemsState } from "../../reducers/agaveFileSystems";
+import { initialFileSystemsState } from "../../reducers/fileSystems";
 import { initialUserProfileState } from "../../reducers/userProfile";
 import { Provider } from 'react-redux';
 import React from 'react';
@@ -14,7 +14,7 @@ it('renders without crashing', ()=>{
   ReactDOM.render((
       <Provider store={mockStore({
         userProfile: initialUserProfileState,
-        agaveFileSystems: initialAgaveFileSystemsState,
+        fileSystems: initialFileSystemsState,
         visualOptions: {
           showDotfiles: true
         },

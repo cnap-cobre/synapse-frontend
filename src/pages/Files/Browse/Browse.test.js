@@ -1,8 +1,8 @@
+import Browse from './Browse';
 import configureStore from 'redux-mock-store';
 import ExampleFileListing from './ExampleFileListing.json'
-import Files from './Files';
-import {initialAgaveFileSystemsState} from "../../reducers/agaveFileSystems";
-import {initialUserProfileState} from "../../reducers/userProfile";
+import {initialFileSystemsState} from "../../../reducers/fileSystems";
+import {initialUserProfileState} from "../../../reducers/userProfile";
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -23,12 +23,12 @@ it('renders without crashing', ()=>{
           showDotfiles: true
         },
         userProfile: initialUserProfileState,
-        agaveFileSystems: initialAgaveFileSystemsState,
+        fileSystems: initialFileSystemsState,
         focusedFile: {
           filePath: ''
         }
       })}>
-        <Files/>
+        <Browse/>
       </Provider>
   ), div);
   ReactDOM.unmountComponentAtNode(div);

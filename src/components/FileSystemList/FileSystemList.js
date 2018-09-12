@@ -1,6 +1,6 @@
 import Alert from 'react-bootstrap/lib/Alert';
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
 
 class FileSystemList extends React.Component {
   render() {

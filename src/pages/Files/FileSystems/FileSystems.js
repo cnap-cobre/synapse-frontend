@@ -1,8 +1,8 @@
 import AddSftpFileSystemForm from '../../../components/AddSftpFileSystemForm/AddSftpFileSystemForm';
 import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
 import FileSystemList from '../../../components/FileSystemList/FileSystemList';
-import LinkDropboxButton from '../../../components/LinkAccountButtons/LinkDropboxButton/LinkDropboxButton';
 import LinkBeocatButton from '../../../components/LinkAccountButtons/LinkBeocatButton/LinkBeocatButton';
+import LinkDropboxButton from '../../../components/LinkAccountButtons/LinkDropboxButton/LinkDropboxButton';
 import React from 'react';
 
 export default class FileSystems extends React.Component {
