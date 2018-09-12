@@ -78,14 +78,18 @@ const moveCopyRenameMkdir = (action) => (csrftoken, file, path) => {
   });
 };
 
+const mv = moveCopyRenameMkdir('MOVE');
+const cp = moveCopyRenameMkdir('COPY');
+const rename = moveCopyRenameMkdir('RENAME');
+
 export default {
   listFiles,
   listFileSystems,
   wget,
   rm,
   share: () => {console.log('Share')},
-  mv: (csrftoken, file, dest) => moveCopyRenameMkdir('MOVE')(csrftoken, file, dest),
-  cp: (csrftoken, file, dest) => moveCopyRenameMkdir('COPY')(csrftoken, file, dest),
-  rename: (csrftoken, file, newName) => moveCopyRenameMkdir('RENAME')(csrftoken, file, newName),
+  mv,
+  cp,
+  rename,
   mkdir: (system, path, dirName) => moveCopyRenameMkdir('MKDIR')({system, path}, dirName)
 };
