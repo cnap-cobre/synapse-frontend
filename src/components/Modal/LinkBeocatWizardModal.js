@@ -63,14 +63,13 @@ class LinkBeocatWizardModal extends React.Component {
           </ol>
           <hr/>
           <pre><code>
-            ssh-keygen -f ~/.ssh/synapse_agave -t rsa -N ''<br/>
-            cat ~/.ssh/synapse_agave.pub >> ~/.ssh/authorized_keys<br/>
-            echo "\n\n\nCopy and paste the following into the text box in your browser:
-            \n\n\n{'{'}\"id\": \"beocat-`whoami`\",
-            \"name\": \"Beocat\", \"status\": \"UP\",
-            \"type\": \"STORAGE\", \"description\": \"Beocat supercomputer at K-State\",
-            \"site\": \"beocat.ksu.edu\", \"storage\": {'{'}\"host\": \"beocat.ksu.edu\", \"port\": 22, \"protocol\": \"SFTP\", \"auth\": {'{'}\"username\": \"`whoami`\",
-            \"publicKey\": \"`cat ~/.ssh/synapse_agave.pub`\", \"privateKey\": \"`cat ~/.ssh/synapse_agave`\", \"type\": \"SSHKEYS\"{'}}}'}\n\n\n"
+            {
+              [
+                'bash < (curl -s ',
+                window.location.origin,
+                '/dj-static/beocat-agave-script.sh)'
+              ].join('')
+            }
           </code></pre>
           <hr/>
 
@@ -88,7 +87,7 @@ class LinkBeocatWizardModal extends React.Component {
                   onChange={
                     (e) => {
                       this.setState({
-                        configString: e.target.value
+                        configString: e.target.value.trim().replace(/(?:\r\n|\r|\n)/g, '')
                       })
                     }
                   }
