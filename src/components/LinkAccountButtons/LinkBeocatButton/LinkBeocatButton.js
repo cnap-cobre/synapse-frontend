@@ -22,8 +22,23 @@ class LinkBeocatButton extends React.Component {
 
     );
 
-    return button;
+    const linkAgaveButton = (
+        <a href="/accounts/agave/login/?process=connect"
+           className="btn btn-block btn-social socialaccount_provider btn-agave"
+        >
+          <img src="/dj-static/img/agave_icon.png" />
+            First, link your Agave Account
+        </a>
+    );
+
+    return this.props.hasLinkedAgaveAccount ? button : linkAgaveButton;
   }
 }
 
-export default connect()(LinkBeocatButton);
+const mapStateToProps = (store) => {
+  return {
+    hasLinkedAgaveAccount: store.userProfile.agave.length !== 0
+  };
+};
+
+export default connect(mapStateToProps)(LinkBeocatButton);
