@@ -65,9 +65,9 @@ class LinkBeocatWizardModal extends React.Component {
           <pre><code>
             {
               [
-                'bash < (curl -s ',
+                'curl -s ',
                 window.location.origin,
-                '/dj-static/beocat-agave-script.sh)'
+                '/dj-static/beocat-agave-script.sh | bash'
               ].join('')
             }
           </code></pre>
