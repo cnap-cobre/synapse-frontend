@@ -5,8 +5,7 @@ FROM node:8 as builder
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install and cache react-scripts globally
-RUN npm install react-scripts@1.1.1 -g --silent \
-    && npm cache clean --force --silent
+RUN npm install react-scripts@1.1.1 -g --silent
 
 # set working directory
 WORKDIR /usr/src/app
@@ -21,8 +20,7 @@ RUN echo $UID
 
 # install app dependencies
 COPY package.json /usr/src/app/package.json
-RUN npm install --silent \
-    && npm cache clean --force --silent
+RUN npm install --silent
 
 # build our frontend assets
 COPY . /usr/src/app
