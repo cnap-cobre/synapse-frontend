@@ -50,7 +50,7 @@ class AddSftpFileSystemForm extends React.Component {
     };
   };
 
-  render = () => (
+  agaveForm = () => (
         <Form horizontal>
           <FormGroup controlId="systemId">
             <Col componentClass={ControlLabel} sm={3}>
@@ -230,10 +230,17 @@ class AddSftpFileSystemForm extends React.Component {
           </div>
         </Form>
   );
+
+  render = () => (
+      this.props.hasLinkedAgaveAccount ? this.agaveForm() : (
+          <p>Please link your Agave account first.</p>
+      )
+  );
 }
 
 const mapStateToProps = (store) => {
   return {
+    hasLinkedAgaveAccount: store.userProfile.agave.length !== 0,
     onFormSubmission: (config) => Agave.addFileSystem(store.csrf.token, config)
   };
 };
