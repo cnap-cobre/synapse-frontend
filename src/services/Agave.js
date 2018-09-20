@@ -28,7 +28,7 @@ const listFileSystems = () => {
 
 const addFileSystem = (csrftoken, config) => {
   return fetch(`/agave/systems/v2/`, {
-    body: JSON.stringify(config).replace(/"!!!"/g, "\n"),
+    body: JSON.stringify(config).replace(/!!!/g, "\\n"),
     credentials: 'same-origin',
     method: 'POST',
     headers: {
