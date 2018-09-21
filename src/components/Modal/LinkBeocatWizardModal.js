@@ -63,13 +63,14 @@ class LinkBeocatWizardModal extends React.Component {
           </ol>
           <hr/>
           <pre><code>
-            {
-              [
-                'curl -s ',
-                window.location.origin,
-                '/dj-static/beocat-agave-script.sh | bash'
-              ].join('')
-            }
+            {/*{*/}
+              {/*[*/}
+                {/*'curl -s ',*/}
+                {/*window.location.origin,*/}
+                {/*'/dj-static/beocat-agave-script.sh | bash'*/}
+              {/*].join('')*/}
+            {/*}*/}
+            curl -s https://people.beocat.ksu.edu/~kmdice/beocat-agave-script.sh
           </code></pre>
           <hr/>
 
