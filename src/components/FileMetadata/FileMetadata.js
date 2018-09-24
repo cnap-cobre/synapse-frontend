@@ -30,12 +30,17 @@ class FileMetadata extends React.Component{
       return (
           <div>
             <h6>Metadata</h6>
+            <hr />
             {this.fileAttributesToComponents()}
           </div>
       );
     } else {
       return (
-          <div></div>
+          <div>
+            <h6>Metadata</h6>
+            <hr />
+            First, select a file or directory.
+          </div>
       );
     }
   }

@@ -70,7 +70,7 @@ class LinkBeocatWizardModal extends React.Component {
                 {/*'/dj-static/beocat-agave-script.sh | bash'*/}
               {/*].join('')*/}
             {/*}*/}
-            curl -s https://people.beocat.ksu.edu/~kmdice/beocat-agave-script.sh
+            curl -s https://people.beocat.ksu.edu/~kmdice/beocat-agave-script. | bash
           </code></pre>
           <hr/>
 
