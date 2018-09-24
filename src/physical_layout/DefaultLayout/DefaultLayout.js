@@ -18,11 +18,7 @@ class DefaultLayout extends React.Component {
           <div className="main-panel">
             <DefaultNavbar/>
 
-
-                {this.props.children}
-
-
-            <DefaultFooter/>
+            {this.props.children}
 
             <div className={"close-layer" + (
                    this.props.mobileNavOpen ? " visible" : ""
