@@ -4,6 +4,7 @@ import DotfilesCheckBox from "./DotfilesCheckBox/DotfilesCheckBox";
 import ListGridToggle from "./ListGridToggle/ListGridToggle";
 import PropTypes from 'prop-types';
 import React from "react";
+import UploadFile from "./UploadFile/UploadFile";
 
 
 export default class FileBrowserControls extends React.Component {
@@ -43,6 +44,7 @@ export default class FileBrowserControls extends React.Component {
         <div style={{
           display: 'flex'
         }}>
+          <UploadFile />
           <AddDirectory />
         </div>
 
