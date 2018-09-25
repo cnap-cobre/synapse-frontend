@@ -70,6 +70,7 @@ export default class FileSystems extends React.Component {
                       <hr/>
                     </div>
                     <div className="card-content">
+                      <h6>Overview</h6>
                       <p>
                         There are two types of file systems which you can add to your
                         Synapse account:  Agave-supported file systems and external file

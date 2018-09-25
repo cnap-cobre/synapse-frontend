@@ -59,7 +59,7 @@ export default class FileList extends React.Component {
     );
 
     return (
-        <tbody>
+        <tbody className="fileList">
           { folders.map(this.fileToComponent) }
 
           { files.map(this.fileToComponent) }

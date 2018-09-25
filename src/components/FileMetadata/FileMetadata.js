@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {fileIconResolver} from "../../util/FileIconResolver";
 import {humanFileSize} from "../../util/FileSize";
 import React from 'react';
+import './fileMetadata.scss';
 
 
 class FileMetadata extends React.Component{
@@ -39,7 +40,7 @@ class FileMetadata extends React.Component{
     } else if(this.props.files.length === 1) {
       const singleFile = this.props.files[0];
       return (
-          <div>
+          <div className="fileMetadata">
             <h6>Metadata</h6>
             <hr />
 
