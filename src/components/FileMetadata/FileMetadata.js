@@ -62,6 +62,7 @@ class FileMetadata extends React.Component{
             <table style={{
               overflow: 'auto'
             }}>
+              <tbody>
               <tr>
                 <td>Format:</td><td>{singleFile.format}</td>
               </tr>
@@ -77,6 +78,7 @@ class FileMetadata extends React.Component{
               <tr>
                 <td>Full Path:</td><td>{singleFile.path}</td>
               </tr>
+              </tbody>
             </table>
           </div>
       );
