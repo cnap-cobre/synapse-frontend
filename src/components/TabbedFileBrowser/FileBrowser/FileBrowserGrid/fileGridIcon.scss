@@ -42,6 +42,9 @@
     &.focused{
         border: 2px solid #509db5;
         background: #bed6dd;
+        &:hover{
+            background: darken(#bed6dd, 5%);
+        }
     }
 }
 
