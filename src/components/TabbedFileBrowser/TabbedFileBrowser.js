@@ -65,6 +65,7 @@ class TabbedFileBrowser extends React.Component {
                   if (selectedSystem !== key) {
                     this.props.dispatch(push([
                       this.props.prefix,
+                      this.props.fileSystems[key].provider,
                       this.props.fileSystems[key].id,
                       ''
                     ].join('/')))
@@ -86,6 +87,7 @@ class TabbedFileBrowser extends React.Component {
                      systemPrefix={
                        [
                          this.props.prefix,
+                         system.provider,
                          system.id
                        ].join('/')
                      }
@@ -103,9 +105,10 @@ const systemUrlResolverAndRedirector = (props) => {
   if(props.pathname.indexOf(props.prefix) !== 0) {
     return 0;
   }
+
   const remainingUrl = props.pathname.slice(props.prefix.length);
   const urlActive = props.fileSystems.map(
-      (fs) => (remainingUrl.indexOf('/' + fs.id + '/') === 0)
+      (fs) => (remainingUrl.indexOf('/' + fs.provider + '/' + fs.id + '/') === 0)
   ).indexOf(true);
 
   if (props.isReady && urlActive === -1 ) {
@@ -116,13 +119,9 @@ const systemUrlResolverAndRedirector = (props) => {
         return;
       }
 
-      // Stop if we are on the page to add new filesystems
-      if(props.pathname.indexOf('/files/add_new_filesystem') === 0) {
-        return;
-      }
-
       props.dispatch(replace([
         props.prefix,
+        props.fileSystems[0].provider,
         props.fileSystems[0].id,
         ''
       ].join('/')));

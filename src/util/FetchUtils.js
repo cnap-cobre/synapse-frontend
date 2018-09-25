@@ -16,7 +16,7 @@ export function DropboxToAgaveFormat(response) {
       name: item.name,
       path: item.path_display,
       permissions: '',
-      system: 'dropbox',
+      system: 'home',
       type: item['.tag'] === 'folder' ? 'dir' : 'file',
       "_links": {
         self: {

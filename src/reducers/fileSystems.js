@@ -59,7 +59,7 @@ export default function fileSystems(state = initialFileSystemsState, action) {
       const dropboxSystems = [];
       if (action.userProfile.dropbox.length !== 0) {
         dropboxSystems.push({
-          id: 'dropbox',
+          id: 'home',
           provider: 'dropbox',
           description: 'Dropbox File System',
           name: 'Dropbox',

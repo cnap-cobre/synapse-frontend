@@ -24,7 +24,7 @@ export default function configureStore(history, initialState = {}) {
   const enhancers = compose(
       middlewareEnhancer,
       monitorReducerEnhancer,
-      persistState(['visualOptions'])
+      persistState(['visualOptions', 'fileSystems'])
   );
 
   return createStore(

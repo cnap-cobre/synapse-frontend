@@ -109,7 +109,7 @@ const mapDispatchToProps = dispatch => {
     },
     handleSingleClick: (file, e) => {
       e.preventDefault();
-      dispatch(setFocusedFile('/' + file.system + file.path));
+      dispatch(setFocusedFile('/' + file.provider + '/' + file.system + file.path));
       // Set as focused item here.
     },
     dispatch

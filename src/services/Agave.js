@@ -2,7 +2,8 @@ import fileDownload from 'js-file-download';
 import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
 
 const listFiles = (filePath) => {
-  const url = '/agave/files/v2/listings/system' + filePath + '?limit=1000';
+  const trimmedPath = filePath.slice('/agave'.length);
+  const url = '/agave/files/v2/listings/system' + trimmedPath + '?limit=1000';
 
   return fetch(url, {
     credentials: "same-origin",
@@ -15,6 +16,12 @@ const listFiles = (filePath) => {
 
       // extract result list
       .then((response) => response.result)
+
+      //
+      .then((list) => (list.map((file) => {
+        file.provider = 'agave';
+        return file;
+      })))
 };
 
 const listFileSystems = () => {

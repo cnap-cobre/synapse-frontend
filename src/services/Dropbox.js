@@ -19,7 +19,7 @@ const dropboxRequest = (csrftoken, url, form) => {
 const listFiles = (csrftoken, filePath) => {
   const url = '/dropbox/api/2/files/list_folder';
   const form = {
-    'path': filePath === '/' ? '' : filePath
+    'path': filePath === '/' ? '' : filePath.slice('/dropbox/home/'.length)
   };
 
   return dropboxRequest(csrftoken, url, form)
@@ -31,6 +31,11 @@ const listFiles = (csrftoken, filePath) => {
 
       // map Dropbox to Agave response format
       .then(DropboxToAgaveFormat)
+
+      .then((list) => (list.map((file) => {
+        file.provider = 'dropbox';
+        return file;
+      })))
 };
 
 const wget = (csrftoken, file) => {
@@ -38,8 +43,6 @@ const wget = (csrftoken, file) => {
   const form = {
     path: file.path
   };
-
-  console.log('Download dropbox file 2');
 
   let x = new XMLHttpRequest();
   x.open("POST", url, true);

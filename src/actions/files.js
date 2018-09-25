@@ -35,7 +35,6 @@ export function failFiles(path, errorCode) {
 }
 
 export function invalidateFiles(path) {
-  console.log("DISPATCHED INVALIDATE FILES - " + path);
   return {
     type: INVALIDATE_FILES,
     path
@@ -175,12 +174,21 @@ function fetchFiles(path) {
     const csrftoken = getState().csrf.token;
     dispatch(requestFiles(path));
 
-    if (path.indexOf('/dropbox') === 0) {
-      return Dropbox.listFiles(csrftoken, path.slice('/dropbox'.length))
+    const fileSystems = getState().fileSystems.systems;
+    const activeFileSystem = fileSystems.filter((fs) => {
+      const tokens = path.split('/');
+      return fs.provider === tokens[1] && fs.id === tokens[2];
+    });
+
+    if (activeFileSystem.length !== 1) {
+      throw "Could not uniquely match a file system"
+    }
+
+    if (activeFileSystem[0].provider === 'dropbox') {
+      return Dropbox.listFiles(csrftoken, path)
           .then(files => dispatch(receiveFiles(path, files)))
           .catch(response => dispatch(failFiles(path, response.status)));
-    } else {
-      // Any agave directory listings
+    } else if(activeFileSystem[0].provider === 'agave') {
       const query = Agave.listFiles(path)
           .then(files => dispatch(receiveFiles(path, files)));
 
@@ -188,6 +196,8 @@ function fetchFiles(path) {
       query.then(() => dispatch(fetchSymlinkCorrections(path)));
 
       return query.catch(response => dispatch(failFiles(path, response.status)));
+    } else {
+      throw "Unmatched file system provider";
     }
   };
   action.type = 'FETCH_FILES';
