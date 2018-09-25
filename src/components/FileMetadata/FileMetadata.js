@@ -1,7 +1,8 @@
 import {connect} from 'react-redux';
 import {fileIconResolver} from "../../util/FileIconResolver";
-import React from 'react';
 import {humanFileSize} from "../../util/FileSize";
+import React from 'react';
+
 
 class FileMetadata extends React.Component{
   fileAttributesToComponents = (file) => {

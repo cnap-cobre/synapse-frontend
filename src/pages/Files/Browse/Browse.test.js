@@ -24,8 +24,8 @@ it('renders without crashing', ()=>{
         },
         userProfile: initialUserProfileState,
         fileSystems: initialFileSystemsState,
-        focusedFile: {
-          filePath: ''
+        focusedFiles: {
+          list: []
         }
       })}>
         <Browse/>

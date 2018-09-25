@@ -1,7 +1,8 @@
 import CardLayout from '../../physical_layout/CardLayout/CardLayout';
 import React from 'react';
-import UserProfilePhoto from '../../components/UserProfilePhoto/UserProfilePhoto';
 import UserDetails from '../../components/UserDetails/UserDetails';
+import UserProfilePhoto from '../../components/UserProfilePhoto/UserProfilePhoto';
+
 
 export default class Account extends React.Component {
   render() {
