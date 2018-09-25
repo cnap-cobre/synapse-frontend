@@ -6,7 +6,7 @@ import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {setFocusedFile} from "../../actions/focusedFile";
+import {setFocusedFile} from "../../actions/focusedFiles";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import {toggleDotfiles} from "../../actions/visualOptions";

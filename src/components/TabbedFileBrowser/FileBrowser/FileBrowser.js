@@ -8,7 +8,7 @@ import Loader from "../../Loader/Loader";
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
-import {setFocusedFile} from "../../../actions/focusedFile";
+import {addFocusedFile, setFocusedFile} from "../../../actions/focusedFiles";
 import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 
 
@@ -67,7 +67,7 @@ class FileBrowser extends React.Component {
                              loading={this.props.loading}
                              error={this.props.error}
                              list={this.props.list}
-                             focusedFilePath={this.props.focusedFilePath}
+                             focusedFilePaths={this.props.focusedFilePaths}
           />
 
           <Loader visible={this.props.loading} />
@@ -88,7 +88,7 @@ const mapStateToProps = (store, ownProps) => {
     error,
     list,
     fileViewFormat: store.visualOptions.fileViewFormat,
-    focusedFilePath: store.focusedFile.filePath
+    focusedFilePaths: store.focusedFiles.list
   };
 };
 
@@ -109,7 +109,12 @@ const mapDispatchToProps = dispatch => {
     },
     handleSingleClick: (file, e) => {
       e.preventDefault();
-      dispatch(setFocusedFile('/' + file.provider + '/' + file.system + file.path));
+      if(e.ctrlKey) {
+        dispatch(addFocusedFile('/' + file.provider + '/' + file.system + file.path));
+      } else {
+        dispatch(setFocusedFile('/' + file.provider + '/' + file.system + file.path));
+      }
+
       // Set as focused item here.
     },
     dispatch

@@ -2,7 +2,7 @@ import agaveFileSystems from './agaveFileSystems';
 import csrf from './csrf';
 import files from './files';
 import fileSystems from './fileSystems';
-import focusedFile from './focusedFile';
+import focusedFiles from './focusedFiles';
 import modals from './modals';
 import notifications from 'react-redux-notify';
 import userProfile from './userProfile';
@@ -14,7 +14,7 @@ export default {
   csrf,
   files,
   fileSystems,
-  focusedFile,
+  focusedFiles,
   modals,
   notifications,
   userProfile,

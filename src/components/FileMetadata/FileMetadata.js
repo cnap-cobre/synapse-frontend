@@ -1,24 +1,25 @@
 import {connect} from 'react-redux';
 import {fileIconResolver} from "../../util/FileIconResolver";
 import React from 'react';
+import {humanFileSize} from "../../util/FileSize";
 
 class FileMetadata extends React.Component{
-  fileAttributesToComponents = () => {
+  fileAttributesToComponents = (file) => {
     const list = [];
 
     list.push(React.cloneElement(
-        fileIconResolver(this.props.file),
+        fileIconResolver(file),
         {key: 'icon'}
     ));
-    list.push(this.props.filePath);
+    list.push(file.path);
 
-    Object.keys(this.props.file).forEach((k, i) => {
-      console.log(k, typeof this.props.file[k]);
-      if(typeof this.props.file[k] === 'object') {
+    Object.keys(file).forEach((k, i) => {
+      console.log(k, typeof file[k]);
+      if(typeof file[k] === 'object') {
         return;
       }
       list.push(<div key={k}>
-        {k + ': ' + this.props.file[k]}
+        {k + ': ' + file[k]}
       </div>);
     });
 
@@ -26,12 +27,55 @@ class FileMetadata extends React.Component{
   };
 
   render() {
-    if(this.props.filePath.length > 0) {
+    if(this.props.empty) {
       return (
           <div>
             <h6>Metadata</h6>
             <hr />
-            {this.fileAttributesToComponents()}
+            Select a file or folder to view its details.
+          </div>
+      );
+    } else if(this.props.files.length === 1) {
+      const singleFile = this.props.files[0];
+      return (
+          <div>
+            <h6>Metadata</h6>
+            <hr />
+
+            <div style={{
+              fontSize: '3em',
+              color: '#999',
+              textAlign: 'center'
+            }}>
+              {React.cloneElement(fileIconResolver(singleFile))}
+            </div>
+
+            <div style={{
+              textAlign: 'center',
+              fontSize: '1.5em'
+            }}>
+              {this.props.files[0].name}
+            </div>
+
+            <table style={{
+              overflow: 'auto'
+            }}>
+              <tr>
+                <td>Format:</td><td>{singleFile.format}</td>
+              </tr>
+              <tr>
+                <td>Last Modified:</td><td>{singleFile.lastModified}</td>
+              </tr>
+              <tr>
+                <td>Size:</td><td>{humanFileSize(singleFile.length)}</td>
+              </tr>
+              <tr>
+                <td>Permissions:</td><td>{singleFile.permissions}</td>
+              </tr>
+              <tr>
+                <td>Full Path:</td><td>{singleFile.path}</td>
+              </tr>
+            </table>
           </div>
       );
     } else {
@@ -39,30 +83,36 @@ class FileMetadata extends React.Component{
           <div>
             <h6>Metadata</h6>
             <hr />
-            First, select a file or directory.
+
+            <p>Selected {this.props.files.length} files</p>
+            <p>Total Size: {humanFileSize(this.props.files.reduce((acc, item) => (
+                acc + item.length
+            ), 0))}</p>
           </div>
-      );
+      )
     }
   }
 }
 
 const mapStateToProps = (store) => {
-  const filePath = store.focusedFile.filePath;
+  const fileList = store.focusedFiles.list;
 
-  if (filePath === undefined || filePath.length === 0) {
+  if (fileList === undefined || fileList.length === 0) {
     return {
-      filePath: '',
-      file: {}
+      filePaths: [],
+      files: [],
+      empty: true
     };
   }
 
-  const dirPath = [...filePath.split('/').slice(0, -1), ''].join('/');
-  const fileName = filePath.split('/').slice(-1)[0];
-  const file = store.files[dirPath].files.filter((item) => item.name === fileName)[0];
-
   return {
-    filePath,
-    file
+    filePaths: fileList,
+    files: fileList.map(({filePath}) => {
+      const dirPath = [...filePath.split('/').slice(0, -1), ''].join('/');
+      const fileName = filePath.split('/').slice(-1)[0];
+      return store.files[dirPath].files.filter((item) => item.name === fileName)[0];
+    }),
+    empty: false
   };
 };
 

@@ -18,13 +18,19 @@ export default class FileBrowserGrid extends React.Component {
     handleSingleClick: PropTypes.func.isRequired,
   };
 
+  getSelectedClass = (file) => (
+      this.props.focusedFilePaths.filter((focused) => (
+          focused.filePath === '/' + file.provider + '/' + file.system + file.path
+      )).length !== 0 ? 'focused' : ''
+  );
+
   fileToComponent = (item, i) => (
       <ContextMenuProvider
           id="fileActionsMenu"
           key={item.name}
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
           onClick={(e) => this.props.handleSingleClick(item, e)}
-          className={"fileGridIconBlock " + (('/' + item.system + item.path) === this.props.focusedFilePath ? 'focused' : '')}
+          className={"fileGridIconBlock " + this.getSelectedClass(item)}
           data={{
             file: item,
             dirPath: this.props.path,
