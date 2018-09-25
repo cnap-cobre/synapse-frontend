@@ -2,12 +2,11 @@ import {addModal} from "../../../actions/modals";
 import {connect} from 'react-redux';
 import React from 'react';
 import {ContextMenu, Item, Separator, Submenu } from 'react-contexify';
-import {copyFile, deleteFile, downloadFile, fetchFilesIfNeeded,
+import {copyFile, deleteFile, fetchFilesIfNeeded,
   invalidateFiles, moveFile, renameFile} from "../../../actions/files";
 import 'react-contexify/dist/ReactContexify.min.css';
 
 const DownloadLink = (props) => {
-  console.log(props);
   return (
       <div className="react-contexify__item">
       <a className="react-contexify__item__data"
@@ -67,9 +66,17 @@ class FileActionsMenu extends React.Component{
       path: refProps.dirPath,
       systemName: refProps.file.system,
       action: (newPath) => {
+        const newDirectoryPath = [
+          ...refProps.dirPath.split('/').slice(0, 3),
+          ...newPath.split('/').slice(1, -1),
+          ''
+        ].join('/');
+
         this.props.dispatch(
             moveFile(refProps.file, newPath)
-        ).then(this.delayedRefresh(refProps.dirPath));
+        )
+            .then(this.delayedRefresh(refProps.dirPath))
+            .then(this.delayedRefresh(newDirectoryPath))
       }
     }));
   };
@@ -84,9 +91,16 @@ class FileActionsMenu extends React.Component{
       path: refProps.dirPath,
       systemName: refProps.file.system,
       action: (newPath) => {
+        const newDirectoryPath = [
+          ...refProps.dirPath.split('/').slice(0, 3),
+          ...newPath.split('/').slice(1, -1),
+          ''
+        ].join('/');
+
         this.props.dispatch(
             copyFile(refProps.file, newPath)
         ).then(this.delayedRefresh(refProps.dirPath))
+            .then(this.delayedRefresh(newDirectoryPath))
       }
     }));
   };
@@ -98,7 +112,8 @@ class FileActionsMenu extends React.Component{
       action: () => {
         this.props.dispatch(
             deleteFile(refProps.file)
-        ).then(this.delayedRefresh(refProps.dirPath));
+        )
+            .then(this.delayedRefresh(refProps.dirPath));
       }
     }));
   };

@@ -1,13 +1,21 @@
 import Agave from '../services/Agave';
 import Dropbox from '../services/Dropbox';
-import {setFocusedFile} from "./focusedFiles";
+import {clearFocusedFiles, removeFocusedFile, setFocusedFile} from "./focusedFiles";
 
+export const MAKE_DIRECTORY = 'MAKE_DIRECTORY';
 export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
 export const FAIL_FILES = 'FAIL_FILES';
 export const INVALIDATE_FILES = 'INVALIDATE_FILES';
 export const FIX_AGAVE_SYMLINK_BUG = 'FIX_AGAVE_SYMLINK_BUG';
 export const SYMLINK_CORRECTION_STARTED = 'SYMLINK_CORRECTION_STARTED';
+
+export function makeDirectory(path) {
+  return {
+    type: MAKE_DIRECTORY,
+    path
+  }
+}
 
 export function requestFiles(path) {
   return {
@@ -59,12 +67,14 @@ export function symlinkCorrectionStarted(path) {
 export function deleteFile(file) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
-    dispatch(setFocusedFile(''));
+    dispatch(removeFocusedFile(file.fullPath));
 
-    if (file.system === 'dropbox') {
+    if (file.provider === 'dropbox') {
       return Dropbox.rm(csrftoken, file);
-    } else {
+    } else if (file.provider === 'agave') {
       return Agave.rm(csrftoken, file);
+    } else {
+      throw "Couldn't delete because file system provider could not be resolved."
     }
   };
   action.type = 'DELETE_FILE';
@@ -75,10 +85,12 @@ export function downloadFile(file) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
 
-    if (file.system === 'dropbox') {
+    if (file.provider === 'dropbox') {
       return Dropbox.wget(csrftoken, file);
-    } else {
+    } else if (file.provider === 'agave') {
       return Agave.wget(csrftoken, file);
+    } else {
+      throw "Couldn't download file because file system provider could not be resolved."
     }
   };
   action.type = 'DOWNLOAD_FILE';
@@ -88,16 +100,17 @@ export function downloadFile(file) {
 export function moveFile(file, newPath) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
-    dispatch(setFocusedFile(''));
-    console.log(newPath, 'newpath');
+    dispatch(removeFocusedFile(file.fullPath));
     dispatch(invalidateFiles(
         ['', file.system, ...newPath.split('/').slice(1, -1), ''].join('/')
     ));
 
-    if (file.system === 'dropbox') {
+    if (file.provider === 'dropbox') {
       return Dropbox.mv(csrftoken, file, newPath);
-    } else {
+    } else if (file.provider === 'agave') {
       return Agave.mv(csrftoken, file, newPath);
+    } else {
+      throw "Couldn't move file because file system provider could not be resolved"
     }
   };
   action.type = 'MOVE_FILE';
@@ -111,10 +124,12 @@ export function copyFile(file, newPath) {
         [file.system, ...newPath.split('/').slice(0, -1), ''].join('/')
     ));
 
-    if (file.system === 'dropbox') {
+    if (file.provider === 'dropbox') {
       return Dropbox.cp(csrftoken, file, newPath);
-    } else {
+    } else if (file.provider === 'agave') {
       return Agave.cp(csrftoken, file, newPath);
+    } else {
+      throw "Couldn't copy file because file system provider could not be resolved"
     }
   };
   action.type = 'COPY_FILE';
@@ -124,15 +139,17 @@ export function copyFile(file, newPath) {
 export function renameFile(file, newName) {
   const action = (dispatch, getState) => {
     const csrftoken = getState().csrf.token;
-    dispatch(setFocusedFile(''));
+    dispatch(removeFocusedFile(file.fullPath));
     dispatch(invalidateFiles(
-        [file.system, ...newPath.split('/').slice(0, -1), ''].join('/')
+        [file.fullPath.split('/').slice(0,-1), ''].join('/')
     ));
 
-    if (file.system === 'dropbox') {
+    if (file.provider === 'dropbox') {
       return Dropbox.rename(csrftoken, file, newName);
-    } else {
+    } else if (file.provider === 'agave') {
       return Agave.rename(csrftoken, file, newName);
+    } else {
+      throw "Couldn't rename file because file system provider could not be resolved"
     }
   };
   action.type = 'RENAME_FILE';

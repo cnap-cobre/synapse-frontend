@@ -35,9 +35,12 @@ class MoveCopyModal extends React.Component {
   constructor(props) {
     super(props);
 
+    const pathTokens = props.path.split('/');
+
     this.state = {
       show: true,
-      path: props.path
+      pathPrefix: pathTokens.slice(0,3).join('/'),
+      path: ['', ...pathTokens.slice(3)].join('/')
     };
   }
 
@@ -53,20 +56,23 @@ class MoveCopyModal extends React.Component {
     }, 500);
   };
 
+  getFullDirectoryPath = () => ([
+    this.state.pathPrefix,
+    this.state.path
+  ].join('/').replace(/([^:]\/)\/+/g, "$1"));
+
   doMoveOrCopy = () => {
     this.closeModal();
-    const absolutePath = [
-      "",
-      ...this.state.path.split('/').slice(2).slice(0, -1),
-      this.props.fileName
-    ].join('/');
+    const absolutePath = this.state.path + this.props.fileName;
     this.props.action(absolutePath);
   };
 
   updatePath = (path) => {
     this.props.dispatch(fetchFilesIfNeeded(path));
+    const pathTokens = path.split('/');
     this.setState({
-      path
+      pathPrefix: pathTokens.slice(0,3).join('/'),
+      path: ['', ...pathTokens.slice(3)].join('/')
     });
   };
 
@@ -85,13 +91,13 @@ class MoveCopyModal extends React.Component {
           </p>
 
           <FileBreadcrumbs systemName={this.props.systemName}
-                           prefix="/"
-                           pathname={this.state.path}
+                           prefix={this.state.pathPrefix}
+                           pathname={this.getFullDirectoryPath()}
                            crumbComponent={(
                                <LinkComponent onClick={this.updatePath} />
                            )} />
 
-          <DirectoryBrowser path={this.state.path}
+          <DirectoryBrowser path={this.getFullDirectoryPath()}
                             handleDoubleClick={(path) => this.updatePath(path)}
                             style={{
                               maxHeight: '40vh',

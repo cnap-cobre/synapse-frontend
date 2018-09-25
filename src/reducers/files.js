@@ -2,6 +2,7 @@ import {
   DELETE_FILE,
   FAIL_FILES, FIX_AGAVE_SYMLINK_BUG,
   INVALIDATE_FILES,
+  MAKE_DIRECTORY,
   RECEIVE_FILES,
   REQUEST_FILES, SYMLINK_CORRECTION_STARTED
 } from "../actions/files";
@@ -12,6 +13,10 @@ export default function files(state = initialFilesState, action) {
   const stateForPath = state[action.path] || {};
 
   switch (action.type) {
+    case MAKE_DIRECTORY:
+      return Object.assign({}, state, {
+
+      });
     case REQUEST_FILES:
       return Object.assign({}, state, {
         [action.path]: Object.assign({}, stateForPath, {
@@ -20,9 +25,14 @@ export default function files(state = initialFilesState, action) {
         })
       });
     case RECEIVE_FILES:
+      const files = action.files.filter(f => f.name !== '.');
+      const filesWithFullPath = files.map(f => Object.assign({}, f, {
+        fullPath: '/' + f.provider + '/' + f.system + f.path
+      }));
+
       return Object.assign({}, state, {
         [action.path]: Object.assign({}, stateForPath, {
-          files: action.files.filter(f => f.name !== '.'),
+          files: filesWithFullPath,
           isFetching: false,
           hasFetched: true,
           didInvalidate: false,

@@ -1,4 +1,4 @@
-import {ADD_FOCUSED_FILE, REMOVE_FOCUSED_FILE, SET_FOCUSED_FILE} from "../actions/focusedFiles";
+import {ADD_FOCUSED_FILE, CLEAR_FOCUSED_FILES, REMOVE_FOCUSED_FILE, SET_FOCUSED_FILE} from "../actions/focusedFiles";
 
 const initialFocusedFileState = {
   list: []
@@ -14,10 +14,14 @@ export default function focusedFile(state = initialFocusedFileState, action) {
           filePath: action.filePath
         }]
       });
+    case CLEAR_FOCUSED_FILES:
+      return Object.assign({}, state, {
+        list: []
+      });
     case REMOVE_FOCUSED_FILE:
       return Object.assign({}, state, {
         list: currentFocusedFilesList.filter((file) => {
-          return file !== action.filePath
+          return file.filePath !== action.filePath
         })
       });
     case SET_FOCUSED_FILE:

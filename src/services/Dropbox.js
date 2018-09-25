@@ -18,8 +18,12 @@ const dropboxRequest = (csrftoken, url, form) => {
 
 const listFiles = (csrftoken, filePath) => {
   const url = '/dropbox/api/2/files/list_folder';
+
+  // Dropbox wants an empty string when requesting the root of your Dropbox
+  // Otherwise, it wants a leading forward slash.
+  // Below is an IIFE to reconcile this insanity.
   const form = {
-    'path': filePath === '/' ? '' : filePath.slice('/dropbox/home/'.length)
+    'path': (x => x === '/' ? '' : x)(filePath.slice('/dropbox/home'.length))
   };
 
   return dropboxRequest(csrftoken, url, form)

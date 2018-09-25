@@ -69,16 +69,11 @@ const rm = (csrftoken, file) => {
       'X-CSRFToken': csrftoken
     },
     mode: 'cors'
-  }).then((response) => {
-    console.log(response);
-    return response;
   });
 };
 
 const moveCopyRenameMkdir = (action) => (csrftoken, file, path) => {
   const url = '/agave/files/v2/media/system/' + file.system + '/' + file.path + '?naked=true';
-
-  console.log(file, path);
 
   const form = {
     action,
