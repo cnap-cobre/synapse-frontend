@@ -84,7 +84,7 @@ class FileMetadata extends React.Component{
             <h6>Metadata</h6>
             <hr />
 
-            <p>Selected {this.props.files.length} files</p>
+            <p>Selected: {this.props.files.length} files</p>
             <p>Total Size: {humanFileSize(this.props.files.reduce((acc, item) => (
                 acc + item.length
             ), 0))}</p>

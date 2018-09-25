@@ -3,7 +3,7 @@ import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import { humanFileSize } from "../../../../../util/FileSize.js";
 import PropTypes from 'prop-types';
 import React from "react";
-
+import './fileList.scss';
 
 export default class FileList extends React.Component {
   static propTypes = {
@@ -19,9 +19,16 @@ export default class FileList extends React.Component {
     list: [],
   };
 
+  getSelectedClass = (file) => (
+      this.props.focusedFilePaths.filter((focused) => (
+          focused.filePath === '/' + file.provider + '/' + file.system + file.path
+      )).length !== 0 ? 'focused' : ''
+  );
+
   fileToComponent = (item, i) => (
       <ContextMenuProvider
           component="tr"
+          className={this.getSelectedClass(item)}
           id="fileActionsMenu"
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
           onClick={(e) => this.props.handleSingleClick(item, e)}

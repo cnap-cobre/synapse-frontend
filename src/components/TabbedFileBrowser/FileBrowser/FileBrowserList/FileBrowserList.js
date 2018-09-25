@@ -25,6 +25,7 @@ export default class FileBrowserList extends React.Component {
                     showDotfiles={this.props.showDotfiles}
                     handleDoubleClick={this.props.handleDoubleClick}
                     handleSingleClick={this.props.handleSingleClick}
+                    focusedFilePaths={this.props.focusedFilePaths}
           />
         </table>
     );
