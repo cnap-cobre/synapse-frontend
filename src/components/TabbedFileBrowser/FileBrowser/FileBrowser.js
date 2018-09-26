@@ -58,6 +58,7 @@ class FileBrowser extends React.Component {
                                handleRefresh={this.props.handleRefresh(this.props.path)}
                                showDotfiles={this.props.showDotfiles}
                                toggleDotfiles={this.props.toggleDotfiles}
+                               path={this.props.path}
           />
 
           <FileViewComponent showDotfiles={this.props.showDotfiles}

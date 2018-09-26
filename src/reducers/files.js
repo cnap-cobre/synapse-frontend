@@ -2,7 +2,6 @@ import {
   DELETE_FILE,
   FAIL_FILES, FIX_AGAVE_SYMLINK_BUG,
   INVALIDATE_FILES,
-  MAKE_DIRECTORY,
   RECEIVE_FILES,
   REQUEST_FILES, SYMLINK_CORRECTION_STARTED
 } from "../actions/files";
@@ -13,10 +12,6 @@ export default function files(state = initialFilesState, action) {
   const stateForPath = state[action.path] || {};
 
   switch (action.type) {
-    case MAKE_DIRECTORY:
-      return Object.assign({}, state, {
-
-      });
     case REQUEST_FILES:
       return Object.assign({}, state, {
         [action.path]: Object.assign({}, stateForPath, {

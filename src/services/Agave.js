@@ -107,5 +107,9 @@ export default {
   mv,
   cp,
   rename,
-  mkdir: (system, path, dirName) => moveCopyRenameMkdir('MKDIR')({system, path}, dirName)
+  mkdir: (csrftoken, path, dirName) => {
+    const system = path.slice('/agave/'.length).split('/')[0];
+    const pathWithoutPrefix = ['', ...path.split('/').slice(3)].join('/');
+    return moveCopyRenameMkdir('MKDIR')(csrftoken, {system, path: pathWithoutPrefix}, dirName)
+  }
 };

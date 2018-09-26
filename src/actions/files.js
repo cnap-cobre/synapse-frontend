@@ -2,20 +2,12 @@ import Agave from '../services/Agave';
 import Dropbox from '../services/Dropbox';
 import {clearFocusedFiles, removeFocusedFile, setFocusedFile} from "./focusedFiles";
 
-export const MAKE_DIRECTORY = 'MAKE_DIRECTORY';
 export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
 export const FAIL_FILES = 'FAIL_FILES';
 export const INVALIDATE_FILES = 'INVALIDATE_FILES';
 export const FIX_AGAVE_SYMLINK_BUG = 'FIX_AGAVE_SYMLINK_BUG';
 export const SYMLINK_CORRECTION_STARTED = 'SYMLINK_CORRECTION_STARTED';
-
-export function makeDirectory(path) {
-  return {
-    type: MAKE_DIRECTORY,
-    path
-  }
-}
 
 export function requestFiles(path) {
   return {
@@ -62,6 +54,25 @@ export function symlinkCorrectionStarted(path) {
     type: SYMLINK_CORRECTION_STARTED,
     path
   }
+}
+
+export function makeDirectory(path, name) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+    const provider = path.split('/')[1];
+
+    if (provider === 'dropbox') {
+      return Dropbox.mkdir(csrftoken, path, name);
+    } else if (provider === 'agave') {
+      return Agave.mkdir(csrftoken, path, name);
+    } else {
+      throw "Couldn't make directory because the file system provider could not be resolved."
+    }
+  };
+
+  action.type = 'MAKE_DIRECTORY';
+  action.path = path;
+  return action;
 }
 
 export function deleteFile(file) {

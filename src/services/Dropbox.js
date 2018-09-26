@@ -91,11 +91,11 @@ const cp = (csrftoken, file, toPath) => {
   return dropboxRequest(csrftoken, url, form)
 };
 
-const mkdir = (csrftoken, path) => {
+const mkdir = (csrftoken, path, name) => {
   const url = '/dropbox/api/2/files/create_folder_v2';
 
   const form = {
-    path,
+    path: path.slice('/dropbox/home'.length) + name,
   };
 
   return dropboxRequest(csrftoken, url, form);

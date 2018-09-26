@@ -1,4 +1,4 @@
-import AddDirectory from "./AddDirectory/AddDirectory";
+import AddDirectoryButton from "./AddDirectoryButton/AddDirectoryButton";
 import BrowserRefresh from "./BrowserRefresh/BrowserRefresh";
 import DotfilesCheckBox from "./DotfilesCheckBox/DotfilesCheckBox";
 import ListGridToggle from "./ListGridToggle/ListGridToggle";
@@ -12,7 +12,8 @@ export default class FileBrowserControls extends React.Component {
     id: PropTypes.string.isRequired,
     handleRefresh: PropTypes.func.isRequired,
     showDotfiles: PropTypes.bool.isRequired,
-    toggleDotfiles: PropTypes.func.isRequired
+    toggleDotfiles: PropTypes.func.isRequired,
+    path: PropTypes.string.isRequired,
   };
 
   render() {
@@ -45,7 +46,7 @@ export default class FileBrowserControls extends React.Component {
           display: 'flex'
         }}>
           <UploadFile />
-          <AddDirectory />
+          <AddDirectoryButton path={this.props.path}/>
         </div>
 
 

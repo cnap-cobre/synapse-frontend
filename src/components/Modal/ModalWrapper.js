@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import DeleteFileModal from './DeleteFileModal';
 import LinkBeocatWizardModal from "./LinkBeocatWizardModal";
+import MakeDirectoryModal from './MakeDirectoryModal';
 import MoveCopyModal from './MoveCopyModal';
 import React from 'react';
 import RenameFileModal from './RenameFileModal';
@@ -25,6 +26,13 @@ class ModalWrapper extends React.Component {
                 return (
                     <LinkBeocatWizardModal key={i}
                                            id={id}
+                    />
+                );
+              case 'makeDirectory':
+                return (
+                    <MakeDirectoryModal key={i}
+                                        id={id}
+                                        action={this.props.modals[id].action}
                     />
                 );
               case 'moveCopyFile':
