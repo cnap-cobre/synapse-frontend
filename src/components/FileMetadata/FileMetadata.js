@@ -111,7 +111,7 @@ const mapStateToProps = (store) => {
 
   return {
     filePaths: fileList,
-    files: fileList.map(({filePath}) => {
+    files: fileList.map((filePath) => {
       const dirPath = [...filePath.split('/').slice(0, -1), ''].join('/');
       const fileName = filePath.split('/').slice(-1)[0];
       return store.files[dirPath].files.filter((item) => item.name === fileName)[0];

@@ -28,6 +28,8 @@ export default class Browse extends React.Component {
                 <div className="card-content">
 
                   <FileMetadata/>
+                  <hr />
+                  <p>Other types of metadata here soon.</p>
 
                 </div>
               </div>

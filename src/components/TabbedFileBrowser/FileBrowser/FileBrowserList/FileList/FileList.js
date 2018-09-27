@@ -21,17 +21,17 @@ export default class FileList extends React.Component {
 
   getSelectedClass = (file) => (
       this.props.focusedFilePaths.filter((focused) => (
-          focused.filePath === '/' + file.provider + '/' + file.system + file.path
+          focused === '/' + file.provider + '/' + file.system + file.path
       )).length !== 0 ? 'focused' : ''
   );
 
-  fileToComponent = (item, i) => (
+  fileToComponent = (item, i, array) => (
       <ContextMenuProvider
           component="tr"
           className={this.getSelectedClass(item)}
           id="fileActionsMenu"
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
-          onClick={(e) => this.props.handleSingleClick(item, e)}
+          onClick={(e) => this.props.handleSingleClick(item, array, e)}
           key={ item.name }
           data={{
             file: item,
@@ -60,9 +60,10 @@ export default class FileList extends React.Component {
 
     return (
         <tbody className="fileList">
-          { folders.map(this.fileToComponent) }
-
-          { files.map(this.fileToComponent) }
+          { [
+              ...folders,
+              ...files
+          ].map(this.fileToComponent) }
         </tbody>
     );
   }

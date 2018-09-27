@@ -20,16 +20,16 @@ export default class FileBrowserGrid extends React.Component {
 
   getSelectedClass = (file) => (
       this.props.focusedFilePaths.filter((focused) => (
-          focused.filePath === '/' + file.provider + '/' + file.system + file.path
+          focused === '/' + file.provider + '/' + file.system + file.path
       )).length !== 0 ? 'focused' : ''
   );
 
-  fileToComponent = (item, i) => (
+  fileToComponent = (item, i, array) => (
       <ContextMenuProvider
           id="fileActionsMenu"
           key={item.name}
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
-          onClick={(e) => this.props.handleSingleClick(item, e)}
+          onClick={(e) => this.props.handleSingleClick(item, array, e)}
           className={"fileGridIconBlock " + this.getSelectedClass(item)}
           data={{
             file: item,
@@ -58,6 +58,11 @@ export default class FileBrowserGrid extends React.Component {
         (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === "file")
     );
 
+    const allComponents = [
+        ...folders,
+        ...files
+    ].map(this.fileToComponent);
+
     return (
 
         <Grid fluid={true}>
@@ -71,7 +76,7 @@ export default class FileBrowserGrid extends React.Component {
             ) : (null)}
 
             <Col xs={12} className="fileGridFlexContainer">
-              {folders.map(this.fileToComponent)}
+              {allComponents.filter(c => c.props.data.file.type === 'dir')}
               {Array.from(Array(9).keys()).map((i) => (<div className="fileGridPlaceholder" key={i} />))}
             </Col>
 
@@ -83,7 +88,7 @@ export default class FileBrowserGrid extends React.Component {
             ) : (null)}
 
             <Col xs={12} className="fileGridFlexContainer">
-              {files.map(this.fileToComponent)}
+              {allComponents.filter(c => c.props.data.file.type === 'file')}
               {Array.from(Array(9).keys()).map((i) => (<div className="fileGridPlaceholder" key={i} />))}
             </Col>
 

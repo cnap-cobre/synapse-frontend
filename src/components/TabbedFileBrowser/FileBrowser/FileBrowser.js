@@ -8,7 +8,7 @@ import Loader from "../../Loader/Loader";
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
-import {addFocusedFile, setFocusedFile} from "../../../actions/focusedFiles";
+import {addFocusedFile, clearFocusedFiles, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
 import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
 
 
@@ -28,7 +28,6 @@ class FileBrowser extends React.Component {
     pathname: PropTypes.string.isRequired,
     showDotfiles: PropTypes.bool.isRequired,
     toggleDotfiles: PropTypes.func.isRequired,
-    handleRefresh: PropTypes.func.isRequired,
     fetchFiles: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
@@ -43,6 +42,60 @@ class FileBrowser extends React.Component {
     ) === 0;
   }
 
+  handleRefresh = (path) => () => {
+    this.props.dispatch(invalidateFiles(path));
+    setTimeout(() => this.props.dispatch(fetchFilesIfNeeded(path)), 20);
+  };
+
+  handleDoubleClick = (file, e) => {
+    if (file.type === 'dir') {
+      this.props.dispatch(push([
+        '.',
+        file.name,
+        ''
+      ].join('/')))
+    }
+  };
+
+  handleSingleClick = (file, list, e) => {
+    e.preventDefault();
+    const selected = this.props.focusedFilePaths;
+
+    if(e.ctrlKey) {
+      return this.props.dispatch(addFocusedFile(file.fullPath));
+    }
+
+    if(e.shiftKey && selected.length === 0) {
+      // Revert to single click behavior
+      e.ctrlKey = true;
+      return this.handleSingleClick(file, e);
+    }
+
+    if(e.shiftKey && selected.length === 1 && selected[0] === file.fullPath) {
+      // If we shift + click on the only selected file, do nothing.
+      return;
+    }
+
+    if(e.shiftKey) {
+      const mostRecentSelection = selected.slice(-1)[0];
+      const mostRecentSelectionIndex = list.findIndex((f) => f.fullPath === mostRecentSelection);
+      const currentSelectionIndex = list.findIndex((f) => f.fullPath === file.fullPath);
+
+      console.log('PIZZAPIZZA', list);
+      console.log('file', file);
+      console.log(mostRecentSelection, mostRecentSelectionIndex, currentSelectionIndex);
+
+      return this.props.dispatch(setFocusedFilesList(
+          list.map(f => f.fullPath).slice(
+              Math.min(mostRecentSelectionIndex, currentSelectionIndex),
+              Math.max(mostRecentSelectionIndex, currentSelectionIndex) + 1
+          )
+      ));
+    }
+
+    return this.props.dispatch(setFocusedFile(file.fullPath));
+  };
+
   render() {
     const FileViewComponent = (this.props.fileViewFormat ? FileBrowserGrid : FileBrowserList);
 
@@ -55,7 +108,7 @@ class FileBrowser extends React.Component {
           />
 
           <FileBrowserControls id={this.props.system.id}
-                               handleRefresh={this.props.handleRefresh(this.props.path)}
+                               handleRefresh={this.handleRefresh(this.props.path)}
                                showDotfiles={this.props.showDotfiles}
                                toggleDotfiles={this.props.toggleDotfiles}
                                path={this.props.path}
@@ -63,8 +116,8 @@ class FileBrowser extends React.Component {
 
           <FileViewComponent showDotfiles={this.props.showDotfiles}
                              path={this.props.path}
-                             handleDoubleClick={this.props.handleDoubleClick}
-                             handleSingleClick={this.props.handleSingleClick}
+                             handleDoubleClick={this.handleDoubleClick}
+                             handleSingleClick={this.handleSingleClick}
                              loading={this.props.loading}
                              error={this.props.error}
                              list={this.props.list}
@@ -93,36 +146,6 @@ const mapStateToProps = (store, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleRefresh: (path) => () => {
-      dispatch(invalidateFiles(path));
-      setTimeout(() => dispatch(fetchFilesIfNeeded(path)), 20);
-    },
-    handleDoubleClick: (file, e) => {
-      if (file.type === 'dir') {
-        dispatch(push([
-            '.',
-            file.name,
-            ''
-        ].join('/')))
-      }
-    },
-    handleSingleClick: (file, e) => {
-      e.preventDefault();
-      if(e.ctrlKey) {
-        dispatch(addFocusedFile('/' + file.provider + '/' + file.system + file.path));
-      } else {
-        dispatch(setFocusedFile('/' + file.provider + '/' + file.system + file.path));
-      }
-
-      // Set as focused item here.
-    },
-    dispatch
-  };
-};
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(FileBrowser);
