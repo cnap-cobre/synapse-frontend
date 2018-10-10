@@ -17,6 +17,7 @@
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.5.1",
+    "react-dropzone": "^6.0.2",
     "react-hot-loader": "^4.3.8",
     "react-icons": "^2.2.7",
     "react-redux": "^5.0.7",

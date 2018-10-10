@@ -1,4 +1,5 @@
 import {connect} from "react-redux";
+import Dropzone from 'react-dropzone';
 import FileBreadcrumbs from './FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from "./FileBrowserControls/FileBrowserControls";
 import FileBrowserGrid from "./FileBrowserGrid/FileBrowserGrid";
@@ -9,7 +10,7 @@ import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
 import {addFocusedFile, clearFocusedFiles, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
-import {fetchFilesIfNeeded, invalidateFiles} from "../../../actions/files";
+import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../actions/files";
 
 
 class FileBrowser extends React.Component {
@@ -92,11 +93,22 @@ class FileBrowser extends React.Component {
     return this.props.dispatch(setFocusedFile(file.fullPath));
   };
 
+  handleFileDropzone = (files) => {
+    console.log('DROPZONE', files);
+    for (let i = 0; i < files.length; i++){
+      this.props.dispatch(uploadFile(files[i], this.props.path));
+    }
+  };
+
   render() {
     const FileViewComponent = (this.props.fileViewFormat ? FileBrowserGrid : FileBrowserList);
 
     return (
         <div className="card-content table-responsive table-full-width">
+          <Dropzone style={{}}
+                    onDrop={this.handleFileDropzone}
+                    disableClick={true}
+          >
           <FileBreadcrumbs systemName={this.props.system.name}
                            prefix={this.props.systemPrefix}
                            pathname={this.props.pathname}
@@ -121,6 +133,7 @@ class FileBrowser extends React.Component {
           />
 
           <Loader visible={this.props.loading} />
+          </Dropzone>
         </div>
     );
   }
