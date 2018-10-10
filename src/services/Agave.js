@@ -93,6 +93,24 @@ const moveCopyRenameMkdir = (action) => (csrftoken, file, path) => {
   });
 };
 
+const uploadFile = (csrftoken, file, path) => {
+  const system = path.split('/')[2];
+  const trimmedPath = path.slice(('/agave/' + system).length);
+  const url = '/agave/files/v2/media/system/' + system + trimmedPath.slice(0,-1) + '?naked=true';
+
+  const data = new FormData();
+  data.append('file', file);
+  data.append('fileToUpload', file);
+  data.append('append', false);
+  data.append('fileType', 'raw');
+
+  const req = new XMLHttpRequest();
+  req.open('POST', url, true);
+  req.setRequestHeader('X-CSRFToken', csrftoken);
+  req.setRequestHeader('Accept', 'application/json');
+  req.send(data);
+};
+
 const mv = moveCopyRenameMkdir('MOVE');
 const cp = moveCopyRenameMkdir('COPY');
 const rename = moveCopyRenameMkdir('RENAME');
@@ -111,5 +129,6 @@ export default {
     const system = path.slice('/agave/'.length).split('/')[0];
     const pathWithoutPrefix = ['', ...path.split('/').slice(3)].join('/');
     return moveCopyRenameMkdir('MKDIR')(csrftoken, {system, path: pathWithoutPrefix}, dirName)
-  }
+  },
+  uploadFile
 };

@@ -167,6 +167,24 @@ export function renameFile(file, newName) {
   return action;
 }
 
+export function uploadFile(file, path) {
+  const action = (dispatch, getState) => {
+    const csrftoken = getState().csrf.token;
+
+    const provider = path.split('/')[1];
+
+    if(provider === 'dropbox') {
+      return Dropbox.uploadFile(csrftoken, file, path);
+    } else if (provider === 'agave') {
+      return Agave.uploadFile(csrftoken, file, path);
+    } else {
+      throw "Couldn't upload file because file system provider could not be resolved.";
+    }
+  };
+  action.type = 'UPLOAD_FILE';
+  return action;
+}
+
 function fetchSymlinkCorrections(path) {
   // Work-around for Agave symlink-to-directory bug
 

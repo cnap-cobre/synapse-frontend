@@ -45,8 +45,8 @@ export default class FileBrowserControls extends React.Component {
         <div style={{
           display: 'flex'
         }}>
-          <UploadFile />
-          <AddDirectoryButton path={this.props.path}/>
+          <UploadFile path={this.props.path} />
+          <AddDirectoryButton path={this.props.path} />
         </div>
 
 

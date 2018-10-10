@@ -16,7 +16,6 @@ class FileMetadata extends React.Component{
     list.push(file.path);
 
     Object.keys(file).forEach((k, i) => {
-      console.log(k, typeof file[k]);
       if(typeof file[k] === 'object') {
         return;
       }

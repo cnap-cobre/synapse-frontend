@@ -81,10 +81,6 @@ class FileBrowser extends React.Component {
       const mostRecentSelectionIndex = list.findIndex((f) => f.fullPath === mostRecentSelection);
       const currentSelectionIndex = list.findIndex((f) => f.fullPath === file.fullPath);
 
-      console.log('PIZZAPIZZA', list);
-      console.log('file', file);
-      console.log(mostRecentSelection, mostRecentSelectionIndex, currentSelectionIndex);
-
       return this.props.dispatch(setFocusedFilesList(
           list.map(f => f.fullPath).slice(
               Math.min(mostRecentSelectionIndex, currentSelectionIndex),

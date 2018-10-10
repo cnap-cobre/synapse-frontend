@@ -6,7 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "agaveapi-js": "^1.0.0",
-    "dropbox": "^4.0.9",
+    "dropbox": "^4.0.11",
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",
     "js-file-download": "^0.4.1",
@@ -14,6 +14,8 @@
     "react-ace": "^6.1.4",
     "react-bootstrap": "^0.32.4",
     "react-contexify": "^3.0.3",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.5.1",
     "react-hot-loader": "^4.3.8",
     "react-icons": "^2.2.7",
