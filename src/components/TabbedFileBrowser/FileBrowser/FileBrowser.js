@@ -6,11 +6,13 @@ import FileBrowserGrid from "./FileBrowserGrid/FileBrowserGrid";
 import FileBrowserList from "./FileBrowserList/FileBrowserList";
 import { Link } from "redux-json-router";
 import Loader from "../../Loader/Loader";
+import path from 'path';
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
 import {addFocusedFile, clearFocusedFiles, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
 import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../actions/files";
+import {setBrowserPath} from "../../../actions/browserPaths";
 
 
 class FileBrowser extends React.Component {
@@ -54,7 +56,11 @@ class FileBrowser extends React.Component {
         '.',
         file.name,
         ''
-      ].join('/')))
+      ].join('/')));
+      this.props.dispatch(setBrowserPath(
+          this.props.system.provider + '.' + this.props.system.id,
+          path.resolve(this.props.path, file.name).slice(1) + '/'
+      ));
     }
   };
 

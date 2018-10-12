@@ -14,7 +14,12 @@ export function requestAgaveFileSystems() {
 export function receiveAgaveFileSystems(json) {
   return {
     type: RECEIVE_AGAVE_FILE_SYSTEMS,
-    systems: json.result,
+    systems: json.result.map((sys) => {
+      return {
+        ...sys,
+        provider: 'agave'
+      };
+    }),
     receivedAt: Date.now()
   }
 }
@@ -34,7 +39,7 @@ export function invalidateAgaveFileSystems() {
 }
 
 function fetchAgaveFileSystems() {
-  return dispatch => {
+  const action = dispatch => {
     dispatch(requestAgaveFileSystems());
 
     return Agave.listFileSystems()
@@ -46,7 +51,9 @@ function fetchAgaveFileSystems() {
             dispatch(failAgaveFileSystems("Error"))
           }
         })
-  }
+  };
+  action.type = 'FETCH_AGAVE_FILE_SYSTEMS';
+  return action;
 }
 
 function shouldFetchAgaveFileSystems(state) {
@@ -61,9 +68,13 @@ function shouldFetchAgaveFileSystems(state) {
 }
 
 export function fetchAgaveFileSystemsIfNeeded() {
-  return (dispatch, getState) => {
+  const action = (dispatch, getState) => {
     if (shouldFetchAgaveFileSystems(getState())) {
       return dispatch(fetchAgaveFileSystems());
+    } else {
+      return Promise.resolve();
     }
-  }
+  };
+  action.type = 'FETCH_AGAVE_FILE_SYSTEMS_IF_NEEDED';
+  return action;
 }

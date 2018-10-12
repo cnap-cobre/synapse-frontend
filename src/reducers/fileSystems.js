@@ -29,10 +29,7 @@ export default function fileSystems(state = initialFileSystemsState, action) {
         didInvalidate: false
       });
     case RECEIVE_AGAVE_FILE_SYSTEMS:
-      const agaveSystems = action.systems.map((sys) => {
-        sys.provider = 'agave';
-        return sys;
-      });
+      const agaveSystems = action.systems;
       return Object.assign({}, state, {
         systems: [
           ...agaveSystems,

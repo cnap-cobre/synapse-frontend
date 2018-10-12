@@ -1,4 +1,5 @@
 import agaveFileSystems from './agaveFileSystems';
+import browserPaths from './browserPaths';
 import csrf from './csrf';
 import files from './files';
 import fileSystems from './fileSystems';
@@ -11,6 +12,7 @@ import visualOptions from './visualOptions';
 
 export default {
   agaveFileSystems,
+  browserPaths,
   csrf,
   files,
   fileSystems,

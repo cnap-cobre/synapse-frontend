@@ -12,6 +12,9 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import {toggleDotfiles} from "../../actions/visualOptions";
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
+import {setBrowserPath} from "../../actions/browserPaths";
+import {fetchAgaveFileSystemsIfNeeded} from "../../actions/agaveFileSystems";
+import {fetchProfileIfNeeded} from "../../actions/userProfile";
 
 class TabbedFileBrowser extends React.Component {
   static propTypes = {
@@ -25,10 +28,20 @@ class TabbedFileBrowser extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const matches = nextProps.fileSystems.map(
-        (sys) => nextProps.path.indexOf('/' + sys.id) !== -1
+        (sys) => {
+          return nextProps.path.indexOf(sys.provider + '/' + sys.id) !== -1;
+        }
     );
-    if(matches.indexOf(true) !== -1) {
+    if(matches.length > 0 && matches.indexOf(true) !== -1) {
       this.props.dispatch(fetchFilesIfNeeded(nextProps.path));
+    } else {
+      this.props.dispatch(
+          fetchAgaveFileSystemsIfNeeded()
+      ).then(() => {
+        this.props.dispatch(fetchProfileIfNeeded());
+      }).then(() => {
+        this.props.dispatch(fetchFilesIfNeeded(nextProps.path));
+      });
     }
   }
 
@@ -63,12 +76,14 @@ class TabbedFileBrowser extends React.Component {
                 activeKey={selectedSystem !== -1 ? selectedSystem : 0}
                 onSelect={(key) => {
                   if (selectedSystem !== key) {
+                    const browserPathKey = [
+                      this.props.fileSystems[key].provider,
+                      this.props.fileSystems[key].id
+                    ].join('.');
                     this.props.dispatch(push([
                       this.props.prefix,
-                      this.props.fileSystems[key].provider,
-                      this.props.fileSystems[key].id,
-                      ''
-                    ].join('/')))
+                      this.props.browserPaths[browserPathKey]
+                    ].join('/')));
                   }
                 }}
           >
@@ -144,6 +159,7 @@ const mapStateToProps = (store, ownProps) => {
     isReady: store.userProfile.hasFetched && store.fileSystems.hasFetched,
     fileSystems,
     pathname: store.router.pathname,
+    browserPaths: store.browserPaths,
     path: store.router.pathname.slice(
         ownProps.prefix.length
     ),

@@ -227,7 +227,13 @@ function fetchFiles(path) {
     });
 
     if (activeFileSystem.length !== 1) {
-      throw "Could not uniquely match a file system"
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(
+            dispatch(fetchFiles(path))
+          );
+        }, 500);
+      });
     }
 
     if (activeFileSystem[0].provider === 'dropbox') {
