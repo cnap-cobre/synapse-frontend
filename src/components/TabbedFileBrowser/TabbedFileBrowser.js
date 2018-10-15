@@ -1,6 +1,8 @@
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
+import {fetchAgaveFileSystemsIfNeeded} from "../../actions/agaveFileSystems";
 import {fetchFilesIfNeeded} from "../../actions/files";
+import {fetchProfileIfNeeded} from "../../actions/userProfile";
 import FileBrowser from "./FileBrowser/FileBrowser";
 import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
@@ -12,9 +14,6 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import {toggleDotfiles} from "../../actions/visualOptions";
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
-import {setBrowserPath} from "../../actions/browserPaths";
-import {fetchAgaveFileSystemsIfNeeded} from "../../actions/agaveFileSystems";
-import {fetchProfileIfNeeded} from "../../actions/userProfile";
 
 class TabbedFileBrowser extends React.Component {
   static propTypes = {

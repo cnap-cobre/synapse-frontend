@@ -2,8 +2,8 @@ import {connect} from 'react-redux';
 import {fileIconResolver} from "../../util/FileIconResolver";
 import {humanFileSize} from "../../util/FileSize";
 import React from 'react';
-import './fileMetadata.scss';
 import {format, formatDistance} from "date-fns";
+import './fileMetadata.scss';
 
 
 class FileMetadata extends React.Component{

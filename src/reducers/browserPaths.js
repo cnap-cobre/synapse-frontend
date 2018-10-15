@@ -1,6 +1,6 @@
 import {RECEIVE_AGAVE_FILE_SYSTEMS} from "../actions/agaveFileSystems";
-import {SET_BROWSER_PATH} from "../actions/browserPaths";
 import {RECEIVE_PROFILE} from "../actions/userProfile";
+import {SET_BROWSER_PATH} from "../actions/browserPaths";
 
 export const initialBrowserPathsState = {};
 
