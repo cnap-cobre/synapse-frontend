@@ -20,7 +20,13 @@ export default function files(state = initialFilesState, action) {
         })
       });
     case RECEIVE_FILES:
-      const files = action.files.filter(f => f.name !== '.');
+      const files = action.files
+          .filter(f => f.name !== '.')
+          .map(f => ({
+            ...f,
+            lastModified: Date.parse(f.lastModified)
+          }))
+      ;
       const filesWithFullPath = files.map(f => Object.assign({}, f, {
         fullPath: '/' + f.provider + '/' + f.system + f.path
       }));

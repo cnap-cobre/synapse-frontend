@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "agaveapi-js": "^1.0.0",
+    "date-fns": "^2.0.0-alpha.22",
     "dropbox": "^4.0.11",
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",

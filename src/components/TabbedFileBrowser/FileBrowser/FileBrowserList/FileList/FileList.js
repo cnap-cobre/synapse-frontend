@@ -1,5 +1,6 @@
 import { ContextMenuProvider } from 'react-contexify';
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
+import { format, formatDistance } from 'date-fns';
 import { humanFileSize } from "../../../../../util/FileSize.js";
 import PropTypes from 'prop-types';
 import React from "react";
@@ -45,7 +46,7 @@ export default class FileList extends React.Component {
           { item.name }
         </td>
         <td>{ humanFileSize(item.length) }</td>
-        <td>{ item.lastModified }</td>
+        <td title={format(item.lastModified, 'MM/dd/yyyy HH:mm:ss - OOOO')}>{ formatDistance(item.lastModified, Date.now()) }</td>
       </ContextMenuProvider>
   );
 

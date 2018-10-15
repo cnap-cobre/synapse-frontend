@@ -3,6 +3,7 @@ import {fileIconResolver} from "../../util/FileIconResolver";
 import {humanFileSize} from "../../util/FileSize";
 import React from 'react';
 import './fileMetadata.scss';
+import {format, formatDistance} from "date-fns";
 
 
 class FileMetadata extends React.Component{
@@ -66,7 +67,10 @@ class FileMetadata extends React.Component{
                 <td>Format:</td><td>{singleFile.format}</td>
               </tr>
               <tr>
-                <td>Last Modified:</td><td>{singleFile.lastModified}</td>
+                <td>Last Modified:</td>
+                <td title={format(singleFile.lastModified, 'MM/dd/yyyy HH:mm:ss - OOOO')}>
+                  { formatDistance(singleFile.lastModified, Date.now()) }
+                </td>
               </tr>
               <tr>
                 <td>Size:</td><td>{humanFileSize(singleFile.length)}</td>
