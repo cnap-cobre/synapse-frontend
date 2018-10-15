@@ -16,6 +16,7 @@ export default class FileBrowserGrid extends React.Component {
     path: PropTypes.string.isRequired,
     handleDoubleClick: PropTypes.func.isRequired,
     handleSingleClick: PropTypes.func.isRequired,
+    handleContextMenu: PropTypes.func.isRequired,
   };
 
   getSelectedClass = (file) => (
@@ -37,6 +38,7 @@ export default class FileBrowserGrid extends React.Component {
             filePath: this.props.path + item.name,
             fileName: item.name
           }}
+          onContextMenu={(e) => this.props.handleContextMenu(item, e)}
       >
         <div className="innerWrapper">
           <div className="fileGridIcon">

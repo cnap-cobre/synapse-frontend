@@ -12,6 +12,7 @@ export default class FileList extends React.Component {
     path: PropTypes.string.isRequired,
     handleDoubleClick: PropTypes.func.isRequired,
     handleSingleClick: PropTypes.func.isRequired,
+    handleContextMenu: PropTypes.func.isRequired,
     showDotfiles: PropTypes.bool,
   };
 
@@ -33,6 +34,7 @@ export default class FileList extends React.Component {
           id="fileActionsMenu"
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
           onClick={(e) => this.props.handleSingleClick(item, array, e)}
+          onContextMenu={(e) => this.props.handleContextMenu(item, e)}
           key={ item.name }
           data={{
             file: item,

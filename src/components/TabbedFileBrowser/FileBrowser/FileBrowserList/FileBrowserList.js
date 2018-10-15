@@ -13,6 +13,7 @@ export default class FileBrowserList extends React.Component {
     path: PropTypes.string.isRequired,
     handleDoubleClick: PropTypes.func.isRequired,
     handleSingleClick: PropTypes.func.isRequired,
+    handleContextMenu: PropTypes.func.isRequired,
   };
 
   render(){
@@ -23,6 +24,7 @@ export default class FileBrowserList extends React.Component {
           <FileList list={this.props.list}
                     path={this.props.path}
                     showDotfiles={this.props.showDotfiles}
+                    handleContextMenu={this.props.handleContextMenu}
                     handleDoubleClick={this.props.handleDoubleClick}
                     handleSingleClick={this.props.handleSingleClick}
                     focusedFilePaths={this.props.focusedFilePaths}

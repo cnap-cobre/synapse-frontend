@@ -13,6 +13,7 @@ import React from 'react';
 import {setBrowserPath} from "../../../actions/browserPaths";
 import {addFocusedFile, clearFocusedFiles, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
 import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../actions/files";
+import focusedFile from "../../../reducers/focusedFiles";
 
 
 
@@ -49,6 +50,13 @@ class FileBrowser extends React.Component {
   handleRefresh = (path) => () => {
     this.props.dispatch(invalidateFiles(path));
     setTimeout(() => this.props.dispatch(fetchFilesIfNeeded(path)), 20);
+  };
+
+  handleContextMenu = (file, e) => {
+    console.log("CONTEXT MENU", file, this.props.focusedFilePaths);
+    if(this.props.focusedFilePaths.indexOf(file.fullPath) === -1) {
+      this.props.dispatch(setFocusedFile(file.fullPath));
+    }
   };
 
   handleDoubleClick = (file, e) => {
@@ -131,6 +139,7 @@ class FileBrowser extends React.Component {
 
           <FileViewComponent showDotfiles={this.props.showDotfiles}
                              path={this.props.path}
+                             handleContextMenu={this.handleContextMenu}
                              handleDoubleClick={this.handleDoubleClick}
                              handleSingleClick={this.handleSingleClick}
                              loading={this.props.loading}
