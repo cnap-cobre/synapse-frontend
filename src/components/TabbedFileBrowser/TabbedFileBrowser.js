@@ -25,22 +25,29 @@ class TabbedFileBrowser extends React.Component {
     fetchFiles: PropTypes.func.isRequired
   };
 
-  componentWillReceiveProps(nextProps) {
-    const matches = nextProps.fileSystems.map(
-        (sys) => {
-          return nextProps.path.indexOf(sys.provider + '/' + sys.id) !== -1;
-        }
+  componentDidMount() {
+    const matches = this.props.fileSystems.map(
+      (sys) => {
+        return nextProps.path.indexOf(sys.provider + '/' + sys.id) !== -1;
+      }
     );
+
     if(matches.length > 0 && matches.indexOf(true) !== -1) {
-      this.props.dispatch(fetchFilesIfNeeded(nextProps.path));
+      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     } else {
       this.props.dispatch(
-          fetchAgaveFileSystemsIfNeeded()
+        fetchAgaveFileSystemsIfNeeded()
       ).then(() => {
         this.props.dispatch(fetchProfileIfNeeded());
       }).then(() => {
-        this.props.dispatch(fetchFilesIfNeeded(nextProps.path));
+        this.props.dispatch(fetchFilesIfNeeded(this.props.path));
       });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.path !== this.props.path) {
+      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     }
   }
 
