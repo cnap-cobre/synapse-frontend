@@ -28,7 +28,7 @@ class TabbedFileBrowser extends React.Component {
   componentDidMount() {
     const matches = this.props.fileSystems.map(
       (sys) => {
-        return nextProps.path.indexOf(sys.provider + '/' + sys.id) !== -1;
+        return this.props.path.indexOf(sys.provider + '/' + sys.id) !== -1;
       }
     );
 
