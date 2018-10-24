@@ -42,7 +42,7 @@ class FileActionsMenu extends React.Component{
     }, 200);
   };
 
-  handleShareFile = () => {console.log('share')};
+  handleShareFile = (refProps) => {console.log('share', refProps)};
 
   handleRenameFile = (refProps) => {
     this.props.dispatch(addModal({
@@ -118,7 +118,74 @@ class FileActionsMenu extends React.Component{
     }));
   };
 
+  singleFileContextMenu = () => (
+      <React.Fragment>
+        <Item
+            onClick={this.stopClickPropagation(this.handleShareFile)}
+        >
+          Share
+        </Item>
+        {/*<DownloadLink>*/}
+          {/*Download*/}
+        {/*</DownloadLink>*/}
+        <Item
+            onClick={this.stopClickPropagation(this.handleRenameFile)}
+        >
+          Rename
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleMoveFile)}
+        >
+          Move
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleCopyFile)}
+        >
+          Copy
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleDeleteFile)}
+        >
+          Delete
+        </Item>
+      </React.Fragment>
+  );
+
+  multipleFileContextMenu = () => (
+      <React.Fragment>
+        <div>{this.props.focusedFilePaths.length} files selected</div>
+        <Item
+            onClick={this.stopClickPropagation(this.handleShareFile)}
+        >
+          Cake
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleShareFile)}
+        >
+          Rename
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleShareFile)}
+        >
+          Move
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleShareFile)}
+        >
+          Copy
+        </Item>
+        <Item
+            onClick={this.stopClickPropagation(this.handleShareFile)}
+        >
+          Delete
+        </Item>
+      </React.Fragment>
+  );
+
   render = () => {
+    console.log("Render context menu");
+    console.log("this", this);
+    console.log("this.props", this.props);
     return (
         <ContextMenu id="fileActionsMenu" style={{zIndex: '101'}}>
           <Item
@@ -126,9 +193,9 @@ class FileActionsMenu extends React.Component{
           >
             Share
           </Item>
-          <DownloadLink>
-            Download
-          </DownloadLink>
+          {/*<DownloadLink>*/}
+          {/*Download*/}
+          {/*</DownloadLink>*/}
           <Item
               onClick={this.stopClickPropagation(this.handleRenameFile)}
           >
@@ -154,4 +221,11 @@ class FileActionsMenu extends React.Component{
   };
 }
 
-export default connect()(FileActionsMenu);
+const mapStateToProps = (store, ownProps) => {
+  return {
+    fileViewFormat: store.visualOptions.fileViewFormat,
+    focusedFilePaths: store.focusedFiles.list
+  };
+};
+
+export default connect(mapStateToProps)(FileActionsMenu);

@@ -2,6 +2,7 @@ import agaveFileSystems from './agaveFileSystems';
 import browserPaths from './browserPaths';
 import csrf from './csrf';
 import files from './files';
+import filesFlat from './filesFlat';
 import fileSystems from './fileSystems';
 import focusedFiles from './focusedFiles';
 import modals from './modals';
@@ -15,6 +16,7 @@ export default {
   browserPaths,
   csrf,
   files,
+  filesFlat,
   fileSystems,
   focusedFiles,
   modals,

@@ -53,7 +53,6 @@ class FileBrowser extends React.Component {
   };
 
   handleContextMenu = (file, e) => {
-    console.log("CONTEXT MENU", file, this.props.focusedFilePaths);
     if(this.props.focusedFilePaths.indexOf(file.fullPath) === -1) {
       this.props.dispatch(setFocusedFile(file.fullPath));
     }

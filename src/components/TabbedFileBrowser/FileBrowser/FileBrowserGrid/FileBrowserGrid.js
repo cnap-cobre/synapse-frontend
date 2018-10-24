@@ -26,19 +26,15 @@ export default class FileBrowserGrid extends React.Component {
   );
 
   fileToComponent = (item, i, array) => (
-      <ContextMenuProvider
-          id="fileActionsMenu"
-          key={item.name}
-          onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
-          onClick={(e) => this.props.handleSingleClick(item, array, e)}
-          className={"fileGridIconBlock " + this.getSelectedClass(item)}
-          data={{
-            file: item,
-            dirPath: this.props.path,
-            filePath: this.props.path + item.name,
-            fileName: item.name
-          }}
-          onContextMenu={(e) => this.props.handleContextMenu(item, e)}
+      <div key={item.name}
+           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
+           onClick={(e) => this.props.handleSingleClick(item, array, e)}
+           onContextMenu={(e) => this.props.handleContextMenu(item, e)}
+           className={"fileGridIconBlock " + this.getSelectedClass(item)}
+           file={{
+             ...item,
+             dirPath: item.fullPath.split('/').slice(0,-1).join('/') + '/'
+           }}
       >
         <div className="innerWrapper">
           <div className="fileGridIcon">
@@ -48,7 +44,7 @@ export default class FileBrowserGrid extends React.Component {
             {item.name}
           </div>
         </div>
-      </ContextMenuProvider>
+      </div>
   );
 
   render() {
@@ -78,7 +74,7 @@ export default class FileBrowserGrid extends React.Component {
             ) : (null)}
 
             <Col xs={12} className="fileGridFlexContainer">
-              {allComponents.filter(c => c.props.data.file.type === 'dir')}
+              {allComponents.filter(c => c.props.file.type === 'dir')}
               {Array.from(Array(9).keys()).map((i) => (<div className="fileGridPlaceholder" key={i} />))}
             </Col>
 
@@ -90,7 +86,7 @@ export default class FileBrowserGrid extends React.Component {
             ) : (null)}
 
             <Col xs={12} className="fileGridFlexContainer">
-              {allComponents.filter(c => c.props.data.file.type === 'file')}
+              {allComponents.filter(c => c.props.file.type === 'file')}
               {Array.from(Array(9).keys()).map((i) => (<div className="fileGridPlaceholder" key={i} />))}
             </Col>
 

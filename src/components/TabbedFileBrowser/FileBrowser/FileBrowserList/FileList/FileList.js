@@ -1,4 +1,3 @@
-import { ContextMenuProvider } from 'react-contexify';
 import { fileIconResolver } from "../../../../../util/FileIconResolver";
 import { humanFileSize } from "../../../../../util/FileSize.js";
 import PropTypes from 'prop-types';
@@ -28,20 +27,12 @@ export default class FileList extends React.Component {
   );
 
   fileToComponent = (item, i, array) => (
-      <ContextMenuProvider
-          component="tr"
+      <tr
           className={this.getSelectedClass(item)}
-          id="fileActionsMenu"
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
           onClick={(e) => this.props.handleSingleClick(item, array, e)}
           onContextMenu={(e) => this.props.handleContextMenu(item, e)}
           key={ item.name }
-          data={{
-            file: item,
-            dirPath: this.props.path,
-            filePath: this.props.path + item.name,
-            fileName: item.name
-          }}
       >
         <td>
           {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
@@ -49,7 +40,7 @@ export default class FileList extends React.Component {
         </td>
         <td>{ humanFileSize(item.length) }</td>
         <td title={format(item.lastModified, 'MM/dd/yyyy HH:mm:ss - OOOO')}>{ formatDistance(item.lastModified, Date.now()) }</td>
-      </ContextMenuProvider>
+      </tr>
   );
 
   render() {
