@@ -26,13 +26,7 @@ class TabbedFileBrowser extends React.Component {
   };
 
   componentDidMount() {
-    const matches = this.props.fileSystems.map(
-      (sys) => {
-        return this.props.path.indexOf(sys.provider + '/' + sys.id) !== -1;
-      }
-    );
-
-    if(matches.length > 0 && matches.indexOf(true) !== -1) {
+    if(this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     } else {
       this.props.dispatch(
@@ -46,10 +40,19 @@ class TabbedFileBrowser extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevProps.path !== this.props.path) {
+    if(prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     }
   }
+
+  matchesFileSystem = (path) => {
+    const matches = this.props.fileSystems.map(
+        (sys) => {
+          return path.indexOf(sys.provider + '/' + sys.id) !== -1;
+        }
+    );
+    return matches.length > 0 && matches.indexOf(true) !== -1;
+  };
 
   unfocusFiles = (e) => {
     this.props.dispatch(setFocusedFile(''));

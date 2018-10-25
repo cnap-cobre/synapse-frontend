@@ -230,6 +230,7 @@ function fetchFiles(path) {
     // wait just a bit while the systems may still be loading.
     if (activeFileSystem.length !== 1) {
       return new Promise((resolve, reject) => {
+        console.log(new Error().stack);
         setTimeout(() => {
           resolve(
             dispatch(fetchFiles(path))
