@@ -13,7 +13,6 @@ import React from 'react';
 import {setBrowserPath} from "../../../actions/browserPaths";
 import {addFocusedFile, clearFocusedFiles, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
 import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../actions/files";
-import focusedFile from "../../../reducers/focusedFiles";
 
 
 
