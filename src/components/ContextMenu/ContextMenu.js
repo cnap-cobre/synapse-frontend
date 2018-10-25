@@ -23,9 +23,24 @@ class ContextMenu extends React.Component {
     visible: false,
   };
 
+  _eventPathContainsClass = (event, className) => {
+    return event.path.map(
+        (element) => element.className
+    ).filter(cn => cn) // Remove undefined values or any other "falsey" values
+     .map(
+         // Check if the supplied className is found in the element's className property
+         (cn) => (typeof cn === 'string') && cn.indexOf(className) !== -1
+     ).includes(true);
+  };
+
   _handleContextMenu = (event) => {
+    // console.log("context target", event.currentTarget);
+    // console.log("event", event);
+    // console.log("classDetection", this._eventPathContainsClass(event, "rightClickableFile"));
+    if(!this._eventPathContainsClass(event, "rightClickableFile")) {
+      return;
+    }
     event.preventDefault();
-    console.log("context target", event.currentTarget);
 
     this.setState({ visible: true });
 

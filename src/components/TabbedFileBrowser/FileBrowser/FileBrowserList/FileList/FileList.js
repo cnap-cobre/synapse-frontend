@@ -28,7 +28,7 @@ export default class FileList extends React.Component {
 
   fileToComponent = (item, i, array) => (
       <tr
-          className={this.getSelectedClass(item)}
+          className={"rightClickableFile " + this.getSelectedClass(item)}
           onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
           onClick={(e) => this.props.handleSingleClick(item, array, e)}
           onContextMenu={(e) => this.props.handleContextMenu(item, e)}

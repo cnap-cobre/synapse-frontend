@@ -30,7 +30,7 @@ export default class FileBrowserGrid extends React.Component {
            onDoubleClick={(e) => this.props.handleDoubleClick(item, e)}
            onClick={(e) => this.props.handleSingleClick(item, array, e)}
            onContextMenu={(e) => this.props.handleContextMenu(item, e)}
-           className={"fileGridIconBlock " + this.getSelectedClass(item)}
+           className={"fileGridIconBlock rightClickableFile " + this.getSelectedClass(item)}
            file={{
              ...item,
              dirPath: item.fullPath.split('/').slice(0,-1).join('/') + '/'
