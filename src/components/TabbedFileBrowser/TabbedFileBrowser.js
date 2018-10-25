@@ -26,6 +26,11 @@ class TabbedFileBrowser extends React.Component {
   };
 
   componentDidMount() {
+    if(this.props.path.split('/').length < 3) {
+      console.log("Waiting on redirect/replace to default file system.");
+      return;
+    }
+
     if(this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     } else {
