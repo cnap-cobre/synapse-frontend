@@ -36,4 +36,10 @@
 a.contextMenu--option {
   color: #66615b;
   display: block;
+
+  &__disabled {
+    display: block;
+    color: #999999;
+    pointer-events: none;
+  }
 }

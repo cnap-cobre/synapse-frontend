@@ -8,11 +8,12 @@ import {addModal} from "../../actions/modals";
 
 const DownloadLink = (props) => {
   return (
-      <a className="contextMenu--option"
+      <a className={"contextMenu--option " + (props.disabled ? "contextMenu--option__disabled": "")}
          download
-         href={props.file._links.self.href}
+         href={props.disabled ? "" : props.file._links.self.href}
       >
         {props.children}
+        {props.disabled && <span>&nbsp; (not yet supported)</span>}
       </a>
   );
 };
@@ -177,7 +178,9 @@ class ContextMenu extends React.Component {
         >
           Share
         </div>
-        <DownloadLink file={this.props.focusedFiles[0]}>
+        <DownloadLink file={this.props.focusedFiles[0]}
+                      disabled={this.props.focusedFiles[0].type === 'dir'}
+        >
           Download
         </DownloadLink>
         <div className="contextMenu--option"
