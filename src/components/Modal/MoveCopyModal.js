@@ -25,8 +25,8 @@ class MoveCopyModal extends React.Component {
         PropTypes.func
     ]).isRequired,
     title: PropTypes.string.isRequired,
-    fileName: PropTypes.string.isRequired,
-    prompt: PropTypes.string.isRequired,
+    files: PropTypes.array.isRequired,
+    promptVerb: PropTypes.string.isRequired,
     submitText: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     systemName: PropTypes.string.isRequired
@@ -63,7 +63,8 @@ class MoveCopyModal extends React.Component {
 
   doMoveOrCopy = () => {
     this.closeModal();
-    const absolutePath = this.state.path + this.props.fileName;
+    const absolutePath = this.state.path;
+    console.log("Absolute path", absolutePath);
     this.props.action(absolutePath);
   };
 
@@ -87,8 +88,15 @@ class MoveCopyModal extends React.Component {
 
         <Modal.Body>
           <p>
-            {this.props.prompt}
+            Select a location to {this.props.promptVerb} the following files:
           </p>
+          <ul>
+            {this.props.files.map(
+                file => <li key={file.fullPath}>
+                  {file.name}
+                </li>
+            )}
+          </ul>
 
           <FileBreadcrumbs systemName={this.props.systemName}
                            prefix={this.state.pathPrefix}

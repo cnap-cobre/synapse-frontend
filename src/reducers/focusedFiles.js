@@ -6,7 +6,6 @@ const initialFocusedFileState = {
 
 export default function focusedFile(state = initialFocusedFileState, action) {
   const currentFocusedFilesList = state.list;
-  console.log('Current list', currentFocusedFilesList);
   switch (action.type) {
     case ADD_FOCUSED_FILE:
       return Object.assign({}, state, {

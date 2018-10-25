@@ -226,6 +226,8 @@ function fetchFiles(path) {
       return fs.provider === tokens[1] && fs.id === tokens[2];
     });
 
+    // If we don't have a match for the active file system
+    // wait just a bit while the systems may still be loading.
     if (activeFileSystem.length !== 1) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -242,7 +244,11 @@ function fetchFiles(path) {
           .catch(response => dispatch(failFiles(path, response.status)));
     } else if(activeFileSystem[0].provider === 'agave') {
       const query = Agave.listFiles(path)
-          .then(files => dispatch(receiveFiles(path, files)));
+          .then(files => dispatch(receiveFiles(path, files)))
+          .then((x) => {
+            console.log('pizza!', x);
+            return x;
+          })
 
       // Trigger symlink directory corrections
       query.then(() => dispatch(fetchSymlinkCorrections(path)));

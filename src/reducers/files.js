@@ -44,6 +44,7 @@ export default function files(state = initialFilesState, action) {
     case FAIL_FILES:
       return Object.assign({}, state, {
         [action.path]: Object.assign({}, stateForPath, {
+          files: [],
           isFetching: false,
           hasFetched: true,
           lastUpdated: action.receivedAt,

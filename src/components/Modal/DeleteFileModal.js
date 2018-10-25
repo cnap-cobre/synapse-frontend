@@ -13,7 +13,7 @@ class DeleteFileModal extends React.Component {
         PropTypes.object,
         PropTypes.func
     ]).isRequired,
-    fileName: PropTypes.string.isRequired,
+    files: PropTypes.array.isRequired,
   };
 
   constructor(props) {
@@ -51,8 +51,16 @@ class DeleteFileModal extends React.Component {
 
         <Modal.Body>
           <p>
-            Are you sure you want to delete {this.props.fileName}?
+            Are you sure you want to delete the following files?
           </p>
+          <ul>
+            {this.props.files.map(
+                file => {
+                  console.log(file);
+                  return (<li key={file.fullPath}>{file.name}</li>);
+                }
+            )}
+          </ul>
         </Modal.Body>
 
         <Modal.Footer>

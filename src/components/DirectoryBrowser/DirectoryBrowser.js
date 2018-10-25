@@ -49,7 +49,7 @@ const mapStateToProps = (store, ownProps) => {
 
   const loading = (filesAtPath === undefined || filesAtPath.isFetching);
   const error = (!loading) && (filesAtPath.errorCode || !filesAtPath.hasFetched);
-  const list = (loading || error) ? [] : filesAtPath.files.filter((item) => item.type === 'dir');
+  const list = (loading || error || filesAtPath.errorCode) ? [] : filesAtPath.files.filter((item) => item.type === 'dir');
 
   const showDotfiles = store.visualOptions.showDotfiles;
 

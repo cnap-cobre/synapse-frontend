@@ -19,7 +19,7 @@ class ModalWrapper extends React.Component {
                     <DeleteFileModal key={i}
                                      id={id}
                                      action={this.props.modals[id].action}
-                                     fileName={this.props.modals[id].fileName}
+                                     files={this.props.modals[id].files}
                     />
                 );
               case 'linkBeocatWizard':
@@ -41,8 +41,8 @@ class ModalWrapper extends React.Component {
                                    id={id}
                                    action={this.props.modals[id].action}
                                    title={this.props.modals[id].title}
-                                   fileName={this.props.modals[id].fileName}
-                                   prompt={this.props.modals[id].prompt}
+                                   files={this.props.modals[id].files}
+                                   promptVerb={this.props.modals[id].promptVerb}
                                    submitText={this.props.modals[id].submitText}
                                    path={this.props.modals[id].path}
                                    systemName={this.props.modals[id].systemName}

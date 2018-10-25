@@ -74,7 +74,7 @@ class ContextMenu extends React.Component {
     if (visible) this.setState({ visible: false, });
   };
 
-  delayedRefresh = (path) => () => {
+  delayedRefresh = (path) => {
     // We delay a bit here so that Dropbox has a chance to be consistent.
     // See "Brewers Cap Theorem" - Consistency, Availability, Partition tolerance
     setTimeout(() => {
@@ -84,89 +84,130 @@ class ContextMenu extends React.Component {
   };
 
   handleSingleShareFile = (e) => {
-    //e.stopPropagation();
     console.log('share');
   };
 
   handleRenameFile = (e) => {
-    console.log("Option selected!");
     const file = this.props.focusedFiles[0];
-    //e.stopPropagation();
     this.props.dispatch(addModal({
       modalType: 'renameFile',
       fileName: file.name,
       action: (newName) => {
         this.props.dispatch(
             renameFile(file, newName)
-        ).then(this.delayedRefresh(file.fullPath.split('/').slice(0,-1).join('/') + '/'));
+        ).then(
+            () => this.delayedRefresh(file.fullPath.split('/').slice(0,-1).join('/') + '/'))
       }
     }));
   };
 
   handleMoveFile = (e) => {
-    const file = this.props.focusedFiles[0];
+    const {focusedFiles} = this.props;
+    const currentDirectoryPath = focusedFiles[0]
+        .fullPath.split('/').slice(0,-1).join('/') + '/';
 
     this.props.dispatch(addModal({
       modalType: 'moveCopyFile',
-      title: 'Move ' + file.name,
-      fileName: file.name,
-      prompt: 'Select a new location for ' + file.name,
-      submitText: 'Move',
-      path: file.fullPath.split('/').slice(0,-1).join('/') + '/',
-      systemName: file.system,
+      title: 'Move File' + (focusedFiles.length > 1 ? 's' : ''),
+      files: focusedFiles,
+      promptVerb: 'move',
+      submitText: 'Move Here',
+      path: currentDirectoryPath,
+      systemName: focusedFiles[0].system,
       action: (newPath) => {
         const newDirectoryPath = [
-          ...file.fullPath.split('/').slice(0, 3),
+          ...currentDirectoryPath.split('/').slice(0, 3),
           ...newPath.split('/').slice(1, -1),
           ''
         ].join('/');
 
-        this.props.dispatch(
-            moveFile(file, newPath)
+        // Copy each file
+        Promise.all(
+            focusedFiles.map(
+                file => {
+                  console.log(file, newPath);
+                  return moveFile(file, newPath + '/' + file.name)
+                }
+            ).map(
+                moveAction => this.props.dispatch(moveAction)
+            )
         )
-            .then(this.delayedRefresh(file.dirPath))
-            .then(this.delayedRefresh(newDirectoryPath))
+
+        // ... then refresh each affected directory
+        .then(() => {
+          this.delayedRefresh(currentDirectoryPath);
+          this.delayedRefresh(newDirectoryPath);
+        });
       }
     }));
   };
 
-  handleCopyFile = (e) => {
-    const file = this.props.focusedFiles[0];
+  handleCopyFiles = (e) => {
+    const {focusedFiles} = this.props;
+    const currentDirectoryPath = focusedFiles[0]
+        .fullPath.split('/').slice(0,-1).join('/') + '/';
 
     this.props.dispatch(addModal({
       modalType: 'moveCopyFile',
-      title: 'Copy ' + file.name,
-      fileName: file.name,
-      prompt: 'Select a location to copy ' + file.name,
-      submitText: 'Copy',
-      path: file.fullPath.split('/').slice(0,-1).join('/') + '/',
-      systemName: file.system,
+      title: 'Copy File' + (focusedFiles.length > 1 ? 's' : ''),
+      files: focusedFiles,
+      promptVerb: 'copy',
+      submitText: 'Copy Here',
+      path: currentDirectoryPath,
+      systemName: focusedFiles[0].system,
       action: (newPath) => {
         const newDirectoryPath = [
-          ...file.fullPath.split('/').slice(0, 3),
+          ...currentDirectoryPath.split('/').slice(0, 3),
           ...newPath.split('/').slice(1, -1),
           ''
         ].join('/');
 
-        this.props.dispatch(
-            copyFile(file, newPath)
-        ).then(this.delayedRefresh(file.dirPath))
-            .then(this.delayedRefresh(newDirectoryPath))
+        // Copy each file
+        Promise.all(
+            focusedFiles.map(
+                file => copyFile(file, newPath + '/' + file.name)
+            ).map(
+                copyAction => this.props.dispatch(copyAction)
+            )
+        )
+
+        // ... then refresh each affected directory
+        .then(() => {
+          this.delayedRefresh(newDirectoryPath);
+        });
       }
     }));
   };
 
-  handleDeleteFile = (e) => {
-    const file = this.props.focusedFiles[0];
-
+  handleDeleteFiles = (e) => {
     this.props.dispatch(addModal({
       modalType: 'deleteFile',
-      fileName: file.name,
+      files: this.props.focusedFiles,
       action: () => {
-        this.props.dispatch(
-            deleteFile(file)
+        const uniqueDirectories = this.props.focusedFiles.map(
+            // Map from files to their directory paths
+            file => file.fullPath.split('/').slice(0,-1).join('/') + '/'
+        ).filter(
+            // Get unique
+            (x,i,a) => a.indexOf(x) == i
+        );
+
+        // Delete each file
+        Promise.all(
+            this.props.focusedFiles.map(
+                file => deleteFile(file)
+            ).map(
+                deleteAction => this.props.dispatch(deleteAction)
+            )
         )
-            .then(this.delayedRefresh(file.fullPath.split('/').slice(0,-1).join('/') + '/'));
+
+        // ..then refresh each of their containing directories
+        .then(() => {
+          console.log(uniqueDirectories);
+          uniqueDirectories.forEach(
+              (directoryPath) => this.delayedRefresh(directoryPath)
+          )
+        });
       }
     }));
   };
@@ -194,12 +235,12 @@ class ContextMenu extends React.Component {
           Move
         </div>
         <div className="contextMenu--option"
-             onClick={this.handleCopyFile}
+             onClick={this.handleCopyFiles}
         >
           Copy
         </div>
         <div className="contextMenu--option"
-             onClick={this.handleDeleteFile}
+             onClick={this.handleDeleteFiles}
         >
           Delete
         </div>
@@ -212,6 +253,26 @@ class ContextMenu extends React.Component {
              onClick={this.handleShareFile}
         >
           Share
+        </div>
+        <DownloadLink file={this.props.focusedFiles[0]}
+                      disabled={true}
+        >
+          Download
+        </DownloadLink>
+        <div className="contextMenu--option"
+             onClick={this.handleMoveFile}
+        >
+          Move
+        </div>
+        <div className="contextMenu--option"
+             onClick={this.handleCopyFiles}
+        >
+          Copy
+        </div>
+        <div className="contextMenu--option"
+             onClick={this.handleDeleteFiles}
+        >
+          Delete
         </div>
       </React.Fragment>
   );

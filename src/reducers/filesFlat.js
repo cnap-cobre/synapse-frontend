@@ -11,22 +11,29 @@ export const initialFileState = {};
 export default function filesFlat(state = initialFileState, action) {
   switch (action.type) {
     case RECEIVE_FILES:
-      const files = action.files
+      const filesAsArray = action.files
           .filter(f => f.name !== '.')
           .map(f => ({
             ...f,
             fullPath: '/' + f.provider + '/' + f.system + f.path,
             lastModified: Date.parse(f.lastModified),
-          }))
-          .reduce((acc, f) => {
+          }));
+      console.log("filesAsArray", filesAsArray);
+
+      const filesAsObject = filesAsArray.length === 0
+          ? {}
+          : filesAsArray.reduce((acc, f) => {
             return {
               ...acc,
               [f.fullPath]: f
             }
-          });
+          }, {});
+
+      console.log("filesAsObject", filesAsObject);
+
       return {
         ...state,
-        ...files,
+        ...filesAsObject,
       };
     default:
       return state;
