@@ -229,10 +229,10 @@ class ContextMenu extends React.Component {
 
   singleFileContextMenu = () => (
       <React.Fragment>
-        <div className="contextMenu--option"
+        <div className="contextMenu--option contextMenu--option__disabled"
              onClick={this.handleSingleShareFile}
         >
-          Share
+          Share (coming soon)
         </div>
         <DownloadLink file={this.props.focusedFiles[0]}
                       disabled={this.props.focusedFiles[0].type === 'dir'}
@@ -264,10 +264,10 @@ class ContextMenu extends React.Component {
 
   multipleFileContextMenu = () => (
       <React.Fragment>
-        <div className="contextMenu--option"
+        <div className="contextMenu--option contextMenu--option__diabled"
              onClick={this.handleShareFile}
         >
-          Share
+          Share (coming soon)
         </div>
         <DownloadLink file={this.props.focusedFiles[0]}
                       disabled={true}

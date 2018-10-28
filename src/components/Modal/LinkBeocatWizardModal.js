@@ -2,6 +2,7 @@ import Agave from '../../services/Agave';
 import Button from 'react-bootstrap/lib/Button';
 import {connect} from "react-redux";
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import Cookies from 'js-cookie';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
@@ -17,9 +18,25 @@ class LinkBeocatWizardModal extends React.Component {
 
     this.state = {
       show: true,
-      configString: ''
+      configString: '',
+      script: ''
     };
   }
+
+  componentDidMount() {
+    this.fetchBeocatConfigScript();
+  }
+
+  fetchBeocatConfigScript = () => {
+    fetch("/profile/add_beocat.sh").then((res) => {
+      res.text().then((script) => {
+        console.log(script);
+        this.setState({
+          script
+        });
+      });
+    });
+  };
 
   closeModal = () => {
     this.setState({
@@ -55,24 +72,17 @@ class LinkBeocatWizardModal extends React.Component {
           <Modal.Title>Add SFTP File System Wizard</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>Directions</h5>
-          <ol>
-            <li>Log in to Beocat via SSH.</li>
-            <li>Copy the script below and run it on the remote system.</li>
-            <li>Paste the output into the text box below, and submit.</li>
-          </ol>
+          <h4>Directions</h4>
+          <h5>1. Log in to Beocat via SSH.</h5>
           <hr/>
-          <pre><code>
-            {/*{*/}
-              {/*[*/}
-                {/*'curl -s ',*/}
-                {/*window.location.origin,*/}
-                {/*'/dj-static/beocat-agave-script.sh | bash'*/}
-              {/*].join('')*/}
-            {/*}*/}
-            curl -s https://people.beocat.ksu.edu/~kmdice/beocat-agave-script. | bash
+          <h5>2. Copy the script below and run it in your Beocat SSH session.</h5>
+          <pre style={{
+            height: '15.5em'
+          }}><code>
+            {this.state.script}
           </code></pre>
           <hr/>
+          <h5>3. Refresh your browser</h5>
 
           <form>
             <FormGroup
