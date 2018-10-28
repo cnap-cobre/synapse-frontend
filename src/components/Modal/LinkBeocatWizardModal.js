@@ -83,51 +83,7 @@ class LinkBeocatWizardModal extends React.Component {
           </code></pre>
           <hr/>
           <h5>3. Refresh your browser</h5>
-
-          <form>
-            <FormGroup
-                controlId="beocatConfig"
-                validationState={this.validationState()}
-            >
-              <ControlLabel>Beocat Config:</ControlLabel>
-              <FormControl
-                  componentClass="textarea"
-                  placeholder="Paste the Beocat config here!"
-                  rows={10}
-                  value={this.state.configString}
-                  onChange={
-                    (e) => {
-                      this.setState({
-                        configString: e.target.value.trim().replace(/(?:\r\n|\r|\n)/g, '')
-                      })
-                    }
-                  }
-              />
-              <HelpBlock>The input is valid when the box turns green.</HelpBlock>
-            </FormGroup>
-          </form>
-
         </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn-success btn-fill"
-                  disabled={this.validationState() !== 'success'}
-                  onClick={() => {
-            this.closeModal();
-            this.props.onFormSubmission(
-                JSON.parse(this.state.configString)
-            ).then(() => {
-              this.props.dispatch(invalidateAgaveFileSystems());
-              this.props.dispatch(requestAgaveFileSystems());
-              this.props.dispatch(addModal({
-                modalType: 'successMessage',
-                text: 'The new SFTP file system has been added successfully.'
-              }));
-            });
-          }}
-          >
-            Submit
-          </Button>
-        </Modal.Footer>
       </Modal>
   );
 }
