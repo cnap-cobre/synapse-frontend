@@ -247,9 +247,8 @@ function fetchFiles(path) {
       const query = Agave.listFiles(path)
           .then(files => dispatch(receiveFiles(path, files)))
           .then((x) => {
-            console.log('pizza!', x);
             return x;
-          })
+          });
 
       // Trigger symlink directory corrections
       query.then(() => dispatch(fetchSymlinkCorrections(path)));
