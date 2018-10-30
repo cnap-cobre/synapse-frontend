@@ -5,6 +5,7 @@ import React from 'react';
 import {copyFile, deleteFile, fetchFilesIfNeeded,
   invalidateFiles, moveFile, renameFile} from "../../actions/files";
 import './ContextMenu.scss';
+import {startTransfer} from "../../actions/transferFiles";
 
 const DownloadLink = (props) => {
   return (
@@ -100,6 +101,29 @@ class ContextMenu extends React.Component {
 
   handleSingleShareFile = (e) => {
     console.log('share');
+  };
+
+  handleTransferFiles = (e) => {
+    const {focusedFiles} = this.props;
+    this.props.dispatch(addModal({
+      modalType: 'transfer',
+      files: focusedFiles,
+      action: (targetPath) => {
+        console.log("TARGET PATH", targetPath);
+        console.log("USING THESE FILES", focusedFiles);
+        const transferOrders = focusedFiles.map(
+            file => ({
+              fromPath: file.fullPath,
+              toPath: targetPath + file.name
+            })
+        );
+        this.props.dispatch(
+            startTransfer(transferOrders)
+        );
+
+        console.log("Transfer Orders", transferOrders);
+      }
+    }));
   };
 
   handleRenameFile = (e) => {
@@ -234,6 +258,11 @@ class ContextMenu extends React.Component {
         >
           Share (coming soon)
         </div>
+        <div className="contextMenu--option"
+             onClick={this.handleTransferFiles}
+        >
+          Transfer
+        </div>
         <DownloadLink file={this.props.focusedFiles[0]}
                       disabled={this.props.focusedFiles[0].type === 'dir'}
         >
@@ -268,6 +297,11 @@ class ContextMenu extends React.Component {
              onClick={this.handleShareFile}
         >
           Share (coming soon)
+        </div>
+        <div className="contextMenu--option"
+             onClick={this.handleTransferFiles}
+        >
+          Transfer
         </div>
         <DownloadLink file={this.props.focusedFiles[0]}
                       disabled={true}

@@ -7,6 +7,7 @@ import fileSystems from './fileSystems';
 import focusedFiles from './focusedFiles';
 import modals from './modals';
 import notifications from 'react-redux-notify';
+import transferFiles from './transferFiles';
 import userProfile from './userProfile';
 import visualOptions from './visualOptions';
 
@@ -21,6 +22,7 @@ export default {
   focusedFiles,
   modals,
   notifications,
+  transferFiles,
   userProfile,
   visualOptions
 };

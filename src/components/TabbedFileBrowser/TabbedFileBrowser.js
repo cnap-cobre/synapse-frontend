@@ -174,9 +174,6 @@ const systemUrlResolverAndRedirector = (props) => {
     }
   }
 
-
-
-
   return urlActive;
 };
 

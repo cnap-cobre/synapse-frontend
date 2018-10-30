@@ -6,6 +6,7 @@ import MoveCopyModal from './MoveCopyModal';
 import React from 'react';
 import RenameFileModal from './RenameFileModal';
 import SuccessMessageModal from './SuccessMessageModal';
+import TransferModal from './TransferModal';
 
 
 class ModalWrapper extends React.Component {
@@ -61,6 +62,14 @@ class ModalWrapper extends React.Component {
                     <SuccessMessageModal key={i}
                                          id={id}
                                          text={this.props.modals[id].text}
+                    />
+                );
+              case 'transfer':
+                return (
+                    <TransferModal key={i}
+                                   id={id}
+                                   action={this.props.modals[id].action}
+                                   files={this.props.modals[id].files}
                     />
                 );
               default:

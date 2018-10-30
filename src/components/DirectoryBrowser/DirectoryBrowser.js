@@ -45,6 +45,7 @@ class DirectoryBrowser extends React.Component {
 }
 
 const mapStateToProps = (store, ownProps) => {
+  console.log("ownProps.path", ownProps.path);
   const filesAtPath = store.files[ownProps.path];
 
   const loading = (filesAtPath === undefined || filesAtPath.isFetching);
