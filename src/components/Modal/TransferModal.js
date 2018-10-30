@@ -1,12 +1,12 @@
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
+import {fetchFilesIfNeeded} from "../../actions/files";
 import FileBreadcrumbs from "../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs";
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { removeModal } from "../../actions/modals";
 import TabbedDirectoryBrowser from '../TabbedDirectoryBrowser/TabbedDirectoryBrowser';
-import {fetchFilesIfNeeded} from "../../actions/files";
 
 
 const LinkComponent = (props) => (

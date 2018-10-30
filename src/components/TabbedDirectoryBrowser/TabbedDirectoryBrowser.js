@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
+import {fetchFilesIfNeeded} from "../../actions/files";
 import PropTypes from 'prop-types';
 import React from 'react';
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import './directoryTabs.css';
-import {fetchFilesIfNeeded} from "../../actions/files";
 
 class TabbedDirectoryBrowser extends React.Component {
   static propTypes = {
