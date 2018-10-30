@@ -9,7 +9,7 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
   switch (action.type) {
     case RECEIVE_AGAVE_FILE_SYSTEMS:
       const keysFromAction = action.systems.reduce((acc, cv) => {
-        acc[cv.provider + '.' + cv.id] = [cv.provider, cv.id, ''].join('/');
+        acc[cv.provider + '.' + cv.id] = ['', cv.provider, cv.id, ''].join('/');
         return acc;
       }, {});
 
@@ -19,7 +19,7 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
       };
     case RECEIVE_PROFILE:
       const dropboxBrowserPaths = Object.keys(state).filter(
-        (k) => k.indexOf('dropbox') === 0
+        (k) => k.indexOf('dropbox') === 1
       ).reduce((acc, cv) => {
         return {
           ...acc,
@@ -28,7 +28,7 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
       }, {});
 
       const nonDropboxBrowserPaths = Object.keys(state).filter(
-        (k) => k.indexOf('dropbox') !== 0
+        (k) => k.indexOf('dropbox') !== 1
       ).reduce((acc, cv) => {
         return {
           ...acc,
@@ -39,7 +39,7 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
       if (action.userProfile.dropbox.length !== 0) {
         return {
           ...nonDropboxBrowserPaths,
-          'dropbox.home': 'dropbox/home/',
+          'dropbox.home': '/dropbox/home/',
           ...dropboxBrowserPaths
         };
       }

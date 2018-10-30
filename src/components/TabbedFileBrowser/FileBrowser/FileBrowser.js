@@ -66,7 +66,7 @@ class FileBrowser extends React.Component {
       ].join('/')));
       this.props.dispatch(setBrowserPath(
           this.props.system.provider + '.' + this.props.system.id,
-          path.resolve(this.props.path, file.name).slice(1) + '/'
+          path.resolve(this.props.path, file.name).slice(0) + '/'
       ));
     }
   };

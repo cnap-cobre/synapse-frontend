@@ -96,7 +96,7 @@ class TabbedFileBrowser extends React.Component {
                     ].join('.');
                     this.props.dispatch(push([
                       this.props.prefix,
-                      this.props.browserPaths[browserPathKey]
+                      this.props.browserPaths[browserPathKey].slice(1) // Get rid of leading slash
                     ].join('/')));
                   }
                 }}
