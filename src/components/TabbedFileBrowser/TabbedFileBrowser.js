@@ -14,6 +14,7 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import {toggleDotfiles} from "../../actions/visualOptions";
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
+import {setBrowserPath} from "../../actions/browserPaths";
 
 class TabbedFileBrowser extends React.Component {
   static propTypes = {
@@ -157,6 +158,24 @@ const systemUrlResolverAndRedirector = (props) => {
 
     }, 50);
   }
+
+  // Set browserPath when navigating directly to a file location on first load
+  // Any time the browserPath mismatches the current path, we fix it
+  if (urlActive !== -1) {
+    const browserPathKey = [
+      props.fileSystems[urlActive].provider,
+      props.fileSystems[urlActive].id
+    ].join('.');
+    if (props.browserPaths[browserPathKey] !== props.path) {
+      console.log("MISMATCH FROM INITIAL PAGE LOAD", props.path, props.browserPaths[browserPathKey]);
+      setTimeout(function() {
+        props.dispatch(setBrowserPath(browserPathKey, props.path));
+      }, 1);
+    }
+  }
+
+
+
 
   return urlActive;
 };
