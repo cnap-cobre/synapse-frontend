@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
 import {setBrowserPath} from "../../../actions/browserPaths";
-import {addFocusedFile, clearFocusedFiles, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
+import {addFocusedFile, clearFocusedFiles, removeFocusedFile, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
 import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../actions/files";
 
 
@@ -76,7 +76,13 @@ class FileBrowser extends React.Component {
     const selected = this.props.focusedFilePaths;
 
     if(e.ctrlKey) {
-      return this.props.dispatch(addFocusedFile(file.fullPath));
+      // If we are already selected, remove from selection
+      // Else, add to selection
+      if(selected.indexOf(file.fullPath) !== -1) {
+        return this.props.dispatch(removeFocusedFile(file.fullPath));
+      } else {
+        return this.props.dispatch(addFocusedFile(file.fullPath));
+      }
     }
 
     if(e.shiftKey && selected.length === 0) {
