@@ -112,9 +112,11 @@ class ContextMenu extends React.Component {
         console.log("TARGET PATH", targetPath);
         console.log("USING THESE FILES", focusedFiles);
         const transferOrders = focusedFiles.map(
+            // Files get no trailing slash (obviously)
+            // Directories must get a trailing slash
             file => ({
-              fromPath: file.fullPath,
-              toPath: targetPath + file.name
+              fromPath: file.fullPath + (file.type === 'dir' ? '/' : ''),
+              toPath: targetPath + file.name + (file.type === 'dir' ? '/' : '')
             })
         );
         this.props.dispatch(
