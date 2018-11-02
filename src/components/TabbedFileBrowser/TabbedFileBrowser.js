@@ -32,6 +32,12 @@ class TabbedFileBrowser extends React.Component {
       return;
     }
 
+    if(this.props.path.split('/').slice(-1)[0] !== '') {
+      this.props.dispatch(
+          replace(this.props.prefix + this.props.path + '/')
+      )
+    }
+
     if(this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     } else {
