@@ -1,5 +1,4 @@
 import Col from 'react-bootstrap/lib/Col';
-import {ContextMenuProvider} from 'react-contexify';
 import {fileIconResolver} from "../../../../util/FileIconResolver";
 import Grid from 'react-bootstrap/lib/Grid';
 import PropTypes from 'prop-types';

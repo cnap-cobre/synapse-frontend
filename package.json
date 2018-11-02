@@ -14,7 +14,6 @@
     "react": "^16.5.2",
     "react-ace": "^6.2.0",
     "react-bootstrap": "^0.32.4",
-    "react-contexify": "^3.0.3",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.5.2",
