@@ -1,5 +1,5 @@
 import fileDownload from 'js-file-download';
-import {fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
+import {fetchErrorThrower, fetchToJson} from "../../util/FetchUtils";
 
 const listFiles = (filePath) => {
   const trimmedPath = filePath.slice('/agave'.length);
@@ -22,28 +22,6 @@ const listFiles = (filePath) => {
         file.provider = 'agave';
         return file;
       })))
-};
-
-const listFileSystems = () => {
-  return fetch(`/agave/systems/v2/`, {
-    credentials: 'same-origin'
-  })
-  // Throw a propper error
-      .then(fetchErrorThrower)
-      .then(fetchToJson)
-};
-
-const addFileSystem = (csrftoken, config) => {
-  return fetch(`/agave/systems/v2/`, {
-    body: JSON.stringify(config).replace(/!!!/g, "\\n"),
-    credentials: 'same-origin',
-    method: 'POST',
-    headers: {
-      'X-CSRFToken': csrftoken,
-      'content-type': 'application/json'
-    }
-  }).then(fetchErrorThrower)
-    .then(fetchToJson);
 };
 
 const wget = (csrftoken, file) => {
@@ -117,8 +95,6 @@ const rename = moveCopyRenameMkdir('RENAME');
 
 export default {
   listFiles,
-  listFileSystems,
-  addFileSystem,
   wget,
   rm,
   share: () => {console.log('Share')},

@@ -1,7 +1,7 @@
 import {Dropbox} from 'dropbox';
 import fileDownload from 'js-file-download';
 import path from 'path';
-import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../util/FetchUtils";
+import {DropboxToAgaveFormat, fetchErrorThrower, fetchToJson} from "../../util/FetchUtils";
 
 
 const urlRemap = (url) => (
