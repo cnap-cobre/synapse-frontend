@@ -1,17 +1,10 @@
 import {RECEIVE_PROFILE} from "../userProfile/actions";
-import {
-  FAIL_AGAVE_FILE_SYSTEMS,
-  INVALIDATE_AGAVE_FILE_SYSTEMS, RECEIVE_AGAVE_FILE_SYSTEMS,
-  REQUEST_AGAVE_FILE_SYSTEMS
-} from "../agaveFileSystems/actions";
+
+import * as agaveFilesystemTypes from '../agaveFileSystems/types';
 
 export const initialFileSystemsState = {
   systems: [],
-  isFetching: false,
-  hasFetched: false,
-  didInvalidate: false,
-  lastUpdated: 0,
-  errorMessage: ""
+  loading: false
 };
 
 export default function fileSystems(state = initialFileSystemsState, action) {
@@ -23,35 +16,26 @@ export default function fileSystems(state = initialFileSystemsState, action) {
   );
 
   switch (action.type) {
-    case REQUEST_AGAVE_FILE_SYSTEMS:
-      return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
-      });
-    case RECEIVE_AGAVE_FILE_SYSTEMS:
+    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.PENDING:
+      return {
+        ...state,
+        loading: true
+      };
+    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS:
       const agaveSystems = action.systems;
-      return Object.assign({}, state, {
+      return {
+        ...state,
+        loading: false,
         systems: [
-          ...agaveSystems,
-          ...nonAgaveSystems
-        ],
-        isFetching: false,
-        hasFetched: true,
-        didInvalidate: false,
-        lastUpdated: action.receivedAt
-      });
-    case FAIL_AGAVE_FILE_SYSTEMS:
-      return Object.assign({}, state, {
-        systems: nonAgaveSystems,
-        isFetching: false,
-        hasFetched: true,
-        lastUpdated: action.receivedAt,
-        errorMessage: action.message
-      });
-    case INVALIDATE_AGAVE_FILE_SYSTEMS:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      });
+            ...agaveSystems,
+            ...nonAgaveSystems
+        ]
+      };
+    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.ERROR:
+      return {
+        ...state,
+        loading: false,
+      };
     case RECEIVE_PROFILE:
       const dropboxSystems = [];
       if (action.userProfile.dropbox.length !== 0) {

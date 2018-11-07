@@ -4,9 +4,17 @@ const listFileSystems = () => {
   return fetch(`/agave/systems/v2/`, {
     credentials: 'same-origin'
   })
-  // Throw a proper error
+      // Throw a proper error
       .then(fetchErrorThrower)
       .then(fetchToJson)
+
+      .then(response => response.result)
+
+      // Add provider property
+      .then(list => (list.map((file) => {
+        file.provider = 'agave';
+        return file;
+      })));
 };
 
 const addFileSystem = (csrftoken, config) => {

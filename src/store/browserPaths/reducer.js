@@ -1,4 +1,4 @@
-import {RECEIVE_AGAVE_FILE_SYSTEMS} from "../agaveFileSystems/actions";
+import * as agaveFileSystemsTypes from '../agaveFileSystems/types';
 import {RECEIVE_PROFILE} from "../userProfile/actions";
 import {SET_BROWSER_PATH} from "./actions";
 
@@ -7,7 +7,7 @@ export const initialBrowserPathsState = {};
 
 export default function browserPaths(state = initialBrowserPathsState, action) {
   switch (action.type) {
-    case RECEIVE_AGAVE_FILE_SYSTEMS:
+    case agaveFileSystemsTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS:
       const keysFromAction = action.systems.reduce((acc, cv) => {
         acc[cv.provider + '.' + cv.id] = ['', cv.provider, cv.id, ''].join('/');
         return acc;

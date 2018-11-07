@@ -2,7 +2,7 @@ import loggerMiddleware from './loggerMiddleware';
 import monitorReducerEnhancer from "./monitorReducerEnhancer";
 import persistState from 'redux-localstorage';
 import rootReducer from './rootReducer';
-import {registerWithMiddleware} from './sagas/index';
+import { initSagas } from './rootSaga';
 import thunkMiddleware from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
@@ -14,10 +14,11 @@ const makeRootReducer = () => combineReducers({
   router: routerReducer
 });
 
+const sagaMiddleware = createSagaMiddleware();
+
 export default function configureStore(history, initialState = {}) {
   // add `routerMiddleware` to your middlewares, passing it the history
   // singleton from the app's entry point
-  const sagaMiddleware = createSagaMiddleware();
 
   const middlewareEnhancer = applyMiddleware(
     loggerMiddleware,
@@ -38,7 +39,7 @@ export default function configureStore(history, initialState = {}) {
       enhancers
   );
 
-  registerWithMiddleware(sagaMiddleware);
+  initSagas(sagaMiddleware);
 
   return store;
 }

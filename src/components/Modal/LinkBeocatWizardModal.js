@@ -1,15 +1,8 @@
 import Agave from '../../services/Agave';
-import Button from 'react-bootstrap/lib/Button';
 import {connect} from "react-redux";
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import Cookies from 'js-cookie';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Modal from 'react-bootstrap/lib/Modal';
 import React from 'react';
 import {addModal, removeModal} from "../../store/modals/actions";
-import {invalidateAgaveFileSystems, requestAgaveFileSystems} from "../../store/agaveFileSystems/actions";
 
 class LinkBeocatWizardModal extends React.Component {
 

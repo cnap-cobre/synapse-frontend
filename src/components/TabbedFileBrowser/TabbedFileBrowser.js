@@ -1,6 +1,6 @@
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
-import {fetchAgaveFileSystemsIfNeeded} from "../../store/agaveFileSystems/actions";
+import {actions as agaveFileSystemsActions} from "../../store/AgaveFileSystems";
 import {fetchFilesIfNeeded} from "../../store/files/actions";
 import {fetchProfileIfNeeded} from "../../store/userProfile/actions";
 import FileBrowser from "./FileBrowser/FileBrowser";
@@ -41,13 +41,9 @@ class TabbedFileBrowser extends React.Component {
     if(this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     } else {
-      this.props.dispatch(
-        fetchAgaveFileSystemsIfNeeded()
-      ).then(() => {
-        this.props.dispatch(fetchProfileIfNeeded());
-      }).then(() => {
-        this.props.dispatch(fetchFilesIfNeeded(this.props.path));
-      });
+      this.props.dispatch(agaveFileSystemsActions.pending());
+      this.props.dispatch(fetchProfileIfNeeded());
+      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
     }
   }
 
@@ -192,7 +188,11 @@ const mapStateToProps = (store, ownProps) => {
 
   return{
     ...ownProps,
-    isReady: store.userProfile.hasFetched && store.fileSystems.hasFetched,
+    isReady: (
+        store.userProfile.hasFetched &&
+        !store.fileSystems.loading &&
+        store.fileSystems.systems.length !== 0
+    ),
     fileSystems,
     pathname: store.router.pathname,
     browserPaths: store.browserPaths,

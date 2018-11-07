@@ -17,8 +17,6 @@ export const createAsyncTypes = typeString => {
     );
 };
 
-export const createAction = (type, payload = {}) => ({type, payload});
-
 ///////////////////
 // createReducer //
 ///////////////////
