@@ -4,7 +4,7 @@ import { actions as agaveFileSystemsActions } from './store/AgaveFileSystems';
 import {fetchProfileIfNeeded} from "./store/userProfile/actions";
 import ModalWrapper from './components/Modal/ModalWrapper';
 import {Notify} from 'react-redux-notify';
-import {putCSRFTokenInStore} from "./store/csrf/actions";
+import {putCSRFTokenInStore} from "./store/Csrf";
 import React from "react";
 import {Router} from 'redux-json-router';
 import routes from './routes.json';

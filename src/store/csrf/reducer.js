@@ -1,7 +1,5 @@
 import Cookies from 'js-cookie';
-import {PUT_CSRF_TOKEN_IN_STORE} from "./actions";
-
-
+import {PUT_CSRF_TOKEN_IN_STORE} from "./types";
 
 export const initialCSRFTokenState = {
   token: '',

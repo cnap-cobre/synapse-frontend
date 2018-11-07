@@ -1,4 +1,4 @@
-export const PUT_CSRF_TOKEN_IN_STORE = 'PUT_CSRF_TOKEN_IN_STORE';
+import {PUT_CSRF_TOKEN_IN_STORE} from "./csrf/types";
 
 export function putCSRFTokenInStore() {
   return {
