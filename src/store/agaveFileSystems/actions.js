@@ -1,9 +1,11 @@
-import Agave from '../services/Agave';
+import Agave from '../../services/Agave/index';
 
 export const REQUEST_AGAVE_FILE_SYSTEMS = 'REQUEST_AGAVE_FILE_SYSTEMS';
+export const FETCH_AGAVE_FILE_SYSTEMS = 'FETCH_AGAVE_FILE_SYSTEMS';
 export const RECEIVE_AGAVE_FILE_SYSTEMS = 'RECEIVE_AGAVE_FILE_SYSTEMS';
 export const FAIL_AGAVE_FILE_SYSTEMS = 'FAIL_AGAVE_FILE_SYSTEMS';
 export const INVALIDATE_AGAVE_FILE_SYSTEMS = 'INVALIDATE_AGAVE_FILE_SYSTEMS';
+export const FETCH_AGAVE_FILE_SYSTEMS_IF_NEEDED = 'FETCH_AGAVE_FILE_SYSTEMS_IF_NEEDED';
 
 export function requestAgaveFileSystems() {
   return {
@@ -38,6 +40,12 @@ export function invalidateAgaveFileSystems() {
   }
 }
 
+// export function fetchAgaveFileSystems() {
+//   return {
+//     type: FETCH_AGAVE_FILE_SYSTEMS
+//   }
+// }
+
 function fetchAgaveFileSystems() {
   const action = dispatch => {
     dispatch(requestAgaveFileSystems());
@@ -66,6 +74,12 @@ function shouldFetchAgaveFileSystems(state) {
     return agaveFileSystems.didInvalidate;
   }
 }
+
+// export function fetchAgaveFileSystemsIfNeeded() {
+//   return {
+//     type: FETCH_AGAVE_FILE_SYSTEMS_IF_NEEDED
+//   }
+// }
 
 export function fetchAgaveFileSystemsIfNeeded() {
   const action = (dispatch, getState) => {

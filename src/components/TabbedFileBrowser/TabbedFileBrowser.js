@@ -1,18 +1,18 @@
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
-import {fetchAgaveFileSystemsIfNeeded} from "../../actions/agaveFileSystems";
-import {fetchFilesIfNeeded} from "../../actions/files";
-import {fetchProfileIfNeeded} from "../../actions/userProfile";
+import {fetchAgaveFileSystemsIfNeeded} from "../../store/agaveFileSystems/actions";
+import {fetchFilesIfNeeded} from "../../store/files/actions";
+import {fetchProfileIfNeeded} from "../../store/userProfile/actions";
 import FileBrowser from "./FileBrowser/FileBrowser";
 import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {setBrowserPath} from "../../actions/browserPaths";
-import {setFocusedFile} from "../../actions/focusedFiles";
+import {setBrowserPath} from "../../store/browserPaths/actions";
+import {setFocusedFile} from "../../store/focusedFiles/actions";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
-import {toggleDotfiles} from "../../actions/visualOptions";
+import {toggleDotfiles} from "../../store/visualOptions/actions";
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
 

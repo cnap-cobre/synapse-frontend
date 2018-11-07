@@ -8,8 +8,8 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Modal from 'react-bootstrap/lib/Modal';
 import React from 'react';
-import {addModal, removeModal} from "../../actions/modals";
-import {invalidateAgaveFileSystems, requestAgaveFileSystems} from "../../actions/agaveFileSystems";
+import {addModal, removeModal} from "../../store/modals/actions";
+import {invalidateAgaveFileSystems, requestAgaveFileSystems} from "../../store/agaveFileSystems/actions";
 
 class LinkBeocatWizardModal extends React.Component {
 

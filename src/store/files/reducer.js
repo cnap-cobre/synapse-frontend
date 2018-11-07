@@ -4,7 +4,7 @@ import {
   INVALIDATE_FILES,
   RECEIVE_FILES,
   REQUEST_FILES, SYMLINK_CORRECTION_STARTED
-} from "../actions/files";
+} from "./actions";
 
 export const initialFilesState = {};
 

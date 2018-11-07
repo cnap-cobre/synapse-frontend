@@ -1,9 +1,9 @@
-import {RECEIVE_PROFILE} from "../actions/userProfile";
+import {RECEIVE_PROFILE} from "../userProfile/actions";
 import {
   FAIL_AGAVE_FILE_SYSTEMS,
   INVALIDATE_AGAVE_FILE_SYSTEMS, RECEIVE_AGAVE_FILE_SYSTEMS,
   REQUEST_AGAVE_FILE_SYSTEMS
-} from "../actions/agaveFileSystems";
+} from "../agaveFileSystems/actions";
 
 export const initialFileSystemsState = {
   systems: [],

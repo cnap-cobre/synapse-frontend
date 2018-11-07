@@ -3,7 +3,7 @@ import {
   INVALIDATE_AGAVE_FILE_SYSTEMS,
   RECEIVE_AGAVE_FILE_SYSTEMS,
   REQUEST_AGAVE_FILE_SYSTEMS
-} from "../actions/agaveFileSystems";
+} from "./actions";
 
 export const initialAgaveFileSystemsState = {
   systems: [],

@@ -10,9 +10,9 @@ import path from 'path';
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
-import {setBrowserPath} from "../../../actions/browserPaths";
-import {addFocusedFile, clearFocusedFiles, removeFocusedFile, setFocusedFile, setFocusedFilesList} from "../../../actions/focusedFiles";
-import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../actions/files";
+import {setBrowserPath} from "../../../store/browserPaths/actions";
+import {addFocusedFile, clearFocusedFiles, removeFocusedFile, setFocusedFile, setFocusedFilesList} from "../../../store/focusedFiles/actions";
+import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../store/files/actions";
 
 
 

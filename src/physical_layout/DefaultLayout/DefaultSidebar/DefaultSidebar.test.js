@@ -1,6 +1,6 @@
 import configureStore from 'redux-mock-store';
 import DefaultSidebar from './DefaultSidebar';
-import { initialUserProfileState } from "../../../reducers/userProfile";
+import { initialUserProfileState } from "../../../store/userProfile/reducer";
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';

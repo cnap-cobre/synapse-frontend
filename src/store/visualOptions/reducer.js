@@ -8,7 +8,7 @@ import {
   SET_SIDEBAR_MINIMIZED,
   SHOW_DOTFILES,
   TOGGLE_DOTFILES, TOGGLE_FILE_VIEW_FORMAT, TOGGLE_MOBILE_NAV, TOGGLE_SIDEBAR
-} from "../actions/visualOptions";
+} from "./actions";
 
 
 export const initialVisualOptionsState = {

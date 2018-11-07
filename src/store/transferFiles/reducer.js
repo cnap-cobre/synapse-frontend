@@ -1,4 +1,4 @@
-import {START_TRANSFER} from "../actions/transferFiles";
+import {START_TRANSFER} from "./actions";
 
 export const initialTransferState = {
 };

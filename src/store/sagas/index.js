@@ -1,5 +1,7 @@
-const sagas = {
+import * as agaveFileSystems from './agaveFileSystems';
 
+const sagas = {
+    ...agaveFileSystems
 };
 
 export function registerWithMiddleware(middleware) {

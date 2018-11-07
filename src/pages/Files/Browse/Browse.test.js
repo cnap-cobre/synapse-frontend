@@ -1,9 +1,9 @@
 import Browse from './Browse';
 import configureStore from 'redux-mock-store';
 import ExampleFileListing from './ExampleFileListing.json'
-import {initialAgaveFileSystemsState} from "../../../reducers/agaveFileSystems";
-import {initialFileSystemsState} from "../../../reducers/fileSystems";
-import {initialUserProfileState} from "../../../reducers/userProfile";
+import {initialAgaveFileSystemsState} from "../../../store/agaveFileSystems/reducer";
+import {initialFileSystemsState} from "../../../store/fileSystems/reducer";
+import {initialUserProfileState} from "../../../store/userProfile/reducer";
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';

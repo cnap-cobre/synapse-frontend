@@ -1,4 +1,4 @@
-import {ADD_MODAL, REMOVE_MODAL} from "../actions/modals";
+import {ADD_MODAL, REMOVE_MODAL} from "./actions";
 
 export const initialModalState = {};
 

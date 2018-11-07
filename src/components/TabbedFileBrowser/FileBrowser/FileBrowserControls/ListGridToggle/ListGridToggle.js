@@ -4,7 +4,7 @@ import FaTh from 'react-icons/lib/fa/th';
 import FaThList from 'react-icons/lib/fa/th-list'
 import PropTypes from 'prop-types';
 import React from 'react';
-import {toggleFileViewFormat} from "../../../../../actions/visualOptions";
+import {toggleFileViewFormat} from "../../../../../store/visualOptions/actions";
 
 class ListGridToggle extends React.Component {
   static propTypes = {

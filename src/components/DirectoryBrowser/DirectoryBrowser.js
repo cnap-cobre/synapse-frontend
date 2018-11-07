@@ -3,7 +3,7 @@ import {fileIconResolver} from "../../util/FileIconResolver";
 import Loader from "../Loader/Loader";
 import PropTypes from 'prop-types';
 import React from 'react';
-import {toggleDotfiles} from "../../actions/visualOptions";
+import {toggleDotfiles} from "../../store/visualOptions/actions";
 
 class DirectoryBrowser extends React.Component {
   static propTypes = {

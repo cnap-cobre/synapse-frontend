@@ -1,4 +1,4 @@
-import {addModal} from "../../../actions/modals";
+import {addModal} from "../../../store/modals/actions";
 import {connect} from 'react-redux';
 import React from 'react';
 import './beocatButton.scss';

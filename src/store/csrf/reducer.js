@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import {PUT_CSRF_TOKEN_IN_STORE} from "../actions/csrf";
+import {PUT_CSRF_TOKEN_IN_STORE} from "./actions";
 
 
 

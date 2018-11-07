@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
-import {fetchFilesIfNeeded} from "../../actions/files";
+import {fetchFilesIfNeeded} from "../../store/files/actions";
 import PropTypes from 'prop-types';
 import React from 'react';
 import Tab from 'react-bootstrap/lib/Tab';

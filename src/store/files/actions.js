@@ -1,6 +1,6 @@
-import Agave from '../services/Agave';
-import Dropbox from '../services/Dropbox';
-import {clearFocusedFiles, removeFocusedFile, setFocusedFile} from "./focusedFiles";
+import Agave from '../../services/Agave/index';
+import Dropbox from '../../services/Dropbox/index';
+import {clearFocusedFiles, removeFocusedFile, setFocusedFile} from "../focusedFiles/actions";
 
 export const REQUEST_FILES = 'REQUEST_FILES';
 export const RECEIVE_FILES = 'RECEIVE_FILES';

@@ -1,10 +1,10 @@
-import {addModal} from "../../actions/modals";
+import {addModal} from "../../store/modals/actions";
 import {connect} from 'react-redux';
 import EventListener from 'react-event-listener';
 import React from 'react';
-import {startTransfer} from "../../actions/transferFiles";
+import {startTransfer} from "../../store/transferFiles/actions";
 import {copyFile, deleteFile, fetchFilesIfNeeded,
-  invalidateFiles, moveFile, renameFile} from "../../actions/files";
+  invalidateFiles, moveFile, renameFile} from "../../store/files/actions";
 import './ContextMenu.scss';
 
 const DownloadLink = (props) => {

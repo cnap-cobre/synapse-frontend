@@ -5,7 +5,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeModal } from '../../actions/modals';
+import { removeModal } from '../../store/modals/actions';
 
 class RenameFileModal extends React.Component {
 

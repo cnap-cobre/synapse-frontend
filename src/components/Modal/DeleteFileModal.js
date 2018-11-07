@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from "react";
-import { removeModal } from "../../actions/modals";
+import { removeModal } from "../../store/modals/actions";
 
 class DeleteFileModal extends React.Component {
   
