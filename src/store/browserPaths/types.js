@@ -1,0 +1,1 @@
+export const SET_BROWSER_PATH = 'SET_BROWSER_PATH';

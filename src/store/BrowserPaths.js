@@ -1,4 +1,4 @@
-export const SET_BROWSER_PATH = 'SET_BROWSER_PATH';
+import {SET_BROWSER_PATH} from "./browserPaths/types";
 
 export function setBrowserPath(system, path) {
   return {

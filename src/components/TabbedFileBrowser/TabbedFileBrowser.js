@@ -8,7 +8,7 @@ import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {setBrowserPath} from "../../store/browserPaths/actions";
+import {setBrowserPath} from "../../store/BrowserPaths";
 import {setFocusedFile} from "../../store/focusedFiles/actions";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
