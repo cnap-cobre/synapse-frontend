@@ -1,4 +1,10 @@
-import {ADD_FOCUSED_FILE, CLEAR_FOCUSED_FILES, REMOVE_FOCUSED_FILE, SET_FOCUSED_FILE, SET_FOCUSED_FILES_LIST} from "./actions";
+import {
+  ADD_FOCUSED_FILE,
+  CLEAR_FOCUSED_FILES,
+  REMOVE_FOCUSED_FILE,
+  SET_FOCUSED_FILE,
+  SET_FOCUSED_FILES_LIST
+} from "./types";
 
 const initialFocusedFileState = {
   list: []
