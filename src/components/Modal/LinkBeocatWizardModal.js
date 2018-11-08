@@ -2,7 +2,7 @@ import Agave from '../../services/Agave';
 import {connect} from "react-redux";
 import Modal from 'react-bootstrap/lib/Modal';
 import React from 'react';
-import {addModal, removeModal} from "../../store/modals/actions";
+import {addModal, removeModal} from "../../store/Modals";
 
 class LinkBeocatWizardModal extends React.Component {
 

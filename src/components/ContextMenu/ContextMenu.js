@@ -1,4 +1,4 @@
-import {addModal} from "../../store/modals/actions";
+import {addModal} from "../../store/Modals";
 import {connect} from 'react-redux';
 import EventListener from 'react-event-listener';
 import React from 'react';

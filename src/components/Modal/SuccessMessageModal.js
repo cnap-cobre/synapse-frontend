@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import React from 'react';
-import {removeModal} from "../../store/modals/actions";
+import {removeModal} from "../../store/Modals";
 
 export default class SuccessMessageModal extends React.Component {
 

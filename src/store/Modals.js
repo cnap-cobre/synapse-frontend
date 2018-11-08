@@ -1,7 +1,5 @@
 import uuidv4 from 'uuid/v4';
-
-export const ADD_MODAL = 'ADD_MODAL';
-export const REMOVE_MODAL = 'REMOVE_MODAL';
+import {ADD_MODAL, REMOVE_MODAL} from './modals/types';
 
 // For now, we'll declare these here.
 // The kinds of modals that we want are

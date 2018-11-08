@@ -1,4 +1,4 @@
-import {addModal} from "../../../../../store/modals/actions";
+import {addModal} from "../../../../../store/Modals";
 import Button from 'react-bootstrap/lib/Button';
 import {connect} from 'react-redux';
 import FaPlusSquare from 'react-icons/lib/fa/plus-square';
