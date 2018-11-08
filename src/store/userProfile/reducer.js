@@ -1,4 +1,4 @@
-import {INVALIDATE_PROFILE, RECEIVE_PROFILE, REQUEST_PROFILE} from "./actions";
+import {INVALIDATE_PROFILE, RECEIVE_PROFILE, REQUEST_PROFILE} from "./types";
 
 export const initialUserProfileState = {
   id: 0,

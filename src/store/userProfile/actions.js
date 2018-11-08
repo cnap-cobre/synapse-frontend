@@ -1,6 +1,8 @@
-export const REQUEST_PROFILE = 'REQUEST_PROFILE';
-export const RECEIVE_PROFILE = 'RECEIVE_PROFILE';
-export const INVALIDATE_PROFILE = 'INVALIDATE_PROFILE';
+import {
+  REQUEST_PROFILE,
+  INVALIDATE_PROFILE,
+  RECEIVE_PROFILE
+} from "./types";
 
 export function requestProfile() {
   return {
