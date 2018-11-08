@@ -1,4 +1,4 @@
-import {START_TRANSFER} from "./actions";
+import {START_TRANSFER} from "./types";
 
 export const initialTransferState = {
 };
@@ -10,9 +10,7 @@ export default function transferFiles(state = initialTransferState, action) {
         return acc;
       }, {});
 
-      return {
-
-      };
+      return state;
     default:
       return state;
   }

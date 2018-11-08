@@ -2,7 +2,7 @@ import {addModal} from "../../store/modals/actions";
 import {connect} from 'react-redux';
 import EventListener from 'react-event-listener';
 import React from 'react';
-import {startTransfer} from "../../store/transferFiles/actions";
+import {startTransfer} from "../../store/TransferFiles";
 import {copyFile, deleteFile, fetchFilesIfNeeded,
   invalidateFiles, moveFile, renameFile} from "../../store/files/actions";
 import './ContextMenu.scss';
