@@ -1,6 +1,17 @@
-export const SHOW_DOTFILES = 'SHOW_DOTFILES';
-export const HIDE_DOTFILES = 'HIDE_DOTFILES';
-export const TOGGLE_DOTFILES = 'TOGGLE_DOTFILES';
+import {
+  SHOW_DOTFILES,
+  HIDE_DOTFILES,
+  TOGGLE_DOTFILES,
+  SET_SIDEBAR_MAXIMIZED,
+  SET_SIDEBAR_MINIMIZED,
+  TOGGLE_SIDEBAR,
+  SET_MOBILE_NAV_OPEN,
+  SET_MOBILE_NAV_CLOSED,
+  TOGGLE_MOBILE_NAV,
+  SET_FILE_VIEW_FORMAT_LIST,
+  SET_FILE_VIEW_FORMAT_GRID,
+  TOGGLE_FILE_VIEW_FORMAT
+} from './visualOptions/types';
 
 export function showDotifles() {
   return {
@@ -22,10 +33,6 @@ export function toggleDotfiles() {
 
 // ----------------------------------------------
 
-export const SET_SIDEBAR_MAXIMIZED = 'SET_SIDEBAR_MAXIMIZED';
-export const SET_SIDEBAR_MINIMIZED = 'SET_SIDEBAR_MINIMIZED';
-export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
-
 export function setSidebarMaximized() {
   return {
     type: SET_SIDEBAR_MAXIMIZED
@@ -46,10 +53,6 @@ export function toggleSidebar() {
 
 // --------------------------------------------
 
-export const SET_MOBILE_NAV_OPEN = 'SET_MOBILE_NAV_OPEN';
-export const SET_MOBILE_NAV_CLOSED = 'SET_MOBILE_NAV_CLOSED';
-export const TOGGLE_MOBILE_NAV = 'TOGGLE_MOBILE_NAV';
-
 export function setMobileNavOpen() {
   return {
     type: SET_MOBILE_NAV_OPEN
@@ -69,10 +72,6 @@ export function toggleMobileNav() {
 }
 
 // --------------------------------------------
-
-export const SET_FILE_VIEW_FORMAT_LIST = 'SET_FILE_VIEW_FORMAT_LIST';
-export const SET_FILE_VIEW_FORMAT_GRID = 'SET_FILE_VIEW_FORMAT_GRID';
-export const TOGGLE_FILE_VIEW_FORMAT = 'TOGGLE_FILE_VIEW_FORMAT';
 
 export function setFileViewFormatList() {
   return {

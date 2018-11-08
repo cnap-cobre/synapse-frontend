@@ -12,7 +12,7 @@ import {setBrowserPath} from "../../store/BrowserPaths";
 import {setFocusedFile} from "../../store/FocusedFiles";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
-import {toggleDotfiles} from "../../store/visualOptions/actions";
+import {toggleDotfiles} from "../../store/VisualOptions";
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
 

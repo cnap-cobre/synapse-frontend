@@ -3,7 +3,7 @@ import DefaultFooter from './DefaultFooter/DefaultFooter';
 import DefaultNavbar from './DefaultNavbar/DefaultNavbar';
 import DefaultSidebar from './DefaultSidebar/DefaultSidebar';
 import React from 'react';
-import {toggleMobileNav} from "../../store/visualOptions/actions";
+import {toggleMobileNav} from "../../store/VisualOptions";
 
 class DefaultLayout extends React.Component {
   render() {

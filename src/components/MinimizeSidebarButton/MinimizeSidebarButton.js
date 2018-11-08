@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import React from 'react';
-import {toggleSidebar} from "../../store/visualOptions/actions";
+import {toggleSidebar} from "../../store/VisualOptions";
 
 class MinimizeSidebarButton extends React.Component {
   render() {
