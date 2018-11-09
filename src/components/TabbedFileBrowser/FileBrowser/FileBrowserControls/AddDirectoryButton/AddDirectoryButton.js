@@ -1,10 +1,10 @@
 import {addModal} from "../../../../../store/Modals";
 import Button from 'react-bootstrap/lib/Button';
 import {connect} from 'react-redux';
+import {directoryActions} from "../../../../../store/Files";
 import FaPlusSquare from 'react-icons/lib/fa/plus-square';
 import PropTypes from 'prop-types';
 import React from "react";
-import {directoryActions} from "../../../../../store/Files";
 
 class AddDirectoryButton extends React.Component{
   static propTypes = {

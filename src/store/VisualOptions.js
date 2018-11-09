@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   SHOW_DOTFILES,
   HIDE_DOTFILES,

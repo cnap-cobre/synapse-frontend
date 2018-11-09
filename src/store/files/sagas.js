@@ -1,9 +1,9 @@
+import * as types from './types';
 import Agave from '../../services/Agave/index';
 import Dropbox from '../../services/Dropbox/index';
-import * as types from './types';
 import {fileListActions} from '../Files';
 import {removeFocusedFile} from "../FocusedFiles";
-import { all, call, put, takeEvery, select } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 
 
 const getCsrf = state => state.csrf.token;

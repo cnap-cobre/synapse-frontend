@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
-import {fileListActions} from "../../store/Files";
 import FileBreadcrumbs from "../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs";
+import {fileListActions} from "../../store/Files";
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';

@@ -1,9 +1,9 @@
 import agaveFileActions from './agaveFileActions';
-import agaveFileSystems from './agaveFileSystems';
 import agaveFileHistory from './agaveFileHistory';
+import agaveFileSystems from './agaveFileSystems';
 
 export default {
   ...agaveFileActions,
-  ...agaveFileSystems,
-  ...agaveFileHistory
+  ...agaveFileHistory,
+  ...agaveFileSystems
 };

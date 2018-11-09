@@ -1,5 +1,6 @@
 import {addModal} from "../../store/Modals";
 import Agave from '../../services/Agave';
+import { actions as agaveFileSystemsActions } from '../../store/AgaveFileSystems';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import {connect} from 'react-redux';
@@ -9,7 +10,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import React from 'react';
-import { actions as agaveFileSystemsActions } from '../../store/AgaveFileSystems';
 
 
 class AddSftpFileSystemForm extends React.Component {

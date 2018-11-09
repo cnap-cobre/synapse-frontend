@@ -1,6 +1,6 @@
 import * as Synapse from '../../services/Synapse';
 import * as types from './types';
-import { all, call, put, takeEvery, select } from 'redux-saga/effects'
+import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 
 const getCsrf = state => state.csrf.token;
 

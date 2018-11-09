@@ -1,6 +1,6 @@
 import * as types from './types';
-import { all, put, takeEvery } from 'redux-saga/effects';
 import {fileHistoryActions} from '../FileHistory';
+import { all, put, takeEvery } from 'redux-saga/effects';
 
 function *getFileHistory(action) {
   console.log("CKAE", action);

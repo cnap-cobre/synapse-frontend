@@ -1,9 +1,9 @@
 import {
   ADD_FOCUSED_FILE,
   CLEAR_FOCUSED_FILES,
-  SET_FOCUSED_FILES_LIST,
+  REMOVE_FOCUSED_FILE,
   SET_FOCUSED_FILE,
-  REMOVE_FOCUSED_FILE
+  SET_FOCUSED_FILES_LIST
 } from "./focusedFiles/types";
 
 export function addFocusedFile(filePath) {

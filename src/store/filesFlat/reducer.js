@@ -1,11 +1,3 @@
-// import {
-//   DELETE_FILE,
-//   FAIL_FILES, FIX_AGAVE_SYMLINK_BUG,
-//   INVALIDATE_FILES,
-//   RECEIVE_FILES,
-//   REQUEST_FILES, SYMLINK_CORRECTION_STARTED
-// } from "../files/actions";
-
 import * as types from '../files/types';
 
 export const initialFileState = {};

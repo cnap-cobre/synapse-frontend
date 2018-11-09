@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
-import React from 'react';
 import Loader from '../Loader/Loader';
+import React from 'react';
 
 class HistoryMetadata extends React.Component{
   render() {

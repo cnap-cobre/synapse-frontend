@@ -1,7 +1,7 @@
-import Agave from '../../services/Agave/index';
-import { actions } from '../AgaveFileSystems';
-import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as types from './types';
+import { actions } from '../AgaveFileSystems';
+import Agave from '../../services/Agave/index';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 
 function* getAgaveFileSystems() {

@@ -1,9 +1,8 @@
+import {actions as agaveFileSystemsActions} from "../../store/AgaveFileSystems";
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
-import {actions as agaveFileSystemsActions} from "../../store/AgaveFileSystems";
-import {fileListActions} from "../../store/Files";
-import { actions as userProfileActions } from '../../store/UserProfile';
 import FileBrowser from "./FileBrowser/FileBrowser";
+import {fileListActions} from "../../store/Files";
 import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
@@ -13,6 +12,7 @@ import {setFocusedFile} from "../../store/FocusedFiles";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import {toggleDotfiles} from "../../store/VisualOptions";
+import { actions as userProfileActions } from '../../store/UserProfile';
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
 

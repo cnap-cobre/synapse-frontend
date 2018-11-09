@@ -1,7 +1,8 @@
 import * as Synapse from '../../services/Synapse';
+import * as types from './types';
 import { actions } from '../UserProfile';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import * as types from './types';
+
 
 function* getUserProfile() {
   try{

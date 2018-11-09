@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "regenerator-runtime/runtime";
 import App from './App';
 import { AppContainer } from 'react-hot-loader';
@@ -5,7 +6,7 @@ import configureStore from './store/index';
 import { Provider } from 'react-redux';
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory, Router, startListener } from 'redux-json-router';
+import { createBrowserHistory, startListener } from 'redux-json-router';
 
 // Create the history object
 const history = createBrowserHistory();

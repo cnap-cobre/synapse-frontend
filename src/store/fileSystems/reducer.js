@@ -1,5 +1,6 @@
-import * as userProfileTypes from '../userProfile/types';
 import * as agaveFilesystemTypes from '../agaveFileSystems/types';
+import * as userProfileTypes from '../userProfile/types';
+
 
 export const initialFileSystemsState = {
   systems: [],
