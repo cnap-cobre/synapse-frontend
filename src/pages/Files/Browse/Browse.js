@@ -1,5 +1,6 @@
 import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
 import FileMetadata from "../../../components/FileMetadata/FileMetadata";
+import HistoryMetadata from '../../../components/HistoryMetadata/HistoryMetadata';
 import React from 'react';
 import TabbedFileBrowser from "../../../components/TabbedFileBrowser/TabbedFileBrowser";
 import './fileMacroLayout.scss';
@@ -29,7 +30,7 @@ export default class Browse extends React.Component {
 
                   <FileMetadata/>
                   <hr />
-                  <p>Other types of metadata here soon.</p>
+                  <HistoryMetadata/>
 
                 </div>
               </div>

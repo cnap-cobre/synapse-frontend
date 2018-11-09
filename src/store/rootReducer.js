@@ -1,6 +1,7 @@
 import agaveFileSystems from './agaveFileSystems/reducer';
 import browserPaths from './browserPaths/reducer';
 import csrf from './csrf/reducer';
+import fileHistory from './fileHistory/reducer';
 import files from './files/reducer';
 import filesFlat from './filesFlat/reducer';
 import fileSystems from './fileSystems/reducer';
@@ -16,6 +17,7 @@ export default {
   agaveFileSystems,
   browserPaths,
   csrf,
+  fileHistory,
   files,
   filesFlat,
   fileSystems,

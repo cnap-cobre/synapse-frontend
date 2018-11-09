@@ -26,9 +26,9 @@ const dbx = (csrftoken) => {
   )
 };
 
-const fileHistory = (csrftoken, file) => {
-  dbx(csrftoken).fileListRevisions({
-    path: file.path
+const fileHistory = (csrftoken, path) => {
+  dbx(csrftoken).filesListRevisions({
+    path: '/' + path.split('/').slice(3).join('/')
   });
 };
 
