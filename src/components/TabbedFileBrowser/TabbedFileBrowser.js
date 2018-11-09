@@ -1,7 +1,7 @@
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
 import {actions as agaveFileSystemsActions} from "../../store/AgaveFileSystems";
-import {fetchFilesIfNeeded} from "../../store/files/actions";
+import {fileListActions} from "../../store/Files";
 import {fetchProfileIfNeeded} from "../../store/userProfile/actions";
 import FileBrowser from "./FileBrowser/FileBrowser";
 import {Link} from 'redux-json-router';
@@ -39,17 +39,17 @@ class TabbedFileBrowser extends React.Component {
     }
 
     if(this.matchesFileSystem(this.props.path)) {
-      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
+      this.props.dispatch(fileListActions.pending(this.props.path));
     } else {
       this.props.dispatch(agaveFileSystemsActions.pending());
       this.props.dispatch(fetchProfileIfNeeded());
-      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
+      this.props.dispatch(fileListActions.pending(this.props.path));
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
-      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
+      this.props.dispatch(fileListActions.pending(this.props.path));
     }
   }
 
@@ -209,7 +209,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(toggleDotfiles())
     },
     fetchFiles: (path) => {
-      dispatch(fetchFilesIfNeeded(path))
+      dispatch(fileListActions.pending(path))
     },
     dispatch
   };

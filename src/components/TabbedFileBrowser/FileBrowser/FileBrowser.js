@@ -12,8 +12,7 @@ import {push} from 'redux-json-router';
 import React from 'react';
 import {setBrowserPath} from "../../../store/BrowserPaths";
 import {addFocusedFile, removeFocusedFile, setFocusedFile, setFocusedFilesList} from "../../../store/FocusedFiles";
-import {fetchFilesIfNeeded, invalidateFiles, uploadFile} from "../../../store/files/actions";
-
+import {fileListActions, fileActions} from "../../../store/Files";
 
 
 class FileBrowser extends React.Component {
@@ -47,8 +46,7 @@ class FileBrowser extends React.Component {
   }
 
   handleRefresh = (path) => () => {
-    this.props.dispatch(invalidateFiles(path));
-    setTimeout(() => this.props.dispatch(fetchFilesIfNeeded(path)), 20);
+    this.props.dispatch(fileListActions(path));
   };
 
   handleContextMenu = (file, e) => {
@@ -115,7 +113,7 @@ class FileBrowser extends React.Component {
   handleFileDropzone = (files) => {
     console.log('DROPZONE', files);
     for (let i = 0; i < files.length; i++){
-      this.props.dispatch(uploadFile(files[i], this.props.path));
+      this.props.dispatch(fileActions.uploadFile(files[i], this.props.path));
     }
   };
 
@@ -162,13 +160,12 @@ class FileBrowser extends React.Component {
 const mapStateToProps = (store, ownProps) => {
   const filesAtPath = store.files[ownProps.path];
 
-  const loading = (filesAtPath === undefined || filesAtPath.isFetching);
-  const error = (!loading) && (filesAtPath.errorCode || !filesAtPath.hasFetched);
-  const list = (loading || error) ? [] : filesAtPath.files;
+  const loading = (filesAtPath === undefined || filesAtPath.loading);
+  const list = (loading) ? [] : filesAtPath.files;
 
   return {
     loading,
-    error,
+    error: false, // TODO: fix this hack and actually handle errors
     list,
     fileViewFormat: store.visualOptions.fileViewFormat,
     focusedFilePaths: store.focusedFiles.list

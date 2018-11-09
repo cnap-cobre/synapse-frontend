@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
-import {fetchFilesIfNeeded} from "../../store/files/actions";
+import {fileListActions} from "../../store/Files";
 import FileBreadcrumbs from "../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs";
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -69,7 +69,7 @@ class MoveCopyModal extends React.Component {
   };
 
   updatePath = (path) => {
-    this.props.dispatch(fetchFilesIfNeeded(path));
+    this.props.dispatch(fileListActions.pending(path));
     const pathTokens = path.split('/');
     this.setState({
       pathPrefix: pathTokens.slice(0,3).join('/'),

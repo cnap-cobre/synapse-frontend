@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
-import {fetchFilesIfNeeded} from "../../store/files/actions";
+import {fileListActions} from "../../store/Files";
 import PropTypes from 'prop-types';
 import React from 'react';
 import Tab from 'react-bootstrap/lib/Tab';
@@ -16,7 +16,7 @@ class TabbedDirectoryBrowser extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
-      this.props.dispatch(fetchFilesIfNeeded(this.props.path));
+      this.props.dispatch(fileListActions.pending(this.props.path));
     }
   }
 

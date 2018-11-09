@@ -1,8 +1,10 @@
 import agaveFileSystems from './agaveFileSystems/sagas';
+import files from './files/sagas';
 import transferFiles from './transferFiles/sagas';
 
 const sagas = [
   agaveFileSystems,
+  files,
   transferFiles
 ];
 

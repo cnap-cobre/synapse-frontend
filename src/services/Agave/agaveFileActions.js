@@ -1,7 +1,7 @@
 import fileDownload from 'js-file-download';
 import {fetchErrorThrower, fetchToJson} from "../../util/FetchUtils";
 
-const listFiles = (filePath) => {
+const listFiles = (csrftoken, filePath) => {
   const trimmedPath = filePath.slice('/agave'.length);
   const url = '/agave/files/v2/listings/system' + trimmedPath + '?limit=1000';
 

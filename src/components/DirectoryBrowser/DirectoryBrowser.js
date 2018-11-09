@@ -48,15 +48,14 @@ const mapStateToProps = (store, ownProps) => {
   console.log("ownProps.path", ownProps.path);
   const filesAtPath = store.files[ownProps.path];
 
-  const loading = (filesAtPath === undefined || filesAtPath.isFetching);
-  const error = (!loading) && (filesAtPath.errorCode || !filesAtPath.hasFetched);
-  const list = (loading || error || filesAtPath.errorCode) ? [] : filesAtPath.files.filter((item) => item.type === 'dir');
+  const loading = (filesAtPath === undefined || filesAtPath.loading);
+  const list = (loading) ? [] : filesAtPath.files.filter((item) => item.type === 'dir');
 
   const showDotfiles = store.visualOptions.showDotfiles;
 
   return {
     loading,
-    error,
+    error: false, // TODO: fix hack
     list: list.filter(
       (item, i) => ((showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
     ),

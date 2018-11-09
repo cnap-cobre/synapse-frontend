@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import EventListener from 'react-event-listener';
 import React from 'react';
 import {startTransfer} from "../../store/TransferFiles";
-import {copyFile, deleteFile, fetchFilesIfNeeded,
-  invalidateFiles, moveFile, renameFile} from "../../store/files/actions";
+import {fileActions, fileListActions} from "../../store/Files";
 import './ContextMenu.scss';
 
 const DownloadLink = (props) => {
@@ -75,7 +74,6 @@ class ContextMenu extends React.Component {
   };
 
   _handleClick = (event) => {
-    console.log("Click event", event);
     const { visible } = this.state;
     const wasOutside = !(event.target.contains === this.root);
 
@@ -94,8 +92,7 @@ class ContextMenu extends React.Component {
     // We delay a bit here so that Dropbox has a chance to be consistent.
     // See "Brewers Cap Theorem" - Consistency, Availability, Partition tolerance
     setTimeout(() => {
-      this.props.dispatch(invalidateFiles(path));
-      this.props.dispatch(fetchFilesIfNeeded(path));
+      this.props.dispatch(fileListActions.pending(path));
     }, 200);
   };
 
@@ -109,8 +106,6 @@ class ContextMenu extends React.Component {
       modalType: 'transfer',
       files: focusedFiles,
       action: (targetPath) => {
-        console.log("TARGET PATH", targetPath);
-        console.log("USING THESE FILES", focusedFiles);
         const transferOrders = focusedFiles.map(
             // Files get no trailing slash (obviously)
             // Directories must get a trailing slash
@@ -122,8 +117,6 @@ class ContextMenu extends React.Component {
         this.props.dispatch(
             startTransfer(transferOrders)
         );
-
-        console.log("Transfer Orders", transferOrders);
       }
     }));
   };
@@ -135,9 +128,9 @@ class ContextMenu extends React.Component {
       fileName: file.name,
       action: (newName) => {
         this.props.dispatch(
-            renameFile(file, newName)
-        ).then(
-            () => this.delayedRefresh(file.fullPath.split('/').slice(0,-1).join('/') + '/'))
+            fileActions.renameFile(file, newName)
+        );
+        this.delayedRefresh(file.fullPath.split('/').slice(0,-1).join('/') + '/')
       }
     }));
   };
@@ -167,7 +160,7 @@ class ContextMenu extends React.Component {
             focusedFiles.map(
                 file => {
                   console.log(file, newPath);
-                  return moveFile(file, newPath + '/' + file.name)
+                  return fileActions.moveFile(file, newPath + '/' + file.name)
                 }
             ).map(
                 moveAction => this.props.dispatch(moveAction)
@@ -206,7 +199,7 @@ class ContextMenu extends React.Component {
         // Copy each file
         Promise.all(
             focusedFiles.map(
-                file => copyFile(file, newPath + '/' + file.name)
+                file => fileActions.copyFile(file, newPath + file.name)
             ).map(
                 copyAction => this.props.dispatch(copyAction)
             )
@@ -236,7 +229,7 @@ class ContextMenu extends React.Component {
         // Delete each file
         Promise.all(
             this.props.focusedFiles.map(
-                file => deleteFile(file)
+                file => fileActions.deleteFile(file)
             ).map(
                 deleteAction => this.props.dispatch(deleteAction)
             )

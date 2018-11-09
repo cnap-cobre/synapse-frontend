@@ -1,4 +1,4 @@
-import {RECEIVE_PROFILE} from "../userProfile/actions";
+import {RECEIVE_PROFILE} from "../userProfile/types";
 
 import * as agaveFilesystemTypes from '../agaveFileSystems/types';
 

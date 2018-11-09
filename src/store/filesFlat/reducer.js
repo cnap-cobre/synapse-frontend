@@ -1,16 +1,18 @@
-import {
-  DELETE_FILE,
-  FAIL_FILES, FIX_AGAVE_SYMLINK_BUG,
-  INVALIDATE_FILES,
-  RECEIVE_FILES,
-  REQUEST_FILES, SYMLINK_CORRECTION_STARTED
-} from "../files/actions";
+// import {
+//   DELETE_FILE,
+//   FAIL_FILES, FIX_AGAVE_SYMLINK_BUG,
+//   INVALIDATE_FILES,
+//   RECEIVE_FILES,
+//   REQUEST_FILES, SYMLINK_CORRECTION_STARTED
+// } from "../files/actions";
+
+import * as types from '../files/types';
 
 export const initialFileState = {};
 
 export default function filesFlat(state = initialFileState, action) {
   switch (action.type) {
-    case RECEIVE_FILES:
+    case types.GET_FILE_LIST_ASYNC.SUCCESS:
       const filesAsArray = action.files
           .filter(f => f.name !== '.')
           .map(f => ({
