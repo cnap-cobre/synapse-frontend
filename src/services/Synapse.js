@@ -16,3 +16,9 @@ export function initiateTransfer(csrftoken, fileList) {
     console.log(batch);
   });
 }
+
+export function fetchUserProfile() {
+  return fetch(`/api/v1/profiles/me/`, {
+    credentials: 'same-origin'
+  }).then(response => response.json());
+}

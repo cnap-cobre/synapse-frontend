@@ -1,5 +1,4 @@
-import {RECEIVE_PROFILE} from "../userProfile/types";
-
+import * as userProfileTypes from '../userProfile/types';
 import * as agaveFilesystemTypes from '../agaveFileSystems/types';
 
 export const initialFileSystemsState = {
@@ -36,7 +35,7 @@ export default function fileSystems(state = initialFileSystemsState, action) {
         ...state,
         loading: false,
       };
-    case RECEIVE_PROFILE:
+    case userProfileTypes.GET_USER_PROFILE_ASYNC.SUCCESS:
       const dropboxSystems = [];
       if (action.userProfile.dropbox.length !== 0) {
         dropboxSystems.push({

@@ -1,11 +1,13 @@
 import agaveFileSystems from './agaveFileSystems/sagas';
 import files from './files/sagas';
 import transferFiles from './transferFiles/sagas';
+import userProfile from './userProfile/sagas';
 
 const sagas = [
   agaveFileSystems,
   files,
-  transferFiles
+  transferFiles,
+  userProfile
 ];
 
 export const initSagas = (sagaMiddleware) =>

@@ -1,4 +1,4 @@
-import {INVALIDATE_PROFILE, RECEIVE_PROFILE, REQUEST_PROFILE} from "./types";
+import * as types from './types';
 
 export const initialUserProfileState = {
   id: 0,
@@ -21,30 +21,19 @@ export const initialUserProfileState = {
     email: '',
     groups: [],
   },
-  isFetching: false,
-  didInvalidate: false,
-  lastUpdated: 0,
-  hasFetched: false
+  loading: false
 };
 
 export default function userProfile(state = initialUserProfileState, action) {
   switch (action.type) {
-    case INVALIDATE_PROFILE:
+    case types.GET_USER_PROFILE_ASYNC.PENDING:
       return Object.assign({}, state, {
-        didInvalidate: true
+        loading: true
       });
-    case REQUEST_PROFILE:
-      return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
-      });
-    case RECEIVE_PROFILE:
+    case types.GET_USER_PROFILE_ASYNC.SUCCESS:
       return Object.assign({}, state, {
         ...action.userProfile,
-        isFetching: false,
-        didInvalidate: false,
-        lastUpdated: action.receivedAt,
-        hasFetched: true
+        loading: false
       });
     default:
       return state;

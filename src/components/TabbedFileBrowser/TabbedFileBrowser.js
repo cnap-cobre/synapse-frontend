@@ -2,7 +2,7 @@ import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
 import {actions as agaveFileSystemsActions} from "../../store/AgaveFileSystems";
 import {fileListActions} from "../../store/Files";
-import {fetchProfileIfNeeded} from "../../store/userProfile/actions";
+import { actions as userProfileActions } from '../../store/UserProfile';
 import FileBrowser from "./FileBrowser/FileBrowser";
 import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
@@ -42,7 +42,7 @@ class TabbedFileBrowser extends React.Component {
       this.props.dispatch(fileListActions.pending(this.props.path));
     } else {
       this.props.dispatch(agaveFileSystemsActions.pending());
-      this.props.dispatch(fetchProfileIfNeeded());
+      this.props.dispatch(userProfileActions.pending());
       this.props.dispatch(fileListActions.pending(this.props.path));
     }
   }
@@ -189,7 +189,7 @@ const mapStateToProps = (store, ownProps) => {
   return{
     ...ownProps,
     isReady: (
-        store.userProfile.hasFetched &&
+        !store.userProfile.loading &&
         !store.fileSystems.loading &&
         store.fileSystems.systems.length !== 0
     ),

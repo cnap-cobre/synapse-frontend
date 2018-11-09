@@ -1,3 +1,3 @@
-export const REQUEST_PROFILE = 'REQUEST_PROFILE';
-export const RECEIVE_PROFILE = 'RECEIVE_PROFILE';
-export const INVALIDATE_PROFILE = 'INVALIDATE_PROFILE';
+import {createAsyncTypes} from "../utils";
+
+export const GET_USER_PROFILE_ASYNC = createAsyncTypes('GET_USER_PROFILE');

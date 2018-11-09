@@ -1,5 +1,5 @@
 import * as agaveFileSystemsTypes from '../agaveFileSystems/types';
-import {RECEIVE_PROFILE} from "../userProfile/types";
+import * as userProfileTypes from '../userProfile/types';
 import {SET_BROWSER_PATH} from "./types";
 
 export const initialBrowserPathsState = {};
@@ -17,7 +17,7 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
         ...keysFromAction,
         ...state
       };
-    case RECEIVE_PROFILE:
+    case userProfileTypes.GET_USER_PROFILE_ASYNC.SUCCESS:
       const dropboxBrowserPaths = Object.keys(state).filter(
         (k) => k.indexOf('dropbox') === 1
       ).reduce((acc, cv) => {

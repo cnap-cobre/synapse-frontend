@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ContextMenu from './components/ContextMenu/ContextMenu';
 import { actions as agaveFileSystemsActions } from './store/AgaveFileSystems';
-import {fetchProfileIfNeeded} from "./store/userProfile/actions";
+import { actions as userProfileActions } from './store/UserProfile';
 import ModalWrapper from './components/Modal/ModalWrapper';
 import {Notify} from 'react-redux-notify';
 import {putCSRFTokenInStore} from "./store/Csrf";
@@ -13,7 +13,7 @@ import 'react-redux-notify/dist/ReactReduxNotify.css';
 class App extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchProfileIfNeeded());
+    dispatch(userProfileActions.pending());
     dispatch(agaveFileSystemsActions.pending());
     dispatch(putCSRFTokenInStore());
   }
