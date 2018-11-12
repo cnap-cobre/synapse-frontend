@@ -16,17 +16,3 @@ export const createAsyncTypes = typeString => {
         {}
     );
 };
-
-///////////////////
-// createReducer //
-///////////////////
-
-export const createReducer =
-    (initialState, handlers) =>
-        (state = initialState, action) =>
-            handlers.hasOwnProperty(action.type)
-            ? handlers[action.type](state, action)
-            : state
-
-// https://hackernoon.com/replacing-redux-thunks-with-redux-sagas-4aa306854925
-// Note: This is "interesting", but we'll roll with it for now.
