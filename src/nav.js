@@ -23,12 +23,6 @@ const nav = [
         url: '/files/systems',
         exact: true
       },
-      {
-        name: 'Transfer History',
-        mini: 'TH',
-        url: '/files/transfers',
-        exact: true
-      },
     ]
   },
   // {

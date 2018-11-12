@@ -33,11 +33,6 @@
         "path": "/systems",
         "name": "File Systems",
         "page": "./pages/Files/FileSystems/FileSystems"
-      },
-      {
-        "path": "/transfers",
-        "name": "Transfer History",
-        "page": "./pages/Files/TransferHistory/TransferHistory"
       }
     ]
   },
