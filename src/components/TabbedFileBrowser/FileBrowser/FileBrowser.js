@@ -46,7 +46,7 @@ class FileBrowser extends React.Component {
   }
 
   handleRefresh = (path) => () => {
-    this.props.dispatch(fileListActions(path));
+    this.props.dispatch(fileListActions.pending(path));
   };
 
   handleContextMenu = (file, e) => {
