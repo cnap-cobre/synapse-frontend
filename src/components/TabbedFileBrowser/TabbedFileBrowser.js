@@ -39,17 +39,17 @@ class TabbedFileBrowser extends React.Component {
     }
 
     if(this.matchesFileSystem(this.props.path)) {
-      this.props.dispatch(fileListActions.pending(this.props.path));
+      this.props.dispatch(fileListActions.ifNeeded(this.props.path));
     } else {
       this.props.dispatch(agaveFileSystemsActions.pending());
       this.props.dispatch(userProfileActions.pending());
-      this.props.dispatch(fileListActions.pending(this.props.path));
+      this.props.dispatch(fileListActions.ifNeeded(this.props.path));
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
-      this.props.dispatch(fileListActions.pending(this.props.path));
+      this.props.dispatch(fileListActions.ifNeeded(this.props.path));
     }
   }
 
@@ -209,7 +209,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(toggleDotfiles())
     },
     fetchFiles: (path) => {
-      dispatch(fileListActions.pending(path))
+      dispatch(fileListActions.ifNeeded(path))
     },
     dispatch
   };

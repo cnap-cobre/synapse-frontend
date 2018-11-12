@@ -7,6 +7,7 @@ import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 
 
 const getCsrf = state => state.csrf.token;
+const getFileStateAtPath = (state, path) => state.files[path];
 
 const transformFileListing = files => files.filter(
     f => f.name !== '.'
@@ -29,6 +30,20 @@ const resolveProviderService = path => {
       throw "File provider not resolved from path";
   }
 };
+
+function* getFileListIfNeeded(action) {
+  try{
+    const fileState = yield select(getFileStateAtPath, action.path);
+    if (fileState === undefined) {
+      yield put(fileListActions.pending(action.path))
+    }
+  } catch (e) {
+    console.log(e);
+    // This should never run, but
+    // if we somehow fail, we should probably fetch the files anyway
+    yield put(fileListActions.pending(action.path))
+  }
+}
 
 function* getFileList(action) {
   try{
@@ -116,6 +131,7 @@ function* makeDirectory(action) {
 export default function* () {
   yield all([
     takeEvery(types.GET_FILE_LIST_ASYNC.PENDING, getFileList),
+    takeEvery(types.GET_FILE_LIST_ASYNC.IF_NEEDED, getFileListIfNeeded),
 
     takeEvery(types.COPY_FILE, copyFile),
     takeEvery(types.DELETE_FILE, deleteFile),

@@ -1,6 +1,10 @@
 import * as types from './files/types'
 
 export const fileListActions = {
+  ifNeeded: (path) => ({
+    type: types.GET_FILE_LIST_ASYNC.IF_NEEDED,
+    path
+  }),
   pending: (path) => ({
     type: types.GET_FILE_LIST_ASYNC.PENDING,
     path
