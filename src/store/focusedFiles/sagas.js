@@ -3,8 +3,7 @@ import {fileHistoryActions} from '../FileHistory';
 import { all, put, takeEvery } from 'redux-saga/effects';
 
 function *getFileHistory(action) {
-  console.log("CKAE", action);
-  yield put(fileHistoryActions.pending(action.filePath));
+  yield put(fileHistoryActions.ifNeeded(action.filePath));
 }
 
 export default function* () {

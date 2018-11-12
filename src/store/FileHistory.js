@@ -1,6 +1,10 @@
 import * as types from './fileHistory/types';
 
 export const fileHistoryActions = {
+  ifNeeded: (path) => ({
+    type: types.GET_FILE_HISTORY_ASYNC.IF_NEEDED,
+    path
+  }),
   pending: (path) => ({
     type: types.GET_FILE_HISTORY_ASYNC.PENDING,
     path
