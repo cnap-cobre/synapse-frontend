@@ -11,10 +11,6 @@
     "extends": [
       "eslint:all",
       "plugin:react/all"
-    ],
-    "sort-imports": ["error", {
-      "memberSyntaxSortOrder": ["all", "single", "multiple", "none"],
-      "ignoreCase": true
-    }]
+    ]
   }
 }
