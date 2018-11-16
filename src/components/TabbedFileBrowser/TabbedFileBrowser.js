@@ -1,18 +1,18 @@
-import {actions as agaveFileSystemsActions} from "../../store/actions/AgaveFileSystems";
+import {actions as agaveFileSystemsActions} from "../../store/agaveFileSystems/AgaveFileSystems";
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
 import FileBrowser from "./FileBrowser/FileBrowser";
-import {fileListActions} from "../../store/actions/Files";
+import {fileListActions} from "../../store/files/Files";
 import {Link} from 'redux-json-router';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {setBrowserPath} from "../../store/actions/BrowserPaths";
-import {setFocusedFile} from "../../store/actions/FocusedFiles";
+import {setBrowserPath} from "../../store/browserPaths/BrowserPaths";
+import {setFocusedFile} from "../../store/focusedFiles/FocusedFiles";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
-import {toggleDotfiles} from "../../store/actions/VisualOptions";
-import { actions as userProfileActions } from '../../store/actions/UserProfile';
+import {toggleDotfiles} from "../../store/visualOptions/VisualOptions";
+import { actions as userProfileActions } from '../../store/userProfile/UserProfile';
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
 

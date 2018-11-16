@@ -1,6 +1,6 @@
-import {addModal} from "../../store/actions/Modals";
+import {addModal} from "../../store/modals/Modals";
 import Agave from '../../services/Agave';
-import { actions as agaveFileSystemsActions } from '../../store/actions/AgaveFileSystems';
+import { actions as agaveFileSystemsActions } from '../../store/agaveFileSystems/AgaveFileSystems';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import {connect} from 'react-redux';

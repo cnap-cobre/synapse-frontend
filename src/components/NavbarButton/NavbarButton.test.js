@@ -1,5 +1,5 @@
 import configureStore from 'redux-mock-store';
-import {initialVisualOptionsState} from "../../store/private/visualOptions/reducer";
+import {initialVisualOptionsState} from "../../store/visualOptions/reducer";
 import NavbarButton from './NavbarButton';
 import { Provider } from 'react-redux';
 import React from 'react';
