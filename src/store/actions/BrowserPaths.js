@@ -1,4 +1,4 @@
-import {SET_BROWSER_PATH} from "./browserPaths/types";
+import {SET_BROWSER_PATH} from "../private/browserPaths/types";
 
 export function setBrowserPath(system, path) {
   return {

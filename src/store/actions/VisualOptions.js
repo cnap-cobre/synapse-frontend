@@ -12,7 +12,7 @@ import {
   SET_FILE_VIEW_FORMAT_LIST,
   SET_FILE_VIEW_FORMAT_GRID,
   TOGGLE_FILE_VIEW_FORMAT
-} from './visualOptions/types';
+} from '../private/visualOptions/types';
 
 export function showDotifles() {
   return {

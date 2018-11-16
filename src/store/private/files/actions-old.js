@@ -1,5 +1,5 @@
-import Agave from '../../services/Agave/index';
-import Dropbox from '../../services/Dropbox/index';
+import Agave from '../../../services/Agave/index';
+import Dropbox from '../../../services/Dropbox/index';
 
 export function fixAgaveSymlinkBug(path, name) {
   return {

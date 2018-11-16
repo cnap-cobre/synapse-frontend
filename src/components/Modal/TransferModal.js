@@ -1,11 +1,11 @@
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import FileBreadcrumbs from "../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs";
-import {fileListActions} from "../../store/Files";
+import {fileListActions} from "../../store/actions/Files";
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeModal } from "../../store/Modals";
+import { removeModal } from "../../store/actions/Modals";
 import TabbedDirectoryBrowser from '../TabbedDirectoryBrowser/TabbedDirectoryBrowser';
 
 

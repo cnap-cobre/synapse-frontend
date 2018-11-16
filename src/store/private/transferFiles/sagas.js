@@ -1,4 +1,4 @@
-import * as Synapse from '../../services/Synapse';
+import * as Synapse from '../../../services/Synapse';
 import * as types from './types';
 import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 

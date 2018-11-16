@@ -1,4 +1,4 @@
-import {createAsyncTypes} from "../utils";
+import {createAsyncTypes} from "../../utils";
 
 export const GET_FILE_LIST_ASYNC = createAsyncTypes('GET_FILE_LIST');
 export const FIX_AGAVE_SYMLINK_BUG = createAsyncTypes('FIX_AGAVE_SYMLINK_BUG');

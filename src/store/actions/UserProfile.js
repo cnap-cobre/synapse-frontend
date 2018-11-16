@@ -1,4 +1,4 @@
-import * as types from './userProfile/types';
+import * as types from '../private/userProfile/types';
 
 export const actions = {
   pending: () => ({

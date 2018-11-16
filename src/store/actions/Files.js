@@ -1,4 +1,4 @@
-import * as types from './files/types'
+import * as types from '../private/files/types'
 
 export const fileListActions = {
   ifNeeded: (path) => ({

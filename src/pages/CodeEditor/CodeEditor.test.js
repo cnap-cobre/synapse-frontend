@@ -1,7 +1,7 @@
 import CodeEditor from './CodeEditor';
 import configureStore from 'redux-mock-store';
-import { initialUserProfileState } from "../../store/userProfile/reducer";
-import { initialVisualOptionsState } from "../../store/visualOptions/reducer";
+import { initialUserProfileState } from "../../store/private/userProfile/reducer";
+import { initialVisualOptionsState } from "../../store/private/visualOptions/reducer";
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';

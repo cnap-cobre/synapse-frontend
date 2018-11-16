@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import FaArrowUp from 'react-icons/lib/fa/arrow-up';
-import {fileActions} from "../../../../../store/Files";
+import {fileActions} from "../../../../../store/actions/Files";
 import React from "react";
 
 class UploadFile extends React.Component{

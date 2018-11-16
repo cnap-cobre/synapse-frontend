@@ -1,8 +1,8 @@
 import * as types from './types';
-import Agave from '../../services/Agave/index';
-import Dropbox from '../../services/Dropbox/index';
-import {fileListActions} from '../Files';
-import {removeFocusedFile} from "../FocusedFiles";
+import Agave from '../../../services/Agave/index';
+import Dropbox from '../../../services/Dropbox/index';
+import {fileListActions} from '../../actions/Files';
+import {removeFocusedFile} from "../../actions/FocusedFiles";
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 
 

@@ -1,7 +1,7 @@
 import * as types from './types';
-import Agave from '../../services/Agave/index';
-import Dropbox from '../../services/Dropbox';
-import { fileHistoryActions } from '../FileHistory';
+import Agave from '../../../services/Agave/index';
+import Dropbox from '../../../services/Dropbox/index';
+import { fileHistoryActions } from '../../actions/FileHistory';
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 
 const getCsrf = state => state.csrf.token;

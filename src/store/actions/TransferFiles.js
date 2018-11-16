@@ -1,4 +1,4 @@
-import * as types from './transferFiles/types';
+import * as types from '../private/transferFiles/types';
 
 export const receiveTransferResponse = (fileBatch) => ({
   type: types.RECEIVE_TRANSFER_RESPONSE,

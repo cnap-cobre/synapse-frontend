@@ -1,9 +1,9 @@
 import createSagaMiddleware from 'redux-saga';
-import { initSagas } from './rootSaga';
+import { initSagas } from './private/rootSaga';
 import loggerMiddleware from './loggerMiddleware';
 import monitorReducerEnhancer from "./monitorReducerEnhancer";
 import persistState from 'redux-localstorage';
-import rootReducer from './rootReducer';
+import rootReducer from './private/rootReducer';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { routerMiddleware, routerReducer } from 'redux-json-router';
 

@@ -2,7 +2,7 @@
 import "regenerator-runtime/runtime";
 import App from './App';
 import { AppContainer } from 'react-hot-loader';
-import configureStore from './store/index';
+import configureStore from './store/store';
 import { Provider } from 'react-redux';
 import React from "react";
 import ReactDOM from "react-dom";

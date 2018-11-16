@@ -1,4 +1,4 @@
-import * as types from './agaveFileSystems/types';
+import * as types from '../private/agaveFileSystems/types';
 
 export const actions = {
   pending: () => ({

@@ -1,4 +1,4 @@
-import * as types from './fileHistory/types';
+import * as types from '../private/fileHistory/types';
 
 export const fileHistoryActions = {
   ifNeeded: (path) => ({

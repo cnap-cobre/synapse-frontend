@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import {ADD_MODAL, REMOVE_MODAL} from './modals/types';
+import {ADD_MODAL, REMOVE_MODAL} from '../private/modals/types';
 
 // For now, we'll declare these here.
 // The kinds of modals that we want are
