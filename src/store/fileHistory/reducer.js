@@ -1,8 +1,8 @@
 import * as types from './types';
 
-export const initialFilesState = {};
+export const initialFileHistoryState = {};
 
-export default function fileHistory(state = initialFilesState, action) {
+export default function fileHistory(state = initialFileHistoryState, action) {
   const stateForPath = state[action.path] || {};
 
   switch (action.type) {

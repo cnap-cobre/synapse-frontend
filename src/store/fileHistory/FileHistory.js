@@ -1,21 +1,13 @@
 import * as types from './types';
+import {createAction} from "../utils";
 
 export const fileHistoryActions = {
-  ifNeeded: (path) => ({
-    type: types.GET_FILE_HISTORY_ASYNC.IF_NEEDED,
-    path
-  }),
-  pending: (path) => ({
-    type: types.GET_FILE_HISTORY_ASYNC.PENDING,
-    path
-  }),
-  success: (path, history) => ({
-    type: types.GET_FILE_HISTORY_ASYNC.SUCCESS,
-    path,
-    history
-  }),
-  error: (path) => ({
-    type: types.GET_FILE_HISTORY_ASYNC.ERROR,
-    path
-  })
+  ifNeeded: (path) =>
+      createAction(types.GET_FILE_HISTORY_ASYNC.IF_NEEDED, { path }),
+  pending: (path) =>
+      createAction(types.GET_FILE_HISTORY_ASYNC.PENDING, { path }),
+  success: (path, history) =>
+      createAction(types.GET_FILE_HISTORY_ASYNC.SUCCESS, { path, history }),
+  error: (path) =>
+      createAction(types.GET_FILE_HISTORY_ASYNC.ERROR, { path })
 };

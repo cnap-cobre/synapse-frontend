@@ -1,23 +1,15 @@
 import * as types from './types'
+import {createAction} from "../utils";
 
 export const fileListActions = {
-  ifNeeded: (path) => ({
-    type: types.GET_FILE_LIST_ASYNC.IF_NEEDED,
-    path
-  }),
-  pending: (path) => ({
-    type: types.GET_FILE_LIST_ASYNC.PENDING,
-    path
-  }),
-  success: (path, files) => ({
-    type: types.GET_FILE_LIST_ASYNC.SUCCESS,
-    path,
-    files
-  }),
-  error: (path, error) => ({
-    type: types.GET_FILE_LIST_ASYNC.ERROR,
-    error
-  }),
+  ifNeeded: (path) =>
+      createAction(types.GET_FILE_LIST_ASYNC.IF_NEEDED, { path }),
+  pending: (path) =>
+      createAction(types.GET_FILE_LIST_ASYNC.PENDING, { path }),
+  success: (path, files) =>
+      createAction(types.GET_FILE_LIST_ASYNC.SUCCESS, { path, files }),
+  error: (path, error) =>
+      createAction(types.GET_FILE_LIST_ASYNC.ERROR, { path, error })
 };
 
 export const fixAgaveSymplinkBugActions = {
