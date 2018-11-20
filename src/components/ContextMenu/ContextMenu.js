@@ -5,6 +5,7 @@ import React from 'react';
 import {startTransfer} from "../../store/transferFiles/TransferFiles";
 import {fileActions, fileListActions} from "../../store/files/Files";
 import './ContextMenu.scss';
+import {getFocusedFilePaths} from "../../store/ui/reducer";
 
 const DownloadLink = (props) => {
   return (
@@ -345,11 +346,10 @@ class ContextMenu extends React.Component {
   };
 }
 
-const mapStateToProps = (store, ownProps) => {
+const mapStateToProps = (store) => {
   return {
-    fileViewFormat: store.visualOptions.fileViewFormat,
-    focusedFilePaths: store.focusedFiles.list,
-    focusedFiles: store.focusedFiles.list.map(f => store.filesFlat[f])
+    focusedFilePaths: getFocusedFilePaths(store),
+    focusedFiles: getFocusedFilePaths(store).map(f => store.filesFlat[f])
   };
 };
 

@@ -30,16 +30,18 @@ it('renders without crashing', ()=>{
             symlinkCorrectionStarted: false
           }
         },
-        focusedFiles: {
-          list: []
-        },
         router: {
           pathname: '/files/beocat/homes/kmdice/',
         },
         userProfile: initialUserProfileState,
-        visualOptions: {
-          showDotfiles: true
-        },
+        ui: {
+          focusedFiles: {
+            list: []
+          },
+          visualOptions: {
+            showDotfiles: true
+          },
+        }
       })}>
         <Browse/>
       </Provider>

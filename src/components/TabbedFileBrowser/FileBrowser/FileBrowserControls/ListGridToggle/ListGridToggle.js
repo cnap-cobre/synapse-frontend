@@ -5,6 +5,7 @@ import FaThList from 'react-icons/lib/fa/th-list'
 import PropTypes from 'prop-types';
 import React from 'react';
 import {toggleFileViewFormat} from "../../../../../store/ui/visualOptions/VisualOptions";
+import {getFileViewFormat} from "../../../../../store/ui/reducer";
 
 class ListGridToggle extends React.Component {
   static propTypes = {
@@ -31,7 +32,7 @@ class ListGridToggle extends React.Component {
 
 const mapStateToProps = (store) => {
   return {
-    enabled: store.visualOptions.fileViewFormat
+    enabled: getFileViewFormat(store)
   };
 };
 

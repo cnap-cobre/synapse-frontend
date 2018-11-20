@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import React from 'react';
 import {toggleSidebar} from "../../store/ui/visualOptions/VisualOptions";
+import {getSidebarMinimized} from "../../store/ui/reducer";
 
 class MinimizeSidebarButton extends React.Component {
   render() {
@@ -19,7 +20,7 @@ class MinimizeSidebarButton extends React.Component {
 }
 
 const mapStateToProps = (store) => ({
-  sidebarMinimized: store.visualOptions.sidebarMinimized
+  sidebarMinimized: getSidebarMinimized(store)
 });
 
 const mapDispatchToProps = (dispatch) => ({

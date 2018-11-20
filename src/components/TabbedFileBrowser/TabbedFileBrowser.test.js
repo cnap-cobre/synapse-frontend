@@ -31,9 +31,11 @@ it('renders without crashing', ()=>{
           pathname: '/files/browse/agave/beocat/homes/asdf/',
         },
         userProfile: initialUserProfileState,
-        visualOptions: {
-          showDotfiles: true
-        },
+        ui: {
+          visualOptions: {
+            showDotfiles: true
+          },
+        }
       })}>
         <TabbedFileBrowser prefix="/files/browse" />
       </Provider>

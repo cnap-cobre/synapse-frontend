@@ -15,6 +15,7 @@ import {toggleDotfiles} from "../../store/ui/visualOptions/VisualOptions";
 import { actions as userProfileActions } from '../../store/userProfile/UserProfile';
 import { push, replace } from 'redux-json-router';
 import './fileTabs.css';
+import {getBrowserPaths, getShowDotfiles} from "../../store/ui/reducer";
 
 class TabbedFileBrowser extends React.Component {
   static propTypes = {
@@ -195,11 +196,11 @@ const mapStateToProps = (store, ownProps) => {
     ),
     fileSystems,
     pathname: store.router.pathname,
-    browserPaths: store.browserPaths,
+    browserPaths: getBrowserPaths(store),
     path: store.router.pathname.slice(
         ownProps.prefix.length
     ),
-    showDotfiles: store.visualOptions.showDotfiles
+    showDotfiles: getShowDotfiles(store)
   };
 };
 

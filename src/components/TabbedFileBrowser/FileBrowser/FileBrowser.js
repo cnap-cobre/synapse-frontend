@@ -10,9 +10,13 @@ import path from 'path';
 import PropTypes from 'prop-types';
 import {push} from 'redux-json-router';
 import React from 'react';
+
 import {setBrowserPath} from "../../../store/ui/browserPaths/BrowserPaths";
+
 import {addFocusedFile, removeFocusedFile, setFocusedFile, setFocusedFilesList} from "../../../store/ui/focusedFiles/FocusedFiles";
+import {getFileViewFormat, getFocusedFilePaths} from "../../../store/ui/reducer";
 import {fileActions, fileListActions} from "../../../store/files/Files";
+
 
 
 class FileBrowser extends React.Component {
@@ -166,9 +170,9 @@ const mapStateToProps = (store, ownProps) => {
   return {
     loading,
     error: false, // TODO: fix this hack and actually handle errors
-    list,
-    fileViewFormat: store.visualOptions.fileViewFormat,
-    focusedFilePaths: store.focusedFiles.list
+    list: list ? list : [],
+    fileViewFormat: getFileViewFormat(store),
+    focusedFilePaths: getFocusedFilePaths(store)
   };
 };
 

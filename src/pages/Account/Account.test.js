@@ -16,7 +16,9 @@ it('renders without crashing', ()=>{
         router: {
           pathname: '/files/viper/home/kmdice/625/hw3/'
         },
-        visualOptions: initialVisualOptionsState
+        ui: {
+          visualOptions: initialVisualOptionsState
+        }
       })}>
         <Account/>
       </Provider>

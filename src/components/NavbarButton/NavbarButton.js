@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import React from 'react';
 import {toggleMobileNav} from "../../store/ui/visualOptions/VisualOptions";
+import {getMobileNavOpen} from "../../store/ui/reducer";
 
 class NavbarButton extends React.Component {
   render() {
@@ -21,7 +22,7 @@ class NavbarButton extends React.Component {
 }
 
 const mapStateToProps = (store) => ({
-  mobileNavOpen: store.visualOptions.mobileNavOpen
+  mobileNavOpen: getMobileNavOpen(store)
 });
 
 const mapDispatchToProps = (dispatch) => ({

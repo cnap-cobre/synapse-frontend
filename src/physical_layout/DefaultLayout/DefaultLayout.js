@@ -4,6 +4,7 @@ import DefaultNavbar from './DefaultNavbar/DefaultNavbar';
 import DefaultSidebar from './DefaultSidebar/DefaultSidebar';
 import React from 'react';
 import {toggleMobileNav} from "../../store/ui/visualOptions/VisualOptions";
+import {getMobileNavOpen, getSidebarMinimized} from "../../store/ui/reducer";
 
 class DefaultLayout extends React.Component {
   render() {
@@ -33,8 +34,8 @@ class DefaultLayout extends React.Component {
 }
 
 const mapStateToProps = (store) => ({
-  sidebarMinimized: store.visualOptions.sidebarMinimized,
-  mobileNavOpen: store.visualOptions.mobileNavOpen
+  sidebarMinimized: getSidebarMinimized(store),
+  mobileNavOpen: getMobileNavOpen(store)
 });
 
 const mapDispatchToProps = (dispatch) => ({
