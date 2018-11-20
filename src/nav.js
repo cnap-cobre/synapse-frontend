@@ -1,30 +1,32 @@
 const nav = [
-  {
-    name: 'Dashboard',
-    url: '/',
-    icon: 'ti-dashboard',
-    exact: true
-  },
-  {
-    name: 'Files',
-    url: '/files',
-    icon: 'ti-folder',
-    exact: false,
-    children: [
+  // {
+  //   name: 'Dashboard',
+  //   url: '/',
+  //   icon: 'ti-dashboard',
+  //   exact: true
+  // },
+  // {
+  //   name: 'Files',
+  //   url: '/files',
+  //   icon: 'ti-folder',
+  //   exact: false,
+  //   children: [
       {
-        name: 'Browse',
-        mini: 'B',
+        name: 'Browse Files',
+        icon: 'ti-folder',
+        //mini: 'B',
         url: '/files/browse',
         exact: false
       },
       {
         name: 'File Systems',
-        mini: 'FS',
+        icon: 'ti-server',
+        // mini: 'FS',
         url: '/files/systems',
         exact: true
       },
-    ]
-  },
+  //   ]
+  // },
   // {
   //   name: 'Code Editor',
   //   url: '/editor',
