@@ -4,6 +4,7 @@ import {humanFileSize} from "../../util/FileSize";
 import React from 'react';
 import {format, formatDistance} from "date-fns";
 import './fileMetadata.scss';
+import {getFocusedFilePaths} from "../../store/ui/reducer";
 
 
 class FileMetadata extends React.Component{
@@ -102,7 +103,7 @@ class FileMetadata extends React.Component{
 }
 
 const mapStateToProps = (store) => {
-  const fileList = store.focusedFiles.list;
+  const fileList = getFocusedFilePaths(store);
 
   if (fileList === undefined || fileList.length === 0) {
     return {

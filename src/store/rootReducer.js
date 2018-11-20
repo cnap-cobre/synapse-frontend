@@ -27,6 +27,5 @@ export default {
   notifications,
   transferFiles,
   userProfile,
-  visualOptions,
   ui
 };

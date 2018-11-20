@@ -55,11 +55,11 @@ const mapStateToProps = (store) => {
   }
 
   const singleFocusedFile = store.focusedFiles.list[0];
-  const historyAtPath = store.fileHistory[singleFocusedFile];
+  const historyAtPath = store.fileHistory[singleFocusedFile] || {history: []};
 
   return {
     singleSelected: true,
-    history: (historyAtPath === undefined ? [] : historyAtPath.history),
+    history: (historyAtPath === undefined ? [] : historyAtPath.history) || [],
     loading: (historyAtPath === undefined ? false : historyAtPath.loading)
   }
 };
