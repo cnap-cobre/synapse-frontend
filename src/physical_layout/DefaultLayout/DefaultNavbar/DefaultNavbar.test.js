@@ -11,7 +11,9 @@ it('renders without crashing', ()=>{
   const div = document.createElement('div');
   ReactDOM.render(
       <Provider store={mockStore({
-        visualOptions: initialVisualOptionsState
+        ui: {
+          visualOptions: initialVisualOptionsState
+        }
       })}>
         <DefaultNavbar/>
       </Provider>, div);
