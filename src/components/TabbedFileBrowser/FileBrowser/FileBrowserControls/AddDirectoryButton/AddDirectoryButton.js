@@ -1,4 +1,4 @@
-import {addModal} from "../../../../../store/modals/Modals";
+import {addModal} from "../../../../../store/ui/modals/Modals";
 import Button from 'react-bootstrap/lib/Button';
 import {connect} from 'react-redux';
 import {directoryActions} from "../../../../../store/files/Files";

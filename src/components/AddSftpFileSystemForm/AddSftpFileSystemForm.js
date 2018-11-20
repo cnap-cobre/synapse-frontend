@@ -1,4 +1,4 @@
-import {addModal} from "../../store/modals/Modals";
+import {addModal} from "../../store/ui/modals/Modals";
 import Agave from '../../services/Agave';
 import { actions as agaveFileSystemsActions } from '../../store/agaveFileSystems/AgaveFileSystems';
 import Button from 'react-bootstrap/lib/Button';

@@ -8,7 +8,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeModal } from "../../store/modals/Modals";
+import { removeModal } from "../../store/ui/modals/Modals";
 
 const LinkComponent = (props) => (
     <a onClick={() => {

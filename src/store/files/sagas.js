@@ -2,7 +2,7 @@ import * as types from './types';
 import Agave from '../../services/Agave/index';
 import Dropbox from '../../services/Dropbox/index';
 import {fileListActions} from './Files';
-import {removeFocusedFile} from "../focusedFiles/FocusedFiles";
+import {removeFocusedFile} from "../ui/focusedFiles/FocusedFiles";
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 
 

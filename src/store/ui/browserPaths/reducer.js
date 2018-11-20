@@ -1,5 +1,5 @@
-import * as agaveFileSystemsTypes from '../agaveFileSystems/types';
-import * as userProfileTypes from '../userProfile/types';
+import * as agaveFileSystemsTypes from '../../agaveFileSystems/types';
+import * as userProfileTypes from '../../userProfile/types';
 import {SET_BROWSER_PATH} from "./types";
 
 export const initialBrowserPathsState = {};

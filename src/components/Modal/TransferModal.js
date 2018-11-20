@@ -5,7 +5,7 @@ import {fileListActions} from "../../store/files/Files";
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeModal } from "../../store/modals/Modals";
+import { removeModal } from "../../store/ui/modals/Modals";
 import TabbedDirectoryBrowser from '../TabbedDirectoryBrowser/TabbedDirectoryBrowser';
 
 

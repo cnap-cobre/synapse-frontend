@@ -1,7 +1,7 @@
 import agaveFileSystems from './agaveFileSystems/sagas';
 import fileHistory from './fileHistory/sagas';
 import files from './files/sagas';
-import focusedFiles from './focusedFiles/sagas';
+import focusedFiles from './ui/focusedFiles/sagas';
 import transferFiles from './transferFiles/sagas';
 import userProfile from './userProfile/sagas';
 

@@ -1,5 +1,5 @@
 import * as types from './types';
-import {fileHistoryActions} from '../fileHistory/FileHistory';
+import {fileHistoryActions} from '../../fileHistory/FileHistory';
 import { all, put, takeEvery } from 'redux-saga/effects';
 
 function *getFileHistory(action) {
