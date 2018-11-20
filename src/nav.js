@@ -31,7 +31,8 @@ const nav = [
   //   name: 'Code Editor',
   //   url: '/editor',
   //   icon: 'ti-paragraph',
-  //   exact: true
+  //   exact: true,
+  //   beta: true
   // },
   // {
   //   name: 'Compute Jobs',

@@ -3,6 +3,7 @@ import FileMetadata from "../../../components/FileMetadata/FileMetadata";
 import HistoryMetadata from '../../../components/HistoryMetadata/HistoryMetadata';
 import React from 'react';
 import TabbedFileBrowser from "../../../components/TabbedFileBrowser/TabbedFileBrowser";
+import Card from '../../../physical_layout/Card'
 import './fileMacroLayout.scss';
 
 export default class Browse extends React.Component {
@@ -15,25 +16,17 @@ export default class Browse extends React.Component {
           <div className="filePageFlexContainer">
 
             <div className="fileBrowserArea">
-              <div className="card">
-                <div className="card-content">
-
-                  <TabbedFileBrowser prefix="/files/browse" />
-
-                </div>
-              </div>
+              <Card>
+                <TabbedFileBrowser prefix="/files/browse" />
+              </Card>
             </div>
 
             <div className="fileMetaDataArea">
-              <div className="card">
-                <div className="card-content">
-
-                  <FileMetadata/>
-                  <hr />
-                  <HistoryMetadata/>
-
-                </div>
-              </div>
+              <Card className="card">
+                <FileMetadata/>
+                <hr />
+                <HistoryMetadata/>
+              </Card>
             </div>
 
           </div>

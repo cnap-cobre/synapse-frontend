@@ -23,7 +23,12 @@ export default class Navigation extends React.Component {
                           key={item.url}
                           activeOnlyWhenExact={item.exact}>
             <i className={item.icon}></i>
-            <p>{item.name}</p>
+            <p>
+              {item.name}
+              {item.beta ? (
+                  <small>&nbsp; (beta)</small>
+              ) : (null)}
+            </p>
           </NavigationLink>
       );
     } else {

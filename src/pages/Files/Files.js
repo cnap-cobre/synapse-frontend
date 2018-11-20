@@ -1,5 +1,6 @@
 import DefaultLayout from '../../physical_layout/DefaultLayout/DefaultLayout';
 import React from 'react';
+import Card from '../../physical_layout/Card'
 
 export default class Files extends React.Component {
   render() {
@@ -7,11 +8,7 @@ export default class Files extends React.Component {
         <DefaultLayout>
           <div className="content">
             <div className="container-fluid">
-              <div className="card">
-                <div className="card-content">
-                  <h4>Nothing to see here.</h4>
-                </div>
-              </div>
+              <Card header={(<h4>Nothing to see here.</h4>)} />
             </div>
           </div>
         </DefaultLayout>
