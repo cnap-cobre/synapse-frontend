@@ -67,6 +67,11 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   },
+  "greenkeeper": {
+    "ignore": [
+      "react-icons"
+    ]
+  },
   "scripts": {
     "start": "webpack-dev-server --hot --mode development --port 3000 --host 0.0.0.0 --public localhost",
     "dev": "webpack --mode development",
