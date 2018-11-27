@@ -1,3 +1,5 @@
+// @flow
+
 import {addModal} from "../../store/ui/modals/Modals";
 import Agave from '../../services/Agave';
 import { actions as agaveFileSystemsActions } from '../../store/agaveFileSystems/AgaveFileSystems';
@@ -11,8 +13,23 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import React from 'react';
 
+type Props = {
 
-class AddSftpFileSystemForm extends React.Component {
+};
+
+type State = {
+  id: string,
+  name: string,
+  description: string,
+  site: string,
+  host: string,
+  port: number,
+  username: string,
+  publicKey: string,
+  privateKey: string,
+};
+
+class AddSftpFileSystemForm extends React.Component<Props, State> {
   constructor(props, context) {
     super(props, context);
 
