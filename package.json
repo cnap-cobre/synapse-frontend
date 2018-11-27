@@ -81,7 +81,8 @@
     "dev": "webpack --mode development",
     "build": "NODE_ENV=production; webpack --optimize-minimize --mode production",
     "test": "jest --runInBand",
-    "flow": "flow"
+    "flow": "flow",
+    "verify": "run-s test flow"
   },
   "keywords": [],
   "author": "",
