@@ -12,9 +12,11 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import React from 'react';
+import type {AgaveSystemCreateConfigType} from "../../types/requestTypes";
 
 type Props = {
-
+  hasLinkedAgaveAccount: boolean,
+  onFormSubmission(AgaveSystemCreateConfigType): Promise<any>
 };
 
 type State = {
@@ -234,11 +236,11 @@ class AddSftpFileSystemForm extends React.Component<Props, State> {
                       this.props.onFormSubmission(
                           this.mapToRequestShape(this.state)
                       ).then(() => {
-                        this.props.dispatch(agaveFileSystemsActions.pending());
-                        this.props.dispatch(addModal({
+                        agaveFileSystemsActions();
+                        addModal({
                           modalType: 'successMessage',
                           text: 'The new SFTP file system has been added successfully.'
-                        }));
+                        });
                       });
                     }}
             >
@@ -262,4 +264,12 @@ const mapStateToProps = (store) => {
   };
 };
 
-export default connect(mapStateToProps)(AddSftpFileSystemForm);
+const mapDispatchToProps = {
+  addModal,
+  getAgaveFileSystems: agaveFileSystemsActions.pending
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddSftpFileSystemForm);

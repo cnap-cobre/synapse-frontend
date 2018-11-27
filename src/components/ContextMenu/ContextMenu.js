@@ -1,3 +1,4 @@
+// @flow
 import {addModal} from "../../store/ui/modals/Modals";
 import {connect} from 'react-redux';
 import EventListener from 'react-event-listener';
@@ -6,23 +7,24 @@ import {startTransfer} from "../../store/transferFiles/TransferFiles";
 import {fileActions, fileListActions} from "../../store/files/Files";
 import './ContextMenu.scss';
 import {getFocusedFilePaths} from "../../store/ui/reducer";
+import DownloadLink from './DownloadLink'
+import type {FileType} from "../../types/fileTypes";
 
-const DownloadLink = (props) => {
-  return (
-      <a className={"contextMenu--option " + (props.disabled ? "contextMenu--option__disabled": "")}
-         download
-         href={props.disabled ? "" : props.file._links.self.href}
-      >
-        {props.children}
-        {props.disabled && <span>&nbsp; (not yet supported)</span>}
-      </a>
-  );
-};
+type Props = {
+  focusedFiles: Array<FileType>,
+  focusedFilePaths: Array<string>,
+  dispatch(any): typeof undefined,
+}
 
-class ContextMenu extends React.Component {
+type State = {
+  visible: boolean
+}
+
+class ContextMenu extends React.Component<Props, State> {
   state = {
     visible: false,
   };
+  root: HTMLElement | null = null;
 
   _eventPathContainsClass = (event, className) => {
     return event.path.map(
@@ -41,9 +43,14 @@ class ContextMenu extends React.Component {
     if(!this._eventPathContainsClass(event, "rightClickableFile")) {
       return;
     }
+
     event.preventDefault();
 
     this.setState({ visible: true });
+
+    if (this.root === null) {
+      return
+    }
 
     const clickX = event.clientX;
     const clickY = event.clientY;
@@ -98,6 +105,10 @@ class ContextMenu extends React.Component {
   };
 
   handleSingleShareFile = (e) => {
+    console.log('share');
+  };
+
+  handleMultiShareFile = (e) => {
     console.log('share');
   };
 
@@ -290,7 +301,7 @@ class ContextMenu extends React.Component {
   multipleFileContextMenu = () => (
       <React.Fragment>
         <div className="contextMenu--option contextMenu--option__diabled"
-             onClick={this.handleShareFile}
+             onClick={this.handleMultiShareFile}
         >
           Share (coming soon)
         </div>

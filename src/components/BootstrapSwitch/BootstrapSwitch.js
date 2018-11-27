@@ -1,8 +1,26 @@
+// @flow
+
 import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 import './bootstrap-switch.css';
 
-export default class BootstrapSwitch extends React.Component {
+type Props = {
+  onEnable(): typeof undefined,
+  onDisable(): typeof undefined,
+  style: {},
+  enabledColor: string,
+  disabledColor: string,
+  enabledLabel: React.Node,
+  disabledLabel: React.Node,
+  enabled: boolean,
+  onToggleClick(): typeof undefined,
+}
+
+type State = {
+
+}
+
+export default class BootstrapSwitch extends React.Component<Props, State> {
   static propTypes = {
     onEnable: PropTypes.func,
     onDisable: PropTypes.func,
@@ -16,10 +34,6 @@ export default class BootstrapSwitch extends React.Component {
   static defaultProps = {
     style: {}
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
