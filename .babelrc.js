@@ -2,7 +2,9 @@ const env = process.env;
 
 const conf = {
   "presets": [
-    "@babel/preset-env", "@babel/preset-react"
+    "flow",
+    "@babel/preset-env", 
+    "@babel/preset-react"
   ],
   "plugins": [
     "emotion",
