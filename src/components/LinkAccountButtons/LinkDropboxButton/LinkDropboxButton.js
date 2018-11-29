@@ -6,37 +6,37 @@ type Props = {
   hasLinkedDropbox: boolean
 }
 
-class LinkDropboxButton extends React.Component<Props> {
-  render() {
-    const linkButton = (
-      <a
-        title="Dropbox"
-        className="btn btn-block btn-social socialaccount_provider btn-dropbox"
-        href="/accounts/dropbox/login/?process=connect"
-      >
-        <img src="/dj-static/img/dropbox_icon.png" />
-          Link your Dropbox Account
-      </a>
-    );
+const LinkDropboxButton = (props: Props) => {
+  const { hasLinkedDropbox } = props;
 
-    const unlink = (
-      <p>
-          Dropbox is linked.
-          Click
-        {' '}
-        <a href="/accounts/social/connections/">here</a>
-        {' '}
-to
-          unlink.
-      </p>
-    );
+  const linkButton = (
+    <a
+      title="Dropbox"
+      className="btn btn-block btn-social socialaccount_provider btn-dropbox"
+      href="/accounts/dropbox/login/?process=connect"
+    >
+      <img src="/dj-static/img/dropbox_icon.png" alt="Dropbox Logo" />
+        Link your Dropbox Account
+    </a>
+  );
 
-    return (this.props.hasLinkedDropbox ? unlink : linkButton);
-  }
-}
+  const unlink = (
+    <p>
+        Dropbox is linked.
+        Click
+      {' '}
+      <a href="/accounts/social/connections/">here</a>
+      {' '}
+        to
+        unlink.
+    </p>
+  );
 
-const mapStateToProps = state => ({
-  hasLinkedDropbox: state.userProfile.dropbox.length > 0,
+  return (hasLinkedDropbox ? unlink : linkButton);
+};
+
+const mapStateToProps = store => ({
+  hasLinkedDropbox: store.userProfile.dropbox.length > 0,
 });
 
 export default connect(mapStateToProps)(LinkDropboxButton);
