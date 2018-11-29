@@ -8,6 +8,9 @@
     "plugin:flowtype/recommended"
   ],
   "rules": {
+    "react/jsx-filename-extension": "off",
+    "import/prefer-default-export": "off",
+    "no-continue": "off"
   },
   "env": {
     "browser": true

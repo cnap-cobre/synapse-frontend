@@ -1,3 +1,5 @@
+// @flow
+
 type SFTPCredentialsType = {
   username: string,
   publicKey: string,

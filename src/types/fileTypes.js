@@ -1,3 +1,4 @@
+// @flow
 export type AgaveFileType = {
   format: string,
   fullPath: string,

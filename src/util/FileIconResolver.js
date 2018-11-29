@@ -38,18 +38,22 @@ const fileExtensionMappings = [
   {
     type: 'dir',
     name: /^\.git$/i,
-    icon: (<span className="fa-layers fa-fw">
-      <FaFolderO />
-      <GoGitBranch style={insetIconStyle} />
-    </span>),
+    icon: (
+      <span className="fa-layers fa-fw">
+        <FaFolderO />
+        <GoGitBranch style={insetIconStyle} />
+      </span>
+    ),
   },
   {
     type: 'dir',
     name: /^\./i,
-    icon: (<span className="fa-layers fa-fw">
-      <FaFolderO />
-      <FaCogs style={insetIconStyle} />
-    </span>),
+    icon: (
+      <span className="fa-layers fa-fw">
+        <FaFolderO />
+        <FaCogs style={insetIconStyle} />
+      </span>
+    ),
   },
   {
     type: 'dir',
@@ -134,10 +138,10 @@ const fileExtensionMappings = [
 
 function resolve(item) {
   for (const type of fileExtensionMappings) {
-    if (type.hasOwnProperty('type') && type.type !== item.type) {
+    if (Object.prototype.hasOwnProperty.call(type, 'type') && type.type !== item.type) {
       continue;
     }
-    if (type.hasOwnProperty('name') && !item.name.match(type.name)) {
+    if (Object.prototype.hasOwnProperty.call(type, 'name') && !item.name.match(type.name)) {
       continue;
     }
 
