@@ -1,7 +1,7 @@
 export type AgaveFileType = {
   format: string,
   fullPath: string,
-  lastModified: number | Date
+  lastModified: number | Date,
   length: number,
   mimeType: string,
   name: string,

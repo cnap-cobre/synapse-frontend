@@ -1,16 +1,18 @@
 {
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "ecmaVersion": 2018
   },
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
   "rules": {
-    "extends": [
-      "eslint:all",
-      "plugin:react/all"
-    ]
-  }
+  },
+  "env": {
+    "browser": true
+  },
+  "plugins": [
+    "flowtype"
+  ]
 }

@@ -20,16 +20,6 @@ type Props = {
 }
 
 class DirectoryBrowser extends React.Component<Props> {
-  static propTypes = {
-    showDotfiles: PropTypes.bool.isRequired,
-    error: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired,
-    list: PropTypes.array.isRequired,
-    path: PropTypes.string.isRequired,
-    toggleDotfiles: PropTypes.func.isRequired,
-    handleDoubleClick: PropTypes.func.isRequired,
-  };
-
   render = () => (
       <div style={this.props.style}>
         <table className="table table-hover"
