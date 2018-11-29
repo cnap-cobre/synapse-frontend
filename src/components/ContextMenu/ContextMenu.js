@@ -96,10 +96,11 @@ class ContextMenu extends React.Component<Props, State> {
   };
 
   delayedRefresh = (path) => {
+    const { dispatch } = this.props;
     // We delay a bit here so that Dropbox has a chance to be consistent.
     // See "Brewers Cap Theorem" - Consistency, Availability, Partition tolerance
     setTimeout(() => {
-      this.props.dispatch(fileListActions.pending(path));
+      dispatch(fileListActions.pending(path));
     }, 200);
   };
 
@@ -111,9 +112,9 @@ class ContextMenu extends React.Component<Props, State> {
     console.log('share');
   };
 
-  handleTransferFiles = (e) => {
-    const { focusedFiles } = this.props;
-    this.props.dispatch(addModal({
+  handleTransferFiles = () => {
+    const { focusedFiles, dispatch } = this.props;
+    dispatch(addModal({
       modalType: 'transfer',
       files: focusedFiles,
       action: (targetPath) => {
@@ -125,20 +126,21 @@ class ContextMenu extends React.Component<Props, State> {
             toPath: targetPath + file.name + (file.type === 'dir' ? '/' : ''),
           }),
         );
-        this.props.dispatch(
+        dispatch(
           startTransfer(transferOrders),
         );
       },
     }));
   };
 
-  handleRenameFile = (e) => {
-    const file = this.props.focusedFiles[0];
-    this.props.dispatch(addModal({
+  handleRenameFile = () => {
+    const { dispatch, focusedFiles } = this.props;
+    const file = focusedFiles[0];
+    dispatch(addModal({
       modalType: 'renameFile',
       fileName: file.name,
       action: (newName) => {
-        this.props.dispatch(
+        dispatch(
           fileActions.renameFile(file, newName),
         );
         this.delayedRefresh(`${file.fullPath.split('/').slice(0, -1).join('/')}/`);
@@ -146,12 +148,12 @@ class ContextMenu extends React.Component<Props, State> {
     }));
   };
 
-  handleMoveFile = (e) => {
-    const { focusedFiles } = this.props;
+  handleMoveFile = () => {
+    const { dispatch, focusedFiles } = this.props;
     const currentDirectoryPath = `${focusedFiles[0]
       .fullPath.split('/').slice(0, -1).join('/')}/`;
 
-    this.props.dispatch(addModal({
+    dispatch(addModal({
       modalType: 'moveCopyFile',
       title: `Move File${focusedFiles.length > 1 ? 's' : ''}`,
       files: focusedFiles,
@@ -174,7 +176,7 @@ class ContextMenu extends React.Component<Props, State> {
               return fileActions.moveFile(file, `${newPath}/${file.name}`);
             },
           ).map(
-            moveAction => this.props.dispatch(moveAction),
+            moveAction => dispatch(moveAction),
           ),
         )
 
@@ -187,12 +189,12 @@ class ContextMenu extends React.Component<Props, State> {
     }));
   };
 
-  handleCopyFiles = (e) => {
-    const { focusedFiles } = this.props;
+  handleCopyFiles = () => {
+    const { dispatch, focusedFiles } = this.props;
     const currentDirectoryPath = `${focusedFiles[0]
       .fullPath.split('/').slice(0, -1).join('/')}/`;
 
-    this.props.dispatch(addModal({
+    dispatch(addModal({
       modalType: 'moveCopyFile',
       title: `Copy File${focusedFiles.length > 1 ? 's' : ''}`,
       files: focusedFiles,
@@ -212,7 +214,7 @@ class ContextMenu extends React.Component<Props, State> {
           focusedFiles.map(
             file => fileActions.copyFile(file, newPath + file.name),
           ).map(
-            copyAction => this.props.dispatch(copyAction),
+            copyAction => dispatch(copyAction),
           ),
         )
 
@@ -224,12 +226,13 @@ class ContextMenu extends React.Component<Props, State> {
     }));
   };
 
-  handleDeleteFiles = (e) => {
-    this.props.dispatch(addModal({
+  handleDeleteFiles = () => {
+    const { dispatch, focusedFiles } = this.props;
+    dispatch(addModal({
       modalType: 'deleteFile',
-      files: this.props.focusedFiles,
+      files: focusedFiles,
       action: () => {
-        const uniqueDirectories = this.props.focusedFiles.map(
+        const uniqueDirectories = focusedFiles.map(
           // Map from files to their directory paths
           file => `${file.fullPath.split('/').slice(0, -1).join('/')}/`,
         ).filter(
@@ -239,10 +242,10 @@ class ContextMenu extends React.Component<Props, State> {
 
         // Delete each file
         Promise.all(
-          this.props.focusedFiles.map(
+          focusedFiles.map(
             file => fileActions.deleteFile(file),
           ).map(
-            deleteAction => this.props.dispatch(deleteAction),
+            deleteAction => dispatch(deleteAction),
           ),
         )
 
@@ -257,96 +260,103 @@ class ContextMenu extends React.Component<Props, State> {
     }));
   };
 
-  singleFileContextMenu = () => (
-    <React.Fragment>
-      <div
-        className="contextMenu--option contextMenu--option__disabled"
-        onClick={this.handleSingleShareFile}
-      >
-          Share (coming soon)
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleTransferFiles}
-      >
-          Transfer
-      </div>
-      <DownloadLink
-        file={this.props.focusedFiles[0]}
-        disabled={this.props.focusedFiles[0].type === 'dir'}
-      >
-          Download
-      </DownloadLink>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleRenameFile}
-      >
-          Rename
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleMoveFile}
-      >
-          Move
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleCopyFiles}
-      >
-          Copy
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleDeleteFiles}
-      >
-          Delete
-      </div>
-    </React.Fragment>
-  );
+  singleFileContextMenu = () => {
+    const { focusedFiles } = this.props;
+    return (
+      <React.Fragment>
+        <div
+          className="contextMenu--option contextMenu--option__disabled"
+          onClick={this.handleSingleShareFile}
+        >
+            Share (coming soon)
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleTransferFiles}
+        >
+            Transfer
+        </div>
+        <DownloadLink
+          file={focusedFiles[0]}
+          disabled={focusedFiles[0].type === 'dir'}
+        >
+            Download
+        </DownloadLink>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleRenameFile}
+        >
+            Rename
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleMoveFile}
+        >
+            Move
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleCopyFiles}
+        >
+            Copy
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleDeleteFiles}
+        >
+            Delete
+        </div>
+      </React.Fragment>
+    );
+  }
 
-  multipleFileContextMenu = () => (
-    <React.Fragment>
-      <div
-        className="contextMenu--option contextMenu--option__diabled"
-        onClick={this.handleMultiShareFile}
-      >
-          Share (coming soon)
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleTransferFiles}
-      >
-          Transfer
-      </div>
-      <DownloadLink
-        file={this.props.focusedFiles[0]}
-        disabled
-      >
-          Download
-      </DownloadLink>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleMoveFile}
-      >
-          Move
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleCopyFiles}
-      >
-          Copy
-      </div>
-      <div
-        className="contextMenu--option"
-        onClick={this.handleDeleteFiles}
-      >
-          Delete
-      </div>
-    </React.Fragment>
-  );
+  multipleFileContextMenu = () => {
+    const { focusedFiles } = this.props;
+    return (
+      <React.Fragment>
+        <div
+          className="contextMenu--option contextMenu--option__diabled"
+          onClick={this.handleMultiShareFile}
+        >
+            Share (coming soon)
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleTransferFiles}
+        >
+            Transfer
+        </div>
+        <DownloadLink
+          file={focusedFiles[0]}
+          disabled
+        >
+            Download
+        </DownloadLink>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleMoveFile}
+        >
+            Move
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleCopyFiles}
+        >
+            Copy
+        </div>
+        <div
+          className="contextMenu--option"
+          onClick={this.handleDeleteFiles}
+        >
+            Delete
+        </div>
+      </React.Fragment>
+    );
+  }
 
   render() {
     const { visible } = this.state;
+    const { focusedFilePaths } = this.props;
 
     return (
       <div>
@@ -361,7 +371,7 @@ class ContextMenu extends React.Component<Props, State> {
               ref={(ref) => { this.root = ref; }}
               className="contextMenu"
             >
-              {this.props.focusedFilePaths.length === 1 ? this.singleFileContextMenu() : this.multipleFileContextMenu()}
+              {focusedFilePaths.length === 1 ? this.singleFileContextMenu() : this.multipleFileContextMenu()}
             </div>
           )}
         </EventListener>
@@ -374,5 +384,6 @@ const mapStateToProps = store => ({
   focusedFilePaths: getFocusedFilePaths(store),
   focusedFiles: getFocusedFilePaths(store).map(f => store.filesFlat[f]),
 });
+
 
 export default connect(mapStateToProps)(ContextMenu);

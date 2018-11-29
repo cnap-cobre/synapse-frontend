@@ -69,6 +69,7 @@ class AddSftpFileSystemForm extends React.Component<Props, State> {
   });
 
   agaveForm = () => {
+    const { onFormSubmission } = this.props;
     const {
       id, name, description, site, host, port, username, publicKey, privateKey,
     } = this.state;
@@ -187,7 +188,7 @@ class AddSftpFileSystemForm extends React.Component<Props, State> {
               onChange={
                     (e) => {
                       this.setState({
-                        port: parseInt(e.target.value),
+                        port: parseInt(e.target.value, 10),
                       });
                     }
                   }
@@ -253,7 +254,7 @@ class AddSftpFileSystemForm extends React.Component<Props, State> {
                   }
             />
             <HelpBlock>
-                Private Key. Don't share this one.
+                Private Key. Don&apos;t share this one.
             </HelpBlock>
           </Col>
         </FormGroup>
@@ -265,7 +266,7 @@ class AddSftpFileSystemForm extends React.Component<Props, State> {
           <Button
             className="btn btn-success btn-fill"
             onClick={() => {
-              this.props.onFormSubmission(
+              onFormSubmission(
                 this.mapToRequestShape(this.state),
               ).then(() => {
                 agaveFileSystemsActions();
@@ -283,11 +284,14 @@ class AddSftpFileSystemForm extends React.Component<Props, State> {
     );
   };
 
-  render = () => (
-    this.props.hasLinkedAgaveAccount ? this.agaveForm() : (
-      <p>Please link your Agave account first.</p>
-    )
-  );
+  render = () => {
+    const { hasLinkedAgaveAccount } = this.props;
+    return (
+      hasLinkedAgaveAccount ? this.agaveForm() : (
+        <p>Please link your Agave account first.</p>
+      )
+    );
+  }
 }
 
 const mapStateToProps = store => ({

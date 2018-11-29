@@ -11,6 +11,11 @@ export type AgaveFileType = {
   provider: string,
   system: string,
   type: string,
+  _links: {
+    self: {
+      href: string
+    }
+  }
 }
 
 export type FileType = AgaveFileType
