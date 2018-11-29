@@ -1,3 +1,5 @@
+// @flow
+
 import {connect} from 'react-redux';
 import {fileIconResolver} from "../../util/FileIconResolver";
 import {humanFileSize} from "../../util/FileSize";
@@ -5,9 +7,18 @@ import React from 'react';
 import {format, formatDistance} from "date-fns";
 import './fileMetadata.scss';
 import {getFocusedFilePaths} from "../../store/ui/reducer";
+import type {FileType} from "../../types/fileTypes";
 
+type Props = {
+  empty: boolean,
+  files: Array<FileType>
+}
 
-class FileMetadata extends React.Component{
+type State = {
+
+}
+
+class FileMetadata extends React.Component<Props, State>{
   fileAttributesToComponents = (file) => {
     const list = [];
 

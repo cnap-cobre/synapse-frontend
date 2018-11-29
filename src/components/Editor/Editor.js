@@ -1,10 +1,19 @@
+// @flow
+
 import AceEditor from 'react-ace';
 import PropTypes from 'prop-types';
 import React from "react";
 import 'brace/mode/python';
 import 'brace/theme/monokai';
 
-export default class Editor extends React.Component {
+type Props = {
+  fontSize: number,
+  width: string,
+  height: string,
+  value: string,
+}
+
+export default class Editor extends React.Component<Props> {
   static propTypes = {
     fontSize: PropTypes.number.isRequired,
     width: PropTypes.string.isRequired,

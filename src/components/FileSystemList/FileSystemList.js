@@ -1,8 +1,14 @@
+// @flow
 import Alert from 'react-bootstrap/lib/Alert';
 import {connect} from 'react-redux';
 import React from 'react';
+import type {FileSystemType} from "../../types/fileSystemTypes";
 
-class FileSystemList extends React.Component {
+type Props = {
+  fileSystems: Array<FileSystemType>
+}
+
+class FileSystemList extends React.Component<Props> {
   render() {
     if (this.props.fileSystems.length > 0) {
       return (

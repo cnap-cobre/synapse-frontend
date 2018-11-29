@@ -16,9 +16,7 @@ type Props = {
   onToggleClick(): typeof undefined,
 }
 
-type State = {
-
-}
+type State = {}
 
 export default class BootstrapSwitch extends React.Component<Props, State> {
   static propTypes = {
