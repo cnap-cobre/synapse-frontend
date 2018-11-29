@@ -1,3 +1,5 @@
+// @flow
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import AddDirectoryButton from './AddDirectoryButton/AddDirectoryButton';
@@ -6,29 +8,29 @@ import DotfilesCheckBox from './DotfilesCheckBox/DotfilesCheckBox';
 import ListGridToggle from './ListGridToggle/ListGridToggle';
 import UploadFile from './UploadFile/UploadFile';
 
+type Props = {
+  id: string,
+  handleRefresh(): typeof undefined,
+  showDotfiles: boolean,
+  toggleDotfiles(): typeof undefined,
+  path: string,
+}
 
-export default class FileBrowserControls extends React.Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    handleRefresh: PropTypes.func.isRequired,
-    showDotfiles: PropTypes.bool.isRequired,
-    toggleDotfiles: PropTypes.func.isRequired,
-    path: PropTypes.string.isRequired,
-  };
+const FileBrowserControls = (props: Props) => {
+  const { handleRefresh, id, showDotfiles, toggleDotfiles, path } = props;
 
-  render() {
-    return (
+  return (
       <div
-        className="browserControls"
-        style={{
-          padding: '1px 15px',
-          backgroundColor: '#e4e4e4',
-          borderRadius: '4px',
-          textAlign: 'left',
-          marginBottom: '20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
+          className="browserControls"
+          style={{
+            padding: '1px 15px',
+            backgroundColor: '#e4e4e4',
+            borderRadius: '4px',
+            textAlign: 'left',
+            marginBottom: '20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
       >
 
         <div style={{
@@ -36,12 +38,12 @@ export default class FileBrowserControls extends React.Component {
           backgroundColor: '#e4e4e4',
         }}
         >
-          <BrowserRefresh handleRefresh={this.props.handleRefresh} />
+          <BrowserRefresh handleRefresh={handleRefresh} />
 
           <DotfilesCheckBox
-            id={this.props.id}
-            showDotfiles={this.props.showDotfiles}
-            toggleDotfiles={this.props.toggleDotfiles}
+              id={id}
+              showDotfiles={showDotfiles}
+              toggleDotfiles={toggleDotfiles}
           />
 
           <ListGridToggle />
@@ -51,12 +53,13 @@ export default class FileBrowserControls extends React.Component {
           display: 'flex',
         }}
         >
-          <UploadFile path={this.props.path} />
-          <AddDirectoryButton path={this.props.path} />
+          <UploadFile path={path} />
+          <AddDirectoryButton path={path} />
         </div>
 
 
       </div>
-    );
-  }
+  );
 }
+
+export default FileBrowserControls;
