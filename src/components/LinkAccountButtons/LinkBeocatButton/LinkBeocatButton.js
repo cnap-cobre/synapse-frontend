@@ -11,19 +11,23 @@ type Props = {
 
 class LinkBeocatButton extends React.Component<Props> {
   onButtonClick = () => {
+    const { addModal } = this.props;
     addModal({
       modalType: 'linkBeocatWizard',
     });
   };
 
   render() {
+    const { hasLinkedAgaveAccount } = this.props;
+
     const button = (
       <button
         title="Beocat"
         className="btn btn-block btn-social btn-beocat"
         onClick={this.onButtonClick}
+        type="button"
       >
-        <img src="/dj-static/img/ksu-logo.svg" />
+        <img src="/dj-static/img/ksu-logo.svg" alt="K-State Logo" />
           Link your Beocat Account
       </button>
 
@@ -34,12 +38,12 @@ class LinkBeocatButton extends React.Component<Props> {
         href="/accounts/agave/login/?process=connect"
         className="btn btn-block btn-social socialaccount_provider btn-agave"
       >
-        <img src="/dj-static/img/agave_icon.png" />
+        <img src="/dj-static/img/agave_icon.png" alt="Agave Logo" />
             First, link your Agave Account
       </a>
     );
 
-    return this.props.hasLinkedAgaveAccount ? button : linkAgaveButton;
+    return hasLinkedAgaveAccount ? button : linkAgaveButton;
   }
 }
 

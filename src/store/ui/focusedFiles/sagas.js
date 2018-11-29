@@ -8,6 +8,6 @@ function* getFileHistory(action) {
 
 export default function* () {
   yield all([
-    // takeEvery(types.SET_FOCUSED_FILE, getFileHistory)
+    takeEvery(types.SET_FOCUSED_FILE, getFileHistory),
   ]);
 }

@@ -104,11 +104,11 @@ class ContextMenu extends React.Component<Props, State> {
     }, 200);
   };
 
-  handleSingleShareFile = (e) => {
+  handleSingleShareFile = () => {
     console.log('share');
   };
 
-  handleMultiShareFile = (e) => {
+  handleMultiShareFile = () => {
     console.log('share');
   };
 
@@ -237,7 +237,7 @@ class ContextMenu extends React.Component<Props, State> {
           file => `${file.fullPath.split('/').slice(0, -1).join('/')}/`,
         ).filter(
           // Get unique
-          (x, i, a) => a.indexOf(x) == i,
+          (x, i, a) => a.indexOf(x) === i,
         );
 
         // Delete each file
@@ -371,7 +371,11 @@ class ContextMenu extends React.Component<Props, State> {
               ref={(ref) => { this.root = ref; }}
               className="contextMenu"
             >
-              {focusedFilePaths.length === 1 ? this.singleFileContextMenu() : this.multipleFileContextMenu()}
+              {
+                focusedFilePaths.length === 1
+                  ? this.singleFileContextMenu()
+                  : this.multipleFileContextMenu()
+              }
             </div>
           )}
         </EventListener>

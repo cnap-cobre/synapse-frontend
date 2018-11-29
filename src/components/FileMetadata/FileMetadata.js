@@ -28,20 +28,24 @@ class FileMetadata extends React.Component<Props, State> {
     ));
     list.push(file.path);
 
-    Object.keys(file).forEach((k, i) => {
-      if (typeof file[k] === 'object') {
+    Object.keys(file).forEach((key) => {
+      if (typeof file[key] === 'object') {
         return;
       }
-      list.push(<div key={k}>
-        {`${k}: ${file[k]}`}
-      </div>);
+      list.push(
+        <div key={key}>
+          {`${key}: ${file[key]}`}
+        </div>,
+      );
     });
 
     return list;
   };
 
   render() {
-    if (this.props.empty) {
+    const { empty, files } = this.props;
+
+    if (empty) {
       return (
         <div>
           <h6>Metadata</h6>
@@ -49,8 +53,8 @@ class FileMetadata extends React.Component<Props, State> {
             Select a file or folder to view its details.
         </div>
       );
-    } if (this.props.files.length === 1) {
-      const singleFile = this.props.files[0];
+    } if (files.length === 1) {
+      const singleFile = files[0];
       return (
         <div className="fileMetadata">
           <h6>Metadata</h6>
@@ -70,7 +74,7 @@ class FileMetadata extends React.Component<Props, State> {
             fontSize: '1.5em',
           }}
           >
-            {this.props.files[0].name}
+            {files[0].name}
           </div>
 
           <table style={{
@@ -112,13 +116,13 @@ class FileMetadata extends React.Component<Props, State> {
 
         <p>
 Selected:
-          {this.props.files.length}
+          {files.length}
           {' '}
 files
         </p>
         <p>
 Total Size:
-          {humanFileSize(this.props.files.reduce((acc, item) => (
+          {humanFileSize(files.reduce((acc, item) => (
             acc + item.length
           ), 0))}
         </p>

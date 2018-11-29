@@ -1,48 +1,54 @@
+// @flow
+
 import { connect } from 'react-redux';
 import React from 'react';
 import Loader from '../Loader/Loader';
 
-class HistoryMetadata extends React.Component {
-  render() {
-    if (!this.props.singleSelected) {
-      return (
-        <div />
-      );
-    }
+type Props = {
+  singleSelected: boolean,
+}
 
-    if (this.props.loading) {
-      return (
-        <div>
-          <h6>History</h6>
-          <hr />
-          <Loader visible />
-        </div>
-      );
-    }
+const HistoryMetadata = (props: Props) => {
+  const { singleSelected, loading, history } = props;
 
-    if (this.props.history.length === 0) {
-      return (
-        <div>
-          <h6>History</h6>
-          <hr />
-            No history to show
-        </div>
-      );
-    }
+  if (!singleSelected) {
+    return (
+      <div />
+    );
+  }
 
+  if (loading) {
     return (
       <div>
         <h6>History</h6>
         <hr />
-        <ul>
-          {this.props.history.map(h => (
-            <li>{h.status}</li>
-          ))}
-        </ul>
+        <Loader visible />
       </div>
     );
   }
-}
+
+  if (history.length === 0) {
+    return (
+      <div>
+        <h6>History</h6>
+        <hr />
+          No history to show
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h6>History</h6>
+      <hr />
+      <ul>
+        {history.map(h => (
+          <li>{h.status}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 const mapStateToProps = (store) => {
   const fileList = store.focusedFiles.list;

@@ -36,6 +36,10 @@ type Props = {
   uploadFile(File, string): typeof undefined,
   fetchFileList(string): typeof undefined,
   navigateToNewPath(string, string): typeof undefined,
+  browserHistoryNavPush(string): typeof undefined,
+  addFocusedFile(string): typeof undefined,
+  setFocusedFile(string): typeof undefined,
+  removeFocusedFile(string): typeof undefined,
 }
 
 class FileBrowser extends React.Component<Props> {
@@ -59,7 +63,9 @@ class FileBrowser extends React.Component<Props> {
   };
 
   handleDoubleClick = (file) => {
-    const { system, path, navigateToNewPath, browserHistoryNavPush } = this.props;
+    const {
+      system, path, navigateToNewPath, browserHistoryNavPush,
+    } = this.props;
 
     if (file.type === 'dir') {
       browserHistoryNavPush([
@@ -76,7 +82,9 @@ class FileBrowser extends React.Component<Props> {
   };
 
   handleSingleClick = (file, list, e) => {
-    const { focusedFilePaths } = this.props;
+    const {
+      focusedFilePaths, removeFocusedFile, addFocusedFile, setFocusedFile,
+    } = this.props;
 
     e.preventDefault();
     const selected = focusedFilePaths;
