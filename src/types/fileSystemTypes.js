@@ -1,4 +1,4 @@
-// Wflow
+// @flow
 export type FileSystemType = {
   id: string,
   name: string,

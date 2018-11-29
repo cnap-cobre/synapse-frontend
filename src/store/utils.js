@@ -11,9 +11,13 @@ export const createAction = (type, payload = {}) => ({
   ...payload,
 });
 
-export const createReducer = (initialState, handlers) => (state = initialState, action) => (handlers.hasOwnProperty(action.type)
-  ? handlers[action.type](state, action)
-  : state);
+/* eslint-disable indent, implicit-arrow-linebreak */
+export const createReducer = (initialState, handlers) =>
+    (state = initialState, action) =>
+        (Object.prototype.hasOwnProperty.call(handlers, action.type)
+            ? handlers[action.type](state, action)
+            : state);
+/* eslint-enable indent, implicit-arrow-linebreak */
 
 export const toCammelCase = x => x.split('_').map(
   y => y.toLowerCase(),

@@ -10,12 +10,17 @@
   "rules": {
     "react/jsx-filename-extension": "off",
     "import/prefer-default-export": "off",
-    "no-continue": "off"
+    "no-continue": "off",
+    "no-restricted-syntax": "warn",
+    "react/prop-types": "off"
   },
   "env": {
     "browser": true
   },
   "plugins": [
     "flowtype"
-  ]
+  ],
+  "globals": {
+    "expect": true
+  }
 }

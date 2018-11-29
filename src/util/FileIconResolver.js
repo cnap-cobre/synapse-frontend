@@ -147,6 +147,8 @@ function resolve(item) {
 
     return type.icon;
   }
+
+  return fileExtensionMappings.slice(-1)[0].icon;
 }
 
 export function fileIconResolver(item) {

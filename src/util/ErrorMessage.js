@@ -1,6 +1,6 @@
 export function statusCodeToErrorMessage(error) {
-  const code = error.status;
-  const message = error.message;
+  const { code, message } = error;
+
   const errorMessages = {
     400: '400 - Bad Request.  Something is wrong with how Synapse made this request to a 3rd party API.',
     401: '401 - Unauthorized.  You may need to sign in, or you may need to connect your Synapse account with a 3rd party account to access this service.',
