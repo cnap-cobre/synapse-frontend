@@ -1,7 +1,12 @@
+// @flow
 import {connect} from 'react-redux';
 import React from 'react';
 
-class LinkDropboxButton extends React.Component {
+type Props = {
+  hasLinkedDropbox: boolean
+}
+
+class LinkDropboxButton extends React.Component<Props> {
   render() {
     const linkButton = (
         <a title="Dropbox"

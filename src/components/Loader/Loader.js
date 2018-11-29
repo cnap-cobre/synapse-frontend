@@ -1,14 +1,14 @@
+// @flow
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import PropTypes from 'prop-types';
 import React from "react";
 import './Loader.css';
 
+type Props = {
+  visible: boolean
+}
 
-export default class Loader extends React.Component {
-  static propTypes = {
-    visible: PropTypes.bool.isRequired
-  };
-
+export default class Loader extends React.Component<Props> {
   render() {
     return (
         <div

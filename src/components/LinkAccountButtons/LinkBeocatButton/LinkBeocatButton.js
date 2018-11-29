@@ -1,13 +1,19 @@
+// @flow
+
 import {addModal} from "../../../store/ui/modals/Modals";
 import {connect} from 'react-redux';
 import React from 'react';
 import './beocatButton.scss';
 
-class LinkBeocatButton extends React.Component {
+type Props = {
+  hasLinkedAgaveAccount: boolean
+}
+
+class LinkBeocatButton extends React.Component<Props> {
   onButtonClick = () => {
-    this.props.dispatch(addModal({
+    addModal({
       modalType: 'linkBeocatWizard'
-    }));
+    });
   };
 
   render() {
@@ -41,4 +47,11 @@ const mapStateToProps = (store) => {
   };
 };
 
-export default connect(mapStateToProps)(LinkBeocatButton);
+const mapDispatchToProps = {
+  addModal,
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LinkBeocatButton);

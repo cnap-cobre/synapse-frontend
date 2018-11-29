@@ -1,3 +1,4 @@
+// @flow
 import { connect } from 'react-redux';
 import {fileIconResolver} from "../../util/FileIconResolver";
 import Loader from "../Loader/Loader";
@@ -5,8 +6,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {toggleDotfiles} from "../../store/ui/visualOptions/VisualOptions";
 import {getShowDotfiles} from "../../store/ui/reducer";
+import type {FileType} from "../../types/fileTypes";
 
-class DirectoryBrowser extends React.Component {
+type Props = {
+  showDotfiles: boolean,
+  error: boolean,
+  loading: boolean,
+  list: Array<FileType>,
+  path: string,
+  toggleDotfiles(): typeof undefined,
+  handleDoubleClick(string): typeof undefined,
+  style?: any,
+}
+
+class DirectoryBrowser extends React.Component<Props> {
   static propTypes = {
     showDotfiles: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
@@ -52,13 +65,15 @@ const mapStateToProps = (store, ownProps) => {
   const loading = (filesAtPath === undefined || filesAtPath.loading);
   const list = (loading) ? [] : filesAtPath.files.filter((item) => item.type === 'dir');
 
+  const showDotfiles = getShowDotfiles(store)
+
   return {
     loading,
     error: false, // TODO: fix hack
     list: list.filter(
       (item, i) => ((showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
     ),
-    showDotfiles: getShowDotfiles(store)
+    showDotfiles
   };
 };
 
