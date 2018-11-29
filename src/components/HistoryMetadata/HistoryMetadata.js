@@ -3,9 +3,12 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import Loader from '../Loader/Loader';
+import type { HistoryMetadataType } from '../../types/historyMetadataTypes';
 
 type Props = {
   singleSelected: boolean,
+  loading: boolean,
+  history: Array<HistoryMetadataType>,
 }
 
 const HistoryMetadata = (props: Props) => {
@@ -60,7 +63,7 @@ const mapStateToProps = (store) => {
   }
 
   const singleFocusedFile = store.focusedFiles.list[0];
-  const historyAtPath = store.fileHistory[singleFocusedFile] || { history: [] };
+  const historyAtPath = store.fileHistory[singleFocusedFile] || { history: [], loading: true };
 
   return {
     singleSelected: true,

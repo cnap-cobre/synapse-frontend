@@ -6,7 +6,8 @@ import { addModal } from '../../../store/ui/modals/Modals';
 import './beocatButton.scss';
 
 type Props = {
-  hasLinkedAgaveAccount: boolean
+  hasLinkedAgaveAccount: boolean,
+  addModal({ modalType: string }): typeof undefined,
 }
 
 class LinkBeocatButton extends React.Component<Props> {
