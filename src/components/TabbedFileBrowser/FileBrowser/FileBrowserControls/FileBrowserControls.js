@@ -17,49 +17,51 @@ type Props = {
 }
 
 const FileBrowserControls = (props: Props) => {
-  const { handleRefresh, id, showDotfiles, toggleDotfiles, path } = props;
+  const {
+    handleRefresh, id, showDotfiles, toggleDotfiles, path,
+  } = props;
 
   return (
-      <div
-          className="browserControls"
-          style={{
-            padding: '1px 15px',
-            backgroundColor: '#e4e4e4',
-            borderRadius: '4px',
-            textAlign: 'left',
-            marginBottom: '20px',
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
+    <div
+      className="browserControls"
+      style={{
+        padding: '1px 15px',
+        backgroundColor: '#e4e4e4',
+        borderRadius: '4px',
+        textAlign: 'left',
+        marginBottom: '20px',
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+    >
+
+      <div style={{
+        display: 'flex',
+        backgroundColor: '#e4e4e4',
+      }}
       >
+        <BrowserRefresh handleRefresh={handleRefresh} />
 
-        <div style={{
-          display: 'flex',
-          backgroundColor: '#e4e4e4',
-        }}
-        >
-          <BrowserRefresh handleRefresh={handleRefresh} />
+        <DotfilesCheckBox
+          id={id}
+          showDotfiles={showDotfiles}
+          toggleDotfiles={toggleDotfiles}
+        />
 
-          <DotfilesCheckBox
-              id={id}
-              showDotfiles={showDotfiles}
-              toggleDotfiles={toggleDotfiles}
-          />
-
-          <ListGridToggle />
-        </div>
-
-        <div style={{
-          display: 'flex',
-        }}
-        >
-          <UploadFile path={path} />
-          <AddDirectoryButton path={path} />
-        </div>
-
-
+        <ListGridToggle />
       </div>
+
+      <div style={{
+        display: 'flex',
+      }}
+      >
+        <UploadFile path={path} />
+        <AddDirectoryButton path={path} />
+      </div>
+
+
+    </div>
   );
-}
+};
 
 export default FileBrowserControls;

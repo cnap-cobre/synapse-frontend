@@ -1,23 +1,27 @@
+// @flow
+
+import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import FaPlusSquare from 'react-icons/lib/fa/plus-square';
-import PropTypes from 'prop-types';
-import React from 'react';
 import { directoryActions } from '../../../../../store/files/Files';
 import { addModal } from '../../../../../store/ui/modals/Modals';
 
-class AddDirectoryButton extends React.Component {
-  static propTypes = {
-    path: PropTypes.string.isRequired,
-  };
+type Props = {
+  path: string,
+  makeDirectory(path: string, name: string) : typeof undefined,
+  addModal(any): typeof undefined,
+};
 
+class AddDirectoryButton extends React.Component<Props> {
   openModal = () => {
-    this.props.dispatch(addModal({
+    const { addModal, makeDirectory, path } = this.props;
+    addModal({
       modalType: 'makeDirectory',
       action: (directoryName) => {
-        this.props.dispatch(directoryActions.makeDirectory(this.props.path, directoryName));
+        makeDirectory(path, directoryName);
       },
-    }));
+    });
   };
 
   render = () => (
@@ -37,4 +41,12 @@ class AddDirectoryButton extends React.Component {
   );
 }
 
-export default connect()(AddDirectoryButton);
+const mapDispatchToProps = {
+  addModal,
+  makeDirectory: directoryActions.makeDirectory,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(AddDirectoryButton);

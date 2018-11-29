@@ -1,30 +1,30 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class DotfilesCheckBox extends React.Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    showDotfiles: PropTypes.bool.isRequired,
-    toggleDotfiles: PropTypes.func.isRequired,
-  };
-
-  render() {
-    return (
-      <div
-        className="checkbox"
-        style={{
-          marginLeft: '1.0em',
-        }}
-      >
-        <input
-          checked={this.props.showDotfiles}
-          id={`DotfilesCheckbox${this.props.id}`}
-          type="checkbox"
-          onChange={this.props.toggleDotfiles}
-        />
-
-        <label htmlFor={`DotfilesCheckbox${this.props.id}`}>Show Dotfiles</label>
-      </div>
-    );
-  }
+type Props = {
+  id: string,
+  showDotfiles: boolean,
+  toggleDotfiles(): typeof undefined,
 }
+
+const DotfilesCheckBox = (props: Props) => {
+  const { id, showDotfiles, toggleDotfiles } = props;
+
+  return (
+    <div
+      className="checkbox"
+      style={{
+        marginLeft: '1.0em',
+      }}
+    >
+      <input
+        checked={showDotfiles}
+        id={`DotfilesCheckbox${id}`}
+        type="checkbox"
+        onChange={toggleDotfiles}
+      />
+
+      <label htmlFor={`DotfilesCheckbox${id}`}>Show Dotfiles</label>
+    </div>
+  );
+};
