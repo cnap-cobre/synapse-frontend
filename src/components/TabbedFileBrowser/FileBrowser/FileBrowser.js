@@ -34,7 +34,8 @@ type Props = {
   fileViewFormat: boolean,
   focusedFilePaths: Array<string>,
   uploadFile(File, string): typeof undefined,
-  fetchFileList(string): typeof undefined
+  fetchFileList(string): typeof undefined,
+  navigateToNewPath(string, string): typeof undefined,
 }
 
 class FileBrowser extends React.Component<Props> {
@@ -58,16 +59,16 @@ class FileBrowser extends React.Component<Props> {
   };
 
   handleDoubleClick = (file) => {
-    const { system, path } = this.props;
+    const { system, path, navigateToNewPath, browserHistoryNavPush } = this.props;
 
     if (file.type === 'dir') {
-      push([
+      browserHistoryNavPush([
         '.',
         file.name,
         '',
       ].join('/'));
 
-      setBrowserPath(
+      navigateToNewPath(
         `${system.provider}.${system.id}`,
         `${pathUtil.resolve(path, file.name).slice(0)}/`,
       );
@@ -201,8 +202,8 @@ const mapStateToProps = (store, ownProps) => {
 const mapDispatchToProps = {
   fetchFileList: fileListActions.pending,
   setFocusedFile,
-  push,
-  setBrowserPath,
+  browserHistoryNavPush: push,
+  navigateToNewPath: setBrowserPath,
   removeFocusedFile,
   addFocusedFile,
   setFocusedFilesList,
