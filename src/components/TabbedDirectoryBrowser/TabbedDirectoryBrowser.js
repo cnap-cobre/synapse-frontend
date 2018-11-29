@@ -1,27 +1,34 @@
+// @flow
+
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import { fileListActions } from '../../store/files/Files';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
 import './directoryTabs.css';
+import type { FileSystemType } from '../../types/fileSystemTypes';
 
-class TabbedDirectoryBrowser extends React.Component {
-  static propTypes = {
-    fileSystems: PropTypes.array.isRequired,
-    path: PropTypes.string.isRequired,
-    onTabSelect: PropTypes.func.isRequired,
-  };
+type Props = {
+  fileSystems: Array<FileSystemType>,
+  path: string,
+  onTabSelect(): typeof undefined,
+  handleDoubleClick(): typeof undefined,
+  fileListActionsPending(string): typeof undefined,
+}
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
-      this.props.dispatch(fileListActions.pending(this.props.path));
+class TabbedDirectoryBrowser extends React.Component<Props> {
+  componentDidUpdate(prevProps) {
+    const { fileListActionsPending, path } = this.props;
+
+    if (prevProps.path !== path && this.matchesFileSystem(path)) {
+      fileListActionsPending(path);
     }
   }
 
   matchesFileSystem = (path) => {
-    const matches = this.props.fileSystems.map(
+    const { fileSystems } = this.props;
+    const matches = fileSystems.map(
       sys => path.indexOf(`${sys.provider}/${sys.id}`) !== -1,
     );
     return matches.length > 0 && matches.indexOf(true) !== -1;
@@ -37,33 +44,45 @@ class TabbedDirectoryBrowser extends React.Component {
     return urlActive;
   };
 
-  browserMapper = (system, index) => (
-    <Tab
-      eventKey={index}
-      key={index}
-      title={system.name}
-    >
-      <DirectoryBrowser
-        path={this.props.path}
-        handleDoubleClick={this.props.handleDoubleClick}
-        system={this.props.fileSystems[index]}
-      />
-    </Tab>
-  );
+  browserMapper = (system, index) => {
+    const { path, handleDoubleClick, fileSystems } = this.props;
+
+    return (
+      <Tab
+        eventKey={index}
+        key={index}
+        title={system.name}
+      >
+        <DirectoryBrowser
+          path={path}
+          handleDoubleClick={handleDoubleClick}
+          system={fileSystems[index]}
+        />
+      </Tab>
+    );
+  }
 
 
   render() {
+    const { onTabSelect, fileSystems } = this.props;
     const selectedSystem = this.systemUrlResolver();
     return (
       <Tabs
         id="DirectoryBrowserTabs"
         activeKey={selectedSystem !== -1 ? selectedSystem : 0}
-        onSelect={this.props.onTabSelect}
+        onSelect={onTabSelect}
       >
-        {this.props.fileSystems.map(this.browserMapper)}
+        {fileSystems.map(this.browserMapper)}
       </Tabs>
     );
   }
 }
 
-export default connect()(TabbedDirectoryBrowser);
+const mapDispatchToProps = {
+  fileListActionsPending: fileListActions.pending,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(TabbedDirectoryBrowser);
