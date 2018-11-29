@@ -20,6 +20,7 @@ const MinimizeSidebarButton = (props: Props) => {
       id="minimizeSidebar"
       className="btn btn-fill btn-icon"
       onClick={toggleSidebar}
+      type="button"
     >
       <i className={buttonIconClass} />
     </button>

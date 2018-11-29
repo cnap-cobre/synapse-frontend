@@ -1,3 +1,5 @@
+// @flow
+
 import { connect } from 'react-redux';
 import React from 'react';
 import DeleteFileModal from './DeleteFileModal';
@@ -7,86 +9,98 @@ import MoveCopyModal from './MoveCopyModal';
 import RenameFileModal from './RenameFileModal';
 import SuccessMessageModal from './SuccessMessageModal';
 import TransferModal from './TransferModal';
+import type {
+  DeleteFileModalType,
+  LinkBeocatWizardModalType,
+  MakeDirectoryModalType,
+  MoveCopyModalType, RenameFileModalType, SuccessMessageModalType, TransferModalType,
+} from '../../types/modalTypes';
 
-
-class ModalWrapper extends React.Component {
-  render() {
-    return (
-      <div>
-        {Object.keys(this.props.modals).map((id, i) => {
-          switch (this.props.modals[id].modalType) {
-            case 'deleteFile':
-              return (
-                <DeleteFileModal
-                  key={i}
-                  id={id}
-                  action={this.props.modals[id].action}
-                  files={this.props.modals[id].files}
-                />
-              );
-            case 'linkBeocatWizard':
-              return (
-                <LinkBeocatWizardModal
-                  key={i}
-                  id={id}
-                />
-              );
-            case 'makeDirectory':
-              return (
-                <MakeDirectoryModal
-                  key={i}
-                  id={id}
-                  action={this.props.modals[id].action}
-                />
-              );
-            case 'moveCopyFile':
-              return (
-                <MoveCopyModal
-                  key={i}
-                  id={id}
-                  action={this.props.modals[id].action}
-                  title={this.props.modals[id].title}
-                  files={this.props.modals[id].files}
-                  promptVerb={this.props.modals[id].promptVerb}
-                  submitText={this.props.modals[id].submitText}
-                  path={this.props.modals[id].path}
-                  systemName={this.props.modals[id].systemName}
-                />
-              );
-            case 'renameFile':
-              return (
-                <RenameFileModal
-                  key={i}
-                  id={id}
-                  action={this.props.modals[id].action}
-                  fileName={this.props.modals[id].fileName}
-                />
-              );
-            case 'successMessage':
-              return (
-                <SuccessMessageModal
-                  key={i}
-                  id={id}
-                  text={this.props.modals[id].text}
-                />
-              );
-            case 'transfer':
-              return (
-                <TransferModal
-                  key={i}
-                  id={id}
-                  action={this.props.modals[id].action}
-                  files={this.props.modals[id].files}
-                />
-              );
-            default:
-              return (null);
-          }
-        })}
-      </div>
-    );
-  }
+type Props = {
+  modals: DeleteFileModalType | LinkBeocatWizardModalType
+      | MakeDirectoryModalType | MoveCopyModalType | RenameFileModalType
+      | SuccessMessageModalType | TransferModalType,
 }
+
+const ModalWrapper = (props: Props) => {
+  const { modals } = props;
+
+  return (
+    <div>
+      {Object.keys(modals).map((id) => {
+        const modal = modals[id];
+        switch (modal.modalType) {
+          case 'deleteFile':
+            return (
+              <DeleteFileModal
+                key={id}
+                id={id}
+                action={modal.action}
+                files={modal.files}
+              />
+            );
+          case 'linkBeocatWizard':
+            return (
+              <LinkBeocatWizardModal
+                key={id}
+                id={id}
+              />
+            );
+          case 'makeDirectory':
+            return (
+              <MakeDirectoryModal
+                key={id}
+                id={id}
+                action={modal.action}
+              />
+            );
+          case 'moveCopyFile':
+            return (
+              <MoveCopyModal
+                key={id}
+                id={id}
+                action={modal.action}
+                title={modal.title}
+                files={modal.files}
+                promptVerb={modal.promptVerb}
+                submitText={modal.submitText}
+                path={modal.path}
+                systemName={modal.systemName}
+              />
+            );
+          case 'renameFile':
+            return (
+              <RenameFileModal
+                key={id}
+                id={id}
+                action={modal.action}
+                fileName={modal.fileName}
+              />
+            );
+          case 'successMessage':
+            return (
+              <SuccessMessageModal
+                key={id}
+                id={id}
+                text={modal.text}
+              />
+            );
+          case 'transfer':
+            return (
+              <TransferModal
+                key={id}
+                id={id}
+                action={modal.action}
+                files={modal.files}
+              />
+            );
+          default:
+            return (null);
+        }
+      })}
+    </div>
+  );
+};
 
 const mapStateToProps = store => ({
   modals: store.modals,

@@ -1,42 +1,48 @@
+// @flow
+
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { removeModal } from '../../store/ui/modals/Modals';
 
-class MakeDirectoryModal extends React.Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    action: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]).isRequired,
+type Props = {
+  id: string,
+  action: any,
+  removeModal(string): typeof undefined,
+};
+
+type State = {
+  show: boolean,
+  name: string,
+}
+
+class MakeDirectoryModal extends React.Component<Props, State> {
+  state = {
+    show: true,
+    name: '',
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      show: true,
-      name: '',
-    };
-  }
-
   closeModal = () => {
+    const { id, removeModal } = this.props;
+
     this.setState({
       show: false,
     });
+
     setTimeout(() => {
-      this.props.dispatch(removeModal(this.props.id));
+      removeModal(id);
     }, 500);
   };
 
   doMakeDirectory = () => {
+    const { action } = this.props;
+    const { name } = this.state;
+
     this.closeModal();
-    this.props.action(this.state.name);
+    action(name);
   };
 
   handleKeyPress = (event) => {
@@ -44,42 +50,53 @@ class MakeDirectoryModal extends React.Component {
     this.doMakeDirectory();
   };
 
-  render = () => (
-    <Modal
-      show={this.state.show}
-      backdrop
-      onHide={this.closeModal}
-    >
-      <Modal.Header>
-        <Modal.Title>New Folder</Modal.Title>
-      </Modal.Header>
+  render = () => {
+    const { show, name } = this.state;
 
-      <Modal.Body>
-        <p>Please enter a name for the new folder:</p>
+    return (
+      <Modal
+        show={show}
+        backdrop
+        onHide={this.closeModal}
+      >
+        <Modal.Header>
+          <Modal.Title>New Folder</Modal.Title>
+        </Modal.Header>
 
-        <FormGroup>
-          <FormControl
-            type="text"
-            value={this.state.name}
-            autoFocus
-            onChange={(e) => { this.setState({ name: e.target.value }); }}
-            onKeyPress={this.handleKeyPress}
-          />
-        </FormGroup>
-      </Modal.Body>
+        <Modal.Body>
+          <p>Please enter a name for the new folder:</p>
 
-      <Modal.Footer>
-        <Button onClick={this.closeModal}>Cancel</Button>
-        <Button
-          bsStyle="success"
-          onClick={this.doMakeDirectory}
-        >
-            Create Folder
-        </Button>
-      </Modal.Footer>
+          <FormGroup>
+            <FormControl
+              type="text"
+              value={name}
+              autoFocus
+              onChange={(e) => { this.setState({ name: e.target.value }); }}
+              onKeyPress={this.handleKeyPress}
+            />
+          </FormGroup>
+        </Modal.Body>
 
-    </Modal>
-  );
+        <Modal.Footer>
+          <Button onClick={this.closeModal}>Cancel</Button>
+          <Button
+            bsStyle="success"
+            onClick={this.doMakeDirectory}
+          >
+              Create Folder
+          </Button>
+        </Modal.Footer>
+
+      </Modal>
+    );
+  }
 }
 
-export default connect()(MakeDirectoryModal);
+const mapDispatchToProps = {
+  removeModal,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(MakeDirectoryModal);

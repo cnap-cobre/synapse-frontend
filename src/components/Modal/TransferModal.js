@@ -1,24 +1,30 @@
-import Button from 'react-bootstrap/lib/Button';
+// @flow
+import React from 'react';
 import { connect } from 'react-redux';
+
+import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { fileListActions } from '../../store/files/Files';
 import FileBreadcrumbs from '../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs';
 import { removeModal } from '../../store/ui/modals/Modals';
 import TabbedDirectoryBrowser from '../TabbedDirectoryBrowser/TabbedDirectoryBrowser';
+import LinkComponent from './shared_components/LinkComponent';
 
+import type { TransferModalType } from '../../types/modalTypes';
 
-const LinkComponent = props => (
-  <a onClick={() => {
-    props.onClick(props.to);
-  }}
-  >
-    {props.children}
-  </a>
-);
+type Props = TransferModalType & {
+  removeModal(string): typeof undefined,
+  fileListActionsPending(string): typeof undefined
+}
 
-class TransferModal extends React.Component {
+type State = {
+  path: string,
+  show: boolean,
+  targetBrowserPaths: { [string]: string },
+}
+
+class TransferModal extends React.Component<Props, State> {
   static propTypes = {
     id: PropTypes.string.isRequired,
     action: PropTypes.oneOfType([
@@ -42,7 +48,9 @@ class TransferModal extends React.Component {
   }
 
   updatePath = (path) => {
-    this.props.dispatch(fileListActions.pending(path));
+    const { fileListActionsPending } = this.props;
+
+    fileListActionsPending(path);
     this.setState({
       path,
       targetBrowserPaths: {
@@ -53,71 +61,93 @@ class TransferModal extends React.Component {
   };
 
   onTabSelect = (key) => {
+    const { fileSystems } = this.props;
+    const { targetBrowserPaths } = this.state;
+
+    const { selected } = fileSystems[key];
+
     console.log('onTabSelectCalled', key);
     this.setState({
-      path: this.state.targetBrowserPaths[`${this.props.fileSystems[key].provider}.${this.props.fileSystems[key].id}`],
+      path: targetBrowserPaths[`${selected.provider}.${selected.id}`],
     });
   };
 
-  getCurrentSystem = () => this.props.fileSystems.filter(sys => sys.provider === this.state.path.split('/')[1] && sys.id === this.state.path.split('/')[2])[0];
+  getCurrentSystem = () => {
+    const { fileSystems } = this.props;
+    const { path } = this.state;
+
+    return fileSystems.filter(
+      sys => sys.provider === path.split('/')[1]
+            && sys.id === path.split('/')[2],
+    )[0];
+  };
 
   closeModal = () => {
+    const { id, removeModal } = this.props;
+
     this.setState({
       show: false,
     });
     setTimeout(() => {
-      this.props.dispatch(removeModal(this.props.id));
+      removeModal(id);
     }, 500);
   };
 
   doTransfer = () => {
+    const { action } = this.props;
+    const { path } = this.state;
+
     this.closeModal();
-    this.props.action(this.state.path);
+    action(path);
   };
 
-  render = () => (
-    <Modal
-      show={this.state.show}
-      backdrop
-      onHide={this.closeModal}
-    >
+  render = () => {
+    const { files, fileSystems } = this.props;
 
-      <Modal.Header closeButton>
-        <Modal.Title>Transfer Files</Modal.Title>
-      </Modal.Header>
+    return (
+      <Modal
+        show={this.state.show}
+        backdrop
+        onHide={this.closeModal}
+      >
 
-      <Modal.Body>
-        <p>
-Transfer (
-          {this.props.files.length}
-) files to the following location:
-        </p>
-        <FileBreadcrumbs
-          systemName={this.getCurrentSystem().name}
-          prefix={this.state.path.split('/').slice(0, 3).join('/')}
-          pathname={this.state.path}
-          crumbComponent={(
-            <LinkComponent onClick={this.updatePath} />
-                         )}
-        />
+        <Modal.Header closeButton>
+          <Modal.Title>Transfer Files</Modal.Title>
+        </Modal.Header>
 
-        <TabbedDirectoryBrowser
-          path={this.state.path}
-          fileSystems={this.props.fileSystems}
-          onTabSelect={this.onTabSelect}
-          handleDoubleClick={this.updatePath}
-        />
-      </Modal.Body>
+        <Modal.Body>
+          <p>
+              Transfer (
+            {files.length}
+              ) files to the following location:
+          </p>
+          <FileBreadcrumbs
+            systemName={this.getCurrentSystem().name}
+            prefix={this.state.path.split('/').slice(0, 3).join('/')}
+            pathname={this.state.path}
+            crumbComponent={(
+              <LinkComponent onClick={this.updatePath} />
+                )}
+          />
 
-      <Modal.Footer>
-        <Button onClick={this.closeModal}>Cancel</Button>
-        <Button onClick={this.doTransfer}>
-          Start Transfer
-        </Button>
-      </Modal.Footer>
+          <TabbedDirectoryBrowser
+            path={this.state.path}
+            fileSystems={fileSystems}
+            onTabSelect={this.onTabSelect}
+            handleDoubleClick={this.updatePath}
+          />
+        </Modal.Body>
 
-    </Modal>
-  );
+        <Modal.Footer>
+          <Button onClick={this.closeModal}>Cancel</Button>
+          <Button onClick={this.doTransfer}>
+              Start Transfer
+          </Button>
+        </Modal.Footer>
+
+      </Modal>
+    );
+  }
 }
 
 const mapStateToProps = (store, ownProps) => {
@@ -128,4 +158,12 @@ const mapStateToProps = (store, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(TransferModal);
+const mapDispatchToProps = {
+  fileListActionsPending: fileListActions.pending,
+  removeModal,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TransferModal);

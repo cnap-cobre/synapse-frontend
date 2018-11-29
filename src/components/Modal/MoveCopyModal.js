@@ -1,39 +1,39 @@
+// @flow
+
+import * as React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
-import PropTypes from 'prop-types';
-import React from 'react';
 import { fileListActions } from '../../store/files/Files';
 import FileBreadcrumbs from '../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
 import { removeModal } from '../../store/ui/modals/Modals';
+import type { FileType } from '../../types/fileTypes';
+import LinkComponent from './shared_components/LinkComponent';
 
-const LinkComponent = props => (
-  <a onClick={() => {
-    props.onClick(props.to);
-  }}
-  >
-    {props.children}
-  </a>
-);
 
-class MoveCopyModal extends React.Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    action: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]).isRequired,
-    title: PropTypes.string.isRequired,
-    files: PropTypes.array.isRequired,
-    promptVerb: PropTypes.string.isRequired,
-    submitText: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-    systemName: PropTypes.string.isRequired,
-  };
+type Props = {
+  id: string,
+  action: any,
+  title: string,
+  files: Array<FileType>,
+  promptVerb: string,
+  submitText: string,
+  path: string,
+  systemName: string,
+  removeModal(string): typeof undefined,
+  fileListActionsPending(string): typeof undefined,
+}
 
+type State = {
+  show: boolean,
+  pathPrefix: string,
+  path: string,
+}
+
+class MoveCopyModal extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -47,31 +47,40 @@ class MoveCopyModal extends React.Component {
   }
 
   closeModal = () => {
+    const { id, removeModal } = this.props;
+
     this.setState({
       show: false,
     });
 
     setTimeout(() => {
-      this.props.dispatch(
-        removeModal(this.props.id),
-      );
+      removeModal(id);
     }, 500);
   };
 
-  getFullDirectoryPath = () => ([
-    this.state.pathPrefix,
-    this.state.path,
-  ].join('/').replace(/([^:]\/)\/+/g, '$1'));
+  getFullDirectoryPath = () => {
+    const { pathPrefix, path } = this.state;
+
+    return ([
+      pathPrefix,
+      path,
+    ].join('/').replace(/([^:]\/)\/+/g, '$1'));
+  };
 
   doMoveOrCopy = () => {
+    const { action } = this.props;
+    const { path } = this.state;
+
     this.closeModal();
-    const absolutePath = this.state.path;
+    const absolutePath = path;
     console.log('Absolute path', absolutePath);
-    this.props.action(absolutePath);
+    action(absolutePath);
   };
 
   updatePath = (path) => {
-    this.props.dispatch(fileListActions.pending(path));
+    const { fileListActionsPending } = this.props;
+
+    fileListActionsPending(path);
     const pathTokens = path.split('/');
     this.setState({
       pathPrefix: pathTokens.slice(0, 3).join('/'),
@@ -79,79 +88,88 @@ class MoveCopyModal extends React.Component {
     });
   };
 
-  render = () => (
-    <Modal
-      show={this.state.show}
-      backdrop
-      onHide={this.closeModal}
-    >
-      <Modal.Header>
-        <Modal.Title>{this.props.title}</Modal.Title>
-      </Modal.Header>
+  render = () => {
+    const {
+      title, promptVerb, files, systemName, submitText,
+    } = this.props;
+    const { show, pathPrefix, path } = this.state;
 
-      <Modal.Body>
-        <p>
-            Select a location to
-          {' '}
-          {this.props.promptVerb}
-          {' '}
-the following files:
-        </p>
-        <ul>
-          {this.props.files.map(
-            file => (
-              <li key={file.fullPath}>
-                {file.name}
-              </li>
-            ),
-          )}
-        </ul>
+    return (
+      <Modal
+        show={show}
+        backdrop
+        onHide={this.closeModal}
+      >
+        <Modal.Header>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
 
-        <FileBreadcrumbs
-          systemName={this.props.systemName}
-          prefix={this.state.pathPrefix}
-          pathname={this.getFullDirectoryPath()}
-          crumbComponent={(
-            <LinkComponent onClick={this.updatePath} />
-                           )}
-        />
+        <Modal.Body>
+          <p>
+              Select a location to
+            {' '}
+            {promptVerb}
+            {' '}
+              the following files:
+          </p>
+          <ul>
+            {files.map(
+              file => (
+                <li key={file.fullPath}>
+                  {file.name}
+                </li>
+              ),
+            )}
+          </ul>
 
-        <DirectoryBrowser
-          path={this.getFullDirectoryPath()}
-          handleDoubleClick={path => this.updatePath(path)}
-          style={{
-            maxHeight: '40vh',
-            overflowY: 'auto',
-          }}
-        />
-
-
-        <FormGroup>
-          <FormControl
-            type="text"
-            value={this.state.path}
-            onChange={(e) => { this.updatePath(e.target.value); }}
+          <FileBreadcrumbs
+            systemName={systemName}
+            prefix={pathPrefix}
+            pathname={this.getFullDirectoryPath()}
+            crumbComponent={(
+              <LinkComponent onClick={this.updatePath} />
+                )}
           />
-        </FormGroup>
-      </Modal.Body>
 
-      <Modal.Footer>
-        <Button onClick={this.closeModal}>Cancel</Button>
-        <Button
-          bsStyle="danger"
-          onClick={this.doMoveOrCopy}
-        >
-          {this.props.submitText}
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
+          <DirectoryBrowser
+            path={this.getFullDirectoryPath()}
+            handleDoubleClick={p => this.updatePath(p)}
+            style={{
+              maxHeight: '40vh',
+              overflowY: 'auto',
+            }}
+          />
+
+
+          <FormGroup>
+            <FormControl
+              type="text"
+              value={path}
+              onChange={(e) => { this.updatePath(e.target.value); }}
+            />
+          </FormGroup>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={this.closeModal}>Cancel</Button>
+          <Button
+            bsStyle="danger"
+            onClick={this.doMoveOrCopy}
+          >
+            {submitText}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 }
 
-const mapStateToProps = (store, ownProps) => ({
-
-});
+const mapDispatchToProps = {
+  removeModal,
+  fileListActionsPending: fileListActions.pending,
+};
 
 export default connect(
-  mapStateToProps,
+  null,
+  mapDispatchToProps,
 )(MoveCopyModal);

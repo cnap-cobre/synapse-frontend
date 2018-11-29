@@ -1,22 +1,24 @@
+// @flow
+
+import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
-import PropTypes from 'prop-types';
-import React from 'react';
 import { removeModal } from '../../store/ui/modals/Modals';
+import type { RenameFileModalType } from '../../types/modalTypes';
 
-class RenameFileModal extends React.Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    action: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]).isRequired,
-    fileName: PropTypes.string.isRequired,
-  };
+type Props = RenameFileModalType & {
+  removeModal(string): typeof undefined
+}
 
+type State = {
+  fileName: string,
+  show: boolean,
+}
+
+class RenameFileModal extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -27,19 +29,22 @@ class RenameFileModal extends React.Component {
   }
 
   closeModal = () => {
+    const { id, removeModal } = this.props;
+
     this.setState({
       show: false,
     });
     setTimeout(() => {
-      this.props.dispatch(
-        removeModal(this.props.id),
-      );
+      removeModal(id);
     }, 500);
   };
 
   doRename = () => {
+    const { action } = this.props;
+    const { fileName } = this.state;
+
     this.closeModal();
-    this.props.action(this.state.fileName);
+    action(fileName);
   };
 
   handleKeyPress = (event) => {
@@ -47,47 +52,60 @@ class RenameFileModal extends React.Component {
     this.doRename();
   };
 
-  render = () => (
-    <Modal
-      show={this.state.show}
-      backdrop
-      onHide={this.closeModal}
-    >
-      <Modal.Header>
-        <Modal.Title>
-Rename
-          {this.props.fileName}
-        </Modal.Title>
-      </Modal.Header>
+  render = () => {
+    const { fileName: oldFileName } = this.props;
+    const { show, fileName: newFileName } = this.state;
 
-      <Modal.Body>
-        <p>
-            Please enter a new name for this file:
-        </p>
+    return (
+      <Modal
+        show={show}
+        backdrop
+        onHide={this.closeModal}
+      >
+        <Modal.Header>
+          <Modal.Title>
+              Rename
+            &nbsp;
+            {oldFileName}
+          </Modal.Title>
+        </Modal.Header>
 
-        <FormGroup>
-          <FormControl
-            type="text"
-            value={this.state.fileName}
-            autoFocus
-            onChange={(e) => { this.setState({ fileName: e.target.value }); }}
-            onKeyPress={this.handleKeyPress}
-          />
-        </FormGroup>
-      </Modal.Body>
+        <Modal.Body>
+          <p>
+              Please enter a new name for this file:
+          </p>
 
-      <Modal.Footer>
-        <Button onClick={this.closeModal}>Cancel</Button>
-        <Button
-          bsStyle="danger"
-          onClick={this.doRename}
-        >
-            Rename
-        </Button>
-      </Modal.Footer>
+          <FormGroup>
+            <FormControl
+              type="text"
+              value={newFileName}
+              autoFocus
+              onChange={(e) => { this.setState({ fileName: e.target.value }); }}
+              onKeyPress={this.handleKeyPress}
+            />
+          </FormGroup>
+        </Modal.Body>
 
-    </Modal>
-  )
+        <Modal.Footer>
+          <Button onClick={this.closeModal}>Cancel</Button>
+          <Button
+            bsStyle="danger"
+            onClick={this.doRename}
+          >
+              Rename
+          </Button>
+        </Modal.Footer>
+
+      </Modal>
+    );
+  }
 }
 
-export default connect()(RenameFileModal);
+const mapDispatchToProps = {
+  removeModal,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(RenameFileModal);
