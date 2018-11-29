@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import nav from '../../nav.js';
+import nav from '../../nav';
 import NavigationGroup from './NavigationGroup/NavigationGroup';
 import NavigationLink from './NavigationLink/NavigationLink';
-import type { NavigationType } from '../../nav';
+import type { NavigationType } from '../../types/navigationTypes';
 
 export default class Navigation extends React.Component<void> {
   static propTypes = {};
@@ -22,7 +22,7 @@ export default class Navigation extends React.Component<void> {
           {item.children.map(Navigation.buildLinks)}
         </NavigationGroup>
       );
-    } if (item.hasOwnProperty('icon')) {
+    } if (Object.prototype.hasOwnProperty.call(item, 'icon')) {
       return (
         <NavigationLink
           to={item.url}

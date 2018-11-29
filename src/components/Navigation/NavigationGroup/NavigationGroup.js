@@ -1,7 +1,8 @@
-import Collapse from 'react-bootstrap/lib/Collapse';
+// @flow
+
+import * as React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import Collapse from 'react-bootstrap/lib/Collapse';
 
 /*
  Note:
@@ -12,39 +13,50 @@ import React from 'react';
  this React implementation does not.
 */
 
-class NavigationGroup extends React.Component {
-  static propTypes = {
-    to: PropTypes.string.isRequired,
-    activeOnlyWhenExact: PropTypes.bool.isRequired,
-    icon: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  };
+type Props = {
+  to: string,
+  activeOnlyWhenExact: boolean,
+  icon: string,
+  label: string,
+  pathname: string,
+  children?: React.Node,
+}
 
+type State = {
+  open: boolean,
+}
+
+class NavigationGroup extends React.Component<Props, State> {
   state = {
     open: false,
   };
 
   render() {
+    const {
+      activeOnlyWhenExact, pathname, to, icon, label, children,
+    } = this.props;
+    const { open } = this.state;
+
     let match;
-    if (this.props.activeOnlyWhenExact) {
-      match = this.props.to === this.props.pathname;
+    if (activeOnlyWhenExact) {
+      match = to === pathname;
     } else {
-      match = this.props.pathname.indexOf(this.props.to) === 0;
+      match = pathname.indexOf(to) === 0;
     }
 
     return (
       <li className={match ? 'active' : ''}>
-        <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
-          <i className={this.props.icon} />
+        <a onClick={() => this.setState({ open: !open })} data-toggle="collapse">
+          <i className={icon} />
           <p>
-            {this.props.label}
+            {label}
             <b className="caret" />
           </p>
         </a>
-        <Collapse in={this.state.open}>
+        <Collapse in={open}>
           <div>
             <ul className="nav">
-              {this.props.children}
+              {children}
             </ul>
           </div>
         </Collapse>
