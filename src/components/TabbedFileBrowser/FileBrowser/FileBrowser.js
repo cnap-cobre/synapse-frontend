@@ -1,10 +1,10 @@
+// @flow
+
+import React from 'react';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
-import { Link } from 'redux-json-router';
-import path from 'path';
-import PropTypes from 'prop-types';
-import { push } from 'redux-json-router';
-import React from 'react';
+import { Link, push } from 'redux-json-router';
+import pathUtil from 'path';
 import FileBreadcrumbs from './FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from './FileBrowserControls/FileBrowserControls';
 import FileBrowserGrid from './FileBrowserGrid/FileBrowserGrid';
@@ -18,32 +18,27 @@ import {
 } from '../../../store/ui/focusedFiles/FocusedFiles';
 import { getFileViewFormat, getFocusedFilePaths } from '../../../store/ui/reducer';
 import { fileActions, fileListActions } from '../../../store/files/Files';
+import type { FileSystemType } from '../../../types/fileSystemTypes';
+import type { FileType } from '../../../types/fileTypes';
 
+type Props = {
+  system: FileSystemType,
+  systemPrefix: string,
+  path: string,
+  pathname: string,
+  showDotfiles: boolean,
+  toggleDotfiles(): typeof undefined,
+  loading: boolean,
+  error: boolean,
+  list: Array<FileType>,
+  fileViewFormat: boolean,
+  focusedFilePaths: Array<string>,
+  uploadFile(File, string): typeof undefined,
+  fetchFileList(string): typeof undefined
+}
 
-class FileBrowser extends React.Component {
-  static propTypes = {
-    system: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      provider: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }).isRequired,
-    prefix: PropTypes.string.isRequired,
-    systemPrefix: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-    pathname: PropTypes.string.isRequired,
-    showDotfiles: PropTypes.bool.isRequired,
-    toggleDotfiles: PropTypes.func.isRequired,
-    fetchFiles: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    error: PropTypes.bool.isRequired,
-    list: PropTypes.array.isRequired,
-    fileViewFormat: PropTypes.bool.isRequired,
-  };
-
-  shouldComponentUpdate(nextProps, nextState) {
+class FileBrowser extends React.Component<Props> {
+  shouldComponentUpdate(nextProps) {
     // No point in rendering if the tab isn't being shown.
     return nextProps.pathname.indexOf(
       nextProps.systemPrefix,
@@ -51,51 +46,58 @@ class FileBrowser extends React.Component {
   }
 
   handleRefresh = path => () => {
-    this.props.dispatch(fileListActions.pending(path));
+    const { fetchFileList } = this.props;
+    fetchFileList(path);
   };
 
-  handleContextMenu = (file, e) => {
-    if (this.props.focusedFilePaths.indexOf(file.fullPath) === -1) {
-      this.props.dispatch(setFocusedFile(file.fullPath));
+  handleContextMenu = (file) => {
+    const { focusedFilePaths } = this.props;
+    if (focusedFilePaths.indexOf(file.fullPath) === -1) {
+      setFocusedFile(file.fullPath);
     }
   };
 
-  handleDoubleClick = (file, e) => {
+  handleDoubleClick = (file) => {
+    const { system, path } = this.props;
+
     if (file.type === 'dir') {
-      this.props.dispatch(push([
+      push([
         '.',
         file.name,
         '',
-      ].join('/')));
-      this.props.dispatch(setBrowserPath(
-        `${this.props.system.provider}.${this.props.system.id}`,
-        `${path.resolve(this.props.path, file.name).slice(0)}/`,
-      ));
+      ].join('/'));
+
+      setBrowserPath(
+        `${system.provider}.${system.id}`,
+        `${pathUtil.resolve(path, file.name).slice(0)}/`,
+      );
     }
   };
 
   handleSingleClick = (file, list, e) => {
+    const { focusedFilePaths } = this.props;
+
     e.preventDefault();
-    const selected = this.props.focusedFilePaths;
+    const selected = focusedFilePaths;
 
     if (e.ctrlKey) {
       // If we are already selected, remove from selection
       // Else, add to selection
       if (selected.indexOf(file.fullPath) !== -1) {
-        return this.props.dispatch(removeFocusedFile(file.fullPath));
+        return removeFocusedFile(file.fullPath);
       }
-      return this.props.dispatch(addFocusedFile(file.fullPath));
+      return addFocusedFile(file.fullPath);
     }
 
     if (e.shiftKey && selected.length === 0) {
       // Revert to single click behavior
       e.ctrlKey = true;
-      return this.handleSingleClick(file, e);
+      return this.handleSingleClick(file, list, e);
     }
 
     if (e.shiftKey && selected.length === 1 && selected[0] === file.fullPath) {
       // If we shift + click on the only selected file, do nothing.
-      return;
+      return null;
     }
 
     if (e.shiftKey) {
@@ -103,26 +105,42 @@ class FileBrowser extends React.Component {
       const mostRecentSelectionIndex = list.findIndex(f => f.fullPath === mostRecentSelection);
       const currentSelectionIndex = list.findIndex(f => f.fullPath === file.fullPath);
 
-      return this.props.dispatch(setFocusedFilesList(
+      return setFocusedFilesList(
         list.map(f => f.fullPath).slice(
           Math.min(mostRecentSelectionIndex, currentSelectionIndex),
           Math.max(mostRecentSelectionIndex, currentSelectionIndex) + 1,
         ),
-      ));
+      );
     }
 
-    return this.props.dispatch(setFocusedFile(file.fullPath));
+    return setFocusedFile(file.fullPath);
   };
 
   handleFileDropzone = (files) => {
-    console.log('DROPZONE', files);
+    const { path, uploadFile } = this.props;
+
+    // eslint-disable-next-line
     for (let i = 0; i < files.length; i++) {
-      this.props.dispatch(fileActions.uploadFile(files[i], this.props.path));
+      uploadFile(files[i], path);
     }
   };
 
   render() {
-    const FileViewComponent = (this.props.fileViewFormat ? FileBrowserGrid : FileBrowserList);
+    const {
+      system,
+      systemPrefix,
+      pathname,
+      path,
+      showDotfiles,
+      toggleDotfiles,
+      fileViewFormat,
+      loading,
+      error,
+      list,
+      focusedFilePaths,
+    } = this.props;
+
+    const FileViewComponent = (fileViewFormat ? FileBrowserGrid : FileBrowserList);
 
     return (
       <div className="card-content table-responsive table-full-width">
@@ -132,33 +150,33 @@ class FileBrowser extends React.Component {
           disableClick
         >
           <FileBreadcrumbs
-            systemName={this.props.system.name}
-            prefix={this.props.systemPrefix}
-            pathname={this.props.pathname}
+            systemName={system.name}
+            prefix={systemPrefix}
+            pathname={pathname}
             crumbComponent={Link}
           />
 
           <FileBrowserControls
-            id={this.props.system.id}
-            handleRefresh={this.handleRefresh(this.props.path)}
-            showDotfiles={this.props.showDotfiles}
-            toggleDotfiles={this.props.toggleDotfiles}
-            path={this.props.path}
+            id={system.id}
+            handleRefresh={this.handleRefresh(path)}
+            showDotfiles={showDotfiles}
+            toggleDotfiles={toggleDotfiles}
+            path={path}
           />
 
           <FileViewComponent
-            showDotfiles={this.props.showDotfiles}
-            path={this.props.path}
+            showDotfiles={showDotfiles}
+            path={path}
             handleContextMenu={this.handleContextMenu}
             handleDoubleClick={this.handleDoubleClick}
             handleSingleClick={this.handleSingleClick}
-            loading={this.props.loading}
-            error={this.props.error}
-            list={this.props.list}
-            focusedFilePaths={this.props.focusedFilePaths}
+            loading={loading}
+            error={error}
+            list={list}
+            focusedFilePaths={focusedFilePaths}
           />
 
-          <Loader visible={this.props.loading} />
+          <Loader visible={loading} />
         </Dropzone>
       </div>
     );
@@ -180,6 +198,18 @@ const mapStateToProps = (store, ownProps) => {
   };
 };
 
+const mapDispatchToProps = {
+  fetchFileList: fileListActions.pending,
+  setFocusedFile,
+  push,
+  setBrowserPath,
+  removeFocusedFile,
+  addFocusedFile,
+  setFocusedFilesList,
+  uploadFile: fileActions.uploadFile,
+};
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(FileBrowser);
