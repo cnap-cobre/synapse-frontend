@@ -1,47 +1,57 @@
+// @flow
+
 import { connect } from 'react-redux';
-import React from 'react';
-import DefaultFooter from './DefaultFooter/DefaultFooter';
+import * as React from 'react';
 import DefaultNavbar from './DefaultNavbar/DefaultNavbar';
 import DefaultSidebar from './DefaultSidebar/DefaultSidebar';
 import { toggleMobileNav } from '../../store/ui/visualOptions/VisualOptions';
 import { getMobileNavOpen, getSidebarMinimized } from '../../store/ui/reducer';
 
-class DefaultLayout extends React.Component {
-  render() {
-    return (
-      <div className={
-        (this.props.sidebarMinimized ? 'sidebar-mini' : '')
-        + (this.props.mobileNavOpen ? 'nav-open' : '')
+type Props = {
+  children: React.Node,
+  onClick(): typeof undefined,
+  mobileNavOpen: boolean,
+  sidebarMinimized: boolean,
+}
+
+const DefaultLayout = (props: Props) => {
+  const {
+    sidebarMinimized, mobileNavOpen, onClick, children,
+  } = props;
+
+  return (
+    <div className={
+        (sidebarMinimized ? 'sidebar-mini' : '')
+        + (mobileNavOpen ? 'nav-open' : '')
       }
-      >
-        <div className="wrapper">
-          <DefaultSidebar />
+    >
+      <div className="wrapper">
+        <DefaultSidebar />
 
-          <div className="main-panel">
-            <DefaultNavbar />
+        <div className="main-panel">
+          <DefaultNavbar />
 
-            {this.props.children}
+          {children}
 
-            <div
-              className={`close-layer${
-                this.props.mobileNavOpen ? ' visible' : ''}`}
-              onClick={this.props.toggleMobileNav}
-            />
-          </div>
+          <div
+            className={`close-layer${
+              mobileNavOpen ? ' visible' : ''}`}
+            onClick={onClick}
+          />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = store => ({
   sidebarMinimized: getSidebarMinimized(store),
   mobileNavOpen: getMobileNavOpen(store),
 });
 
-const mapDispatchToProps = dispatch => ({
-  toggleMobileNav: () => { dispatch(toggleMobileNav()); },
-});
+const mapDispatchToProps = {
+  onClick: toggleMobileNav,
+};
 
 export default connect(
   mapStateToProps,
