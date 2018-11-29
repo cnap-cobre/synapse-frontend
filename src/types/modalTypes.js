@@ -1,4 +1,7 @@
+// @flow
+
 import type { FileType } from './fileTypes';
+import type { FileSystemType } from './fileSystemTypes';
 
 export type BaseModal = {
   id: string,
@@ -6,22 +9,23 @@ export type BaseModal = {
 }
 
 export type DeleteFileModalType = BaseModal & {
-  modalType: 'deleteFile',
+  deleteModal: true,
   action(): typeof undefined,
   files: Array<FileType>,
 };
 
 export type LinkBeocatWizardModalType = BaseModal & {
+  linkBeocatModal: true,
   modalType: 'linkBeocatWizard',
 };
 
 export type MakeDirectoryModalType = BaseModal & {
-  modalType: 'makeDirectory',
+  makeDirectoryModal: true,
   action(string): typeof undefined,
 };
 
 export type MoveCopyModalType = BaseModal & {
-  modalType: 'moveCopyFile',
+  moveCopyModal: true,
   action(string, string): typeof undefined,
   title: string,
   files: Array<FileType>,
@@ -32,18 +36,24 @@ export type MoveCopyModalType = BaseModal & {
 };
 
 export type RenameFileModalType = BaseModal & {
-  modalType: 'renameFile',
-  action(string, string): typeof undefined,
+  renameFileModal: true,
+  action(string): typeof undefined,
   fileName: string,
 };
 
 export type SuccessMessageModalType = BaseModal & {
-  modalType: 'successMessage',
+  successMessageModal: true,
   text: string,
+  action(string): typeof undefined,
 }
 
 export type TransferModalType = BaseModal & {
-  modalType: 'transfer',
+  transferModal: true,
   action(string): typeof undefined,
   files: Array<FileType>,
+  fileSystems: Array<FileSystemType>,
 }
+
+export type AnyModalType = DeleteFileModalType | LinkBeocatWizardModalType
+    | MakeDirectoryModalType | MoveCopyModalType | RenameFileModalType
+    | SuccessMessageModalType | TransferModalType;

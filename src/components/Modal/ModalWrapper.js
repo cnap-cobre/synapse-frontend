@@ -10,17 +10,14 @@ import RenameFileModal from './RenameFileModal';
 import SuccessMessageModal from './SuccessMessageModal';
 import TransferModal from './TransferModal';
 import type {
-  DeleteFileModalType,
-  LinkBeocatWizardModalType,
-  MakeDirectoryModalType,
-  MoveCopyModalType, RenameFileModalType, SuccessMessageModalType, TransferModalType,
+  AnyModalType,
 } from '../../types/modalTypes';
 
 type Props = {
-  modals: DeleteFileModalType | LinkBeocatWizardModalType
-      | MakeDirectoryModalType | MoveCopyModalType | RenameFileModalType
-      | SuccessMessageModalType | TransferModalType,
+  modals: { [string]: AnyModalType },
 }
+
+const isType = (m: AnyModalType, key: string) => Object.prototype.hasOwnProperty.call(m, key);
 
 const ModalWrapper = (props: Props) => {
   const { modals } = props;
@@ -29,74 +26,78 @@ const ModalWrapper = (props: Props) => {
     <div>
       {Object.keys(modals).map((id) => {
         const modal = modals[id];
-        switch (modal.modalType) {
-          case 'deleteFile':
-            return (
-              <DeleteFileModal
-                key={id}
-                id={id}
-                action={modal.action}
-                files={modal.files}
-              />
-            );
-          case 'linkBeocatWizard':
-            return (
-              <LinkBeocatWizardModal
-                key={id}
-                id={id}
-              />
-            );
-          case 'makeDirectory':
-            return (
-              <MakeDirectoryModal
-                key={id}
-                id={id}
-                action={modal.action}
-              />
-            );
-          case 'moveCopyFile':
-            return (
-              <MoveCopyModal
-                key={id}
-                id={id}
-                action={modal.action}
-                title={modal.title}
-                files={modal.files}
-                promptVerb={modal.promptVerb}
-                submitText={modal.submitText}
-                path={modal.path}
-                systemName={modal.systemName}
-              />
-            );
-          case 'renameFile':
-            return (
-              <RenameFileModal
-                key={id}
-                id={id}
-                action={modal.action}
-                fileName={modal.fileName}
-              />
-            );
-          case 'successMessage':
-            return (
-              <SuccessMessageModal
-                key={id}
-                id={id}
-                text={modal.text}
-              />
-            );
-          case 'transfer':
-            return (
-              <TransferModal
-                key={id}
-                id={id}
-                action={modal.action}
-                files={modal.files}
-              />
-            );
-          default:
-            return (null);
+
+        if (isType(modal, 'deleteModal')) {
+          return (
+            <DeleteFileModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
         }
+
+        if (isType(modal, 'linkBeocatModal')) {
+          return (
+            <LinkBeocatWizardModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
+        }
+
+        if (isType(modal, 'makeDirectoryModal')) {
+          return (
+            <MakeDirectoryModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
+        }
+
+        if (isType(modal, 'moveCopyModal')) {
+          return (
+            <MoveCopyModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
+        }
+
+        if (isType(modal, 'renameFileModal')) {
+          return (
+            <RenameFileModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
+        }
+
+        if (isType(modal, 'successMessageModal')) {
+          return (
+            <SuccessMessageModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
+        }
+
+        if (isType(modal, 'transferModal')) {
+          return (
+            <TransferModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
+        }
+
+        return null;
       })}
     </div>
   );

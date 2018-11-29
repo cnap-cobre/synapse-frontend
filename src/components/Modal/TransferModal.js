@@ -51,13 +51,13 @@ class TransferModal extends React.Component<Props, State> {
     const { fileListActionsPending } = this.props;
 
     fileListActionsPending(path);
-    this.setState({
+    this.setState(prevState => ({
       path,
       targetBrowserPaths: {
-        ...this.state.targetBrowserPaths,
+        ...prevState.targetBrowserPaths,
         [`${path.split('/')[1]}.${path.split('/')[2]}`]: path,
       },
-    });
+    }));
   };
 
   onTabSelect = (key) => {
@@ -103,10 +103,11 @@ class TransferModal extends React.Component<Props, State> {
 
   render = () => {
     const { files, fileSystems } = this.props;
+    const { path, show } = this.state;
 
     return (
       <Modal
-        show={this.state.show}
+        show={show}
         backdrop
         onHide={this.closeModal}
       >
@@ -123,15 +124,15 @@ class TransferModal extends React.Component<Props, State> {
           </p>
           <FileBreadcrumbs
             systemName={this.getCurrentSystem().name}
-            prefix={this.state.path.split('/').slice(0, 3).join('/')}
-            pathname={this.state.path}
+            prefix={path.split('/').slice(0, 3).join('/')}
+            pathname={path}
             crumbComponent={(
               <LinkComponent onClick={this.updatePath} />
                 )}
           />
 
           <TabbedDirectoryBrowser
-            path={this.state.path}
+            path={path}
             fileSystems={fileSystems}
             onTabSelect={this.onTabSelect}
             handleDoubleClick={this.updatePath}
@@ -150,8 +151,8 @@ class TransferModal extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (store, ownProps) => {
-  const { browserPaths, fileSystems, files } = store;
+const mapStateToProps = (store) => {
+  const { browserPaths, fileSystems } = store;
   return {
     browserPaths,
     fileSystems: fileSystems.systems.filter(sys => (!sys.public)),
