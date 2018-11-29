@@ -7,7 +7,7 @@ export const initialUserProfileState = {
     url: '',
     exists: false,
     profile: '',
-    hash: ''
+    hash: '',
   },
   dropbox: [],
   agave: [],
@@ -21,19 +21,19 @@ export const initialUserProfileState = {
     email: '',
     groups: [],
   },
-  loading: false
+  loading: false,
 };
 
 export default function userProfile(state = initialUserProfileState, action) {
   switch (action.type) {
     case types.GET_USER_PROFILE_ASYNC.PENDING:
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
     case types.GET_USER_PROFILE_ASYNC.SUCCESS:
       return Object.assign({}, state, {
         ...action.userProfile,
-        loading: false
+        loading: false,
       });
     default:
       return state;

@@ -11,20 +11,20 @@ const nav = [
   //   icon: 'ti-folder',
   //   exact: false,
   //   children: [
-      {
-        name: 'Browse Files',
-        icon: 'ti-folder',
-        //mini: 'B',
-        url: '/files/browse',
-        exact: false
-      },
-      {
-        name: 'File Systems',
-        icon: 'ti-server',
-        // mini: 'FS',
-        url: '/files/systems',
-        exact: true
-      },
+  {
+    name: 'Browse Files',
+    icon: 'ti-folder',
+    // mini: 'B',
+    url: '/files/browse',
+    exact: false,
+  },
+  {
+    name: 'File Systems',
+    icon: 'ti-server',
+    // mini: 'FS',
+    url: '/files/systems',
+    exact: true,
+  },
   //   ]
   // },
   // {
@@ -78,6 +78,6 @@ const nav = [
   //     }
   //   ]
   // }
-]
+];
 
 export default nav;

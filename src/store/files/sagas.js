@@ -1,25 +1,27 @@
+import {
+  all, call, put, select, takeEvery,
+} from 'redux-saga/effects';
 import * as types from './types';
 import Agave from '../../services/Agave/index';
 import Dropbox from '../../services/Dropbox/index';
-import {fileListActions} from './Files';
-import {removeFocusedFile} from "../ui/focusedFiles/FocusedFiles";
-import { all, call, put, select, takeEvery } from 'redux-saga/effects';
+import { fileListActions } from './Files';
+import { removeFocusedFile } from '../ui/focusedFiles/FocusedFiles';
 
 
 const getCsrf = state => state.csrf.token;
 const getFileStateAtPath = (state, path) => state.files[path];
 
 const transformFileListing = files => files.filter(
-    f => f.name !== '.'
+  f => f.name !== '.',
 ).map(
-    f => ({
-      ...f,
-      lastModified: Date.parse(f.lastModified),
-      fullPath: '/' + f.provider + '/' + f.system + f.path
-    })
+  f => ({
+    ...f,
+    lastModified: Date.parse(f.lastModified),
+    fullPath: `/${f.provider}/${f.system}${f.path}`,
+  }),
 );
 
-const resolveProviderService = path => {
+const resolveProviderService = (path) => {
   switch (path.split('/')[1]) {
     case 'agave':
       return Agave;
@@ -27,26 +29,26 @@ const resolveProviderService = path => {
       return Dropbox;
     default:
       console.log(path.split('/'));
-      throw "File provider not resolved from path";
+      throw 'File provider not resolved from path';
   }
 };
 
 function* getFileListIfNeeded(action) {
-  try{
+  try {
     const fileState = yield select(getFileStateAtPath, action.path);
     if (fileState === undefined) {
-      yield put(fileListActions.pending(action.path))
+      yield put(fileListActions.pending(action.path));
     }
   } catch (e) {
     console.log(e);
     // This should never run, but
     // if we somehow fail, we should probably fetch the files anyway
-    yield put(fileListActions.pending(action.path))
+    yield put(fileListActions.pending(action.path));
   }
 }
 
 function* getFileList(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.path);
     const files = yield call(ProviderService.listFiles, csrfToken, action.path);
@@ -59,7 +61,7 @@ function* getFileList(action) {
 }
 
 function* copyFile(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
     yield call(ProviderService.cp, csrfToken, action.file, action.newPath);
@@ -70,7 +72,7 @@ function* copyFile(action) {
 }
 
 function* deleteFile(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
     yield call(ProviderService.rm, csrfToken, action.file);
@@ -82,11 +84,11 @@ function* deleteFile(action) {
 }
 
 function* moveFile(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
     yield call(ProviderService.mv, csrfToken, action.file, action.newPath);
-    yield put(removeFocusedFile(action.file.fullPath))
+    yield put(removeFocusedFile(action.file.fullPath));
   } catch (e) {
     console.log(e);
     // Do something to handle the error
@@ -94,7 +96,7 @@ function* moveFile(action) {
 }
 
 function* renameFile(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
     yield call(ProviderService.rename, csrfToken, action.file, action.newName);
@@ -106,7 +108,7 @@ function* renameFile(action) {
 }
 
 function* uploadFile(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.path);
     yield call(ProviderService.uploadFile, csrfToken, action.file, action.path);
@@ -117,10 +119,10 @@ function* uploadFile(action) {
 }
 
 function* makeDirectory(action) {
-  try{
+  try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.path);
-    yield call(ProviderService.mkdir, csrfToken, action.path, action.name)
+    yield call(ProviderService.mkdir, csrfToken, action.path, action.name);
   } catch (e) {
     console.log(e);
     // Do something to handle the error
@@ -139,6 +141,6 @@ export default function* () {
     takeEvery(types.RENAME_FILE, renameFile),
     takeEvery(types.UPLOAD_FILE, uploadFile),
 
-    takeEvery(types.MAKE_DIRECTORY, makeDirectory)
+    takeEvery(types.MAKE_DIRECTORY, makeDirectory),
   ]);
 }

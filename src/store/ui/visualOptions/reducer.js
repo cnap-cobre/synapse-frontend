@@ -10,8 +10,8 @@ import {
   TOGGLE_DOTFILES,
   TOGGLE_FILE_VIEW_FORMAT,
   TOGGLE_MOBILE_NAV,
-  TOGGLE_SIDEBAR
-} from "./types";
+  TOGGLE_SIDEBAR,
+} from './types';
 
 
 export const initialVisualOptionsState = {
@@ -28,60 +28,60 @@ export default function visualOptions(state = initialVisualOptionsState, action)
     // ---------
     case SHOW_DOTFILES:
       return Object.assign({}, state, {
-        showDotfiles: true
+        showDotfiles: true,
       });
     case HIDE_DOTFILES:
       return Object.assign({}, state, {
-        showDotfiles: false
+        showDotfiles: false,
       });
     case TOGGLE_DOTFILES:
       return Object.assign({}, state, {
-        showDotfiles: !state.showDotfiles
+        showDotfiles: !state.showDotfiles,
       });
     // ---------
     // Sidebar
     // ---------
     case SET_SIDEBAR_MAXIMIZED:
       return Object.assign({}, state, {
-        sidebarMinimized: false
+        sidebarMinimized: false,
       });
     case SET_SIDEBAR_MINIMIZED:
       return Object.assign({}, state, {
-        sidebarMinimized: true
+        sidebarMinimized: true,
       });
     case TOGGLE_SIDEBAR:
       return Object.assign({}, state, {
-        sidebarMinimized: !state.sidebarMinimized
+        sidebarMinimized: !state.sidebarMinimized,
       });
     // ----------
     // Mobile Nav
     // ----------
     case SET_MOBILE_NAV_OPEN:
       return Object.assign({}, state, {
-        mobileNavOpen: true
+        mobileNavOpen: true,
       });
     case SET_MOBILE_NAV_CLOSED:
       return Object.assign({}, state, {
-        mobileNavOpen: false
+        mobileNavOpen: false,
       });
     case TOGGLE_MOBILE_NAV:
       return Object.assign({}, state, {
-        mobileNavOpen: !state.mobileNavOpen
+        mobileNavOpen: !state.mobileNavOpen,
       });
     // -----------------------------
     // File View - List or Grid view
     // -----------------------------
     case SET_FILE_VIEW_FORMAT_LIST:
       return Object.assign({}, state, {
-        fileViewFormat: false
+        fileViewFormat: false,
       });
     case SET_FILE_VIEW_FORMAT_GRID:
       return Object.assign({}, state, {
-        fileViewFormat: true
+        fileViewFormat: true,
       });
     case TOGGLE_FILE_VIEW_FORMAT:
       return Object.assign({}, state, {
-        fileViewFormat: !state.fileViewFormat
+        fileViewFormat: !state.fileViewFormat,
       });
     // -----------------------------
     default:

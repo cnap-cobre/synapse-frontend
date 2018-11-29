@@ -1,13 +1,13 @@
 // @flow
 
-import {connect} from 'react-redux';
-import {fileIconResolver} from "../../util/FileIconResolver";
-import {humanFileSize} from "../../util/FileSize";
+import { connect } from 'react-redux';
 import React from 'react';
-import {format, formatDistance} from "date-fns";
+import { format, formatDistance } from 'date-fns';
+import { fileIconResolver } from '../../util/FileIconResolver';
+import { humanFileSize } from '../../util/FileSize';
 import './fileMetadata.scss';
-import {getFocusedFilePaths} from "../../store/ui/reducer";
-import type {FileType} from "../../types/fileTypes";
+import { getFocusedFilePaths } from '../../store/ui/reducer';
+import type { FileType } from '../../types/fileTypes';
 
 type Props = {
   empty: boolean,
@@ -18,22 +18,22 @@ type State = {
 
 }
 
-class FileMetadata extends React.Component<Props, State>{
+class FileMetadata extends React.Component<Props, State> {
   fileAttributesToComponents = (file) => {
     const list = [];
 
     list.push(React.cloneElement(
-        fileIconResolver(file),
-        {key: 'icon'}
+      fileIconResolver(file),
+      { key: 'icon' },
     ));
     list.push(file.path);
 
     Object.keys(file).forEach((k, i) => {
-      if(typeof file[k] === 'object') {
+      if (typeof file[k] === 'object') {
         return;
       }
       list.push(<div key={k}>
-        {k + ': ' + file[k]}
+        {`${k}: ${file[k]}`}
       </div>);
     });
 
@@ -41,42 +41,46 @@ class FileMetadata extends React.Component<Props, State>{
   };
 
   render() {
-    if(this.props.empty) {
+    if (this.props.empty) {
       return (
-          <div>
-            <h6>Metadata</h6>
-            <hr />
+        <div>
+          <h6>Metadata</h6>
+          <hr />
             Select a file or folder to view its details.
-          </div>
+        </div>
       );
-    } else if(this.props.files.length === 1) {
+    } if (this.props.files.length === 1) {
       const singleFile = this.props.files[0];
       return (
-          <div className="fileMetadata">
-            <h6>Metadata</h6>
-            <hr />
+        <div className="fileMetadata">
+          <h6>Metadata</h6>
+          <hr />
 
-            <div style={{
-              fontSize: '3em',
-              color: '#999',
-              textAlign: 'center'
-            }}>
-              {React.cloneElement(fileIconResolver(singleFile))}
-            </div>
+          <div style={{
+            fontSize: '3em',
+            color: '#999',
+            textAlign: 'center',
+          }}
+          >
+            {React.cloneElement(fileIconResolver(singleFile))}
+          </div>
 
-            <div style={{
-              textAlign: 'center',
-              fontSize: '1.5em'
-            }}>
-              {this.props.files[0].name}
-            </div>
+          <div style={{
+            textAlign: 'center',
+            fontSize: '1.5em',
+          }}
+          >
+            {this.props.files[0].name}
+          </div>
 
-            <table style={{
-              overflow: 'auto'
-            }}>
-              <tbody>
+          <table style={{
+            overflow: 'auto',
+          }}
+          >
+            <tbody>
               <tr>
-                <td>Format:</td><td>{singleFile.format}</td>
+                <td>Format:</td>
+                <td>{singleFile.format}</td>
               </tr>
               <tr>
                 <td>Last Modified:</td>
@@ -85,31 +89,41 @@ class FileMetadata extends React.Component<Props, State>{
                 </td>
               </tr>
               <tr>
-                <td>Size:</td><td>{humanFileSize(singleFile.length)}</td>
+                <td>Size:</td>
+                <td>{humanFileSize(singleFile.length)}</td>
               </tr>
               <tr>
-                <td>Permissions:</td><td>{singleFile.permissions}</td>
+                <td>Permissions:</td>
+                <td>{singleFile.permissions}</td>
               </tr>
               <tr>
-                <td>Full Path:</td><td>{singleFile.path}</td>
+                <td>Full Path:</td>
+                <td>{singleFile.path}</td>
               </tr>
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
+        </div>
       );
-    } else {
-      return (
-          <div>
-            <h6>Metadata</h6>
-            <hr />
-
-            <p>Selected: {this.props.files.length} files</p>
-            <p>Total Size: {humanFileSize(this.props.files.reduce((acc, item) => (
-                acc + item.length
-            ), 0))}</p>
-          </div>
-      )
     }
+    return (
+      <div>
+        <h6>Metadata</h6>
+        <hr />
+
+        <p>
+Selected:
+          {this.props.files.length}
+          {' '}
+files
+        </p>
+        <p>
+Total Size:
+          {humanFileSize(this.props.files.reduce((acc, item) => (
+            acc + item.length
+          ), 0))}
+        </p>
+      </div>
+    );
   }
 }
 
@@ -120,7 +134,7 @@ const mapStateToProps = (store) => {
     return {
       filePaths: [],
       files: [],
-      empty: true
+      empty: true,
     };
   }
 
@@ -129,12 +143,12 @@ const mapStateToProps = (store) => {
     files: fileList.map((filePath) => {
       const dirPath = [...filePath.split('/').slice(0, -1), ''].join('/');
       const fileName = filePath.split('/').slice(-1)[0];
-      return store.files[dirPath].files.filter((item) => item.name === fileName)[0];
+      return store.files[dirPath].files.filter(item => item.name === fileName)[0];
     }),
-    empty: false
+    empty: false,
   };
 };
 
 export default connect(
-    mapStateToProps
+  mapStateToProps,
 )(FileMetadata);

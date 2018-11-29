@@ -9,18 +9,18 @@ const mockStore = configureStore([]);
 const storeData = {
   userProfile: {
     user: {
-      full_name: 'asdfasdf asdfasdf'
+      full_name: 'asdfasdf asdfasdf',
     },
     gravatar: {
-      url: 'http://asdfasdfasdf.com/'
-    }
+      url: 'http://asdfasdfasdf.com/',
+    },
   },
   router: {
-    pathname: '/files/viper/home/kmdice/625/hw3/'
+    pathname: '/files/viper/home/kmdice/625/hw3/',
   },
 };
 
-it('renders without crashing', ()=>{
+it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render((
     <Provider store={mockStore(storeData)}>

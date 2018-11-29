@@ -5,16 +5,15 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeModal } from "../../store/ui/modals/Modals";
+import { removeModal } from '../../store/ui/modals/Modals';
 
 class MakeDirectoryModal extends React.Component {
-
   static propTypes = {
     id: PropTypes.string.isRequired,
     action: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.func
-    ]).isRequired
+      PropTypes.object,
+      PropTypes.func,
+    ]).isRequired,
   };
 
   constructor(props) {
@@ -22,13 +21,13 @@ class MakeDirectoryModal extends React.Component {
 
     this.state = {
       show: true,
-      name: ''
+      name: '',
     };
   }
 
   closeModal = () => {
     this.setState({
-      show: false
+      show: false,
     });
     setTimeout(() => {
       this.props.dispatch(removeModal(this.props.id));
@@ -46,37 +45,41 @@ class MakeDirectoryModal extends React.Component {
   };
 
   render = () => (
-      <Modal show={this.state.show}
-             backdrop={true}
-             onHide={this.closeModal}
-      >
-        <Modal.Header>
-          <Modal.Title>New Folder</Modal.Title>
-        </Modal.Header>
+    <Modal
+      show={this.state.show}
+      backdrop
+      onHide={this.closeModal}
+    >
+      <Modal.Header>
+        <Modal.Title>New Folder</Modal.Title>
+      </Modal.Header>
 
-        <Modal.Body>
-          <p>Please enter a name for the new folder:</p>
+      <Modal.Body>
+        <p>Please enter a name for the new folder:</p>
 
-          <FormGroup>
-            <FormControl type="text"
-                         value={this.state.name}
-                         autoFocus={true}
-                         onChange={(e) => {this.setState({name: e.target.value})}}
-                         onKeyPress={this.handleKeyPress}
-            />
-          </FormGroup>
-        </Modal.Body>
+        <FormGroup>
+          <FormControl
+            type="text"
+            value={this.state.name}
+            autoFocus
+            onChange={(e) => { this.setState({ name: e.target.value }); }}
+            onKeyPress={this.handleKeyPress}
+          />
+        </FormGroup>
+      </Modal.Body>
 
-        <Modal.Footer>
-          <Button onClick={this.closeModal}>Cancel</Button>
-          <Button bsStyle="success"
-                  onClick={this.doMakeDirectory}>
+      <Modal.Footer>
+        <Button onClick={this.closeModal}>Cancel</Button>
+        <Button
+          bsStyle="success"
+          onClick={this.doMakeDirectory}
+        >
             Create Folder
-          </Button>
-        </Modal.Footer>
+        </Button>
+      </Modal.Footer>
 
-      </Modal>
+    </Modal>
   );
 }
 
-export default connect()(MakeDirectoryModal)
+export default connect()(MakeDirectoryModal);

@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import {ADD_MODAL, REMOVE_MODAL} from './types';
+import { ADD_MODAL, REMOVE_MODAL } from './types';
 
 // For now, we'll declare these here.
 // The kinds of modals that we want are
@@ -13,13 +13,13 @@ export function addModal(config) {
   return {
     type: ADD_MODAL,
     id: uuidv4(),
-    config
-  }
+    config,
+  };
 }
 
 export function removeModal(id) {
   return {
     type: REMOVE_MODAL,
-    id
-  }
+    id,
+  };
 }

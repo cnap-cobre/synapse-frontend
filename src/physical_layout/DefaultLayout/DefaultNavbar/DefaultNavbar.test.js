@@ -1,21 +1,23 @@
 import configureStore from 'redux-mock-store';
-import DefaultNavbar from './DefaultNavbar';
-import {initialVisualOptionsState} from "../../../store/ui/visualOptions/reducer";
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { initialVisualOptionsState } from '../../../store/ui/visualOptions/reducer';
+import DefaultNavbar from './DefaultNavbar';
 
 const mockStore = configureStore([]);
 
-it('renders without crashing', ()=>{
+it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-      <Provider store={mockStore({
-        ui: {
-          visualOptions: initialVisualOptionsState
-        }
-      })}>
-        <DefaultNavbar/>
-      </Provider>, div);
+    <Provider store={mockStore({
+      ui: {
+        visualOptions: initialVisualOptionsState,
+      },
+    })}
+    >
+      <DefaultNavbar />
+    </Provider>, div,
+  );
   ReactDOM.unmountComponentAtNode(div);
 });

@@ -1,16 +1,16 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import browserPaths from './browserPaths/reducer'
-import focusedFiles from './focusedFiles/reducer'
-import modals from './modals/reducer'
-import visualOptions from './visualOptions/reducer'
+import browserPaths from './browserPaths/reducer';
+import focusedFiles from './focusedFiles/reducer';
+import modals from './modals/reducer';
+import visualOptions from './visualOptions/reducer';
 
 export default combineReducers({
   browserPaths,
   focusedFiles,
   modals,
-  visualOptions
-})
+  visualOptions,
+});
 
 
 export const getBrowserPaths = state => state.ui.browserPaths;

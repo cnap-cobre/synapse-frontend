@@ -1,3 +1,4 @@
+import notifications from 'react-redux-notify';
 import agaveFileSystems from './agaveFileSystems/reducer';
 import browserPaths from './ui/browserPaths/reducer';
 import csrf from './csrf/reducer';
@@ -7,7 +8,6 @@ import filesFlat from './filesFlat/reducer';
 import fileSystems from './fileSystems/reducer';
 import focusedFiles from './ui/focusedFiles/reducer';
 import modals from './ui/modals/reducer';
-import notifications from 'react-redux-notify';
 import transferFiles from './transferFiles/reducer';
 import userProfile from './userProfile/reducer';
 import visualOptions from './ui/visualOptions/reducer';
@@ -27,5 +27,5 @@ export default {
   notifications,
   transferFiles,
   userProfile,
-  ui
+  ui,
 };

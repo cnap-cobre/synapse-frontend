@@ -1,21 +1,21 @@
-import {actions as agaveFileSystemsActions} from "../../store/agaveFileSystems/AgaveFileSystems";
 import Alert from 'react-bootstrap/lib/Alert';
-import {connect} from 'react-redux';
-import FileBrowser from "./FileBrowser/FileBrowser";
-import {fileListActions} from "../../store/files/Files";
-import {Link} from 'redux-json-router';
-import Loader from '../Loader/Loader';
+import { connect } from 'react-redux';
+import { Link } from 'redux-json-router';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {setBrowserPath} from "../../store/ui/browserPaths/BrowserPaths";
-import {setFocusedFile} from "../../store/ui/focusedFiles/FocusedFiles";
 import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
-import {toggleDotfiles} from "../../store/ui/visualOptions/VisualOptions";
-import { actions as userProfileActions } from '../../store/userProfile/UserProfile';
 import { push, replace } from 'redux-json-router';
+import { actions as agaveFileSystemsActions } from '../../store/agaveFileSystems/AgaveFileSystems';
+import FileBrowser from './FileBrowser/FileBrowser';
+import { fileListActions } from '../../store/files/Files';
+import Loader from '../Loader/Loader';
+import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
+import { setFocusedFile } from '../../store/ui/focusedFiles/FocusedFiles';
+import { toggleDotfiles } from '../../store/ui/visualOptions/VisualOptions';
+import { actions as userProfileActions } from '../../store/userProfile/UserProfile';
 import './fileTabs.css';
-import {getBrowserPaths, getShowDotfiles} from "../../store/ui/reducer";
+import { getBrowserPaths, getShowDotfiles } from '../../store/ui/reducer';
 
 class TabbedFileBrowser extends React.Component {
   static propTypes = {
@@ -24,22 +24,22 @@ class TabbedFileBrowser extends React.Component {
     prefix: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     toggleDotfiles: PropTypes.func.isRequired,
-    fetchFiles: PropTypes.func.isRequired
+    fetchFiles: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    if(this.props.path.split('/').length < 3) {
-      console.log("Waiting on redirect/replace to default file system.");
+    if (this.props.path.split('/').length < 3) {
+      console.log('Waiting on redirect/replace to default file system.');
       return;
     }
 
-    if(this.props.path.split('/').slice(-1)[0] !== '') {
+    if (this.props.path.split('/').slice(-1)[0] !== '') {
       this.props.dispatch(
-          replace(this.props.prefix + this.props.path + '/')
-      )
+        replace(`${this.props.prefix + this.props.path}/`),
+      );
     }
 
-    if(this.matchesFileSystem(this.props.path)) {
+    if (this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fileListActions.ifNeeded(this.props.path));
     } else {
       this.props.dispatch(agaveFileSystemsActions.pending());
@@ -49,16 +49,14 @@ class TabbedFileBrowser extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
+    if (prevProps.path !== this.props.path && this.matchesFileSystem(this.props.path)) {
       this.props.dispatch(fileListActions.ifNeeded(this.props.path));
     }
   }
 
   matchesFileSystem = (path) => {
     const matches = this.props.fileSystems.map(
-        (sys) => {
-          return path.indexOf(sys.provider + '/' + sys.id) !== -1;
-        }
+      sys => path.indexOf(`${sys.provider}/${sys.id}`) !== -1,
     );
     return matches.length > 0 && matches.indexOf(true) !== -1;
   };
@@ -69,86 +67,95 @@ class TabbedFileBrowser extends React.Component {
 
   render() {
     if (!this.props.isReady) {
-      return (<Loader visible={true}/>);
+      return (<Loader visible />);
     }
 
-    else if(this.props.fileSystems.length === 0) {
+    if (this.props.fileSystems.length === 0) {
       return (
-          <React.Fragment>
+        <React.Fragment>
           <Alert bsStyle="info">
             <strong>No file systems found.</strong>
           </Alert>
           <p>
-            Connect your Dropbox account <a href="/accounts/social/connections/">here</a>.
+            Connect your Dropbox account
+            {' '}
+            <a href="/accounts/social/connections/">here</a>
+.
           </p>
-          <p>Add your own remote SFTP file
-            systems <Link to='/files/add_new_filesystem'>here</Link>.</p>
-          </React.Fragment>
+          <p>
+Add your own remote SFTP file
+            systems
+            <Link to="/files/add_new_filesystem">here</Link>
+.
+          </p>
+        </React.Fragment>
       );
     }
 
-    else {
-      const selectedSystem = systemUrlResolverAndRedirector(this.props);
-      return (
-          <Tabs id="FileBrowserTabs"
-                activeKey={selectedSystem !== -1 ? selectedSystem : 0}
-                onSelect={(key) => {
-                  if (selectedSystem !== key) {
-                    const browserPathKey = [
-                      this.props.fileSystems[key].provider,
-                      this.props.fileSystems[key].id
-                    ].join('.');
-                    this.props.dispatch(push([
-                      this.props.prefix,
-                      this.props.browserPaths[browserPathKey].slice(1) // Get rid of leading slash
-                    ].join('/')));
-                  }
-                }}
-          >
-            {this.props.fileSystems.map(this.browserMapper)}
-          </Tabs>
-      );
-    }
+
+    const selectedSystem = systemUrlResolverAndRedirector(this.props);
+    return (
+      <Tabs
+        id="FileBrowserTabs"
+        activeKey={selectedSystem !== -1 ? selectedSystem : 0}
+        onSelect={(key) => {
+          if (selectedSystem !== key) {
+            const browserPathKey = [
+              this.props.fileSystems[key].provider,
+              this.props.fileSystems[key].id,
+            ].join('.');
+            this.props.dispatch(push([
+              this.props.prefix,
+              this.props.browserPaths[browserPathKey].slice(1), // Get rid of leading slash
+            ].join('/')));
+          }
+        }}
+      >
+        {this.props.fileSystems.map(this.browserMapper)}
+      </Tabs>
+    );
   }
 
   browserMapper = (system, index) => (
-      <Tab eventKey={index}
-           key={index}
-           title={system.name}>
-        <FileBrowser system={system}
-                     prefix={this.props.prefix}
-                     systemPrefix={
+    <Tab
+      eventKey={index}
+      key={index}
+      title={system.name}
+    >
+      <FileBrowser
+        system={system}
+        prefix={this.props.prefix}
+        systemPrefix={
                        [
                          this.props.prefix,
                          system.provider,
-                         system.id
+                         system.id,
                        ].join('/')
                      }
-                     path={this.props.path}
-                     pathname={this.props.pathname}
-                     showDotfiles={this.props.showDotfiles}
-                     toggleDotfiles={this.props.toggleDotfiles}
-                     fetchFiles={this.props.fetchFiles}
-        />
-      </Tab>
+        path={this.props.path}
+        pathname={this.props.pathname}
+        showDotfiles={this.props.showDotfiles}
+        toggleDotfiles={this.props.toggleDotfiles}
+        fetchFiles={this.props.fetchFiles}
+      />
+    </Tab>
   );
 }
 
 const systemUrlResolverAndRedirector = (props) => {
-  if(props.pathname.indexOf(props.prefix) !== 0) {
+  if (props.pathname.indexOf(props.prefix) !== 0) {
     return 0;
   }
 
   const remainingUrl = props.pathname.slice(props.prefix.length);
   const urlActive = props.fileSystems.map(
-      (fs) => (remainingUrl.indexOf('/' + fs.provider + '/' + fs.id + '/') === 0)
+    fs => (remainingUrl.indexOf(`/${fs.provider}/${fs.id}/`) === 0),
   ).indexOf(true);
 
-  if (props.isReady && urlActive === -1 ) {
-    setTimeout(function(){
-
+  if (props.isReady && urlActive === -1) {
+    setTimeout(() => {
       // Stop if we are on a different section of the site
-      if(props.pathname.indexOf(props.prefix) !== 0) {
+      if (props.pathname.indexOf(props.prefix) !== 0) {
         return;
       }
 
@@ -156,9 +163,8 @@ const systemUrlResolverAndRedirector = (props) => {
         props.prefix,
         props.fileSystems[0].provider,
         props.fileSystems[0].id,
-        ''
+        '',
       ].join('/')));
-
     }, 50);
   }
 
@@ -167,11 +173,11 @@ const systemUrlResolverAndRedirector = (props) => {
   if (urlActive !== -1) {
     const browserPathKey = [
       props.fileSystems[urlActive].provider,
-      props.fileSystems[urlActive].id
+      props.fileSystems[urlActive].id,
     ].join('.');
     if (props.browserPaths[browserPathKey] !== props.path) {
-      console.log("MISMATCH FROM INITIAL PAGE LOAD", props.path, props.browserPaths[browserPathKey]);
-      setTimeout(function() {
+      console.log('MISMATCH FROM INITIAL PAGE LOAD', props.path, props.browserPaths[browserPathKey]);
+      setTimeout(() => {
         props.dispatch(setBrowserPath(browserPathKey, props.path));
       }, 1);
     }
@@ -182,41 +188,39 @@ const systemUrlResolverAndRedirector = (props) => {
 
 const mapStateToProps = (store, ownProps) => {
   const fileSystems = [
-      ...store.fileSystems.systems.filter((sys) => (
-          !sys.public
-      ))
+    ...store.fileSystems.systems.filter(sys => (
+      !sys.public
+    )),
   ];
 
-  return{
+  return {
     ...ownProps,
     isReady: (
-        !store.userProfile.loading &&
-        !store.fileSystems.loading &&
-        store.fileSystems.systems.length !== 0
+      !store.userProfile.loading
+        && !store.fileSystems.loading
+        && store.fileSystems.systems.length !== 0
     ),
     fileSystems,
     pathname: store.router.pathname,
     browserPaths: getBrowserPaths(store),
     path: store.router.pathname.slice(
-        ownProps.prefix.length
+      ownProps.prefix.length,
     ),
-    showDotfiles: getShowDotfiles(store)
+    showDotfiles: getShowDotfiles(store),
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleDotfiles: () => {
-      dispatch(toggleDotfiles())
-    },
-    fetchFiles: (path) => {
-      dispatch(fileListActions.ifNeeded(path))
-    },
-    dispatch
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  toggleDotfiles: () => {
+    dispatch(toggleDotfiles());
+  },
+  fetchFiles: (path) => {
+    dispatch(fileListActions.ifNeeded(path));
+  },
+  dispatch,
+});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(TabbedFileBrowser);

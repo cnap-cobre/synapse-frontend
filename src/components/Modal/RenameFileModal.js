@@ -8,12 +8,11 @@ import React from 'react';
 import { removeModal } from '../../store/ui/modals/Modals';
 
 class RenameFileModal extends React.Component {
-
   static propTypes = {
     id: PropTypes.string.isRequired,
     action: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.func
+      PropTypes.object,
+      PropTypes.func,
     ]).isRequired,
     fileName: PropTypes.string.isRequired,
   };
@@ -23,17 +22,17 @@ class RenameFileModal extends React.Component {
 
     this.state = {
       show: true,
-      fileName: props.fileName
+      fileName: props.fileName,
     };
   }
 
   closeModal = () => {
     this.setState({
-      show: false
+      show: false,
     });
     setTimeout(() => {
       this.props.dispatch(
-          removeModal(this.props.id)
+        removeModal(this.props.id),
       );
     }, 500);
   };
@@ -49,38 +48,45 @@ class RenameFileModal extends React.Component {
   };
 
   render = () => (
-      <Modal show={this.state.show}
-             backdrop={true}
-             onHide={this.closeModal}
-      >
-        <Modal.Header>
-          <Modal.Title>Rename {this.props.fileName}</Modal.Title>
-        </Modal.Header>
+    <Modal
+      show={this.state.show}
+      backdrop
+      onHide={this.closeModal}
+    >
+      <Modal.Header>
+        <Modal.Title>
+Rename
+          {this.props.fileName}
+        </Modal.Title>
+      </Modal.Header>
 
-        <Modal.Body>
-          <p>
+      <Modal.Body>
+        <p>
             Please enter a new name for this file:
-          </p>
+        </p>
 
-          <FormGroup>
-            <FormControl type="text"
-                         value={this.state.fileName}
-                         autoFocus={true}
-                         onChange={(e) => {this.setState({fileName: e.target.value})}}
-                         onKeyPress={this.handleKeyPress}
-            />
-          </FormGroup>
-        </Modal.Body>
+        <FormGroup>
+          <FormControl
+            type="text"
+            value={this.state.fileName}
+            autoFocus
+            onChange={(e) => { this.setState({ fileName: e.target.value }); }}
+            onKeyPress={this.handleKeyPress}
+          />
+        </FormGroup>
+      </Modal.Body>
 
-        <Modal.Footer>
-          <Button onClick={this.closeModal}>Cancel</Button>
-          <Button bsStyle="danger"
-                  onClick={this.doRename}>
+      <Modal.Footer>
+        <Button onClick={this.closeModal}>Cancel</Button>
+        <Button
+          bsStyle="danger"
+          onClick={this.doRename}
+        >
             Rename
-          </Button>
-        </Modal.Footer>
+        </Button>
+      </Modal.Footer>
 
-      </Modal>
+    </Modal>
   )
 }
 

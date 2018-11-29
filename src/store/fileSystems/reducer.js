@@ -4,22 +4,22 @@ import * as userProfileTypes from '../userProfile/types';
 
 export const initialFileSystemsState = {
   systems: [],
-  loading: false
+  loading: false,
 };
 
 export default function fileSystems(state = initialFileSystemsState, action) {
   const nonAgaveSystems = state.systems.filter(
-      sys => sys.provider !== 'agave'
+    sys => sys.provider !== 'agave',
   );
   const nonDropboxSystems = state.systems.filter(
-      sys => sys.provider !== 'dropbox'
+    sys => sys.provider !== 'dropbox',
   );
 
   switch (action.type) {
     case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.PENDING:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS:
       const agaveSystems = action.systems;
@@ -27,9 +27,9 @@ export default function fileSystems(state = initialFileSystemsState, action) {
         ...state,
         loading: false,
         systems: [
-            ...agaveSystems,
-            ...nonAgaveSystems
-        ]
+          ...agaveSystems,
+          ...nonAgaveSystems,
+        ],
       };
     case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.ERROR:
       return {
@@ -46,14 +46,14 @@ export default function fileSystems(state = initialFileSystemsState, action) {
           name: 'Dropbox',
           status: 'UP',
           type: 'STORAGE',
-          public: false
+          public: false,
         });
       }
       return Object.assign({}, state, {
         systems: [
-            ...nonDropboxSystems,
-            ...dropboxSystems
-        ]
+          ...nonDropboxSystems,
+          ...dropboxSystems,
+        ],
       });
     default:
       return state;

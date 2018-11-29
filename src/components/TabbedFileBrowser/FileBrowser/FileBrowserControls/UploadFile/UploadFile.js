@@ -1,9 +1,9 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import FaArrowUp from 'react-icons/lib/fa/arrow-up';
-import {fileActions} from "../../../../../store/files/Files";
-import React from "react";
+import React from 'react';
+import { fileActions } from '../../../../../store/files/Files';
 
-class UploadFile extends React.Component{
+class UploadFile extends React.Component {
   static propTypes = {
 
   };
@@ -18,43 +18,49 @@ class UploadFile extends React.Component{
     e.preventDefault();
 
     const files = this.fileInput.files;
-    for(let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
       this.props.dispatch(fileActions.uploadFile(files[i], this.props.path));
     }
   };
 
   render = () => (
-      <div>
-        <div style={{
-          overflow: 'hidden',
-          position: 'relative'
-        }}>
-          <form ref={ref => {this.uploadForm = ref;}}
-                style={{
+    <div>
+      <div style={{
+        overflow: 'hidden',
+        position: 'relative',
+      }}
+      >
+        <form
+          ref={(ref) => { this.uploadForm = ref; }}
+          style={{
             opacity: '1',
             position: 'absolute',
-            right: '-50px'
-          }}>
-            <input type="file"
-                   multiple={true}
-                   ref={ref => {this.fileInput = ref;}}
-                   onChange={this.handleFileSelection}
-            />
-          </form>
-        </div>
-        <button className="btn btn-xs btn-default"
-                ref={ref => {this.fileUploadButton = ref;}}
-                onClick={this.handleClick}
-                style={{
-                  height: "2.7em",
-                  marginTop: "0.5em",
-                  float: "right",
-                  marginRight: "0.5em"
-                }}
+            right: '-50px',
+          }}
         >
-          <FaArrowUp/>&nbsp;Upload
-        </button>
+          <input
+            type="file"
+            multiple
+            ref={(ref) => { this.fileInput = ref; }}
+            onChange={this.handleFileSelection}
+          />
+        </form>
       </div>
+      <button
+        className="btn btn-xs btn-default"
+        ref={(ref) => { this.fileUploadButton = ref; }}
+        onClick={this.handleClick}
+        style={{
+          height: '2.7em',
+          marginTop: '0.5em',
+          float: 'right',
+          marginRight: '0.5em',
+        }}
+      >
+        <FaArrowUp />
+&nbsp;Upload
+      </button>
+    </div>
   );
 }
 

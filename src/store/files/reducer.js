@@ -1,4 +1,4 @@
-import * as types from "./types";
+import * as types from './types';
 
 export const initialFilesState = {};
 
@@ -11,8 +11,8 @@ export default function files(state = initialFilesState, action) {
         ...state,
         [action.path]: {
           ...stateForPath,
-          loading: true
-        }
+          loading: true,
+        },
       };
     case types.GET_FILE_LIST_ASYNC.SUCCESS:
       return {
@@ -20,16 +20,16 @@ export default function files(state = initialFilesState, action) {
         [action.path]: {
           ...stateForPath,
           loading: false,
-          files: action.files
-        }
+          files: action.files,
+        },
       };
     case types.GET_FILE_LIST_ASYNC.ERROR:
       return {
         ...state,
         [action.path]: {
           ...stateForPath,
-          loading: false
-        }
+          loading: false,
+        },
       };
     // case FIX_AGAVE_SYMLINK_BUG:
     //   const fileList = stateForPath.files || [];

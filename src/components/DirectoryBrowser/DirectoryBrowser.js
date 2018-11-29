@@ -1,12 +1,12 @@
 // @flow
 import { connect } from 'react-redux';
-import {fileIconResolver} from "../../util/FileIconResolver";
-import Loader from "../Loader/Loader";
 import PropTypes from 'prop-types';
 import React from 'react';
-import {toggleDotfiles} from "../../store/ui/visualOptions/VisualOptions";
-import {getShowDotfiles} from "../../store/ui/reducer";
-import type {FileType} from "../../types/fileTypes";
+import { fileIconResolver } from '../../util/FileIconResolver';
+import Loader from '../Loader/Loader';
+import { toggleDotfiles } from '../../store/ui/visualOptions/VisualOptions';
+import { getShowDotfiles } from '../../store/ui/reducer';
+import type { FileType } from '../../types/fileTypes';
 
 type Props = {
   showDotfiles: boolean,
@@ -21,62 +21,65 @@ type Props = {
 
 class DirectoryBrowser extends React.Component<Props> {
   render = () => (
-      <div style={this.props.style}>
-        <table className="table table-hover"
-               style={{display: this.props.error || this.props.loading ? 'none' : 'table'}}>
-          <tbody>
+    <div style={this.props.style}>
+      <table
+        className="table table-hover"
+        style={{ display: this.props.error || this.props.loading ? 'none' : 'table' }}
+      >
+        <tbody>
           {this.props.list.map((item, i) => (
-              <tr onDoubleClick={() => {this.props.handleDoubleClick(item.fullPath + '/')}}
-                  key={i}
-              >
-                <td>
-                  {fileIconResolver(item)}&nbsp;&nbsp;&nbsp;
-                  {item.name}
-                </td>
-              </tr>
+            <tr
+              onDoubleClick={() => { this.props.handleDoubleClick(`${item.fullPath}/`); }}
+              key={i}
+            >
+              <td>
+                {fileIconResolver(item)}
+&nbsp;&nbsp;&nbsp;
+                {item.name}
+              </td>
+            </tr>
           ))}
-          </tbody>
-        </table>
-        <div style={{
-          display: (!(this.props.error || this.props.loading) && this.props.list.length === 0) ? 'block' : 'none',
-          marginBottom: '2em'
-        }}>
+        </tbody>
+      </table>
+      <div style={{
+        display: (!(this.props.error || this.props.loading) && this.props.list.length === 0) ? 'block' : 'none',
+        marginBottom: '2em',
+      }}
+      >
           This folder has no sub-folders.
-        </div>
-        <Loader visible={this.props.loading}/>
       </div>
+      <Loader visible={this.props.loading} />
+    </div>
   );
 }
 
 const mapStateToProps = (store, ownProps) => {
-  console.log("ownProps.path", ownProps.path);
+  console.log('ownProps.path', ownProps.path);
   const filesAtPath = store.files[ownProps.path];
 
   const loading = (filesAtPath === undefined || filesAtPath.loading);
-  const list = (loading) ? [] : filesAtPath.files.filter((item) => item.type === 'dir');
+  const list = (loading) ? [] : filesAtPath.files.filter(item => item.type === 'dir');
 
-  const showDotfiles = getShowDotfiles(store)
+  const showDotfiles = getShowDotfiles(store);
 
   return {
     loading,
     error: false, // TODO: fix hack
     list: list.filter(
-      (item, i) => ((showDotfiles || !item.name.match(/^\./i)) && item.type === "dir")
+      (item, i) => ((showDotfiles || !item.name.match(/^\./i)) && item.type === 'dir'),
     ),
-    showDotfiles
+    showDotfiles,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleDotfiles: () => {
-      dispatch(toggleDotfiles())
-    },
-    dispatch
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  toggleDotfiles: () => {
+    dispatch(toggleDotfiles());
+  },
+  dispatch,
+});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(DirectoryBrowser);

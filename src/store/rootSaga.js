@@ -11,8 +11,7 @@ const sagas = [
   files,
   focusedFiles,
   transferFiles,
-  userProfile
+  userProfile,
 ];
 
-export const initSagas = (sagaMiddleware) =>
-    sagas.forEach(sagaMiddleware.run.bind(sagaMiddleware));
+export const initSagas = sagaMiddleware => sagas.forEach(sagaMiddleware.run.bind(sagaMiddleware));

@@ -11,8 +11,8 @@ export default function fileHistory(state = initialFileHistoryState, action) {
         ...state,
         [action.path]: {
           ...stateForPath,
-          loading: true
-        }
+          loading: true,
+        },
       };
     case types.GET_FILE_HISTORY_ASYNC.SUCCESS:
       return {
@@ -20,8 +20,8 @@ export default function fileHistory(state = initialFileHistoryState, action) {
         [action.path]: {
           ...stateForPath,
           history: action.history,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case types.GET_FILE_HISTORY_ASYNC.ERROR:
       return {
@@ -29,8 +29,8 @@ export default function fileHistory(state = initialFileHistoryState, action) {
         [action.path]: {
           ...stateForPath,
           history: [],
-          loading: false
-        }
+          loading: false,
+        },
       };
     default:
       return state;

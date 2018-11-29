@@ -13,7 +13,7 @@ test('routes definition is valid', () => {
         expect(child.path).toBeDefined();
         expect(child.name).toBeDefined();
         expect(child.page).toBeDefined();
-      })
+      });
     }
   });
 });

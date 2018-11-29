@@ -1,7 +1,7 @@
-import {connect} from 'react-redux';
-import {Link} from 'redux-json-router';
+import { connect } from 'react-redux';
+import { Link } from 'redux-json-router';
 import PropTypes from 'prop-types';
-import React from "react";
+import React from 'react';
 
 class NavigationLink extends React.Component {
   static propTypes = {
@@ -17,18 +17,18 @@ class NavigationLink extends React.Component {
     } else {
       match = this.props.pathname.indexOf(this.props.to) === 0;
     }
-    return(
-        <li className={match ? "active" : ""}>
-          <Link to={this.props.to}>
-            {this.props.children}
-          </Link>
-        </li>
+    return (
+      <li className={match ? 'active' : ''}>
+        <Link to={this.props.to}>
+          {this.props.children}
+        </Link>
+      </li>
     );
   }
 }
 
-const mapStateToProps = (store) => ({ pathname: store.router.pathname });
+const mapStateToProps = store => ({ pathname: store.router.pathname });
 
 export default connect(
-    mapStateToProps
+  mapStateToProps,
 )(NavigationLink);

@@ -31,109 +31,109 @@ const insetIconStyle = {
   position: 'relative',
   fontSize: '0.4em',
   left: '-1.7em',
-  marginRight: '-1em'
+  marginRight: '-1em',
 };
 
 const fileExtensionMappings = [
   {
-    type: "dir",
+    type: 'dir',
     name: /^\.git$/i,
     icon: (<span className="fa-layers fa-fw">
-      <FaFolderO/>
+      <FaFolderO />
       <GoGitBranch style={insetIconStyle} />
-    </span>)
+    </span>),
   },
   {
-    type: "dir",
+    type: 'dir',
     name: /^\./i,
     icon: (<span className="fa-layers fa-fw">
-      <FaFolderO/>
+      <FaFolderO />
       <FaCogs style={insetIconStyle} />
-    </span>)
+    </span>),
   },
   {
-    type: "dir",
-    icon: <FaFolderO />
+    type: 'dir',
+    icon: <FaFolderO />,
   },
   {
     name: /\.(docx?|odt|rtf)$/i,
-    icon: <FaFileWordO/>
+    icon: <FaFileWordO />,
   },
   {
     name: /\.(pptx?|key|odp|pps)$/i,
-    icon: <FaFilePowerpointO/>
+    icon: <FaFilePowerpointO />,
   },
   {
     name: /\.(xlsx?|ods|xlr)$/i,
-    icon: <FaFileExcelO/>
+    icon: <FaFileExcelO />,
   },
   {
     name: /\.(zip|tar|gz|7z|rar|z|bz2)$/i,
-    icon: <FaFileArchiveO/>
+    icon: <FaFileArchiveO />,
   },
   {
     name: /\.pdf$/i,
-    icon: <FaFilePdfO/>
+    icon: <FaFilePdfO />,
   },
   {
     name: /\.(jpe?g|gif|bmp|tiff?|png|svg|eps|ai|ico)$/i,
-    icon: <FaFileImageO/>
+    icon: <FaFileImageO />,
   },
   {
     name: /^\.(bash|zsh|ksh|tsh|csh|profile)/i,
-    icon: <FaTerminal/>
+    icon: <FaTerminal />,
   },
   {
     name: /^\.git/i,
-    icon: <GoGitBranch/>
+    icon: <GoGitBranch />,
   },
   {
     name: /^\./i,
-    icon: <FaCogs/>
+    icon: <FaCogs />,
   },
   {
     name: /\.(mp4|mov|wmv|flv|avi|ogg|vob|m4v|mpeg|mp2|3g([p2]))$/i,
-    icon: <FaFileMovieO/>
+    icon: <FaFileMovieO />,
   },
   {
     name: /\.(wav|mp3|wma|m4a|acc|oga|flac|aiff|)$/i,
-    icon: <FaFileAudioO/>
+    icon: <FaFileAudioO />,
   },
   {
     name: /\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|jsp|php|pl|pm|r|sh|swift|tex|vb|xml)$/i,
-    icon: <FaFileCodeO/>
+    icon: <FaFileCodeO />,
   },
   {
     name: /\.(sql|psql)$/i,
-    icon: <GoDatabase/>
+    icon: <GoDatabase />,
   },
   {
     name: /\.(sass|scss)$/i,
-    icon: <IoSocialSass/>
+    icon: <IoSocialSass />,
   },
   {
     name: /\.(js|jsx|json)$/i,
-    icon: <IoSocialJavascript/>
+    icon: <IoSocialJavascript />,
   },
   {
     name: /\.py$/i,
-    icon: <IoSocialPython/>
+    icon: <IoSocialPython />,
   },
   {
     name: /\.rb$/i,
-    icon: <GoRuby/>
+    icon: <GoRuby />,
   },
   {
     name: /\.(txt|csv|tsv|log|md|rst|out)$/i,
-    icon: <FaFileTextO/>
+    icon: <FaFileTextO />,
   },
   {
-    icon: <FaFileO/>
-  }
+    icon: <FaFileO />,
+  },
 ];
 
 function resolve(item) {
-  for (let type of fileExtensionMappings) {
+  for (const type of fileExtensionMappings) {
     if (type.hasOwnProperty('type') && type.type !== item.type) {
       continue;
     }
@@ -147,5 +147,5 @@ function resolve(item) {
 
 export function fileIconResolver(item) {
   const X = resolve(item);
-  return React.cloneElement(X, {className: "fa-2x far"});
+  return React.cloneElement(X, { className: 'fa-2x far' });
 }

@@ -1,46 +1,45 @@
-import {connect} from 'react-redux';
-import Loader from '../Loader/Loader';
+import { connect } from 'react-redux';
 import React from 'react';
+import Loader from '../Loader/Loader';
 
-class HistoryMetadata extends React.Component{
+class HistoryMetadata extends React.Component {
   render() {
-    if(!this.props.singleSelected) {
+    if (!this.props.singleSelected) {
       return (
-          <div>
-          </div>
+        <div />
       );
     }
 
-    if(this.props.loading) {
+    if (this.props.loading) {
       return (
-          <div>
-            <h6>History</h6>
-            <hr />
-            <Loader visible={true} />
-          </div>
+        <div>
+          <h6>History</h6>
+          <hr />
+          <Loader visible />
+        </div>
       );
     }
 
-    if(this.props.history.length === 0) {
+    if (this.props.history.length === 0) {
       return (
-          <div>
-            <h6>History</h6>
-            <hr />
+        <div>
+          <h6>History</h6>
+          <hr />
             No history to show
-          </div>
+        </div>
       );
     }
 
     return (
-        <div>
-          <h6>History</h6>
-          <hr />
-          <ul>
-          {this.props.history.map((h) => (
-                <li>{h.status}</li>
+      <div>
+        <h6>History</h6>
+        <hr />
+        <ul>
+          {this.props.history.map(h => (
+            <li>{h.status}</li>
           ))}
-          </ul>
-        </div>
+        </ul>
+      </div>
     );
   }
 }
@@ -50,18 +49,18 @@ const mapStateToProps = (store) => {
 
   if (fileList === undefined || fileList.length !== 1) {
     return {
-      singleSelected: false
+      singleSelected: false,
     };
   }
 
   const singleFocusedFile = store.focusedFiles.list[0];
-  const historyAtPath = store.fileHistory[singleFocusedFile] || {history: []};
+  const historyAtPath = store.fileHistory[singleFocusedFile] || { history: [] };
 
   return {
     singleSelected: true,
     history: (historyAtPath === undefined ? [] : historyAtPath.history) || [],
-    loading: (historyAtPath === undefined ? false : historyAtPath.loading)
-  }
+    loading: (historyAtPath === undefined ? false : historyAtPath.loading),
+  };
 };
 
 export default connect(mapStateToProps)(HistoryMetadata);

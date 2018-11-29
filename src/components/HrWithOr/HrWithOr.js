@@ -3,6 +3,6 @@ import './hrWithOr.css';
 
 export default function () {
   return (
-      <hr className="style-or" />
+    <hr className="style-or" />
   );
 }

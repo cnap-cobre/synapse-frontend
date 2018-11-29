@@ -1,7 +1,7 @@
-import FieldFieldHeader from "./FileFieldHeader/FileFieldHeader";
-import FileList from "./FileList/FileList";
 import PropTypes from 'prop-types';
 import React from 'react';
+import FieldFieldHeader from './FileFieldHeader/FileFieldHeader';
+import FileList from './FileList/FileList';
 
 
 export default class FileBrowserList extends React.Component {
@@ -16,20 +16,23 @@ export default class FileBrowserList extends React.Component {
     handleContextMenu: PropTypes.func.isRequired,
   };
 
-  render(){
+  render() {
     return (
-        <table className="table table-hover"
-               style={{display: this.props.error || this.props.loading ? 'none' : 'table'}}>
-          <FieldFieldHeader/>
-          <FileList list={this.props.list}
-                    path={this.props.path}
-                    showDotfiles={this.props.showDotfiles}
-                    handleContextMenu={this.props.handleContextMenu}
-                    handleDoubleClick={this.props.handleDoubleClick}
-                    handleSingleClick={this.props.handleSingleClick}
-                    focusedFilePaths={this.props.focusedFilePaths}
-          />
-        </table>
+      <table
+        className="table table-hover"
+        style={{ display: this.props.error || this.props.loading ? 'none' : 'table' }}
+      >
+        <FieldFieldHeader />
+        <FileList
+          list={this.props.list}
+          path={this.props.path}
+          showDotfiles={this.props.showDotfiles}
+          handleContextMenu={this.props.handleContextMenu}
+          handleDoubleClick={this.props.handleDoubleClick}
+          handleSingleClick={this.props.handleSingleClick}
+          focusedFilePaths={this.props.focusedFilePaths}
+        />
+      </table>
     );
   }
 }

@@ -5,5 +5,5 @@ import agaveFileSystems from './agaveFileSystems';
 export default {
   ...agaveFileActions,
   ...agaveFileHistory,
-  ...agaveFileSystems
+  ...agaveFileSystems,
 };

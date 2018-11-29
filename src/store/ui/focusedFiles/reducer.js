@@ -3,11 +3,11 @@ import {
   CLEAR_FOCUSED_FILES,
   REMOVE_FOCUSED_FILE,
   SET_FOCUSED_FILE,
-  SET_FOCUSED_FILES_LIST
-} from "./types";
+  SET_FOCUSED_FILES_LIST,
+} from './types';
 
 const initialFocusedFileState = {
-  list: []
+  list: [],
 };
 
 export default function focusedFile(state = initialFocusedFileState, action) {
@@ -17,30 +17,28 @@ export default function focusedFile(state = initialFocusedFileState, action) {
       return Object.assign({}, state, {
         list: [
           ...currentFocusedFilesList,
-          action.filePath
-        ]
+          action.filePath,
+        ],
       });
     case CLEAR_FOCUSED_FILES:
       return Object.assign({}, state, {
-        list: []
+        list: [],
       });
     case REMOVE_FOCUSED_FILE:
       return Object.assign({}, state, {
-        list: currentFocusedFilesList.filter((file) => {
-          return file !== action.filePath
-        })
+        list: currentFocusedFilesList.filter(file => file !== action.filePath),
       });
     case SET_FOCUSED_FILE:
       return Object.assign({}, state, {
         list: [
-          action.filePath
-        ]
+          action.filePath,
+        ],
       });
     case SET_FOCUSED_FILES_LIST:
       return Object.assign({}, state, {
         list: [
-          ...action.filePathList
-        ]
+          ...action.filePathList,
+        ],
       });
     default:
       return state;

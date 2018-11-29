@@ -6,5 +6,5 @@ export default PropTypes.shape({
   rename: PropTypes.func.isRequired,
   mv: PropTypes.func.isRequired,
   cp: PropTypes.func.isRequired,
-  rm: PropTypes.func.isRequired
-}).isRequired
+  rm: PropTypes.func.isRequired,
+}).isRequired;

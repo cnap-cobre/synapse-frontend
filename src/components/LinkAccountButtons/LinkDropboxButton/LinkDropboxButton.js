@@ -1,5 +1,5 @@
 // @flow
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import React from 'react';
 
 type Props = {
@@ -9,30 +9,34 @@ type Props = {
 class LinkDropboxButton extends React.Component<Props> {
   render() {
     const linkButton = (
-        <a title="Dropbox"
-           className="btn btn-block btn-social socialaccount_provider btn-dropbox"
-           href="/accounts/dropbox/login/?process=connect">
-          <img src="/dj-static/img/dropbox_icon.png" />
+      <a
+        title="Dropbox"
+        className="btn btn-block btn-social socialaccount_provider btn-dropbox"
+        href="/accounts/dropbox/login/?process=connect"
+      >
+        <img src="/dj-static/img/dropbox_icon.png" />
           Link your Dropbox Account
-        </a>
+      </a>
     );
 
     const unlink = (
-        <p>
+      <p>
           Dropbox is linked.
-          Click <a href="/accounts/social/connections/">here</a> to
+          Click
+        {' '}
+        <a href="/accounts/social/connections/">here</a>
+        {' '}
+to
           unlink.
-        </p>
+      </p>
     );
 
     return (this.props.hasLinkedDropbox ? unlink : linkButton);
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    hasLinkedDropbox: state.userProfile.dropbox.length > 0
-  };
-};
+const mapStateToProps = state => ({
+  hasLinkedDropbox: state.userProfile.dropbox.length > 0,
+});
 
 export default connect(mapStateToProps)(LinkDropboxButton);

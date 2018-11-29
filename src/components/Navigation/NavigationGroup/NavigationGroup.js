@@ -1,7 +1,7 @@
 import Collapse from 'react-bootstrap/lib/Collapse';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import React from "react";
+import React from 'react';
 
 /*
  Note:
@@ -21,7 +21,7 @@ class NavigationGroup extends React.Component {
   };
 
   state = {
-    open: false
+    open: false,
   };
 
   render() {
@@ -33,27 +33,28 @@ class NavigationGroup extends React.Component {
     }
 
     return (
-        <li className={match ? "active" : ""}>
-          <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
-            <i className={this.props.icon}/>
-            <p>{this.props.label}
-              <b className="caret"/>
-            </p>
-          </a>
-          <Collapse in={this.state.open}>
-            <div>
-              <ul className="nav">
-                {this.props.children}
-              </ul>
-            </div>
-          </Collapse>
-        </li>
+      <li className={match ? 'active' : ''}>
+        <a onClick={() => this.setState({ open: !this.state.open })} data-toggle="collapse">
+          <i className={this.props.icon} />
+          <p>
+            {this.props.label}
+            <b className="caret" />
+          </p>
+        </a>
+        <Collapse in={this.state.open}>
+          <div>
+            <ul className="nav">
+              {this.props.children}
+            </ul>
+          </div>
+        </Collapse>
+      </li>
     );
   }
 }
 
-const mapStateToProps = (store) => ({ pathname: store.router.pathname });
+const mapStateToProps = store => ({ pathname: store.router.pathname });
 
 export default connect(
-    mapStateToProps
+  mapStateToProps,
 )(NavigationGroup);
