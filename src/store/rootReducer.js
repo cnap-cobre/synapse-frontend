@@ -10,7 +10,6 @@ import focusedFiles from './ui/focusedFiles/reducer';
 import modals from './ui/modals/reducer';
 import transferFiles from './transferFiles/reducer';
 import userProfile from './userProfile/reducer';
-import visualOptions from './ui/visualOptions/reducer';
 import ui from './ui/reducer';
 
 

@@ -7,7 +7,7 @@ export const initialBrowserPathsState = {};
 
 export default function browserPaths(state = initialBrowserPathsState, action) {
   switch (action.type) {
-    case agaveFileSystemsTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS:
+    case agaveFileSystemsTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS: {
       const keysFromAction = action.systems.reduce((acc, cv) => {
         acc[`${cv.provider}.${cv.id}`] = ['', cv.provider, cv.id, ''].join('/');
         return acc;
@@ -17,7 +17,8 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
         ...keysFromAction,
         ...state,
       };
-    case userProfileTypes.GET_USER_PROFILE_ASYNC.SUCCESS:
+    }
+    case userProfileTypes.GET_USER_PROFILE_ASYNC.SUCCESS: {
       const dropboxBrowserPaths = Object.keys(state).filter(
         k => k.indexOf('dropbox') === 1,
       ).reduce((acc, cv) => ({
@@ -40,11 +41,13 @@ export default function browserPaths(state = initialBrowserPathsState, action) {
         };
       }
       return state;
-    case SET_BROWSER_PATH:
+    }
+    case SET_BROWSER_PATH: {
       return {
         ...state,
         [action.system]: action.path,
       };
+    }
     default:
       return state;
   }

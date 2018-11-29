@@ -4,7 +4,7 @@ import React from 'react';
 import nav from '../../nav.js';
 import NavigationGroup from './NavigationGroup/NavigationGroup';
 import NavigationLink from './NavigationLink/NavigationLink';
-import type {NavigationType} from "../../nav";
+import type { NavigationType } from '../../nav';
 
 export default class Navigation extends React.Component<void> {
   static propTypes = {};

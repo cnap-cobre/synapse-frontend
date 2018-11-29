@@ -4,7 +4,7 @@ export const initialFileState = {};
 
 export default function filesFlat(state = initialFileState, action) {
   switch (action.type) {
-    case types.GET_FILE_LIST_ASYNC.SUCCESS:
+    case types.GET_FILE_LIST_ASYNC.SUCCESS: {
       const filesAsArray = action.files
         .filter(f => f.name !== '.')
         .map(f => ({
@@ -24,6 +24,7 @@ export default function filesFlat(state = initialFileState, action) {
         ...state,
         ...filesAsObject,
       };
+    }
     default:
       return state;
   }

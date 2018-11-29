@@ -16,12 +16,13 @@ export default function fileSystems(state = initialFileSystemsState, action) {
   );
 
   switch (action.type) {
-    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.PENDING:
+    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.PENDING: {
       return {
         ...state,
         loading: true,
       };
-    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS:
+    }
+    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.SUCCESS: {
       const agaveSystems = action.systems;
       return {
         ...state,
@@ -31,12 +32,14 @@ export default function fileSystems(state = initialFileSystemsState, action) {
           ...nonAgaveSystems,
         ],
       };
-    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.ERROR:
+    }
+    case agaveFilesystemTypes.GET_AGAVE_FILE_SYSTEMS_ASYNC.ERROR: {
       return {
         ...state,
         loading: false,
       };
-    case userProfileTypes.GET_USER_PROFILE_ASYNC.SUCCESS:
+    }
+    case userProfileTypes.GET_USER_PROFILE_ASYNC.SUCCESS: {
       const dropboxSystems = [];
       if (action.userProfile.dropbox.length !== 0) {
         dropboxSystems.push({
@@ -55,6 +58,7 @@ export default function fileSystems(state = initialFileSystemsState, action) {
           ...dropboxSystems,
         ],
       });
+    }
     default:
       return state;
   }

@@ -11,15 +11,15 @@ type Props = {
 const DownloadLink = (props: Props) => {
   const { disabled, file, children } = props;
   return (
-      <a
-          className={`contextMenu--option ${disabled ? 'contextMenu--option__disabled' : ''}`}
-          download
-          href={disabled ? '' : file._links.self.href}
-      >
-        {children}
-        {disabled && <span>&nbsp; (not yet supported)</span>}
-      </a>
+    <a
+      className={`contextMenu--option ${disabled ? 'contextMenu--option__disabled' : ''}`}
+      download
+      href={disabled ? '' : file._links.self.href}
+    >
+      {children}
+      {disabled && <span>&nbsp; (not yet supported)</span>}
+    </a>
   );
-}
+};
 
 export default DownloadLink;
