@@ -3,9 +3,9 @@ import FaTh from 'react-icons/lib/fa/th';
 import FaThList from 'react-icons/lib/fa/th-list';
 import PropTypes from 'prop-types';
 import React from 'react';
-import BootstrapSwitch from '../../../../BootstrapSwitch/BootstrapSwitch';
-import { toggleFileViewFormat } from '../../../../../store/ui/visualOptions/VisualOptions';
-import { getFileViewFormat } from '../../../../../store/ui/reducer';
+import BootstrapSwitch from '../../BootstrapSwitch/BootstrapSwitch';
+import { toggleFileViewFormat } from '../../../store/ui/visualOptions/VisualOptions';
+import { getFileViewFormat } from '../../../store/ui/reducer';
 
 class ListGridToggle extends React.Component {
   static propTypes = {

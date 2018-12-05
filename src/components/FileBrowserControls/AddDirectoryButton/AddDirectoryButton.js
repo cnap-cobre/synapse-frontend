@@ -4,8 +4,8 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import FaPlusSquare from 'react-icons/lib/fa/plus-square';
-import { directoryActions } from '../../../../../store/files/Files';
-import { addModal } from '../../../../../store/ui/modals/Modals';
+import { directoryActions } from '../../../store/files/Files';
+import { addModal } from '../../../store/ui/modals/Modals';
 
 type Props = {
   path: string,

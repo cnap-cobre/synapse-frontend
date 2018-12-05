@@ -3,7 +3,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
-import { fileIconResolver } from '../../../../util/FileIconResolver';
+import { fileIconResolver } from '../../util/FileIconResolver';
 import './fileGridIcon.scss';
 
 export default class FileBrowserGrid extends React.Component {

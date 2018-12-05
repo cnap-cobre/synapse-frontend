@@ -7,7 +7,7 @@ import Tab from 'react-bootstrap/lib/Tab';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import { push, replace, Link } from 'redux-json-router';
 import { actions as agaveFileSystemsActions } from '../../store/agaveFileSystems/AgaveFileSystems';
-import FileBrowser from './FileBrowser/FileBrowser';
+import FileBrowser from '../FileBrowser/FileBrowser';
 import { fileListActions } from '../../store/files/Files';
 import Loader from '../Loader/Loader';
 import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';

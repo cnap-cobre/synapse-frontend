@@ -5,21 +5,21 @@ import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import { Link, push } from 'redux-json-router';
 import pathUtil from 'path';
-import FileBreadcrumbs from './FileBreadcrumbs/FileBreadcrumbs';
-import FileBrowserControls from './FileBrowserControls/FileBrowserControls';
-import FileBrowserGrid from './FileBrowserGrid/FileBrowserGrid';
-import FileBrowserList from './FileBrowserList/FileBrowserList';
-import Loader from '../../Loader/Loader';
+import FileBreadcrumbs from '../FileBreadcrumbs/FileBreadcrumbs';
+import FileBrowserControls from '../FileBrowserControls/FileBrowserControls';
+import FileBrowserGrid from '../FileBrowserGrid/FileBrowserGrid';
+import FileBrowserList from '../FileBrowserList/FileBrowserList';
+import Loader from '../Loader/Loader';
 
-import { setBrowserPath } from '../../../store/ui/browserPaths/BrowserPaths';
+import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
 
 import {
   addFocusedFile, removeFocusedFile, setFocusedFile, setFocusedFilesList,
-} from '../../../store/ui/focusedFiles/FocusedFiles';
-import { getFileViewFormat, getFocusedFilePaths } from '../../../store/ui/reducer';
-import { fileActions, fileListActions } from '../../../store/files/Files';
-import type { FileSystemType } from '../../../types/fileSystemTypes';
-import type { FileType } from '../../../types/fileTypes';
+} from '../../store/ui/focusedFiles/FocusedFiles';
+import { getFileViewFormat, getFocusedFilePaths } from '../../store/ui/reducer';
+import { fileActions, fileListActions } from '../../store/files/Files';
+import type { FileSystemType } from '../../types/fileSystemTypes';
+import type { FileType } from '../../types/fileTypes';
 
 type Props = {
   system: FileSystemType,

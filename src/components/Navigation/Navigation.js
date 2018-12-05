@@ -2,8 +2,8 @@
 
 import React from 'react';
 import nav from '../../nav';
-import NavigationGroup from './NavigationGroup/NavigationGroup';
-import NavigationLink from './NavigationLink/NavigationLink';
+import NavigationGroup from '../NavigationGroup/NavigationGroup';
+import NavigationLink from '../NavigationLink/NavigationLink';
 import type { NavigationType } from '../../types/navigationTypes';
 
 export default class Navigation extends React.Component<void> {

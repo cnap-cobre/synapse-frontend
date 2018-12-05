@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import PropTypes from 'prop-types';
 import { fileListActions } from '../../store/files/Files';
-import FileBreadcrumbs from '../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs';
+import FileBreadcrumbs from '../FileBreadcrumbs/FileBreadcrumbs';
 import { removeModal } from '../../store/ui/modals/Modals';
 import TabbedDirectoryBrowser from '../TabbedDirectoryBrowser/TabbedDirectoryBrowser';
 import LinkComponent from './shared_components/LinkComponent';

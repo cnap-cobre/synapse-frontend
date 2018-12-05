@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { format, formatDistance } from 'date-fns';
-import { humanFileSize } from '../../../../../util/FileSize.js';
-import { fileIconResolver } from '../../../../../util/FileIconResolver';
+import { humanFileSize } from '../../../util/FileSize.js';
+import { fileIconResolver } from '../../../util/FileIconResolver';
 import './fileList.scss';
 
 export default class FileList extends React.Component {

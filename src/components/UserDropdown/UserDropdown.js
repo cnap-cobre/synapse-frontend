@@ -2,7 +2,7 @@ import Collapse from 'react-bootstrap/lib/Collapse';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
-import NavigationLink from '../Navigation/NavigationLink/NavigationLink';
+import NavigationLink from '../NavigationLink/NavigationLink';
 
 class UserDropdown extends React.Component {
   constructor(props) {

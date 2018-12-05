@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 import { fileListActions } from '../../store/files/Files';
-import FileBreadcrumbs from '../TabbedFileBrowser/FileBrowser/FileBreadcrumbs/FileBreadcrumbs';
+import FileBreadcrumbs from '../FileBreadcrumbs/FileBreadcrumbs';
 import DirectoryBrowser from '../DirectoryBrowser/DirectoryBrowser';
 import { removeModal } from '../../store/ui/modals/Modals';
 import type { FileType } from '../../types/fileTypes';

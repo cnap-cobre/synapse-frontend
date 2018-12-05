@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux';
 import React from 'react';
-import { addModal } from '../../../store/ui/modals/Modals';
+import { addModal } from '../../store/ui/modals/Modals';
 import './beocatButton.scss';
 
 type Props = {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import FaArrowUp from 'react-icons/lib/fa/arrow-up';
 import React from 'react';
-import { fileActions } from '../../../../../store/files/Files';
+import { fileActions } from '../../../store/files/Files';
 
 class UploadFile extends React.Component {
   static propTypes = {
