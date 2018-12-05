@@ -28,3 +28,5 @@ const DotfilesCheckBox = (props: Props) => {
     </div>
   );
 };
+
+export default DotfilesCheckBox
