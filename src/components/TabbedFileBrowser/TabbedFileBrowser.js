@@ -14,7 +14,6 @@ import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
 import { setFocusedFile } from '../../store/ui/focusedFiles/FocusedFiles';
 import { toggleDotfiles } from '../../store/ui/visualOptions/VisualOptions';
 import { actions as userProfileActions } from '../../store/userProfile/UserProfile';
-import './fileTabs.css';
 import { getBrowserPaths, getShowDotfiles } from '../../store/ui/reducer';
 import type { FileSystemType } from '../../types/fileSystemTypes';
 

@@ -1,0 +1,8 @@
+.nav-tabs li.active {
+    box-shadow: inset 0 0px 0 white, inset 0 -3px 0 #555;
+}
+
+.nav-tabs li.active ::before,
+.nav-tabs li.active ::after{
+    display: none;
+}

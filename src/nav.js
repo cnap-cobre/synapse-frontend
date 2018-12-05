@@ -29,6 +29,13 @@ const nav: Array<NavigationType> = [
     url: '/files/systems',
     exact: true,
   },
+  {
+    name: 'Metadata Schemas',
+    icon: 'ti-panel',
+    // mini: 'FS',
+    url: '/files/schemas',
+    exact: true,
+  },
   //   ]
   // },
   // {

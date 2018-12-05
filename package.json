@@ -23,6 +23,7 @@
     "react-event-listener": "^0.6.4",
     "react-hot-loader": "^4.3.11",
     "react-icons": "^2.2.7",
+    "react-jsonschema-form": "^1.0.6",
     "react-redux": "^5.0.7",
     "react-redux-notify": "^4.1.0",
     "react-spinners": "^0.4.5",

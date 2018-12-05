@@ -48,8 +48,6 @@ class FileMetadata extends React.Component<Props, State> {
     if (empty) {
       return (
         <div>
-          <h6>Metadata</h6>
-          <hr />
             Select a file or folder to view its details.
         </div>
       );
@@ -57,9 +55,6 @@ class FileMetadata extends React.Component<Props, State> {
       const singleFile = files[0];
       return (
         <div className="fileMetadata">
-          <h6>Metadata</h6>
-          <hr />
-
           <div style={{
             fontSize: '3em',
             color: '#999',

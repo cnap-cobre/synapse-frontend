@@ -33,9 +33,7 @@ const HistoryMetadata = (props: Props) => {
   if (history.length === 0) {
     return (
       <div>
-        <h6>History</h6>
-        <hr />
-          No history to show
+          No activity history to show
       </div>
     );
   }
