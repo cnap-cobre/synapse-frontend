@@ -120,7 +120,7 @@ const fileExtensionMappings = [
     icon: <IoSocialJavascript />,
   },
   {
-    name: /\.py$/i,
+    name: /\.(py|ipynb)$/i,
     icon: <IoSocialPython />,
   },
   {
