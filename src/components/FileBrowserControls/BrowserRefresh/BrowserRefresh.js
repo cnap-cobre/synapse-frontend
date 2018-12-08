@@ -1,7 +1,7 @@
 // @flow
 
 import Button from 'react-bootstrap/lib/Button';
-import FaRefresh from 'react-icons/lib/fa/refresh';
+import { TiRefresh } from 'react-icons/ti';
 import React, { Component } from 'react';
 
 type Props = {
@@ -22,7 +22,7 @@ const BrowserRefresh = (props: Props) => {
         marginTop: '0.5em',
       }}
     >
-      <FaRefresh />
+      <TiRefresh />
         &nbsp;Refresh
     </Button>
 

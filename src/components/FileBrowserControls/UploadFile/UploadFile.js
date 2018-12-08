@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import FaArrowUp from 'react-icons/lib/fa/arrow-up';
+import { FaArrowUp } from 'react-icons/fa';
 import React from 'react';
 import { fileActions } from '../../../store/files/Files';
 

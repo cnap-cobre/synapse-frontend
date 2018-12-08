@@ -35,9 +35,9 @@ export default class FileList extends React.Component {
       key={item.name}
     >
       <td>
-        {fileIconResolver(item)}
+        <span style={{ position: 'relative', top: '3px' }}>{fileIconResolver(item)}</span>
 &nbsp;&nbsp;&nbsp;
-        { item.name }
+        <span style={{ position: 'relative', top: '-4px' }}>{ item.name }</span>
       </td>
       <td>{ humanFileSize(item.length) }</td>
       <td title={format(item.lastModified, 'MM/dd/yyyy HH:mm:ss - OOOO')}>{ formatDistance(item.lastModified, Date.now()) }</td>

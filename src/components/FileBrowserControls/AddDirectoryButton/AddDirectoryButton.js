@@ -3,7 +3,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
-import FaPlusSquare from 'react-icons/lib/fa/plus-square';
+import { FaPlusSquare } from 'react-icons/fa';
 import { directoryActions } from '../../../store/files/Files';
 import { addModal } from '../../../store/ui/modals/Modals';
 

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import FaTh from 'react-icons/lib/fa/th';
-import FaThList from 'react-icons/lib/fa/th-list';
+import { FaTh, FaThList } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import React from 'react';
 import BootstrapSwitch from '../../BootstrapSwitch/BootstrapSwitch';

@@ -1,5 +1,5 @@
 // @flow
-import PropagateLoader from 'react-spinners/PropagateLoader';
+import { PropagateLoader } from 'react-spinners';
 import React from 'react';
 import './Loader.css';
 

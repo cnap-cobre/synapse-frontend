@@ -1,28 +1,34 @@
 // Individual imports like this save massively on the Webpack
 // bundle size.  Importing the index.js from each of these
 // would result in more than double the bundle size.  Yuge.
-import FaCogs from 'react-icons/lib/fa/cogs';
-import FaFileArchiveO from 'react-icons/lib/fa/file-archive-o';
-import FaFileAudioO from 'react-icons/lib/fa/file-audio-o';
-import FaFileCodeO from 'react-icons/lib/fa/file-code-o';
-import FaFileExcelO from 'react-icons/lib/fa/file-excel-o';
-import FaFileImageO from 'react-icons/lib/fa/file-image-o';
-import FaFileMovieO from 'react-icons/lib/fa/file-movie-o';
-import FaFileO from 'react-icons/lib/fa/file-o';
-import FaFilePdfO from 'react-icons/lib/fa/file-pdf-o';
-import FaFilePowerpointO from 'react-icons/lib/fa/file-powerpoint-o';
-import FaFileTextO from 'react-icons/lib/fa/file-text-o';
-import FaFileWordO from 'react-icons/lib/fa/file-word-o';
-import FaFolderO from 'react-icons/lib/fa/folder-o';
-import FaTerminal from 'react-icons/lib/fa/terminal';
+import {
+  FaCogs ,
+  FaRegFileArchive ,
+  FaRegFileAudio ,
+  FaRegFileCode ,
+  FaRegFileExcel ,
+  FaRegFileImage ,
+  FaRegFileVideo ,
+  FaRegFile ,
+  FaRegFilePdf ,
+  FaRegFilePowerpoint ,
+  FaRegFileAlt ,
+  FaRegFileWord ,
+  FaRegFolder ,
+  FaTerminal ,
+} from 'react-icons/fa';
 
-import GoDatabase from 'react-icons/lib/go/database';
-import GoGitBranch from 'react-icons/lib/go/git-branch';
-import GoRuby from 'react-icons/lib/go/ruby';
+import {
+  GoDatabase,
+  GoGitBranch,
+  GoRuby,
+} from 'react-icons/go'
 
-import IoSocialJavascript from 'react-icons/lib/io/social-javascript';
-import IoSocialPython from 'react-icons/lib/io/social-python';
-import IoSocialSass from 'react-icons/lib/io/social-sass';
+import {
+  IoLogoJavascript,
+  IoLogoPython,
+  IoLogoSass,
+} from 'react-icons/io'
 
 import React from 'react';
 
@@ -40,7 +46,7 @@ const fileExtensionMappings = [
     name: /^\.git$/i,
     icon: (
       <span className="fa-layers fa-fw">
-        <FaFolderO />
+        <FaRegFolder />
         <GoGitBranch style={insetIconStyle} />
       </span>
     ),
@@ -50,38 +56,38 @@ const fileExtensionMappings = [
     name: /^\./i,
     icon: (
       <span className="fa-layers fa-fw">
-        <FaFolderO />
+        <FaRegFolder />
         <FaCogs style={insetIconStyle} />
       </span>
     ),
   },
   {
     type: 'dir',
-    icon: <FaFolderO />,
+    icon: <FaRegFolder />,
   },
   {
     name: /\.(docx?|odt|rtf)$/i,
-    icon: <FaFileWordO />,
+    icon: <FaRegFileWord />,
   },
   {
     name: /\.(pptx?|key|odp|pps)$/i,
-    icon: <FaFilePowerpointO />,
+    icon: <FaRegFilePowerpoint />,
   },
   {
     name: /\.(xlsx?|ods|xlr)$/i,
-    icon: <FaFileExcelO />,
+    icon: <FaRegFileExcel />,
   },
   {
     name: /\.(zip|tar|gz|7z|rar|z|bz2)$/i,
-    icon: <FaFileArchiveO />,
+    icon: <FaRegFileArchive />,
   },
   {
     name: /\.pdf$/i,
-    icon: <FaFilePdfO />,
+    icon: <FaRegFilePdf />,
   },
   {
     name: /\.(jpe?g|gif|bmp|tiff?|png|svg|eps|ai|ico)$/i,
-    icon: <FaFileImageO />,
+    icon: <FaRegFileImage />,
   },
   {
     name: /^\.(bash|zsh|ksh|tsh|csh|profile)/i,
@@ -97,15 +103,15 @@ const fileExtensionMappings = [
   },
   {
     name: /\.(mp4|mov|wmv|flv|avi|ogg|vob|m4v|mpeg|mp2|3g([p2]))$/i,
-    icon: <FaFileMovieO />,
+    icon: <FaRegFileVideo />,
   },
   {
     name: /\.(wav|mp3|wma|m4a|acc|oga|flac|aiff|)$/i,
-    icon: <FaFileAudioO />,
+    icon: <FaRegFileAudio />,
   },
   {
     name: /\.(asp|bash|c|class|cmd|cpp|cs|css|cxx|h|hdl|hpp|html|hxx|inc|java|jar|jsp|php|pl|pm|r|sh|swift|tex|vb|xml)$/i,
-    icon: <FaFileCodeO />,
+    icon: <FaRegFileCode />,
   },
   {
     name: /\.(sql|psql)$/i,
@@ -113,15 +119,15 @@ const fileExtensionMappings = [
   },
   {
     name: /\.(sass|scss)$/i,
-    icon: <IoSocialSass />,
+    icon: <IoLogoSass />,
   },
   {
     name: /\.(js|jsx|json)$/i,
-    icon: <IoSocialJavascript />,
+    icon: <IoLogoJavascript />,
   },
   {
     name: /\.(py|ipynb)$/i,
-    icon: <IoSocialPython />,
+    icon: <IoLogoPython />,
   },
   {
     name: /\.rb$/i,
@@ -129,10 +135,10 @@ const fileExtensionMappings = [
   },
   {
     name: /\.(txt|csv|tsv|log|md|rst|out)$/i,
-    icon: <FaFileTextO />,
+    icon: <FaRegFileAlt />,
   },
   {
-    icon: <FaFileO />,
+    icon: <FaRegFile />,
   },
 ];
 
