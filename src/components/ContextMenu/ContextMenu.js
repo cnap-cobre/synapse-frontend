@@ -9,6 +9,7 @@ import './ContextMenu.scss';
 import { getFocusedFilePaths } from '../../store/ui/reducer';
 import DownloadLink from './DownloadLink';
 import type { FileType } from '../../types/fileTypes';
+import JupyterHubLink from "./JupyterHubLink";
 
 type Props = {
   focusedFiles: Array<FileType>,
@@ -264,6 +265,9 @@ class ContextMenu extends React.Component<Props, State> {
     const { focusedFiles } = this.props;
     return (
       <React.Fragment>
+        <JupyterHubLink
+            file={focusedFiles[0]}
+        />
         <div
           className="contextMenu--option contextMenu--option__disabled"
           onClick={this.handleSingleShareFile}
