@@ -14,13 +14,7 @@ export default class FileSystems extends React.Component {
         <div className="content">
           <div className="container-fluid">
 
-            <Row>
-              <Col md={12}>
-                <Card header={(<h3>File Systems</h3>)} hr>
-                  <FileSystemList />
-                </Card>
-              </Col>
-            </Row>
+            <FileSystemList />
 
             <Row>
               <Col md={6}>
