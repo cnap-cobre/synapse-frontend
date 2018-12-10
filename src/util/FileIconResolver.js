@@ -2,33 +2,33 @@
 // bundle size.  Importing the index.js from each of these
 // would result in more than double the bundle size.  Yuge.
 import {
-  FaCogs ,
-  FaRegFileArchive ,
-  FaRegFileAudio ,
-  FaRegFileCode ,
-  FaRegFileExcel ,
-  FaRegFileImage ,
-  FaRegFileVideo ,
-  FaRegFile ,
-  FaRegFilePdf ,
-  FaRegFilePowerpoint ,
-  FaRegFileAlt ,
-  FaRegFileWord ,
-  FaRegFolder ,
-  FaTerminal ,
+  FaCogs,
+  FaRegFileArchive,
+  FaRegFileAudio,
+  FaRegFileCode,
+  FaRegFileExcel,
+  FaRegFileImage,
+  FaRegFileVideo,
+  FaRegFile,
+  FaRegFilePdf,
+  FaRegFilePowerpoint,
+  FaRegFileAlt,
+  FaRegFileWord,
+  FaRegFolder,
+  FaTerminal,
 } from 'react-icons/fa';
 
 import {
   GoDatabase,
   GoGitBranch,
   GoRuby,
-} from 'react-icons/go'
+} from 'react-icons/go';
 
 import {
   IoLogoJavascript,
   IoLogoPython,
   IoLogoSass,
-} from 'react-icons/io'
+} from 'react-icons/io';
 
 import React from 'react';
 

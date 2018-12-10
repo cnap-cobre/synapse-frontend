@@ -27,7 +27,7 @@ const ModalWrapper = (props: Props) => {
     <div>
       {Object.keys(modals).map((id) => {
         const modal = modals[id];
-        console.log(id, modal)
+        console.log(id, modal);
 
         if (isType(modal, 'deleteModal')) {
           return (

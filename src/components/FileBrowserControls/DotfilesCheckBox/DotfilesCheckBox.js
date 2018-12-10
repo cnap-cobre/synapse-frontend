@@ -29,4 +29,4 @@ const DotfilesCheckBox = (props: Props) => {
   );
 };
 
-export default DotfilesCheckBox
+export default DotfilesCheckBox;
