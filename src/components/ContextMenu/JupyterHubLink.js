@@ -6,13 +6,14 @@ import type { FileType } from '../../types/fileTypes';
 type Props = {
   disabled: boolean,
   file: FileType,
-  children: React.Node,
   url: string,
+  hasJupyterHub: boolean,
+  jupyterUserName: string,
 }
 
 const JupyterHubLink = (props: Props) => {
   const {
-    disabled, file, children, url, hasJupyterHub, jupyterUserName,
+    disabled, file, url, hasJupyterHub, jupyterUserName,
   } = props;
   console.log(file);
 
