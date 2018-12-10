@@ -16,7 +16,7 @@ const nav: Array<NavigationType> = [
   //   exact: false,
   //   children: [
   {
-    name: 'Browse Files',
+    name: 'Files',
     icon: 'ti-folder',
     // mini: 'B',
     url: '/files/browse',
