@@ -17,15 +17,17 @@ type Props = {
   modals: { [string]: AnyModalType },
 }
 
-const isType = (m: AnyModalType, key: string) => Object.prototype.hasOwnProperty.call(m, key);
+const isType = (m: AnyModalType, key: string) => m.modalType === key;
 
 const ModalWrapper = (props: Props) => {
   const { modals } = props;
+  console.log(modals);
 
   return (
     <div>
       {Object.keys(modals).map((id) => {
         const modal = modals[id];
+        console.log(id, modal)
 
         if (isType(modal, 'deleteModal')) {
           return (

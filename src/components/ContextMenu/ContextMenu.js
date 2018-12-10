@@ -116,7 +116,7 @@ class ContextMenu extends React.Component<Props, State> {
   handleTransferFiles = () => {
     const { focusedFiles, dispatch } = this.props;
     dispatch(addModal({
-      modalType: 'transfer',
+      modalType: 'transferModal',
       files: focusedFiles,
       action: (targetPath) => {
         const transferOrders = focusedFiles.map(
@@ -138,7 +138,7 @@ class ContextMenu extends React.Component<Props, State> {
     const { dispatch, focusedFiles } = this.props;
     const file = focusedFiles[0];
     dispatch(addModal({
-      modalType: 'renameFile',
+      modalType: 'renameFileModal',
       fileName: file.name,
       action: (newName) => {
         dispatch(
@@ -155,7 +155,7 @@ class ContextMenu extends React.Component<Props, State> {
       .fullPath.split('/').slice(0, -1).join('/')}/`;
 
     dispatch(addModal({
-      modalType: 'moveCopyFile',
+      modalType: 'moveCopyModal',
       title: `Move File${focusedFiles.length > 1 ? 's' : ''}`,
       files: focusedFiles,
       promptVerb: 'move',
@@ -196,7 +196,7 @@ class ContextMenu extends React.Component<Props, State> {
       .fullPath.split('/').slice(0, -1).join('/')}/`;
 
     dispatch(addModal({
-      modalType: 'moveCopyFile',
+      modalType: 'moveCopyFileModal',
       title: `Copy File${focusedFiles.length > 1 ? 's' : ''}`,
       files: focusedFiles,
       promptVerb: 'copy',
@@ -230,7 +230,7 @@ class ContextMenu extends React.Component<Props, State> {
   handleDeleteFiles = () => {
     const { dispatch, focusedFiles } = this.props;
     dispatch(addModal({
-      modalType: 'deleteFile',
+      modalType: 'deleteModal',
       files: focusedFiles,
       action: () => {
         const uniqueDirectories = focusedFiles.map(

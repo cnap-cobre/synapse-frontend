@@ -17,7 +17,7 @@ class AddDirectoryButton extends React.Component<Props> {
   openModal = () => {
     const { addModal, makeDirectory, path } = this.props;
     addModal({
-      modalType: 'makeDirectory',
+      modalType: 'makeDirectoryModal',
       action: (directoryName) => {
         makeDirectory(path, directoryName);
       },
