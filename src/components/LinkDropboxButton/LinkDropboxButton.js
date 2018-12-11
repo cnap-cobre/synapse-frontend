@@ -13,7 +13,7 @@ const LinkDropboxButton = (props: Props) => {
     <a
       title="Dropbox"
       className="btn btn-block btn-social socialaccount_provider btn-dropbox"
-      href="/accounts/dropbox/login/?process=connect"
+      href="/accounts/dropbox/login/?process=connect&next=/files/systems"
     >
       <img src="/dj-static/img/dropbox_icon.png" alt="Dropbox Logo" />
         Link your Dropbox Account
@@ -22,13 +22,9 @@ const LinkDropboxButton = (props: Props) => {
 
   const unlink = (
     <p>
-        Dropbox is linked.
-        Click
-      {' '}
-      <a href="/accounts/social/connections/">here</a>
-      {' '}
-        to
-        unlink.
+        <span className="ti-dropbox-alt" />
+      &nbsp;
+      Dropbox is linked. Click <a href="/accounts/social/connections/">here</a> to unlink.
     </p>
   );
 

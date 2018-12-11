@@ -128,7 +128,7 @@ class TabbedFileBrowser extends React.Component<Props> {
     return (
       <Tab
         eventKey={index}
-        key={index}
+        key={system.id}
         title={system.name}
       >
         <FileBrowser

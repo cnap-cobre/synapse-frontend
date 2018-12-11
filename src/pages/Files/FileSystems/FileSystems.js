@@ -14,17 +14,22 @@ export default class FileSystems extends React.Component {
         <div className="content">
           <div className="container-fluid">
 
+            <h4 className="title">
+              File Systems
+              <small></small>
+            </h4>
+
             <FileSystemList />
+
+            <hr />
+
+            <h4 className="title">Add File Systems</h4>
 
             <Row>
               <Col md={6}>
-                <Card header={(<h4>Add Common File Systems</h4>)} hr>
-                  <LinkBeocatButton />
-                </Card>
-              </Col>
-              <Col md={6}>
-                <Card header={(<h4>Connect External File System</h4>)} hr>
+                <Card header={(<h4 className="card-title">Shortcuts</h4>)} hr>
                   <LinkDropboxButton />
+                  <LinkBeocatButton />
                 </Card>
               </Col>
             </Row>
