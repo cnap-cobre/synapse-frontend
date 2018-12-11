@@ -36,6 +36,12 @@ const nav: Array<NavigationType> = [
     url: '/files/schemas',
     exact: true,
   },
+  {
+    name: 'Terminal',
+    url: '/terminal',
+    icon: 'ti-layout-cta-left',
+    exact: true
+  },
   //   ]
   // },
   // {
@@ -49,12 +55,6 @@ const nav: Array<NavigationType> = [
   //   name: 'Compute Jobs',
   //   url: '/compute',
   //   icon: 'ti-cloud',
-  //   exact: true
-  // },
-  // {
-  //   name: 'Shell',
-  //   url: '/shell',
-  //   icon: 'ti-layout-cta-left',
   //   exact: true
   // },
   // {

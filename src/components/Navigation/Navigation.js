@@ -29,6 +29,7 @@ export default class Navigation extends React.Component<void> {
           key={item.url}
           activeOnlyWhenExact={item.exact}
         >
+          {}
           <i className={item.icon} />
           <p>
             {item.name}

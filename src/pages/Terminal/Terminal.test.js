@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { initialVisualOptionsState } from '../../store/ui/visualOptions/reducer';
 import { initialUserProfileState } from '../../store/userProfile/reducer';
-import Shell from './Shell';
+import Terminal from './Terminal';
 
 const mockStore = configureStore([]);
 
@@ -21,7 +21,7 @@ it('renders without crashing', () => {
       },
     })}
     >
-      <Shell />
+      <Terminal />
     </Provider>
   ), div);
   ReactDOM.unmountComponentAtNode(div);

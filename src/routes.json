@@ -37,10 +37,10 @@
     ]
   },
   {
-    "path": "/shell",
-    "name": "Shell",
-    "chunk": "shell",
-    "page": "./pages/Shell/Shell"
+    "path": "/terminal",
+    "name": "Terminal",
+    "chunk": "terminal",
+    "page": "./pages/Terminal/Terminal"
   },
   {
     "path": "/editor",

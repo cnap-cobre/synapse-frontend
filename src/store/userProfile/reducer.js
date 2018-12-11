@@ -39,3 +39,18 @@ export default function userProfile(state = initialUserProfileState, action) {
       return state;
   }
 }
+
+export const getJupyterHubUsername = state => {
+  const jupyterProfiles = state.userProfile.jupyter;
+
+  if (!jupyterProfiles) {
+    return '';
+  }
+
+  if (jupyterProfiles.length === 0) {
+    return '';
+  }
+
+  const jp = jupyterProfiles[0];
+  return jp.extra_data.name;
+};

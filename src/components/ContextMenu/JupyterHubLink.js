@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import type { FileType } from '../../types/fileTypes';
+import {getJupyterHubUsername} from "../../store/userProfile/reducer";
 
 type Props = {
   disabled: boolean,
@@ -37,7 +38,7 @@ const JupyterHubLink = (props: Props) => {
   return (
     <a
       className={`contextMenu--option ${disabled ? 'contextMenu--option__disabled' : ''}`}
-      href={disabled ? '' : `https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/tree/${file.path.split('/').slice(3).join('/')}`}
+      href={disabled ? '' : `https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/${file.type === 'file' ? 'edit' : 'tree'}/${file.path.split('/').slice(3).join('/')}`}
     >
         Open with JupyterHub
       {disabled && <span>&nbsp; (not yet supported)</span>}
@@ -46,23 +47,13 @@ const JupyterHubLink = (props: Props) => {
 };
 
 const mapStateToProps = (store) => {
-  const { router, userProfile } = store;
-
-  if (!userProfile || userProfile.jupyter.length === 0) {
-    return {
-      url: router.pathname,
-      hasJupyterHub: false,
-      jupyterUserName: '',
-    };
-  }
-
-  const jupyterProfile = userProfile.jupyter[0];
-  const jupyterData = jupyterProfile.extra_data || {};
+  const { router } = store;
+  console.log(store)
 
   return {
     url: router.pathname,
-    hasJupyterHub: userProfile && userProfile.jupyter.length > 0,
-    jupyterUserName: jupyterData.name,
+    hasJupyterHub: getJupyterHubUsername(store) !== '',
+    jupyterUserName: getJupyterHubUsername(store),
   };
 };
 
