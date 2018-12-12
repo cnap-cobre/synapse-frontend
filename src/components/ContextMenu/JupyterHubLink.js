@@ -8,13 +8,12 @@ type Props = {
   disabled: boolean,
   file: FileType,
   url: string,
-  hasJupyterHub: boolean,
-  jupyterUserName: string,
+  jupyterUserName: ?string,
 }
 
 const JupyterHubLink = (props: Props) => {
   const {
-    disabled, file, url, hasJupyterHub, jupyterUserName,
+    disabled, file, url, jupyterUserName,
   } = props;
   console.log(file);
 
@@ -23,7 +22,7 @@ const JupyterHubLink = (props: Props) => {
     return null;
   }
 
-  if (!hasJupyterHub) {
+  if (!jupyterUserName) {
     return (
       <a
         className={`contextMenu--option ${disabled ? 'contextMenu--option__disabled' : ''}`}

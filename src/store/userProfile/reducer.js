@@ -1,3 +1,5 @@
+// @flow
+
 import * as types from './types';
 
 export const initialUserProfileState = {
@@ -43,14 +45,9 @@ export default function userProfile(state = initialUserProfileState, action) {
 export const getJupyterHubUsername = state => {
   const jupyterProfiles = state.userProfile.jupyter;
 
-  if (!jupyterProfiles) {
-    return '';
+  if (!jupyterProfiles || jupyterProfiles.length === 0) {
+    return null;
   }
-
-  if (jupyterProfiles.length === 0) {
-    return '';
-  }
-
   const jp = jupyterProfiles[0];
   return jp.extra_data.name;
 };
