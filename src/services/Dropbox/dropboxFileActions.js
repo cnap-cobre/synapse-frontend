@@ -153,7 +153,7 @@ const uploadFile = (csrftoken, file, path) => {
         },
         close: false,
         contents: blob,
-      })).then(() => sessionId);
+      }));
     }
     return acc.then(sessionId => db.filesUploadSessionFinish({
       cursor: {
