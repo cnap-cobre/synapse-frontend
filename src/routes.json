@@ -33,6 +33,11 @@
         "path": "/systems",
         "name": "File Systems",
         "page": "./pages/Files/FileSystems/FileSystems"
+      },
+      {
+        "path": "/schemas",
+        "name": "Metadata Schemas",
+        "page": "./pages/Files/Schemas/Schemas"
       }
     ]
   },
