@@ -28,7 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "linst": "eslint src",
+    "lint": "eslint src",
     "flow": "flow",
     "verify": "run-s test flow"
   },
@@ -41,5 +41,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "flow-bin": "^0.88.0"
+  }
 }
