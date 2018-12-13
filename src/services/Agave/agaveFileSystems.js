@@ -1,6 +1,7 @@
 import { fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
+import {syFetch} from "../util";
 
-const listFileSystems = () => fetch('/agave/systems/v2/', {
+const listFileSystems = () => syFetch('/agave/systems/v2/', {
   credentials: 'same-origin',
 })
 // Throw a proper error
@@ -15,7 +16,7 @@ const listFileSystems = () => fetch('/agave/systems/v2/', {
     return file;
   })));
 
-const addFileSystem = (csrftoken, config) => fetch('/agave/systems/v2/', {
+const addFileSystem = (csrftoken, config) => syFetch('/agave/systems/v2/', {
   body: JSON.stringify(config).replace(/!!!/g, '\\n'),
   credentials: 'same-origin',
   method: 'POST',

@@ -1,4 +1,4 @@
-// Here, we need to map the plain key-value pairs
+ // Here, we need to map the plain key-value pairs
 // to those where the key is a regular expression
 // and the value includes the captured regex value
 

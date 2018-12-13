@@ -15,6 +15,11 @@
         "path": "/logout",
         "name": "Logout",
         "page": "./pages/Account/Logout/Logout"
+      },
+      {
+        "path": "/login",
+        "name": "Login",
+        "page": "./pages/Account/Login/Login"
       }
     ]
   },

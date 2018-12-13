@@ -2,6 +2,7 @@ import { Dropbox } from 'dropbox';
 import fileDownload from 'js-file-download';
 import path from 'path';
 import { DropboxToAgaveFormat, fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
+import {syFetch} from "../util";
 
 
 const urlRemap = url => (
@@ -12,7 +13,7 @@ const urlRemap = url => (
 
 
 const dbx = (csrftoken) => {
-  const modifiedFetch = (url, init) => fetch(
+  const modifiedFetch = (url, init) => syFetch(
     urlRemap(url),
     Object.assign({}, init, {
       headers: {
@@ -28,7 +29,7 @@ const dbx = (csrftoken) => {
   );
 };
 
-const dropboxRequest = (csrftoken, url, form) => fetch(url, {
+const dropboxRequest = (csrftoken, url, form) => syFetch(url, {
   body: JSON.stringify(form),
   cache: 'no-cache',
   credentials: 'same-origin',
@@ -67,7 +68,7 @@ const listFiles = (csrftoken, filePath) => {
 };
 
 const wget = (csrftoken, file) => {
-  const url = '/dropbox/content/2/files/download';
+  const url = `${process.env.REACT_APP_API_URL}/dropbox/content/2/files/download`;
   const form = {
     path: file.path,
   };

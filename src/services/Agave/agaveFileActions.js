@@ -1,11 +1,12 @@
 import fileDownload from 'js-file-download';
 import { fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
+import {syFetch} from "../util";
 
 const listFiles = (csrftoken, filePath) => {
   const trimmedPath = filePath.slice('/agave'.length);
   const url = `/agave/files/v2/listings/system${trimmedPath}?limit=1000`;
 
-  return fetch(url, {
+  return syFetch(url, {
     credentials: 'same-origin',
   })
   // Throw a proper error if we get a 500, etc. response code
@@ -25,7 +26,7 @@ const listFiles = (csrftoken, filePath) => {
 };
 
 const wget = (csrftoken, file) => {
-  const url = `/agave/files/v2/media/system/${file.system}/${file.path}`;
+  const url = `${process.env.REACT_APP_API_URL}/agave/files/v2/media/system/${file.system}/${file.path}`;
 
   const x = new XMLHttpRequest();
   x.open('GET', url, true);
@@ -39,7 +40,7 @@ const wget = (csrftoken, file) => {
 const rm = (csrftoken, file) => {
   const url = `/agave/files/v2/media/system/${file.system}/${file.path}`;
 
-  return fetch(url, {
+  return syFetch(url, {
     credentials: 'same-origin',
     method: 'DELETE',
     headers: {
@@ -59,7 +60,7 @@ const moveCopyRenameMkdir = action => (csrftoken, file, path) => {
     append: false,
   };
 
-  return fetch(url, {
+  return syFetch(url, {
     body: JSON.stringify(form),
     credentials: 'same-origin',
     headers: {
@@ -74,7 +75,7 @@ const moveCopyRenameMkdir = action => (csrftoken, file, path) => {
 const uploadFile = (csrftoken, file, path) => {
   const system = path.split('/')[2];
   const trimmedPath = path.slice((`/agave/${system}`).length);
-  const url = `/agave/files/v2/media/system/${system}${trimmedPath.slice(0, -1)}?naked=true`;
+  const url = `${process.env.REACT_APP_API_URL}/agave/files/v2/media/system/${system}${trimmedPath.slice(0, -1)}?naked=true`;
 
   const data = new FormData();
   data.append('file', file);

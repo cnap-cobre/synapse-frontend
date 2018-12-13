@@ -1,9 +1,11 @@
+import {syFetch} from "./util";
+
 export function initiateTransfer(csrftoken, fileList) {
   const data = {
     files: fileList,
   };
 
-  return fetch('/api/v1/transfer_batches/', {
+  return syFetch('/api/v1/transfer_batches/', {
     method: 'POST',
     credentials: 'same-origin',
     headers: {
@@ -18,7 +20,7 @@ export function initiateTransfer(csrftoken, fileList) {
 }
 
 export function fetchUserProfile() {
-  return fetch('/api/v1/profiles/me/', {
+  return syFetch('/api/v1/profiles/me/', {
     credentials: 'same-origin',
   }).then(response => response.json());
 }

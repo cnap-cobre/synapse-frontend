@@ -1,4 +1,5 @@
 import { Dropbox } from 'dropbox';
+import {syFetch} from "../util";
 
 const urlRemap = url => (
   url.replace('https://content.dropboxapi.com', '/dropbox/content')
@@ -8,7 +9,7 @@ const urlRemap = url => (
 
 
 const dbx = (csrftoken) => {
-  const modifiedFetch = (url, init) => fetch(
+  const modifiedFetch = (url, init) => syFetch(
     urlRemap(url),
     Object.assign({}, init, {
       headers: {
