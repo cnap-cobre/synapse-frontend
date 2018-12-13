@@ -6,7 +6,7 @@ import { actions as agaveFileSystemsActions } from './store/agaveFileSystems/Aga
 import ContextMenu from './components/ContextMenu/ContextMenu';
 import ModalWrapper from './components/Modal/ModalWrapper';
 import { putCSRFTokenInStore } from './store/csrf/Csrf';
-import routes from './routes.json';
+import routes from './routes.jsonrt';
 import { actions as userProfileActions } from './store/userProfile/UserProfile';
 import 'react-redux-notify/dist/ReactReduxNotify.css';
 
