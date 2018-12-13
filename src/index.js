@@ -1,7 +1,6 @@
 /* eslint-disable */
 import "regenerator-runtime/runtime";
 import App from './App';
-import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/store';
 import { Provider } from 'react-redux';
 import React from "react";
@@ -23,9 +22,7 @@ const rootElement = document.getElementById("root");
 const render = Component => {
   ReactDOM.render((
       <Provider store={store}>
-        <AppContainer>
-          <Component/>
-        </AppContainer>
+        <Component/>
       </Provider>
   ), rootElement);
 };
@@ -36,7 +33,7 @@ if (module.hot) {
     console.log('Is module.hot?  Yes');
     module.hot.accept('./App.js', function() {
         console.log('Accepting the updated app.');
-        const x =
-        render(require('./App').default);
+        const x = require('./App').default
+        render(x);
     });
 }
