@@ -6,7 +6,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 export default class BooleanField extends React.Component<> {
   render() {
     return (
-        <div>This is a boolean field</div>
-    )
+      <div>This is a boolean field</div>
+    );
   }
 }

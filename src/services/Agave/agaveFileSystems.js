@@ -1,5 +1,5 @@
 import { fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
-import {syFetch} from "../util";
+import { syFetch } from '../util';
 
 const listFileSystems = () => syFetch('/agave/systems/v2/', {
   credentials: 'same-origin',

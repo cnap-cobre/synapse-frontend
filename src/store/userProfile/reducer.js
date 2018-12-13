@@ -42,7 +42,7 @@ export default function userProfile(state = initialUserProfileState, action) {
   }
 }
 
-export const getJupyterHubUsername = state => {
+export const getJupyterHubUsername = (state) => {
   const jupyterProfiles = state.userProfile.jupyter;
 
   if (!jupyterProfiles || jupyterProfiles.length === 0) {

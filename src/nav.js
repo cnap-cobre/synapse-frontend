@@ -40,7 +40,7 @@ const nav: Array<NavigationType> = [
     name: 'Terminal',
     url: '/terminal',
     icon: 'ti-layout-cta-left',
-    exact: true
+    exact: true,
   },
   //   ]
   // },

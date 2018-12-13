@@ -11,46 +11,44 @@ type State = {
   currentSchema: any
 }
 
-const data = { hello: { world: true }};
+const data = { hello: { world: true } };
 
 export default class Schemas extends React.Component<null, State> {
   state = {
-    currentSchema: {}
+    currentSchema: {},
   };
 
   render() {
     const { currentSchema } = this.state;
 
     return (
-        <DefaultLayout>
-          <div className="content">
-            <Grid fluid>
-              <Row>
-                <Col>
-                  <Card header={<h3>Metadata Schemas</h3>}>
-                    <Row>
-                      <Col xs={12}>
-
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md={6}>
-                        <JSONSchemaEditor/>
-                      </Col>
-                      <Col md={6}>
-                        <textarea>
-                          {/*<SyntaxHighlighter language="javascript">*/}
-                            {/*{JSON.stringify(currentSchema)}*/}
-                          {/*</SyntaxHighlighter>*/}
-                        </textarea>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>
-              </Row>
-            </Grid>
-          </div>
-        </DefaultLayout>
-    )
+      <DefaultLayout>
+        <div className="content">
+          <Grid fluid>
+            <Row>
+              <Col>
+                <Card header={<h3>Metadata Schemas</h3>}>
+                  <Row>
+                    <Col xs={12} />
+                  </Row>
+                  <Row>
+                    <Col md={6}>
+                      <JSONSchemaEditor />
+                    </Col>
+                    <Col md={6}>
+                      <textarea>
+                        {/* <SyntaxHighlighter language="javascript"> */}
+                        {/* {JSON.stringify(currentSchema)} */}
+                        {/* </SyntaxHighlighter> */}
+                      </textarea>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
+      </DefaultLayout>
+    );
   }
 }

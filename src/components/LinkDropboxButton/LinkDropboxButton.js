@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 import React from 'react';
-import dropboxIcon from  './dropbox_icon.png';
+import dropboxIcon from './dropbox_icon.png';
 
 type Props = {
   hasLinkedDropbox: boolean
@@ -23,9 +23,13 @@ const LinkDropboxButton = (props: Props) => {
 
   const unlink = (
     <p>
-        <span className="ti-dropbox-alt" />
+      <span className="ti-dropbox-alt" />
       &nbsp;
-      Dropbox is linked. Click <a href="/accounts/social/connections/">here</a> to unlink.
+      Dropbox is linked. Click
+      {' '}
+      <a href="/accounts/social/connections/">here</a>
+      {' '}
+to unlink.
     </p>
   );
 

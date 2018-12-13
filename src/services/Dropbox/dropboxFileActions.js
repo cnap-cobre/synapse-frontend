@@ -2,7 +2,7 @@ import { Dropbox } from 'dropbox';
 import fileDownload from 'js-file-download';
 import path from 'path';
 import { DropboxToAgaveFormat, fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
-import {syFetch} from "../util";
+import { syFetch } from '../util';
 
 
 const urlRemap = url => (

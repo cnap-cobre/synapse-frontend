@@ -1,6 +1,6 @@
 import fileDownload from 'js-file-download';
 import { fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
-import {syFetch} from "../util";
+import { syFetch } from '../util';
 
 const listFiles = (csrftoken, filePath) => {
   const trimmedPath = filePath.slice('/agave'.length);

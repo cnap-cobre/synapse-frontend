@@ -3,8 +3,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DefaultLayout from '../../physical_layout/DefaultLayout/DefaultLayout';
-import Card from '../../physical_layout/Card'
-import {getJupyterHubUsername} from "../../store/userProfile/reducer";
+import Card from '../../physical_layout/Card';
+import { getJupyterHubUsername } from '../../store/userProfile/reducer';
 
 type Props = {
   jupyterUserName: string,
@@ -23,9 +23,11 @@ class Terminal extends React.Component<Props> {
                 JupyterHub server.  This may take some time dependening on the state of the Beocat queue.
               </p>
 
-              <a href={`https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/terminals/1`}
-                 className="btn btn-danger btn-fill btn-wd"
-                 target="_blank">
+              <a
+                href={`https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/terminals/1`}
+                className="btn btn-danger btn-fill btn-wd"
+                target="_blank"
+              >
                 Launch Terminal
               </a>
             </Card>
@@ -36,10 +38,10 @@ class Terminal extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (store) => ({
-  jupyterUserName: getJupyterHubUsername(store)
+const mapStateToProps = store => ({
+  jupyterUserName: getJupyterHubUsername(store),
 });
 
 export default connect(
-    mapStateToProps,
+  mapStateToProps,
 )(Terminal);

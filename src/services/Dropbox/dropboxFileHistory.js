@@ -1,5 +1,5 @@
 import { Dropbox } from 'dropbox';
-import {syFetch} from "../util";
+import { syFetch } from '../util';
 
 const urlRemap = url => (
   url.replace('https://content.dropboxapi.com', '/dropbox/content')

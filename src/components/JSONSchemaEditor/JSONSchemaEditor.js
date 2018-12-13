@@ -15,7 +15,7 @@ type Props = {
 export default class JSONSchemaEditor extends React.Component<> {
   render() {
     return (
-        <div>Schema Editor</div>
-    )
+      <div>Schema Editor</div>
+    );
   }
 }

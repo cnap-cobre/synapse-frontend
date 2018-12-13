@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import type { FileType } from '../../types/fileTypes';
-import {getJupyterHubUsername} from "../../store/userProfile/reducer";
+import { getJupyterHubUsername } from '../../store/userProfile/reducer';
 
 type Props = {
   disabled: boolean,
@@ -47,7 +47,7 @@ const JupyterHubLink = (props: Props) => {
 
 const mapStateToProps = (store) => {
   const { router } = store;
-  console.log(store)
+  console.log(store);
 
   return {
     url: router.pathname,

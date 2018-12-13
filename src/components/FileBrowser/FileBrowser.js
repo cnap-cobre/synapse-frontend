@@ -57,10 +57,10 @@ class FileBrowser extends React.Component<Props> {
 
   handleContextMenu = (file) => {
     const { focusedFilePaths, setFocusedFile } = this.props;
-    console.log("HELLO WORLD", file.fullPath);
+    console.log('HELLO WORLD', file.fullPath);
     console.log('FOCUSED', focusedFilePaths);
     if (focusedFilePaths.indexOf(file.fullPath) === -1) {
-      console.log('ASDFASDFASDF')
+      console.log('ASDFASDFASDF');
       setFocusedFile(file.fullPath);
     }
   };

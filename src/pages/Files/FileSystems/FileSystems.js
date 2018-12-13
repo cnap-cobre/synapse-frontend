@@ -16,7 +16,7 @@ export default class FileSystems extends React.Component {
 
             <h4 className="title">
               File Systems
-              <small></small>
+              <small />
             </h4>
 
             <FileSystemList />

@@ -63,7 +63,7 @@ class TransferModal extends React.Component<Props, State> {
   onTabSelect = (key) => {
     const { fileSystems } = this.props;
     const { targetBrowserPaths } = this.state;
-    console.log(fileSystems, "FS", key);
+    console.log(fileSystems, 'FS', key);
 
     const selected = fileSystems[key];
 

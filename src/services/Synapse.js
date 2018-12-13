@@ -1,4 +1,4 @@
-import {syFetch} from "./util";
+import { syFetch } from './util';
 
 export function initiateTransfer(csrftoken, fileList) {
   const data = {
