@@ -8,7 +8,10 @@ import ModalWrapper from './components/Modal/ModalWrapper';
 import { putCSRFTokenInStore } from './store/csrf/Csrf';
 import routes from './routes.jsonrt';
 import { actions as userProfileActions } from './store/userProfile/UserProfile';
+import './scss/paper-dashboard.scss';
+import './scss/social_login_buttons.scss';
 import 'react-redux-notify/dist/ReactReduxNotify.css';
+
 
 class App extends React.Component {
   componentDidMount() {

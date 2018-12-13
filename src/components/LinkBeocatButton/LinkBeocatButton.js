@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { addModal } from '../../store/ui/modals/Modals';
 import './beocatButton.scss';
+import agaveIcon from './agave_icon.png';
 
 type Props = {
   hasLinkedAgaveAccount: boolean,
@@ -39,7 +40,7 @@ class LinkBeocatButton extends React.Component<Props> {
         href="/accounts/agave/login/?process=connect"
         className="btn btn-block btn-social socialaccount_provider btn-agave"
       >
-        <img src="/dj-static/img/agave_icon.png" alt="Agave Logo" />
+        <img src={agaveIcon} alt="Agave Logo" />
             First, link your Agave Account
       </a>
     );

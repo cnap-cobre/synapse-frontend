@@ -1,0 +1,86 @@
+$dropbox: #1087dd;
+$globus: #00377b;
+$agave: #00a7b8;
+$jupyter: #f37524;
+
+.btn-social {
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-social>:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    line-height: 34px;
+    font-size: 1.6em;
+    text-align: center;
+    border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+
+.btn-dropbox{
+    color: #fff;
+    background-color: $dropbox;
+    border-color: rgba(0,0,0,0.2);
+    &:hover { background-color: darken($dropbox, 10%); }
+}
+
+.btn-globus{
+    color: #fff;
+    background-color: $globus;
+    border-color: rgba(0,0,0,0.2);
+    &:hover { background-color: darken($globus, 10%); }
+}
+
+.btn-agave{
+    color: #fff;
+    background-color: $agave;
+    border-color: rgba(0,0,0,0.2);
+    &:hover { background-color: darken($agave, 10%); }
+}
+
+.btn-jupyterhub{
+    color: #fff;
+    background-color: $jupyter;
+    border-color: rgba(0,0,0,0.2);
+    &:hover { background-color: darken($jupyter, 10%); }
+}
+
+.login-or {
+    margin: 1rem 0em;
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.2em;
+    & > span {
+        position: relative;
+        display: inline-block;
+
+        &:before, &:after{
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 9999px;
+            height: 2px;
+            background: #444;
+        }
+
+        &:before {
+            right: 100%;
+            margin-right: 15px;
+        }
+
+        &:after {
+            left: 100%;
+            margin-left: 15px;
+        }
+    }
+}

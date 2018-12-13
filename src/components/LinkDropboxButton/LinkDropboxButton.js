@@ -1,6 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 import React from 'react';
+import dropboxIcon from  './dropbox_icon.png';
 
 type Props = {
   hasLinkedDropbox: boolean
@@ -15,7 +16,7 @@ const LinkDropboxButton = (props: Props) => {
       className="btn btn-block btn-social socialaccount_provider btn-dropbox"
       href="/accounts/dropbox/login/?process=connect&next=/files/systems"
     >
-      <img src="/dj-static/img/dropbox_icon.png" alt="Dropbox Logo" />
+      <img src={dropboxIcon} alt="Dropbox Logo" />
         Link your Dropbox Account
     </a>
   );
