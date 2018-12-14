@@ -18,7 +18,7 @@ export default class FileBreadcrumbs extends React.Component<Props> {
 
   getPath() {
     const { pathname, prefix } = this.props;
-    //$FlowFixMe
+    // $FlowFixMe
     return pathname.slice(
       prefix.length,
     ).split('/').slice(1).slice(0, -1);
