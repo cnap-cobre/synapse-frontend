@@ -9,7 +9,7 @@ type Props = {
   systemName: string,
   prefix: string,
   pathname: string,
-  crumbComponent: React.Node,
+  crumbComponent: React.Element<any>,
   style?: any,
 }
 
@@ -18,6 +18,7 @@ export default class FileBreadcrumbs extends React.Component<Props> {
 
   getPath() {
     const { pathname, prefix } = this.props;
+    //$FlowFixMe
     return pathname.slice(
       prefix.length,
     ).split('/').slice(1).slice(0, -1);
@@ -42,10 +43,10 @@ export default class FileBreadcrumbs extends React.Component<Props> {
         return (
           <li key={invIndex}>
             {(() => {
-              if (typeof (crumbComponent) === 'function') {
+              if (typeof (CrumbComponent) === 'function') {
                 return (<CrumbComponent to={to}>{val}</CrumbComponent>);
               }
-              return React.cloneElement(crumbComponent, { to, children: val });
+              return React.cloneElement(CrumbComponent, { to, children: val });
             })()}
           </li>
         );
