@@ -1,0 +1,17 @@
+language: "node_js"
+node_js:
+  - "10"
+
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
+
+jobs:
+  include:
+    - stage: Tests
+      name: "Linter"
+      script: "npm run lint"
+
+    - name: "Flow Type Checking"
+      script: "npm run flow"
