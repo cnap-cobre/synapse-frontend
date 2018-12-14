@@ -29,36 +29,36 @@ const Login = (props) => {
 
                   <form action={`/accounts/login/?next=${next}`}>
                     <FormGroup
-                        controlId="username"
+                      controlId="username"
                     >
                       <ControlLabel>Username or Email*</ControlLabel>
                       <FormControl
-                          type="text"
-                          placeholder="Username or e-mail"
+                        type="text"
+                        placeholder="Username or e-mail"
                       />
                     </FormGroup>
 
                     <FormGroup
-                        controlId="password"
+                      controlId="password"
                     >
                       <ControlLabel>Password*</ControlLabel>
                       <FormControl
-                          type="password"
-                          placeholder="password"
+                        type="password"
+                        placeholder="password"
                       />
                     </FormGroup>
 
                     <div className="btn-center">
                       <button
-                          type="submit"
-                          className="btn btn-success btn-fill btn-wd"
+                        type="submit"
+                        className="btn btn-success btn-fill btn-wd"
                       >
                         Sign In
                       </button>
                       &nbsp;
                       <button
-                          type="button"
-                          className="btn btn-wd"
+                        type="button"
+                        className="btn btn-wd"
                       >
                         Register
                       </button>
@@ -82,13 +82,13 @@ const Login = (props) => {
         </WrapperFullPage>
       </>
   );
-}
+};
 
-const mapStateToProps = store => {
-  const queries = store.router.queries;
+const mapStateToProps = (store) => {
+  const { queries } = store.router;
   return {
-    next: queries.next ? queries.next : '/'
-  }
-}
+    next: queries.next ? queries.next : '/',
+  };
+};
 
 export default connect(mapStateToProps)(Login);

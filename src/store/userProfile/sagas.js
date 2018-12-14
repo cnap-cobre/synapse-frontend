@@ -1,10 +1,10 @@
 import {
   all, call, put, takeLatest, select,
 } from 'redux-saga/effects';
+import { push } from 'redux-json-router';
 import * as Synapse from '../../services/Synapse';
 import * as types from './types';
 import { actions } from './UserProfile';
-import { push } from 'redux-json-router';
 
 function* getUserProfile() {
   try {

@@ -11,11 +11,11 @@ import jupyterHubIcon from './jupyterhub_icon.png';
 type Props = {
   provider: string,
   image: any,
-  next: ?string,
+  next: string,
 }
 
 type InstanceProps = {
-  next?: string,
+  next: string,
 }
 
 const SocialSignInButtonPure = (props: Props) => {
@@ -24,7 +24,7 @@ const SocialSignInButtonPure = (props: Props) => {
     <a
       title={`Sign in with ${provider}`}
       className={`btn btn-block btn-social socialaccount_provider btn-${provider.toLowerCase()}`}
-      href={`/accounts/${provider.toLowerCase()}/login/?process=login&next=${next || ''}`}
+      href={`/accounts/${provider.toLowerCase()}/login/?process=login&next=${next}`}
     >
       <img src={image} alt={`${provider} logo`} />
         Sign In with
