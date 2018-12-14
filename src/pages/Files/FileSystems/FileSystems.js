@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Grid } from 'react-bootstrap';
 import AddSftpFileSystemForm from '../../../components/AddSftpFileSystemForm/AddSftpFileSystemForm';
 import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
 import FileSystemList from '../../../components/FileSystemList/FileSystemList';
@@ -10,8 +10,7 @@ import Card from '../../../physical_layout/Card';
 const FileSystems = () => (
   <DefaultLayout>
     <div className="content">
-      <div className="container-fluid">
-
+      <Grid fluid>
         <h4 className="title">
               File Systems
           <small />
@@ -72,7 +71,7 @@ const FileSystems = () => (
           </Col>
         </Row>
 
-      </div>
+      </Grid>
     </div>
   </DefaultLayout>
 );

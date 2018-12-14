@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
 import DefaultLayout from '../../physical_layout/DefaultLayout/DefaultLayout';
 import Card from '../../physical_layout/Card';
 import { getJupyterHubUsername } from '../../store/userProfile/reducer';
@@ -15,24 +16,28 @@ const Terminal = (props: Props) => {
   return (
     <DefaultLayout>
       <div className="content">
-        <div className="container-fluid">
-          <Card header={<h4 className="card-title">Launch a Terminal</h4>} hr>
-            <p>
+        <Grid fluid>
+          <Row>
+            <Col>
+              <Card header={<h4 className="card-title">Launch a Terminal</h4>} hr>
+                <p>
               To launch a JupyterHub terminal session, click the button below.
               You will be prompted to spawn a JupyterHub server.
               This may take some time dependening on the state of the Beocat queue.
-            </p>
+                </p>
 
-            <a
-              href={`https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/terminals/1`}
-              className="btn btn-danger btn-fill btn-wd"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+                <a
+                  href={`https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/terminals/1`}
+                  className="btn btn-danger btn-fill btn-wd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                 Launch Terminal
-            </a>
-          </Card>
-        </div>
+                </a>
+              </Card>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     </DefaultLayout>
   );

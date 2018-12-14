@@ -33,7 +33,7 @@ export default class Schemas extends React.Component<null, State> {
           <Grid fluid>
             <Row>
               <Col>
-                <Card header={<h3>Metadata Schemas</h3>}>
+                <Card header={<h3 className="card-title">Metadata Schemas</h3>} hr>
                   <Row>
                     <Col xs={12} />
                   </Row>
