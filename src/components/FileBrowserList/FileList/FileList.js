@@ -21,10 +21,6 @@ type Props = {
 }
 
 export default class FileList extends React.Component<Props> {
-  defaultProps = {
-    list: [],
-  };
-
   getSelectedClass = (file: FileType) => {
     const { focusedFilePaths } = this.props;
     return (
