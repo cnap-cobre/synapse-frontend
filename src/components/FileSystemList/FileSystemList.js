@@ -32,9 +32,11 @@ const FileSystemList = (props: Props) => {
                 {item.description}
               </p>
               <strong>id:</strong>
+              &nbsp;
               {item.id}
               <br />
               <strong>provider:</strong>
+              &nbsp;
               {item.provider}
               <br />
             </Card>

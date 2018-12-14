@@ -62,7 +62,7 @@ const FileSystems = () => (
               <hr />
               <h6>Agave Systems (via SFTP)</h6>
               <p>
-                      Fill out the &quo;Add an SFTP File System&quo; form.  You will need to
+                      Fill out the &quot;Add an SFTP File System&quot; form.  You will need to
                       generate an SSH key pair using ssh-keygen.  Add the public key to your
                       ~/.ssh/authorized_keys file on the target file system.  Copy and paste each
                       key, public AND private, into the form.  The system ID must be unique across
