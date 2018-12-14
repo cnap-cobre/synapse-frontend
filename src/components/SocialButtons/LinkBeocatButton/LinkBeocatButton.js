@@ -2,8 +2,8 @@
 
 import { connect } from 'react-redux';
 import React from 'react';
-import { addModal } from '../../store/ui/modals/Modals';
-import agaveIcon from './agave_icon.png';
+import { addModal } from '../../../store/ui/modals/Modals';
+import agaveIcon from '../agave_icon.png';
 import './beocatButton.scss';
 
 type Props = {

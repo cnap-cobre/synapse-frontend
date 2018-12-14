@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux';
 import React from 'react';
-import dropboxIcon from './dropbox_icon.png';
+import dropboxIcon from '../dropbox_icon.png';
 
 type Props = {
   hasLinkedDropbox: boolean

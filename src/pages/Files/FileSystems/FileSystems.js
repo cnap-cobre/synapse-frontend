@@ -3,8 +3,8 @@ import { Row, Col, Grid } from 'react-bootstrap';
 import AddSftpFileSystemForm from '../../../components/AddSftpFileSystemForm/AddSftpFileSystemForm';
 import DefaultLayout from '../../../physical_layout/DefaultLayout/DefaultLayout';
 import FileSystemList from '../../../components/FileSystemList/FileSystemList';
-import LinkBeocatButton from '../../../components/LinkBeocatButton/LinkBeocatButton';
-import LinkDropboxButton from '../../../components/LinkDropboxButton/LinkDropboxButton';
+import LinkBeocatButton from '../../../components/SocialButtons/LinkBeocatButton/LinkBeocatButton';
+import LinkDropboxButton from '../../../components/SocialButtons/LinkDropboxButton/LinkDropboxButton';
 import Card from '../../../physical_layout/Card';
 
 const FileSystems = () => (
