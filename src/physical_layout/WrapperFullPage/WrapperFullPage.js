@@ -18,9 +18,10 @@ const WrapperFullPage = (props) => {
     >
       <div className="wrapper wrapper-full-page">
         <div className="full-page login-page">
-          <div className="content">
+          <div className="content" style={{ zIndex: 5 }}>
             {children}
           </div>
+          <div className="full-page-background" style={{ backgroundImage: 'url(/beocat-blur.png)', zIndex: 4 }} />
         </div>
         <div
           className={`close-layer${

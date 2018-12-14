@@ -9,7 +9,7 @@ import synapseLogo from '../../../components/Logo/logo.png';
 const UnauthedNav = () => (
   <nav className="navbar navbar-transparent navbar-absolute">
     <Grid>
-      <div className="navbar-header">
+      <div className="navbar-header" style={{ textShadow: '2px 2px 10px #000' }}>
         <a className="navbar-brand" href="/">
           <img
             src={synapseLogo}
@@ -25,7 +25,7 @@ const UnauthedNav = () => (
       </div>
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <a href="register.html">
+          <a href="register.html" style={{ textShadow: '2px 2px 10px #000' }}>
                 Register
           </a>
         </li>
