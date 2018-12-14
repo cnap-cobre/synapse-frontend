@@ -1,4 +1,5 @@
 import { syFetch } from './util';
+import {fetchErrorThrower} from "../util/FetchUtils";
 
 export function initiateTransfer(csrftoken, fileList) {
   const data = {
@@ -22,5 +23,6 @@ export function initiateTransfer(csrftoken, fileList) {
 export function fetchUserProfile() {
   return syFetch('/api/v1/profiles/me/', {
     credentials: 'same-origin',
-  }).then(response => response.json());
+  }).then(fetchErrorThrower)
+      .then(response => response.json());
 }
