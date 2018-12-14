@@ -45,12 +45,21 @@ const Login = () => (
                     />
                   </FormGroup>
 
+                  <div className="btn-center">
                   <button
                     type="submit"
                     className="btn btn-success btn-fill btn-wd"
                   >
                   Sign In
                   </button>
+                  &nbsp;
+                  <button
+                      type="button"
+                      className="btn btn-wd"
+                  >
+                    Register
+                  </button>
+                  </div>
                 </form>
 
                 <HrWithOr />
