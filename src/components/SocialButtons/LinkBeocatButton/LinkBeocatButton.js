@@ -37,7 +37,7 @@ class LinkBeocatButton extends React.Component<Props> {
 
     const linkAgaveButton = (
       <a
-        href="/accounts/agave/login/?process=connect"
+        href="/accounts/agave/login/?process=connect&next=/files/systems"
         className="btn btn-block btn-social socialaccount_provider btn-agave"
       >
         <img src={agaveIcon} alt="Agave Logo" />
