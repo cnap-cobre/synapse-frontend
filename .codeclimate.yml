@@ -1,0 +1,18 @@
+version: "2"
+
+plugins:
+  eslint:
+    enabled: true
+    channel: "eslint-5"
+  git.legal:
+    enabled: true
+  nodesecurity:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript:
+          mass_threshold: 80
+  fixme:
+    enabled: true

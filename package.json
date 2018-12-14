@@ -54,5 +54,8 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-watch": "^4.0.2",
     "flow-bin": "^0.89.0"
+  },
+  "greenkeeper": {
+    "ignore": "react-dropzone"
   }
 }
