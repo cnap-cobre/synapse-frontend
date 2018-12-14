@@ -1,5 +1,5 @@
 import {
-  all, call, put, select, takeEvery,
+  all, call, select, takeEvery,
 } from 'redux-saga/effects';
 import * as Synapse from '../../services/Synapse';
 import * as types from './types';
@@ -9,7 +9,7 @@ const getCsrf = state => state.csrf.token;
 function* initTransferFilesBatch(action) {
   try {
     const csrfToken = yield select(getCsrf);
-    const transferFilesResponse = yield call(Synapse.initiateTransfer, csrfToken, action.fileList);
+    yield call(Synapse.initiateTransfer, csrfToken, action.fileList);
     // yield put()
   } catch (e) {
     console.log(e);

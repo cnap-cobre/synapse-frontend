@@ -2,7 +2,7 @@
 import Alert from 'react-bootstrap/lib/Alert';
 import { connect } from 'react-redux';
 import React from 'react';
-import { Row, Col, Grid } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import type { FileSystemType } from '../../types/fileSystemTypes';
 import Card from '../../physical_layout/Card';
 

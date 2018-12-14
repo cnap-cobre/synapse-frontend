@@ -35,13 +35,16 @@ const JupyterHubLink = (props: Props) => {
   }
 
   return (
-    <a
-      className={`contextMenu--option ${disabled ? 'contextMenu--option__disabled' : ''}`}
-      href={disabled ? '' : `https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/${file.type === 'file' ? 'edit' : 'tree'}/${file.path.split('/').slice(3).join('/')}`}
-    >
+    <>
+      { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
+      <a
+        className={`contextMenu--option ${disabled ? 'contextMenu--option__disabled' : ''}`}
+        href={disabled ? '' : `https://jupyterhub.beocat.ksu.edu/user/${jupyterUserName}/${file.type === 'file' ? 'edit' : 'tree'}/${file.path.split('/').slice(3).join('/')}`}
+      >
         Open with JupyterHub
-      {disabled && <span>&nbsp; (not yet supported)</span>}
-    </a>
+        {disabled && <span>&nbsp; (not yet supported)</span>}
+      </a>
+    </>
   );
 };
 

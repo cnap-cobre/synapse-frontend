@@ -8,7 +8,7 @@ import { removeModal } from '../../store/ui/modals/Modals';
 import type { SuccessMessageModalType } from '../../types/modalTypes';
 
 type Props = SuccessMessageModalType & {
-  removeModal(string): typeof undefined,
+  $removeModal(string): typeof undefined,
 }
 
 type State = {
@@ -21,13 +21,13 @@ class SuccessMessageModal extends React.Component<Props, State> {
   };
 
   closeModal = () => {
-    const { id, removeModal } = this.props;
+    const { id, $removeModal } = this.props;
 
     this.setState({
       show: false,
     });
     setTimeout(() => {
-      removeModal(id);
+      $removeModal(id);
     }, 500);
   };
 
@@ -61,7 +61,7 @@ class SuccessMessageModal extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = {
-  removeModal,
+  $removeModal: removeModal,
 };
 
 export default connect(

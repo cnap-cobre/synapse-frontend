@@ -81,12 +81,14 @@ class FileMetadata extends React.Component<Props, State> {
                 <td>Format:</td>
                 <td>{singleFile.format}</td>
               </tr>
-              <tr>
-                <td>Last Modified:</td>
-                <td title={format(singleFile.lastModified, 'MM/dd/yyyy HH:mm:ss - OOOO')}>
-                  { formatDistance(singleFile.lastModified, Date.now()) }
-                </td>
-              </tr>
+              { singleFile.lastModified ? (
+                <tr>
+                  <td>Last Modified:</td>
+                  <td title={format(singleFile.lastModified, 'MM/dd/yyyy HH:mm:ss - OOOO')}>
+                    { formatDistance(singleFile.lastModified, Date.now()) }
+                  </td>
+                </tr>
+              ) : null }
               <tr>
                 <td>Size:</td>
                 <td>{humanFileSize(singleFile.length)}</td>

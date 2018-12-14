@@ -19,7 +19,7 @@ type Props = {
   icon: string,
   label: string,
   pathname: string,
-  children?: React.Node,
+  children: React.Node,
 }
 
 type State = {
@@ -46,6 +46,7 @@ class NavigationGroup extends React.Component<Props, State> {
 
     return (
       <li className={match ? 'active' : ''}>
+        { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
         <a onClick={() => this.setState({ open: !open })} data-toggle="collapse">
           <i className={icon} />
           <p>

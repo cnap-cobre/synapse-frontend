@@ -4,14 +4,12 @@ import UserDetails from '../../components/UserDetails/UserDetails';
 import UserProfilePhoto from '../../components/UserProfilePhoto/UserProfilePhoto';
 
 
-export default class Account extends React.Component {
-  render() {
-    return (
-      <CardLayout>
-        <h3>My Account</h3>
-        <UserProfilePhoto />
-        <UserDetails />
-      </CardLayout>
-    );
-  }
-}
+const Account = () => (
+  <CardLayout>
+    <h3>My Account</h3>
+    <UserProfilePhoto />
+    <UserDetails />
+  </CardLayout>
+);
+
+export default Account;

@@ -17,7 +17,7 @@ const resolveProviderService = (path) => {
       return Dropbox;
     default:
       console.log(path.split('/'));
-      throw 'File provider not resolved from path';
+      throw Error('File provider not resolved from path');
   }
 };
 

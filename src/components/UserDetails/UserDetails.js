@@ -1,26 +1,28 @@
+// @flow
+
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import React from 'react';
+import type { userStateType } from '../../types/userProfileTypes';
 
+type Props = {
+  user: userStateType
+}
 
-class UserDetails extends React.Component {
-  static propTypes = {
-    profilePhoto: PropTypes.string.isRequired,
-  }
-
-  render = () => (
+const UserDetails = (props: Props) => {
+  const { user } = props;
+  return (
     <div>
       <h5>
-        {this.props.user.full_name}
+        {user.full_name}
       </h5>
       <p>
         <strong>Username:</strong>
         {' '}
-        {this.props.user.username}
+        {user.username}
       </p>
     </div>
   );
-}
+};
 
 const mapStateToProps = ({ userProfile }) => ({
   user: userProfile.user,

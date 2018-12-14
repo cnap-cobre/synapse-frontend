@@ -11,10 +11,10 @@ const listFileSystems = () => syFetch('/agave/systems/v2/', {
   .then(response => response.result)
 
 // Add provider property
-  .then(list => (list.map((file) => {
-    file.provider = 'agave';
-    return file;
-  })));
+  .then(list => (list.map(file => ({
+    ...file,
+    provider: 'agave',
+  }))));
 
 const addFileSystem = (csrftoken, config) => syFetch('/agave/systems/v2/', {
   body: JSON.stringify(config).replace(/!!!/g, '\\n'),

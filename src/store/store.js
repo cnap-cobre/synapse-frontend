@@ -1,5 +1,5 @@
 import createSagaMiddleware from 'redux-saga';
-import persistState from 'redux-localstorage';
+// import persistState from 'redux-localstorage';
 import {
   applyMiddleware, combineReducers, compose, createStore,
 } from 'redux';

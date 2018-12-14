@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+// @flow
+
 import React from 'react';
 
 type Props = {
@@ -24,6 +25,7 @@ const DotfilesCheckBox = (props: Props) => {
         onChange={toggleDotfiles}
       />
 
+      { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label htmlFor={`DotfilesCheckbox${id}`}>Show Dotfiles</label>
     </div>
   );

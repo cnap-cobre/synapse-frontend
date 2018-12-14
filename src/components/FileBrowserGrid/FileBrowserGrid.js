@@ -1,60 +1,75 @@
+// @flow
+
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Row from 'react-bootstrap/lib/Row';
 import { fileIconResolver } from '../../util/FileIconResolver';
 import './fileGridIcon.scss';
+import type { FileType } from '../../types/fileTypes';
 
-export default class FileBrowserGrid extends React.Component {
-  static propTypes = {
-    showDotfiles: PropTypes.bool.isRequired,
-    error: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired,
-    list: PropTypes.array.isRequired,
-    path: PropTypes.string.isRequired,
-    handleDoubleClick: PropTypes.func.isRequired,
-    handleSingleClick: PropTypes.func.isRequired,
-    handleContextMenu: PropTypes.func.isRequired,
-  };
+type Props = {
+  showDotfiles: boolean,
+  error: boolean,
+  loading: boolean,
+  list: Array<FileType>,
+  focusedFilePaths: Array<string>,
+  handleDoubleClick(file: FileType): void,
+  handleSingleClick(
+      file: FileType,
+      list: Array<FileType>,
+      e: SyntheticMouseEvent<HTMLElement>
+  ): void,
+  handleContextMenu(file: FileType): void,
+}
 
-  getSelectedClass = file => (
-    this.props.focusedFilePaths.filter(focused => (
-      focused === `/${file.provider}/${file.system}${file.path}`
-    )).length !== 0 ? 'focused' : ''
-  );
+export default class FileBrowserGrid extends React.Component<Props> {
+  getSelectedClass = (file: FileType) => {
+    const { focusedFilePaths } = this.props;
+    return (
+      focusedFilePaths.filter(focused => (
+        focused === `/${file.provider}/${file.system}${file.path}`
+      )).length !== 0 ? 'focused' : ''
+    );
+  }
 
-  fileToComponent = (item, i, array) => (
-    <div
-      key={item.name}
-      onDoubleClick={e => this.props.handleDoubleClick(item, e)}
-      onClick={e => this.props.handleSingleClick(item, array, e)}
-      onContextMenu={e => this.props.handleContextMenu(item, e)}
-      className={`fileGridIconBlock rightClickableFile ${this.getSelectedClass(item)}`}
-      file={{
-        ...item,
-        dirPath: `${item.fullPath.split('/').slice(0, -1).join('/')}/`,
-      }}
-    >
-      <div className="innerWrapper">
-        <div className="fileGridIcon">
-          {fileIconResolver(item)}
-&nbsp;&nbsp;
-        </div>
-        <div className="fileName">
-          {item.name}
+  fileToComponent = (item: FileType, i: number, array: Array<FileType>) => {
+    const { handleDoubleClick, handleSingleClick, handleContextMenu } = this.props;
+    return (
+      <div
+        key={item.name}
+        onDoubleClick={() => handleDoubleClick(item)}
+        onClick={e => handleSingleClick(item, array, e)}
+        onContextMenu={() => handleContextMenu(item)}
+        className={`fileGridIconBlock rightClickableFile ${this.getSelectedClass(item)}`}
+        file={{
+          ...item,
+          dirPath: `${item.fullPath.split('/').slice(0, -1).join('/')}/`,
+        }}
+      >
+        <div className="innerWrapper">
+          <div className="fileGridIcon">
+            {fileIconResolver(item)}
+              &nbsp;&nbsp;
+          </div>
+          <div className="fileName">
+            {item.name}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 
   render() {
-    const folders = this.props.list.filter(
-      (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === 'dir'),
+    const {
+      list, showDotfiles, error, loading,
+    } = this.props;
+    const folders = list.filter(
+      item => ((showDotfiles || !item.name.match(/^\./i)) && item.type === 'dir'),
     );
 
-    const files = this.props.list.filter(
-      (item, i) => ((this.props.showDotfiles || !item.name.match(/^\./i)) && item.type === 'file'),
+    const files = list.filter(
+      item => ((showDotfiles || !item.name.match(/^\./i)) && item.type === 'file'),
     );
 
     const allComponents = [
@@ -65,7 +80,7 @@ export default class FileBrowserGrid extends React.Component {
     return (
 
       <Grid fluid>
-        <Row style={{ display: this.props.error || this.props.loading ? 'none' : 'block' }}>
+        <Row style={{ display: error || loading ? 'none' : 'block' }}>
 
           {folders.length ? (
             <Col xs={12}>

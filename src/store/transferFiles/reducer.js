@@ -6,7 +6,9 @@ export const initialTransferState = {
 export default function transferFiles(state = initialTransferState, action) {
   switch (action.type) {
     case START_TRANSFER: {
-      const filesBeingTransfered = action.fileList.reduce((acc, file) => acc, {});
+      // TODO: Add file transfer batch to state
+      // const filesBeingTransfered = action.fileList.reduce((acc, file) => [], {});
+      // console.log(filesBeingTransfered);
       return state;
     }
     default:

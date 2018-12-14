@@ -7,11 +7,11 @@ export default function () {
       <div className="content">
         <div className="container-fluid">
           <h1>404 Not Found</h1>
-          <p>While it's possible you mistyped the URL, we may have broken something.</p>
+          <p>While it&apos;s possible you mistyped the URL, we may have broken something.</p>
           <p>
-Submit a bug report here:
+            Submit a bug report here:
             <a href="https://github.com/cnap-cobre/synapse">
-          https://github.com/cnap-cobre/synapse
+              https://github.com/cnap-cobre/synapse
             </a>
           </p>
         </div>

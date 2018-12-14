@@ -1,25 +1,47 @@
+// @flow
+
 import { connect } from 'react-redux';
 import { FaArrowUp } from 'react-icons/fa';
 import React from 'react';
 import { fileActions } from '../../../store/files/Files';
 
-class UploadFile extends React.Component {
-  static propTypes = {
+type Props = {
+  path: string,
+  $uploadFile(file: any, path: string): void,
+}
 
-  };
+class UploadFile extends React.Component<Props> {
+  fileUploadButton = null;
+
+  fileInput: ?HTMLInputElement = null;
+
+  uploadForm = null;
 
   handleClick = (e) => {
     e.preventDefault();
+
+    if (!this.fileInput) {
+      return;
+    }
 
     this.fileInput.click();
   };
 
   handleFileSelection = (e) => {
+    const { path, $uploadFile } = this.props;
     e.preventDefault();
 
-    const files = this.fileInput.files;
+    const { fileInput } = this;
+
+    if (!fileInput) {
+      return;
+    }
+
+    const { files } = fileInput;
+
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < files.length; i++) {
-      this.props.dispatch(fileActions.uploadFile(files[i], this.props.path));
+      $uploadFile(files[i], path);
     }
   };
 
@@ -50,6 +72,7 @@ class UploadFile extends React.Component {
         className="btn btn-xs btn-default"
         ref={(ref) => { this.fileUploadButton = ref; }}
         onClick={this.handleClick}
+        type="button"
         style={{
           height: '2.7em',
           marginTop: '0.5em',
@@ -57,11 +80,23 @@ class UploadFile extends React.Component {
           marginRight: '0.5em',
         }}
       >
-        <FaArrowUp />
-&nbsp;Upload
+        <FaArrowUp style={{
+          marginTop: '0.3em',
+          marginBottom: '-0.2em',
+          fontSize: '1.2em',
+        }}
+        />
+        &nbsp;Upload
       </button>
     </div>
   );
 }
 
-export default connect()(UploadFile);
+const mapDispatchToProps = {
+  $uploadFile: fileActions.uploadFile,
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(UploadFile);

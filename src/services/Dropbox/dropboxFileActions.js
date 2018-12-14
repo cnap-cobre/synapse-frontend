@@ -1,6 +1,6 @@
 import { Dropbox } from 'dropbox';
 import fileDownload from 'js-file-download';
-import path from 'path';
+import pathUtil from 'path';
 import { DropboxToAgaveFormat, fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
 import { syFetch } from '../util';
 
@@ -61,10 +61,12 @@ const listFiles = (csrftoken, filePath) => {
   // map Dropbox to Agave response format
     .then(DropboxToAgaveFormat)
 
-    .then(list => (list.map((file) => {
-      file.provider = 'dropbox';
-      return file;
-    })));
+    .then(
+      list => (list.map(file => ({
+        ...file,
+        provider: 'dropbox',
+      }))),
+    );
 };
 
 const wget = (csrftoken, file) => {
@@ -78,7 +80,7 @@ const wget = (csrftoken, file) => {
   x.responseType = 'blob';
   x.setRequestHeader('X-CSRFToken', csrftoken);
   x.setRequestHeader('Dropbox-API-Arg', JSON.stringify(form));
-  x.onload = (e) => {
+  x.onload = () => {
     fileDownload(x.response, file.name);
   };
   x.send();
@@ -99,7 +101,7 @@ const mv = (csrftoken, file, toPath) => {
 
   const form = {
     from_path: file.path,
-    to_path: path.resolve(path.dirname(file.path), toPath),
+    to_path: pathUtil.resolve(pathUtil.dirname(file.path), toPath),
   };
 
   return dropboxRequest(csrftoken, url, form);
@@ -117,13 +119,13 @@ const cp = (csrftoken, file, toPath) => {
 };
 
 const mkdir = (csrftoken, path, name) => dbx(csrftoken).filesCreateFolderV2({
-  path: path.slice('/dropbox/home'.length) + name,
+  path: pathUtil.slice('/dropbox/home'.length) + name,
 });
 
-const uploadFile = (csrftoken, file, path) => {
+const uploadFile = (csrftoken, file) => {
   const UPLOAD_FILE_SIZE_LIMIT = 150 * 1024 * 1024;
   const db = dbx(csrftoken);
-  const trimmedPath = path.slice('/dropbox/home'.length);
+  const trimmedPath = pathUtil.slice('/dropbox/home'.length);
 
   if (file.size < UPLOAD_FILE_SIZE_LIMIT) {
     return db.filesUpload({
@@ -143,7 +145,7 @@ const uploadFile = (csrftoken, file, path) => {
   }
 
   const task = workItems.reduce((acc, blob, idx, items) => {
-    if (idx == 0) {
+    if (Number(idx) === 0) {
       return acc.then(() => db.filesUploadSessionStart({ close: false, contents: blob }))
         .then(response => response.session_id);
     } if (idx < items.length - 1) {
@@ -169,6 +171,8 @@ const uploadFile = (csrftoken, file, path) => {
       },
     }));
   }, Promise.resolve());
+
+  return task;
 };
 
 export default {

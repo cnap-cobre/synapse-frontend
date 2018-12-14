@@ -16,7 +16,7 @@ export default createReducer(initialAgaveFileSystemsState, {
     systems: action.systems,
     loading: false,
   }),
-  [types.GET_AGAVE_FILE_SYSTEMS_ASYNC.ERROR]: (state, action) => ({
+  [types.GET_AGAVE_FILE_SYSTEMS_ASYNC.ERROR]: state => ({
     ...state,
     loading: false,
   }),

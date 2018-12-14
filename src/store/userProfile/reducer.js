@@ -1,6 +1,7 @@
 // @flow
 
 import * as types from './types';
+import type { userProfileStateType } from '../../types/userProfileTypes';
 
 export const initialUserProfileState = {
   id: 0,
@@ -26,7 +27,12 @@ export const initialUserProfileState = {
   loading: false,
 };
 
-export default function userProfile(state = initialUserProfileState, action) {
+type Action = { type: string, userProfile: userProfileStateType }
+
+export default function userProfile(
+  state: userProfileStateType = initialUserProfileState,
+  action: Action,
+) {
   switch (action.type) {
     case types.GET_USER_PROFILE_ASYNC.PENDING:
       return Object.assign({}, state, {
@@ -42,7 +48,7 @@ export default function userProfile(state = initialUserProfileState, action) {
   }
 }
 
-export const getJupyterHubUsername = (state) => {
+export const getJupyterHubUsername = (state: any) => {
   const jupyterProfiles = state.userProfile.jupyter;
 
   if (!jupyterProfiles || jupyterProfiles.length === 0) {

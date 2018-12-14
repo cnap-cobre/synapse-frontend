@@ -6,18 +6,18 @@ import { toggleMobileNav } from '../../store/ui/visualOptions/VisualOptions';
 import { getMobileNavOpen } from '../../store/ui/reducer';
 
 type Props = {
-  toggleMobileNav(): typeof undefined,
+  $toggleMobileNav(): typeof undefined,
   mobileNavOpen: boolean,
 }
 
 const NavbarButton = (props: Props) => {
-  const { toggleMobileNav, mobileNavOpen } = props;
+  const { $toggleMobileNav, mobileNavOpen } = props;
   return (
     <button
       type="button"
       className={`navbar-toggle ${
         mobileNavOpen ? 'toggled' : ''}`}
-      onClick={toggleMobileNav}
+      onClick={$toggleMobileNav}
     >
       <span className="sr-only">Toggle navigation</span>
       <span className="icon-bar bar1" />
@@ -32,7 +32,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = {
-  toggleMobileNav,
+  $toggleMobileNav: toggleMobileNav,
 };
 
 export default connect(

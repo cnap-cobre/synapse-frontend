@@ -10,14 +10,17 @@ type LinkProps = {
 const LinkComponent = (props: LinkProps) => {
   const { onClick, to, children } = props;
   return (
-    <a onClick={() => {
-      if (to !== undefined) {
-        onClick(to);
-      }
-    }}
-    >
-      {children}
-    </a>
+      <>
+        { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
+        <a onClick={() => {
+          if (to !== undefined) {
+            onClick(to);
+          }
+        }}
+        >
+          {children}
+        </a>
+        </>
   );
 };
 

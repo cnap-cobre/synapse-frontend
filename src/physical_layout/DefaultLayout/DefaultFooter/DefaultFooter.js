@@ -1,37 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class DefaultFooter extends Component {
-  render() {
-    return (
-      <footer className="footer">
-        <div className="container-fluid">
-          <nav className="pull-left">
-            <ul>
-              <li>
-                <a href="#">
-                    Footer Link 1
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                    Footer Link 2
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                    Footer Link 3
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div className="copyright pull-right">
+const DefaultFooter = () => (
+  <footer className="footer">
+    <div className="container-fluid">
+      <nav className="pull-left">
+        <ul>
+          <li>
+            <a href="https://support.beocat.ksu.edu/">
+                    Beocat Support
+            </a>
+          </li>
+          <li>
+            <a href="https://ksu.edu/">
+                    Kansas State University
+            </a>
+          </li>
+          <li>
+            <a href="https://www.k-state.edu/cnap/">
+                    CNAP
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div className="copyright pull-right">
               &copy;
-            {new Date().getFullYear()}
-            {' '}
+        {new Date().getFullYear()}
+        {' '}
 CNAP Center of Biomedical Research
-          </div>
-        </div>
-      </footer>
-    );
-  }
-}
+      </div>
+    </div>
+  </footer>
+);
+
+export default DefaultFooter;

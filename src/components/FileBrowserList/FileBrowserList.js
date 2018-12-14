@@ -1,38 +1,48 @@
-import PropTypes from 'prop-types';
+// @flow
+
 import React from 'react';
 import FieldFieldHeader from './FileFieldHeader/FileFieldHeader';
 import FileList from './FileList/FileList';
+import type { FileType } from '../../types/fileTypes';
 
-
-export default class FileBrowserList extends React.Component {
-  static propTypes = {
-    showDotfiles: PropTypes.bool.isRequired,
-    error: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired,
-    list: PropTypes.array.isRequired,
-    path: PropTypes.string.isRequired,
-    handleDoubleClick: PropTypes.func.isRequired,
-    handleSingleClick: PropTypes.func.isRequired,
-    handleContextMenu: PropTypes.func.isRequired,
-  };
-
-  render() {
-    return (
-      <table
-        className="table table-hover"
-        style={{ display: this.props.error || this.props.loading ? 'none' : 'table' }}
-      >
-        <FieldFieldHeader />
-        <FileList
-          list={this.props.list}
-          path={this.props.path}
-          showDotfiles={this.props.showDotfiles}
-          handleContextMenu={this.props.handleContextMenu}
-          handleDoubleClick={this.props.handleDoubleClick}
-          handleSingleClick={this.props.handleSingleClick}
-          focusedFilePaths={this.props.focusedFilePaths}
-        />
-      </table>
-    );
-  }
+type Props = {
+  showDotfiles: boolean,
+  error: boolean,
+  loading: boolean,
+  list: Array<FileType>,
+  path: string,
+  handleDoubleClick(file: FileType): void,
+  handleSingleClick(
+      file: FileType,
+      list: Array<FileType>,
+      e: SyntheticMouseEvent<HTMLElement>
+  ): void,
+  handleContextMenu(file: FileType): void,
+  focusedFilePaths: Array<string>,
 }
+
+const FileBrowserList = (props: Props) => {
+  const {
+    error, loading, list, path, showDotfiles, handleContextMenu,
+    handleDoubleClick, handleSingleClick, focusedFilePaths,
+  } = props;
+  return (
+    <table
+      className="table table-hover"
+      style={{ display: error || loading ? 'none' : 'table' }}
+    >
+      <FieldFieldHeader />
+      <FileList
+        list={list}
+        path={path}
+        showDotfiles={showDotfiles}
+        handleContextMenu={handleContextMenu}
+        handleDoubleClick={handleDoubleClick}
+        handleSingleClick={handleSingleClick}
+        focusedFilePaths={focusedFilePaths}
+      />
+    </table>
+  );
+};
+
+export default FileBrowserList;

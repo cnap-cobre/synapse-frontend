@@ -23,8 +23,8 @@ type Props = {
   submitText: string,
   path: string,
   systemName: string,
-  removeModal(string): typeof undefined,
-  fileListActionsPending(string): typeof undefined,
+  $removeModal(string): typeof undefined,
+  $fetchFiles(string): typeof undefined,
 }
 
 type State = {
@@ -47,14 +47,14 @@ class MoveCopyModal extends React.Component<Props, State> {
   }
 
   closeModal = () => {
-    const { id, removeModal } = this.props;
+    const { id, $removeModal } = this.props;
 
     this.setState({
       show: false,
     });
 
     setTimeout(() => {
-      removeModal(id);
+      $removeModal(id);
     }, 500);
   };
 
@@ -78,9 +78,9 @@ class MoveCopyModal extends React.Component<Props, State> {
   };
 
   updatePath = (path) => {
-    const { fileListActionsPending } = this.props;
+    const { $fetchFiles } = this.props;
 
-    fileListActionsPending(path);
+    $fetchFiles(path);
     const pathTokens = path.split('/');
     this.setState({
       pathPrefix: pathTokens.slice(0, 3).join('/'),
@@ -165,8 +165,8 @@ class MoveCopyModal extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = {
-  removeModal,
-  fileListActionsPending: fileListActions.pending,
+  $removeModal: removeModal,
+  $fetchFiles: fileListActions.pending,
 };
 
 export default connect(

@@ -9,17 +9,17 @@ import { addModal } from '../../../store/ui/modals/Modals';
 
 type Props = {
   path: string,
-  makeDirectory(path: string, name: string) : typeof undefined,
-  addModal(any): typeof undefined,
+  $makeDirectory(path: string, name: string) : typeof undefined,
+  $addModal(any): typeof undefined,
 };
 
 class AddDirectoryButton extends React.Component<Props> {
   openModal = () => {
-    const { addModal, makeDirectory, path } = this.props;
-    addModal({
+    const { $addModal, $makeDirectory, path } = this.props;
+    $addModal({
       modalType: 'makeDirectoryModal',
       action: (directoryName) => {
-        makeDirectory(path, directoryName);
+        $makeDirectory(path, directoryName);
       },
     });
   };
@@ -35,15 +35,20 @@ class AddDirectoryButton extends React.Component<Props> {
       }}
       onClick={this.openModal}
     >
-      <FaPlusSquare />
-&nbsp;New Folder
+      <FaPlusSquare style={{
+        marginTop: '0.3em',
+        marginBottom: '-0.2em',
+        fontSize: '1.2em',
+      }}
+      />
+      &nbsp;New Folder
     </Button>
   );
 }
 
 const mapDispatchToProps = {
-  addModal,
-  makeDirectory: directoryActions.makeDirectory,
+  $addModal: addModal,
+  $makeDirectory: directoryActions.makeDirectory,
 };
 
 export default connect(

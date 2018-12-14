@@ -1,17 +1,18 @@
+// @flow
+
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-
-class UserProfilePhoto extends React.Component {
-  static propTypes = {
-    profilePhoto: PropTypes.string.isRequired,
-  }
-
-  render = () => (
-    <img src={this.props.profilePhoto} alt="Profile Photo" />
-  );
+type Props = {
+  profilePhoto: string,
 }
+
+const UserProfilePhoto = (props: Props) => {
+  const { profilePhoto } = props;
+  return (
+    <img src={profilePhoto} alt="User Profile" />
+  );
+};
 
 const mapStateToProps = ({ userProfile }) => ({
   profilePhoto: userProfile.gravatar.url,

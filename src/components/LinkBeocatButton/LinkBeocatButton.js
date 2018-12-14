@@ -3,18 +3,18 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { addModal } from '../../store/ui/modals/Modals';
-import './beocatButton.scss';
 import agaveIcon from './agave_icon.png';
+import './beocatButton.scss';
 
 type Props = {
   hasLinkedAgaveAccount: boolean,
-  addModal({ modalType: string }): typeof undefined,
+  $addModal({ modalType: string }): typeof undefined,
 }
 
 class LinkBeocatButton extends React.Component<Props> {
   onButtonClick = () => {
-    const { addModal } = this.props;
-    addModal({
+    const { $addModal } = this.props;
+    $addModal({
       modalType: 'linkBeocatWizard',
     });
   };
@@ -54,7 +54,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = {
-  addModal,
+  $addModal: addModal,
 };
 
 export default connect(

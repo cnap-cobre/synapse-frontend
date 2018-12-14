@@ -143,21 +143,16 @@ const fileExtensionMappings = [
 ];
 
 function resolve(item) {
-  for (const type of fileExtensionMappings) {
-    if (Object.prototype.hasOwnProperty.call(type, 'type') && type.type !== item.type) {
-      continue;
-    }
-    if (Object.prototype.hasOwnProperty.call(type, 'name') && !item.name.match(type.name)) {
-      continue;
-    }
+  return fileExtensionMappings.find((type) => {
+    const hasRejectedType = (type.type && type.type !== item.type);
+    const hasRejectedName = (type.name && !item.name.match(type.name));
 
-    return type.icon;
-  }
-
-  return fileExtensionMappings.slice(-1)[0].icon;
+    // Use an icon if niether the name or type disagree with the item
+    return !(hasRejectedName || hasRejectedType);
+  }) || fileExtensionMappings.slice(-1)[0];
 }
 
 export function fileIconResolver(item) {
-  const X = resolve(item);
+  const X = resolve(item).icon;
   return React.cloneElement(X, { className: 'fa-2x far' });
 }

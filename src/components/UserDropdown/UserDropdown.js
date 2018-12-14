@@ -1,40 +1,49 @@
+// @flow
+
 import Collapse from 'react-bootstrap/lib/Collapse';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import React from 'react';
 import NavigationLink from '../NavigationLink/NavigationLink';
 
-class UserDropdown extends React.Component {
+type Props = {
+  fullName: string,
+  gravatar: string,
+}
+
+type State = {
+  open: boolean,
+}
+
+class UserDropdown extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = { open: false };
   }
 
-  static propTypes = {
-    fullName: PropTypes.string.isRequired,
-    gravatar: PropTypes.string.isRequired,
-  };
-
   render() {
+    const { fullName, gravatar } = this.props;
+    const { open } = this.state;
+
     return (
       <div className="user">
         <div className="info">
           <div className="photo">
-            <img src={this.props.gravatar} />
+            <img src={gravatar} alt="Your avatar" />
           </div>
 
+          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
           <a
             data-toggle="collapse"
-            onClick={() => { this.setState({ open: !this.state.open }); }}
+            onClick={() => { this.setState({ open: !open }); }}
           >
             <span>
-              {this.props.fullName}
+              {fullName}
               <b className="caret" />
             </span>
           </a>
           <div className="clearfix" />
 
-          <Collapse in={this.state.open}>
+          <Collapse in={open}>
             <div>
               <ul className="nav">
 

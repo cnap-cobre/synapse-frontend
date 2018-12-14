@@ -11,7 +11,6 @@ import FileBrowser from '../FileBrowser/FileBrowser';
 import { fileListActions } from '../../store/files/Files';
 import Loader from '../Loader/Loader';
 import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
-import { setFocusedFile } from '../../store/ui/focusedFiles/FocusedFiles';
 import { toggleDotfiles } from '../../store/ui/visualOptions/VisualOptions';
 import { actions as userProfileActions } from '../../store/userProfile/UserProfile';
 import { getBrowserPaths, getShowDotfiles } from '../../store/ui/reducer';
@@ -24,35 +23,43 @@ type Props = {
   prefix: string,
   path: string,
   pathname: string,
-  toggleDotfiles(): typeof undefined,
-  fetchFiles(): typeof undefined,
+  $replace(path: string): void,
+  $push(path: string): void,
+  $toggleDotfiles(): void,
+  $fetchFilesIfNeeded(string): void,
+  $setBrowserPath(key: string, path: string): void, // eslint-disable-line
+  $fetchAgaveFileSystems(): void,
+  $fetchUserProfile(): void,
   browserPaths: {},
-  dispatch(any): typeof undefined,
 }
 
-const systemUrlResolverAndRedirector = (props) => {
-  if (props.pathname.indexOf(props.prefix) !== 0) {
+const systemUrlResolverAndRedirector = (props: Props) => {
+  const {
+    path, pathname, prefix, fileSystems, isReady, browserPaths, $replace, $setBrowserPath,
+  } = props;
+
+  if (pathname.indexOf(prefix) !== 0) {
     return 0;
   }
 
-  const remainingUrl = props.pathname.slice(props.prefix.length);
-  const urlActive = props.fileSystems.map(
+  const remainingUrl = pathname.slice(prefix.length);
+  const urlActive = fileSystems.map(
     fs => (remainingUrl.indexOf(`/${fs.provider}/${fs.id}/`) === 0),
   ).indexOf(true);
 
-  if (props.isReady && urlActive === -1) {
+  if (isReady && urlActive === -1) {
     setTimeout(() => {
       // Stop if we are on a different section of the site
-      if (props.pathname.indexOf(props.prefix) !== 0) {
+      if (pathname.indexOf(prefix) !== 0) {
         return;
       }
 
-      props.dispatch(replace([
-        props.prefix,
-        props.fileSystems[0].provider,
-        props.fileSystems[0].id,
+      $replace([
+        prefix,
+        fileSystems[0].provider,
+        fileSystems[0].id,
         '',
-      ].join('/')));
+      ].join('/'));
     }, 50);
   }
 
@@ -60,13 +67,13 @@ const systemUrlResolverAndRedirector = (props) => {
   // Any time the browserPath mismatches the current path, we fix it
   if (urlActive !== -1) {
     const browserPathKey = [
-      props.fileSystems[urlActive].provider,
-      props.fileSystems[urlActive].id,
+      fileSystems[urlActive].provider,
+      fileSystems[urlActive].id,
     ].join('.');
-    if (props.browserPaths[browserPathKey] !== props.path) {
-      console.log('MISMATCH FROM INITIAL PAGE LOAD', props.path, props.browserPaths[browserPathKey]);
+    if (browserPaths[browserPathKey] !== path) {
+      console.log('MISMATCH FROM INITIAL PAGE LOAD', path, browserPaths[browserPathKey]);
       setTimeout(() => {
-        props.dispatch(setBrowserPath(browserPathKey, props.path));
+        $setBrowserPath(browserPathKey, path);
       }, 1);
     }
   }
@@ -77,7 +84,9 @@ const systemUrlResolverAndRedirector = (props) => {
 
 class TabbedFileBrowser extends React.Component<Props> {
   componentDidMount() {
-    const { path, prefix, dispatch } = this.props;
+    const {
+      path, prefix, $replace, $fetchAgaveFileSystems, $fetchUserProfile, $fetchFilesIfNeeded,
+    } = this.props;
 
     if (path.split('/').length < 3) {
       console.log('Waiting on redirect/replace to default file system.');
@@ -85,25 +94,23 @@ class TabbedFileBrowser extends React.Component<Props> {
     }
 
     if (path.split('/').slice(-1)[0] !== '') {
-      dispatch(
-        replace(`${prefix + path}/`),
-      );
+      $replace(`${prefix + path}/`);
     }
 
     if (this.matchesFileSystem(path)) {
-      dispatch(fileListActions.ifNeeded(path));
+      $fetchFilesIfNeeded(path);
     } else {
-      dispatch(agaveFileSystemsActions.pending());
-      dispatch(userProfileActions.pending());
-      dispatch(fileListActions.ifNeeded(path));
+      $fetchAgaveFileSystems();
+      $fetchUserProfile();
+      $fetchFilesIfNeeded(path);
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { path, dispatch } = this.props;
+    const { path, $fetchFilesIfNeeded } = this.props;
 
     if (prevProps.path !== path && this.matchesFileSystem(path)) {
-      dispatch(fileListActions.ifNeeded(path));
+      $fetchFilesIfNeeded(path);
     }
   }
 
@@ -116,14 +123,9 @@ class TabbedFileBrowser extends React.Component<Props> {
     return matches.length > 0 && matches.indexOf(true) !== -1;
   };
 
-  unfocusFiles = () => {
-    const { dispatch } = this.props;
-    dispatch(setFocusedFile(''));
-  };
-
   browserMapper = (system, index) => {
     const {
-      prefix, path, pathname, showDotfiles, toggleDotfiles, fetchFiles,
+      prefix, path, pathname, showDotfiles, $toggleDotfiles, $fetchFilesIfNeeded,
     } = this.props;
     return (
       <Tab
@@ -144,8 +146,8 @@ class TabbedFileBrowser extends React.Component<Props> {
           path={path}
           pathname={pathname}
           showDotfiles={showDotfiles}
-          toggleDotfiles={toggleDotfiles}
-          fetchFiles={fetchFiles}
+          toggleDotfiles={$toggleDotfiles}
+          fetchFiles={$fetchFilesIfNeeded}
         />
       </Tab>
     );
@@ -153,7 +155,7 @@ class TabbedFileBrowser extends React.Component<Props> {
 
   render() {
     const {
-      isReady, fileSystems, dispatch, prefix, browserPaths,
+      isReady, fileSystems, prefix, browserPaths, $push,
     } = this.props;
 
     if (!isReady) {
@@ -162,23 +164,22 @@ class TabbedFileBrowser extends React.Component<Props> {
 
     if (fileSystems.length === 0) {
       return (
-        <React.Fragment>
+        <>
           <Alert bsStyle="info">
             <strong>No file systems found.</strong>
           </Alert>
           <p>
             Connect your Dropbox account
-            {' '}
+            &nbsp;
             <a href="/accounts/social/connections/">here</a>
-.
+            .
           </p>
           <p>
-Add your own remote SFTP file
-            systems
+            Add your own remote SFTP file systems
             <Link to="/files/add_new_filesystem">here</Link>
-.
+            .
           </p>
-        </React.Fragment>
+        </>
       );
     }
 
@@ -194,10 +195,10 @@ Add your own remote SFTP file
               fileSystems[key].provider,
               fileSystems[key].id,
             ].join('.');
-            dispatch(push([
+            $push([
               prefix,
               browserPaths[browserPathKey].slice(1), // Get rid of leading slash
-            ].join('/')));
+            ].join('/'));
           }
         }}
       >
@@ -231,15 +232,15 @@ const mapStateToProps = (store, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  toggleDotfiles: () => {
-    dispatch(toggleDotfiles());
-  },
-  fetchFiles: (path) => {
-    dispatch(fileListActions.ifNeeded(path));
-  },
-  dispatch,
-});
+const mapDispatchToProps = {
+  $toggleDotfiles: toggleDotfiles,
+  $replace: replace,
+  $push: push,
+  $fetchFilesIfNeeded: fileListActions.ifNeeded,
+  $setBrowserPath: setBrowserPath,
+  $fetchAgaveFileSystems: agaveFileSystemsActions.pending,
+  $fetchUserProfile: userProfileActions.pending,
+};
 
 export default connect(
   mapStateToProps,

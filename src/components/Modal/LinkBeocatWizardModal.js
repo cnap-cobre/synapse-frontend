@@ -8,7 +8,7 @@ import { removeModal } from '../../store/ui/modals/Modals';
 
 type Props = {
   id: string,
-  removeModal(string): typeof undefined,
+  $removeModal(string): typeof undefined,
 }
 
 type State = {
@@ -44,13 +44,13 @@ class LinkBeocatWizardModal extends React.Component<Props, State> {
   };
 
   closeModal = () => {
-    const { id, removeModal } = this.props;
+    const { id, $removeModal } = this.props;
 
     this.setState({
       show: false,
     });
     setTimeout(() => {
-      removeModal(id);
+      $removeModal(id);
     }, 500);
   };
 
@@ -108,7 +108,7 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = {
-  removeModal,
+  $removeModal: removeModal,
 };
 
 export default connect(

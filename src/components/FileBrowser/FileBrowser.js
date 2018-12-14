@@ -21,25 +21,37 @@ import { fileActions, fileListActions } from '../../store/files/Files';
 import type { FileSystemType } from '../../types/fileSystemTypes';
 import type { FileType } from '../../types/fileTypes';
 
+const mapDispatchToProps = {
+  $fetchFiles: fileListActions.pending,
+  $setFocusedFile: setFocusedFile,
+  $push: push,
+  $setBrowserPath: setBrowserPath,
+  $removeFocusedFile: removeFocusedFile,
+  $addFocusedFile: addFocusedFile,
+  $setFocusedFilesList: setFocusedFilesList,
+  $uploadFile: fileActions.uploadFile,
+};
+
 type Props = {
   system: FileSystemType,
   systemPrefix: string,
   path: string,
   pathname: string,
   showDotfiles: boolean,
-  toggleDotfiles(): typeof undefined,
+  toggleDotfiles(): void,
   loading: boolean,
   error: boolean,
   list: Array<FileType>,
   fileViewFormat: boolean,
   focusedFilePaths: Array<string>,
-  uploadFile(File, string): typeof undefined,
-  fetchFileList(string): typeof undefined,
-  navigateToNewPath(string, string): typeof undefined,
-  browserHistoryNavPush(string): typeof undefined,
-  addFocusedFile(string): typeof undefined,
-  setFocusedFile(string): typeof undefined,
-  removeFocusedFile(string): typeof undefined,
+  $uploadFile(File, string): void,
+  $fetchFiles(string): void,
+  $setBrowserPath(string, string): void,
+  $push(string): void,
+  $addFocusedFile(string): void,
+  $setFocusedFile(string): void,
+  $removeFocusedFile(string): void,
+  $setFocusedFilesList(Array<string>): void,
 }
 
 class FileBrowser extends React.Component<Props> {
@@ -51,42 +63,44 @@ class FileBrowser extends React.Component<Props> {
   }
 
   handleRefresh = path => () => {
-    const { fetchFileList } = this.props;
-    fetchFileList(path);
+    const { $fetchFiles } = this.props;
+    $fetchFiles(path);
   };
 
-  handleContextMenu = (file) => {
-    const { focusedFilePaths, setFocusedFile } = this.props;
-    console.log('HELLO WORLD', file.fullPath);
-    console.log('FOCUSED', focusedFilePaths);
+  handleContextMenu = (file: FileType) => {
+    const { focusedFilePaths, $setFocusedFile } = this.props;
     if (focusedFilePaths.indexOf(file.fullPath) === -1) {
-      console.log('ASDFASDFASDF');
-      setFocusedFile(file.fullPath);
+      $setFocusedFile(file.fullPath);
     }
   };
 
-  handleDoubleClick = (file) => {
+  handleDoubleClick = (file: FileType) => {
     const {
-      system, path, navigateToNewPath, browserHistoryNavPush,
+      system, path, $setBrowserPath, $push,
     } = this.props;
 
     if (file.type === 'dir') {
-      browserHistoryNavPush([
+      $push([
         '.',
         file.name,
         '',
       ].join('/'));
 
-      navigateToNewPath(
+      $setBrowserPath(
         `${system.provider}.${system.id}`,
         `${pathUtil.resolve(path, file.name).slice(0)}/`,
       );
     }
   };
 
-  handleSingleClick = (file, list, e) => {
+  handleSingleClick = (
+    file: FileType,
+    list: Array<FileType>,
+    e: SyntheticMouseEvent<HTMLElement>,
+  ) => {
     const {
-      focusedFilePaths, removeFocusedFile, addFocusedFile, setFocusedFile,
+      focusedFilePaths, $removeFocusedFile, $addFocusedFile,
+      $setFocusedFile, $setFocusedFilesList,
     } = this.props;
 
     e.preventDefault();
@@ -96,9 +110,9 @@ class FileBrowser extends React.Component<Props> {
       // If we are already selected, remove from selection
       // Else, add to selection
       if (selected.indexOf(file.fullPath) !== -1) {
-        return removeFocusedFile(file.fullPath);
+        return $removeFocusedFile(file.fullPath);
       }
-      return addFocusedFile(file.fullPath);
+      return $addFocusedFile(file.fullPath);
     }
 
     if (e.shiftKey && selected.length === 0) {
@@ -109,7 +123,7 @@ class FileBrowser extends React.Component<Props> {
 
     if (e.shiftKey && selected.length === 1 && selected[0] === file.fullPath) {
       // If we shift + click on the only selected file, do nothing.
-      return null;
+      return undefined;
     }
 
     if (e.shiftKey) {
@@ -117,7 +131,7 @@ class FileBrowser extends React.Component<Props> {
       const mostRecentSelectionIndex = list.findIndex(f => f.fullPath === mostRecentSelection);
       const currentSelectionIndex = list.findIndex(f => f.fullPath === file.fullPath);
 
-      return setFocusedFilesList(
+      return $setFocusedFilesList(
         list.map(f => f.fullPath).slice(
           Math.min(mostRecentSelectionIndex, currentSelectionIndex),
           Math.max(mostRecentSelectionIndex, currentSelectionIndex) + 1,
@@ -125,15 +139,15 @@ class FileBrowser extends React.Component<Props> {
       );
     }
 
-    return setFocusedFile(file.fullPath);
+    return $setFocusedFile(file.fullPath);
   };
 
   handleFileDropzone = (files) => {
-    const { path, uploadFile } = this.props;
+    const { path, $uploadFile } = this.props;
 
     // eslint-disable-next-line
     for (let i = 0; i < files.length; i++) {
-      uploadFile(files[i], path);
+      $uploadFile(files[i], path);
     }
   };
 
@@ -208,17 +222,6 @@ const mapStateToProps = (store, ownProps) => {
     fileViewFormat: getFileViewFormat(store),
     focusedFilePaths: getFocusedFilePaths(store),
   };
-};
-
-const mapDispatchToProps = {
-  fetchFileList: fileListActions.pending,
-  setFocusedFile,
-  browserHistoryNavPush: push,
-  navigateToNewPath: setBrowserPath,
-  removeFocusedFile,
-  addFocusedFile,
-  setFocusedFilesList,
-  uploadFile: fileActions.uploadFile,
 };
 
 export default connect(

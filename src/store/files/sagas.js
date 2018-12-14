@@ -16,7 +16,7 @@ const transformFileListing = files => files.filter(
 ).map(
   f => ({
     ...f,
-    lastModified: Date.parse(f.lastModified),
+    lastModified: f.lastModified ? Date.parse(f.lastModified) : null,
     fullPath: `/${f.provider}/${f.system}${f.path}`,
   }),
 );
@@ -29,7 +29,7 @@ const resolveProviderService = (path) => {
       return Dropbox;
     default:
       console.log(path.split('/'));
-      throw 'File provider not resolved from path';
+      throw Error('File provider not resolved from path');
   }
 };
 
@@ -100,7 +100,9 @@ function* renameFile(action) {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
     yield call(ProviderService.rename, csrfToken, action.file, action.newName);
-    yield put(removeFocusedFile(action.file.fullPath)); // TODO: select file under new name if successful
+
+    // TODO: select file under new name if successful
+    yield put(removeFocusedFile(action.file.fullPath));
   } catch (e) {
     console.log(e);
     // Do something to handle the error

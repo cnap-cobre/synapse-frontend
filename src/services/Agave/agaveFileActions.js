@@ -19,10 +19,10 @@ const listFiles = (csrftoken, filePath) => {
     .then(response => response.result)
 
   //
-    .then(list => (list.map((file) => {
-      file.provider = 'agave';
-      return file;
-    })));
+    .then(list => (list.map(file => ({
+      ...file,
+      provider: 'agave',
+    }))));
 };
 
 const wget = (csrftoken, file) => {
@@ -31,7 +31,7 @@ const wget = (csrftoken, file) => {
   const x = new XMLHttpRequest();
   x.open('GET', url, true);
   x.responseType = 'blob';
-  x.onload = (e) => {
+  x.onload = () => {
     fileDownload(x.response, file.name);
   };
   x.send();

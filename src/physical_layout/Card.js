@@ -1,15 +1,18 @@
 import React from 'react';
 
-export default props => (
-  <div className="card">
-    {props.header ? (
-      <div className="card-header">
-        {props.header}
-        {props.hr ? (<hr />) : (null)}
+export default (props) => {
+  const { header, hr, children } = props;
+  return (
+    <div className="card">
+      {header ? (
+        <div className="card-header">
+          {header}
+          {hr ? (<hr />) : (null)}
+        </div>
+      ) : (null)}
+      <div className="card-content">
+        {children}
       </div>
-    ) : (null)}
-    <div className="card-content">
-      {props.children}
     </div>
-  </div>
-);
+  );
+};

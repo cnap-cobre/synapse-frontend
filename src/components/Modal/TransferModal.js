@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
-import PropTypes from 'prop-types';
-import { fileListActions } from '../../store/files/Files';
+
 import FileBreadcrumbs from '../FileBreadcrumbs/FileBreadcrumbs';
 import { removeModal } from '../../store/ui/modals/Modals';
+import { fileListActions } from '../../store/files/Files';
 import TabbedDirectoryBrowser from '../TabbedDirectoryBrowser/TabbedDirectoryBrowser';
 import LinkComponent from './shared_components/LinkComponent';
 
 import type { TransferModalType } from '../../types/modalTypes';
 
 type Props = TransferModalType & {
-  removeModal(string): typeof undefined,
-  fileListActionsPending(string): typeof undefined
+  $removeModal(string): typeof undefined,
+  $fetchFiles(string): typeof undefined
 }
 
 type State = {
@@ -25,14 +25,6 @@ type State = {
 }
 
 class TransferModal extends React.Component<Props, State> {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    action: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]).isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -48,9 +40,9 @@ class TransferModal extends React.Component<Props, State> {
   }
 
   updatePath = (path) => {
-    const { fileListActionsPending } = this.props;
+    const { $fetchFiles } = this.props;
 
-    fileListActionsPending(path);
+    $fetchFiles(path);
     this.setState(prevState => ({
       path,
       targetBrowserPaths: {
@@ -84,13 +76,13 @@ class TransferModal extends React.Component<Props, State> {
   };
 
   closeModal = () => {
-    const { id, removeModal } = this.props;
+    const { id, $removeModal } = this.props;
 
     this.setState({
       show: false,
     });
     setTimeout(() => {
-      removeModal(id);
+      $removeModal(id);
     }, 500);
   };
 
@@ -161,8 +153,8 @@ const mapStateToProps = (store) => {
 };
 
 const mapDispatchToProps = {
-  fileListActionsPending: fileListActions.pending,
-  removeModal,
+  $fetchFiles: fileListActions.pending,
+  $removeModal: removeModal,
 };
 
 export default connect(

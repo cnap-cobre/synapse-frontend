@@ -11,15 +11,21 @@ type State = {
   currentSchema: any
 }
 
-const data = { hello: { world: true } };
-
 export default class Schemas extends React.Component<null, State> {
   state = {
+    schemas: [],
     currentSchema: {},
   };
 
+  updateSchema = (schema: any) => {
+    this.setState({
+      currentSchema: schema,
+    });
+  };
+
   render() {
-    const { currentSchema } = this.state;
+    const { currentSchema, schemas } = this.state;
+    console.log(schemas);
 
     return (
       <DefaultLayout>
@@ -33,7 +39,7 @@ export default class Schemas extends React.Component<null, State> {
                   </Row>
                   <Row>
                     <Col md={6}>
-                      <JSONSchemaEditor />
+                      <JSONSchemaEditor schema={currentSchema} updateSchema={this.updateSchema} />
                     </Col>
                     <Col md={6}>
                       <textarea>

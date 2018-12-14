@@ -4,15 +4,13 @@ import Editor from '../../components/Editor/Editor';
 import './CodeEditor.css';
 
 
-export default class CodeEditor extends React.Component {
-  render() {
-    return (
-      <DefaultLayout>
-        <Editor
-          fontSize={20}
-          width="100%"
-          height="80%"
-          value={'from rest_framework import serializers\n'
+const CodeEditor = () => (
+  <DefaultLayout>
+    <Editor
+      fontSize={20}
+      width="100%"
+      height="80%"
+      value={'from rest_framework import serializers\n'
           + '\n'
           + 'from .models import Profile\n'
           + 'from django.contrib.auth.models import User\n'
@@ -30,8 +28,8 @@ export default class CodeEditor extends React.Component {
           + '        fields = (\'url\', \'first_name\', \'last_name\',\n'
           + '                 \'username\', \'email\', \'date_joined\',\n'
           + '                 \'profile\')\n'}
-        />
-      </DefaultLayout>
-    );
-  }
-}
+    />
+  </DefaultLayout>
+);
+
+export default CodeEditor;
