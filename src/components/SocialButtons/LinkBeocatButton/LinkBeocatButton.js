@@ -15,7 +15,7 @@ class LinkBeocatButton extends React.Component<Props> {
   onButtonClick = () => {
     const { $addModal } = this.props;
     $addModal({
-      modalType: 'linkBeocatWizard',
+      modalType: 'linkBeocatModal',
     });
   };
 
