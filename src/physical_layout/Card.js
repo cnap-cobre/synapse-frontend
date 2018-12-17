@@ -7,7 +7,7 @@ export default (props) => {
       {header ? (
         <div className="card-header">
           {header}
-          {hr ? (<hr />) : (null)}
+          {hr ? (<hr style={{marginBottom: '5px'}} />) : (null)}
         </div>
       ) : (null)}
       <div className="card-content">
