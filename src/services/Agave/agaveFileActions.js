@@ -26,7 +26,7 @@ const listFiles = (csrftoken, filePath) => {
 };
 
 const wget = (csrftoken, file) => {
-  const url = `${process.env.REACT_APP_API_URL}/agave/files/v2/media/system/${file.system}/${file.path}`;
+  const url = `/agave/files/v2/media/system/${file.system}/${file.path}`;
 
   const x = new XMLHttpRequest();
   x.open('GET', url, true);
@@ -75,7 +75,7 @@ const moveCopyRenameMkdir = action => (csrftoken, file, path) => {
 const uploadFile = (csrftoken, file, path) => {
   const system = path.split('/')[2];
   const trimmedPath = path.slice((`/agave/${system}`).length);
-  const url = `${process.env.REACT_APP_API_URL}/agave/files/v2/media/system/${system}${trimmedPath.slice(0, -1)}?naked=true`;
+  const url = `/agave/files/v2/media/system/${system}${trimmedPath.slice(0, -1)}?naked=true`;
 
   const data = new FormData();
   data.append('file', file);

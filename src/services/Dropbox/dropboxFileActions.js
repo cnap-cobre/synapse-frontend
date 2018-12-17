@@ -70,7 +70,7 @@ const listFiles = (csrftoken, filePath) => {
 };
 
 const wget = (csrftoken, file) => {
-  const url = `${process.env.REACT_APP_API_URL}/dropbox/content/2/files/download`;
+  const url = `/dropbox/content/2/files/download`;
   const form = {
     path: file.path,
   };
