@@ -15,6 +15,7 @@ export const initialUserProfileState = {
   dropbox: [],
   agave: [],
   globus: [],
+  jupyter: [],
   user: {
     id: -1,
     first_name: '',
@@ -47,6 +48,16 @@ export default function userProfile(
       return state;
   }
 }
+
+export const getExternalAccounts = (state: any) => {
+  const profile = state.userProfile;
+  return {
+    dropbox: profile.dropbox && profile.dropbox.length > 0,
+    agave: profile.agave && profile.agave.length > 0,
+    globus: profile.globus && profile.globus.length > 0,
+    jupyter: profile.jupyter && profile.jupyter.length > 0,
+  };
+};
 
 export const getJupyterHubUsername = (state: any) => {
   const jupyterProfiles = state.userProfile.jupyter;

@@ -69,10 +69,10 @@ const Login = (props) => {
 
                   <Row>
                     <Col xs={10} xsOffset={1}>
-                      <DropboxSignInButton next={next} />
-                      <AgaveSignInButton next={next} />
-                      <GlobusSignInButton next={next} />
-                      <JupyterHubSignInButton next={next} />
+                      <DropboxSignInButton next={next} action="login" />
+                      <AgaveSignInButton next={next} action="login" />
+                      <GlobusSignInButton next={next} action="login" />
+                      <JupyterHubSignInButton next={next} action="login" />
                     </Col>
                   </Row>
                 </Card>

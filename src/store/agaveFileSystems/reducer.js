@@ -21,3 +21,11 @@ export default createReducer(initialAgaveFileSystemsState, {
     loading: false,
   }),
 });
+
+export const getBeocatConnected = (store) => {
+  const { agaveFileSystems } = store;
+  const { systems } = agaveFileSystems;
+  return systems && systems.length > 0 && systems.filter(
+    sys => sys.id.indexOf('beocat') !== -1,
+  ).length > 0;
+};
