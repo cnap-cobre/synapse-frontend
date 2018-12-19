@@ -49,7 +49,6 @@ function routeLoader(source) {
   };
 
   // parse JSON
-  console.log('source', source);
   const routes = JSON.parse(source);
 
   // stringify transformed JavaScript
