@@ -41,8 +41,10 @@ const Dashboard = (props: Props) => {
                       Synapse is an open science gateway for the psychological sciences,
                       tying together tools, applications, and data in support of the
                       research process.  The goal of the Synapse platform is to make openness
-                      and reproducibility an effortless part of the research process. Synapse
-                      is supported by the Cognitive and Neurobiological Approaches to
+                      and reproducibility an effortless part of the research process.
+                    </p>
+                    <p>
+                      Synapse is supported by the Cognitive and Neurobiological Approaches to
                       Plasticity (CNAP) Center of Biomedical Research Excellence (COBRE) of
                       the National Institutes of Health under grant number P20GM113109.
                     </p>
@@ -162,37 +164,37 @@ const Dashboard = (props: Props) => {
             </Col>
             <Col md={6}>
               <Card header={<h5 className="card-title">Features</h5>} hr>
-                <p>
-                  <h6>Currently Available:</h6>
-                  <ul>
-                    <li>
+                <h6>Currently Available:</h6>
+                <ul>
+                  <li>
                       File management on Dropbox, Beocat, or any SFTP server
                       to which you have access
-                    </li>
-                    <li>Transfer between arbitrary file systems</li>
-                    <li>File history to track data from collection to analysis</li>
-                  </ul>
-                </p>
-                <p>
-                  <h6>Coming Soon:</h6>
-                  <ul>
-                    <li>
+                  </li>
+                  <li>Transfer between arbitrary file systems</li>
+                  <li>File history to track data from collection to analysis</li>
+                </ul>
+
+                <h6>Coming Soon:</h6>
+                <ul>
+                  <li>
                         Metadata management - Tag your data with metadata fields to track
                         provenance throughout the research process.
-                    </li>
-                    <li>
+                  </li>
+                  <li>
                         Globus integration - Copy files between your personal computer and
                         Beocat instantly, all from a web interface.
-                    </li>
-                    <li>
+                  </li>
+                  <li>
                         Automated file transfer backups - Configure daily or weekly transfers
                         to make your data available to collaborators
-                    </li>
-                    <li>
+                  </li>
+                  <li>
                         Data publication - Truly open data, for the world to access
-                    </li>
-                  </ul>
-                </p>
+                  </li>
+                  <li>
+                    GitLab integration - Colaboratively edit codes
+                  </li>
+                </ul>
               </Card>
             </Col>
             <Col md={6}>
