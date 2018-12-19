@@ -96,6 +96,11 @@ const FileSystems = (props: Props) => {
                     key, public AND private, into the form.  The system ID must be unique across
                     all users, so it may help to suffix it with your username.
                 </p>
+                <p>
+                  This can get a little involved, so reach out to&nbsp;
+                  <a href="mailto:cnap-ni@cs.ksu.edu">cnap-ni@cs.ksu.edu</a>
+                  &nbsp;if you need assistance.
+                </p>
               </Card>
             </Col>
           </Row>
