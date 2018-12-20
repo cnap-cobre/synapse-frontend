@@ -8,7 +8,7 @@ import {
 import { Link } from 'redux-json-router';
 import Card from '../../../physical_layout/Card';
 import HrWithOr from '../../../components/HrWithOr/HrWithOr';
-import UnauthedNav from './UnauthedNav';
+import UnauthedNav from '../UnauthedNav';
 import WrapperFullPage from '../../../physical_layout/WrapperFullPage/WrapperFullPage';
 import {
   DropboxSignInButton,
@@ -20,7 +20,7 @@ const Login = (props) => {
   const { next } = props;
   return (
       <>
-        <UnauthedNav />
+        <UnauthedNav linkText="Register" linkTarget={`/account/register?next=${next}`} />
 
         <WrapperFullPage>
           <Grid fluid>
@@ -35,7 +35,7 @@ const Login = (props) => {
                     <FormGroup
                       controlId="login"
                     >
-                      <ControlLabel>Username or Email*</ControlLabel>
+                      <ControlLabel>Username or Email *</ControlLabel>
                       <FormControl
                         type="text"
                         placeholder="Username or e-mail"
@@ -46,7 +46,7 @@ const Login = (props) => {
                     <FormGroup
                       controlId="password"
                     >
-                      <ControlLabel>Password*</ControlLabel>
+                      <ControlLabel>Password *</ControlLabel>
                       <FormControl
                         type="password"
                         placeholder="password"

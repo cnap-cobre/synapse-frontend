@@ -11,7 +11,6 @@ function* getUserProfile() {
     const userProfile = yield call(Synapse.fetchUserProfile);
     yield put(actions.success(userProfile));
   } catch (e) {
-    console.log(e);
     yield put(actions.error(e));
     const currentURL = yield select(store => store.router.pathname);
     if (currentURL === '/account/register' || currentURL === '/account/login') {
