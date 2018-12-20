@@ -13,6 +13,7 @@ type Props = {
   image: any,
   next: string,
   action: 'connect' | 'login',
+  className?: string,
 }
 
 type InstanceProps = {
@@ -22,12 +23,12 @@ type InstanceProps = {
 
 const SocialSignInButtonPure = (props: Props) => {
   const {
-    provider, image, next, action,
+    provider, image, next, action, className
   } = props;
   return (
     <a
       title={`Sign in with ${provider}`}
-      className={`btn btn-block btn-social socialaccount_provider btn-${provider.toLowerCase()}`}
+      className={`btn btn-block btn-social socialaccount_provider btn-${provider.toLowerCase()} ${className || ''}`}
       href={`/accounts/${provider.toLowerCase()}/login/?process=${action}&next=${next}`}
       style={{
         maxWidth: '400px',
@@ -56,6 +57,7 @@ export const DropboxSignInButton = (props: InstanceProps) => {
       image={dropboxIcon}
       next={next}
       action={action}
+      {...props}
     />
   );
 };
@@ -68,6 +70,7 @@ export const AgaveSignInButton = (props: InstanceProps) => {
       image={agaveIcon}
       next={next}
       action={action}
+      {...props}
     />
   );
 };
@@ -80,6 +83,7 @@ export const GlobusSignInButton = (props: InstanceProps) => {
       image={globusIcon}
       next={next}
       action={action}
+      {...props}
     />
   );
 };
@@ -92,6 +96,7 @@ export const JupyterHubSignInButton = (props: InstanceProps) => {
       image={jupyterHubIcon}
       next={next}
       action={action}
+      {...props}
     />
   );
 };

@@ -25,7 +25,7 @@ const Login = (props) => {
         <WrapperFullPage>
           <Grid fluid>
             <Row>
-              <Col md={4} sm={6} mdOffset={4} smOffset={3}>
+              <Col lg={2} md={4} sm={6} lgOffset={5} mdOffset={4} smOffset={3}>
                 <Card header={<h3 className="card-title">Login</h3>}>
 
                   <form
@@ -76,10 +76,10 @@ const Login = (props) => {
 
                   <Row>
                     <Col xs={10} xsOffset={1}>
-                      <DropboxSignInButton next={next} action="login" />
-                      <AgaveSignInButton next={next} action="login" />
-                      <GlobusSignInButton next={next} action="login" />
-                      <JupyterHubSignInButton next={next} action="login" />
+                      <DropboxSignInButton next={next} action="login" className="center-block" />
+                      <AgaveSignInButton next={next} action="login" className="center-block" />
+                      <GlobusSignInButton next={next} action="login" className="center-block" />
+                      <JupyterHubSignInButton next={next} action="login" className="center-block" />
                     </Col>
                   </Row>
                 </Card>
