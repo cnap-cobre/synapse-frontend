@@ -13,7 +13,7 @@ type Props = {
   image: any,
   next: string,
   action: 'connect' | 'login',
-  className?: string,
+  className?: ?string,
 }
 
 type InstanceProps = {
@@ -23,7 +23,7 @@ type InstanceProps = {
 
 const SocialSignInButtonPure = (props: Props) => {
   const {
-    provider, image, next, action, className
+    provider, image, next, action, className,
   } = props;
   return (
     <a
@@ -41,6 +41,10 @@ const SocialSignInButtonPure = (props: Props) => {
       {provider}
     </a>
   );
+};
+
+SocialSignInButtonPure.defaultProps = {
+  className: '',
 };
 
 const mapStateToProps = (store, ownProps) => ({

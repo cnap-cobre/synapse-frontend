@@ -1,4 +1,7 @@
 import {
+  LOCATION_CHANGE,
+} from 'redux-json-router';
+import {
   HIDE_DOTFILES,
   SET_FILE_VIEW_FORMAT_GRID,
   SET_FILE_VIEW_FORMAT_LIST,
@@ -84,6 +87,11 @@ export default function visualOptions(state = initialVisualOptionsState, action)
         fileViewFormat: !state.fileViewFormat,
       });
     // -----------------------------
+    case LOCATION_CHANGE:
+      return {
+        ...state,
+        mobileNavOpen: false,
+      };
     default:
       return state;
   }
