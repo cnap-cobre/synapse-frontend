@@ -15,6 +15,17 @@ type Props = {
 
 const UnauthedNav = (props: Props) => {
   const { linkText, linkTarget } = props;
+
+  const navLinks = (
+      <ul className="nav navbar-nav navbar-right">
+        <li>
+          <Link to={linkTarget} style={{ textShadow: '2px 2px 10px #000' }}>
+            {linkText}
+          </Link>
+        </li>
+      </ul>
+  );
+
   return (
     <nav className="navbar navbar-transparent navbar-absolute">
       <Grid>
@@ -31,14 +42,9 @@ const UnauthedNav = (props: Props) => {
               &nbsp;
               Synapse
           </a>
+          {window.screen.width >= 768 && window.screen.width < 992 ? navLinks : null}
         </div>
-        <ul className="nav navbar-nav navbar-right">
-          <li>
-            <Link to={linkTarget} style={{ textShadow: '2px 2px 10px #000' }}>
-              {linkText}
-            </Link>
-          </li>
-        </ul>
+        {window.screen.width >= 992 || window.screen.width < 768 ? navLinks : null}
       </Grid>
     </nav>
   );

@@ -18,7 +18,7 @@ const WrapperFullPage = (props) => {
     >
       <div className="wrapper wrapper-full-page">
         <div className="full-page login-page">
-          <div className="content" style={{ zIndex: 5 }}>
+          <div className="content" style={{ zIndex: 5, paddingTop: (0.2 * window.screen.height < 175) ? 'calc(22vh + 30px)' : null }}>
             {children}
           </div>
           <div className="full-page-background" style={{ backgroundImage: 'url(/anderson-hall-blur.jpg)', zIndex: 4 }} />

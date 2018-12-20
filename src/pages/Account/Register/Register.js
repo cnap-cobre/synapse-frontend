@@ -17,7 +17,7 @@ const Register = (props) => {
         <WrapperFullPage>
           <Grid fluid>
             <Row>
-              <Col lg={2} md={4} sm={6} lgOffset={5} mdOffset={4} smOffset={3}>
+              <Col md={4} sm={6} mdOffset={4} smOffset={3}>
                 <Card header={<h3 className="card-title">Register</h3>} hr>
                   <form
                     action={`/accounts/signup/?next=${next}`}
