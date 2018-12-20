@@ -20,6 +20,11 @@
         "path": "/login",
         "name": "Login",
         "page": "./pages/Account/Login/Login"
+      },
+      {
+        "path": "/register",
+        "name": "Register",
+        "page": "./pages/Account/Register/Register"
       }
     ]
   },

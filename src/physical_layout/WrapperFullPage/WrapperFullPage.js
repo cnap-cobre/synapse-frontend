@@ -21,7 +21,7 @@ const WrapperFullPage = (props) => {
           <div className="content" style={{ zIndex: 5 }}>
             {children}
           </div>
-          <div className="full-page-background" style={{ backgroundImage: 'url(/beocat-blur.png)', zIndex: 4 }} />
+          <div className="full-page-background" style={{ backgroundImage: 'url(/anderson-hall-blur.jpg)', zIndex: 4 }} />
         </div>
         <div
           className={`close-layer${

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   Grid, Row, Col, FormGroup, ControlLabel, FormControl,
 } from 'react-bootstrap';
+import { Link } from 'redux-json-router';
 import Card from '../../../physical_layout/Card';
 import HrWithOr from '../../../components/HrWithOr/HrWithOr';
 import UnauthedNav from './UnauthedNav';
@@ -27,14 +28,18 @@ const Login = (props) => {
               <Col md={4} sm={6} mdOffset={4} smOffset={3}>
                 <Card header={<h3 className="card-title">Login</h3>}>
 
-                  <form action={`/accounts/login/?next=${next}`}>
+                  <form
+                    action={`/accounts/login/?next=${next}`}
+                    method="POST"
+                  >
                     <FormGroup
-                      controlId="username"
+                      controlId="login"
                     >
                       <ControlLabel>Username or Email*</ControlLabel>
                       <FormControl
                         type="text"
                         placeholder="Username or e-mail"
+                        name="login"
                       />
                     </FormGroup>
 
@@ -45,6 +50,7 @@ const Login = (props) => {
                       <FormControl
                         type="password"
                         placeholder="password"
+                        name="password"
                       />
                     </FormGroup>
 
@@ -56,12 +62,13 @@ const Login = (props) => {
                         Sign In
                       </button>
                       &nbsp;
-                      <button
+                      <Link
+                        to={`/account/register/?next=${next}`}
                         type="button"
                         className="btn btn-wd"
                       >
                         Register
-                      </button>
+                      </Link>
                     </div>
                   </form>
 

@@ -14,7 +14,11 @@ function* getUserProfile() {
     console.log(e);
     yield put(actions.error(e));
     const currentURL = yield select(store => store.router.pathname);
-    yield put(push(`/account/login?next=${currentURL}`));
+    if (currentURL === '/account/register' || currentURL === '/account/login') {
+      // Chill out
+    } else {
+      yield put(push(`/account/login?next=${currentURL}`));
+    }
   }
 }
 

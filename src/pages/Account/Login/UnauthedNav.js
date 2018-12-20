@@ -1,9 +1,11 @@
 // @flow
 
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Grid,
 } from 'react-bootstrap';
+import { Link } from 'redux-json-router';
 import synapseLogo from '../../../components/Logo/logo.png';
 
 const UnauthedNav = () => (
@@ -25,13 +27,20 @@ const UnauthedNav = () => (
       </div>
       <ul className="nav navbar-nav navbar-right">
         <li>
-          <a href="register.html" style={{ textShadow: '2px 2px 10px #000' }}>
+          <Link to="/account/register" style={{ textShadow: '2px 2px 10px #000' }}>
                 Register
-          </a>
+          </Link>
         </li>
       </ul>
     </Grid>
   </nav>
 );
 
-export default UnauthedNav;
+const mapStateToProps = (store) => {
+  const { queries } = store.router;
+  return {
+    next: queries.next ? queries.next : '/',
+  };
+};
+
+export default connect(mapStateToProps)(UnauthedNav);
