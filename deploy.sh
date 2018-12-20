@@ -1,2 +1,2 @@
-npm run build && cp -r ./build ../public_html
+npm run build && cp -r ./build/* ../public_html
 
