@@ -21,7 +21,7 @@
     "react-event-listener": "^0.6.4",
     "react-icons": "^3.2.2",
     "react-redux": "^6.0.0",
-    "react-redux-notify": "^4.1.0",
+    "react-redux-notify": "^4.1.1",
     "react-scripts": "2.1.1",
     "react-spinners": "^0.4.7",
     "react-syntax-highlighter": "^10.1.2",
