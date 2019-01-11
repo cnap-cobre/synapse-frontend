@@ -6,6 +6,12 @@
     "chunk": "dashboard"
   },
   {
+    "path": "/about",
+    "name": "About",
+    "page": "./pages/About",
+    "chunk": "account"
+  },
+  {
     "path": "/account",
     "name": "Account",
     "page": "./pages/Account/Account",

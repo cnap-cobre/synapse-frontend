@@ -20,7 +20,10 @@ const Login = (props) => {
   const { next } = props;
   return (
       <>
-        <UnauthedNav linkText="Register" linkTarget={`/account/register?next=${next}`} />
+        <UnauthedNav
+          linkText="Register"
+          linkTarget={`/account/register?next=${next}`}
+        />
 
         <WrapperFullPage>
           <Grid fluid>
