@@ -17,86 +17,94 @@ class JSONSchemaEditor extends React.Component<Props> {
   addField = (type: string) => {
     const { schema, updateSchema } = this.props;
     updateSchema([
-        ...schema,
-      { type, name: '' }
-    ])
+      ...schema,
+      { type, name: '' },
+    ]);
   };
 
   addStringField = () => this.addField('string');
+
   addNumberField = () => this.addField('number');
+
   addBooleanField = () => this.addField('boolean');
 
   updateField = (field, index) => {
     const { schema, updateSchema } = this.props;
     updateSchema([
-          ...schema.slice(0, index),
-          field,
-          ...schema.slice(index + 1, schema.length)
-    ])
+      ...schema.slice(0, index),
+      field,
+      ...schema.slice(index + 1, schema.length),
+    ]);
   };
 
   deleteField = (index) => {
     const { schema, updateSchema } = this.props;
     updateSchema([
-        ...schema.slice(0, index),
-        ...schema.slice(index + 1, schema.length)
-    ])
+      ...schema.slice(0, index),
+      ...schema.slice(index + 1, schema.length),
+    ]);
   };
 
   render() {
-    const {schema, updateSchema, WrappingComponent} = this.props;
+    const { schema, updateSchema, WrappingComponent } = this.props;
     const fields = schema.map((field, index) => {
       if (field.type === 'string') {
-        return <StringField
+        return (
+          <StringField
             index={index}
             field={field}
             updateField={this.updateField}
             WrappingComponent={WrappingComponent}
             deleteField={this.deleteField}
-        />
+          />
+        );
       }
       if (field.type === 'number') {
-        return <NumberField
+        return (
+          <NumberField
             index={index}
             field={field}
             updateField={this.updateField}
             WrappingComponent={WrappingComponent}
             deleteField={this.deleteField}
-        />
+          />
+        );
       }
       if (field.type === 'boolean') {
-        return <BooleanField
+        return (
+          <BooleanField
             index={index}
             field={field}
             updateField={this.updateField}
             WrappingComponent={WrappingComponent}
             deleteField={this.deleteField}
-        />
+          />
+        );
       }
     });
 
     return (
-        <div className="schemaEditor">
-          <WrappingComponent header={<h3 className="card-title">Schema Editor</h3>} hr>
-            <strong>Add a field:</strong>
-            <br />
-            <br />
-            <ButtonGroup>
-              <Button onClick={this.addStringField}>String</Button>
-              <Button onClick={this.addNumberField}>Number</Button>
-              <Button onClick={this.addBooleanField}>Boolean</Button>
-            </ButtonGroup>
-            <br />
-            <br />
-            <Button bsStyle="success" className="btn-fill">Submit</Button>
-          </WrappingComponent>
+      <div className="schemaEditor">
+        <WrappingComponent header={<h3 className="card-title">Schema Editor</h3>} hr>
+          <strong>Add a field:</strong>
+          <br />
+          <br />
+          <ButtonGroup>
+            <Button onClick={this.addStringField}>String</Button>
+            <Button onClick={this.addNumberField}>Number</Button>
+            <Button onClick={this.addBooleanField}>Boolean</Button>
+          </ButtonGroup>
+          <br />
+          <br />
+          <Button bsStyle="success" className="btn-fill">Submit</Button>
+        </WrappingComponent>
 
-          <form autocomplete="off">
+        <form autoComplete="off">
           {fields}
-          </form>
-        </div>
+        </form>
+      </div>
     );
   }
-};
+}
 
 export default JSONSchemaEditor;
