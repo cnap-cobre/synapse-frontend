@@ -22,10 +22,12 @@ export default createReducer(initialAgaveFileSystemsState, {
   }),
 });
 
-export const getBeocatConnected = (store) => {
+export const getBeocatSystems = (store) => {
   const { agaveFileSystems } = store;
   const { systems } = agaveFileSystems;
   return systems && systems.length > 0 && systems.filter(
     sys => sys.id.indexOf('beocat') !== -1,
-  ).length > 0;
+  );
 };
+
+export const getBeocatConnected = store => getBeocatSystems(store).length > 0;

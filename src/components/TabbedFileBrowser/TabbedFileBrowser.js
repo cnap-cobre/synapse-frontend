@@ -54,12 +54,15 @@ const systemUrlResolverAndRedirector = (props: Props) => {
         return;
       }
 
-      $replace([
-        prefix,
+      const systemKey = [
         fileSystems[0].provider,
         fileSystems[0].id,
-        '',
-      ].join('/'));
+      ].join('.');
+
+      $replace([
+        prefix,
+        browserPaths[systemKey],
+      ].join(''));
     }, 50);
   }
 
