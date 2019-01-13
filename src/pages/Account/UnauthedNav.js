@@ -18,11 +18,11 @@ const UnauthedNav = (props: Props) => {
 
   const navLinks = (
     <ul className="nav navbar-nav navbar-right">
-      {/*<li>*/}
-        {/*<Link to="/about" style={{ textShadow: '2px 2px 10px #000' }}>*/}
-          {/*About*/}
-        {/*</Link>*/}
-      {/*</li>*/}
+      {/* <li> */}
+      {/* <Link to="/about" style={{ textShadow: '2px 2px 10px #000' }}> */}
+      {/* About */}
+      {/* </Link> */}
+      {/* </li> */}
       <li>
         <Link to={linkTarget} style={{ textShadow: '2px 2px 10px #000' }}>
           {linkText}

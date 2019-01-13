@@ -35,6 +35,7 @@ const nav: Array<NavigationType> = [
     // mini: 'FS',
     url: '/files/schemas',
     exact: true,
+    beta: true,
   },
   {
     name: 'Terminal',
