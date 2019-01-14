@@ -9,6 +9,7 @@ import FileBreadcrumbs from '../FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from '../FileBrowserControls/FileBrowserControls';
 import FileBrowserGrid from '../FileBrowserGrid/FileBrowserGrid';
 import FileBrowserList from '../FileBrowserList/FileBrowserList';
+import FavoritesBar from '../FavoritesBar/FavoritesBar';
 import Loader from '../Loader/Loader';
 
 import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
@@ -181,6 +182,8 @@ class FileBrowser extends React.Component<Props> {
             pathname={pathname}
             crumbComponent={Link}
           />
+
+          <FavoritesBar />
 
           <FileBrowserControls
             id={system.id}
