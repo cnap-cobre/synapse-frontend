@@ -10,11 +10,12 @@ import Loader from '../Loader/Loader';
 import dropboxFileActions from '../../services/Dropbox/dropboxFileActions';
 import type { ViewTextFileModalType } from '../../types/modalTypes';
 import { getJupyterHubUsername } from '../../store/userProfile/reducer';
-import jupytericon from '../SocialButtons/jupyterhub_icon.png'
+import jupytericon from '../SocialButtons/jupyterhub_icon.png';
 
 type Props = ViewTextFileModalType & {
   $removeModal(string): void,
   csrftoken: string,
+  jupyterUsername: string,
 }
 
 type State = {
@@ -81,17 +82,19 @@ class ViewTextFileModal extends React.Component<Props, State> {
               <>
                 <Row>
                   <Col xs={12}>
-                <a className="btn btn-social socialaccount_provider btn-jupyterhub"
-                   href={`https://jupyterhub.beocat.ksu.edu/user/${jupyterUsername}/edit/${file.path.split('/').slice(3).join('/')}`}
-                   target="_blank"
-                   style={{
-                     float: 'right',
-                     marginBottom: '1em'
-                   }}
-                >
-                  <img src={jupytericon} />
+                    <a
+                      className="btn btn-social socialaccount_provider btn-jupyterhub"
+                      href={`https://jupyterhub.beocat.ksu.edu/user/${jupyterUsername}/edit/${file.path.split('/').slice(3).join('/')}`}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      style={{
+                        float: 'right',
+                        marginBottom: '1em',
+                      }}
+                    >
+                      <img src={jupytericon} alt="jupyterhub icon" />
                   Edit in JupyterHub
-                </a>
+                    </a>
                   </Col>
                 </Row>
 

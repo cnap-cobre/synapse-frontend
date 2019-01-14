@@ -103,11 +103,11 @@ const ModalWrapper = (props: Props) => {
 
         if (isType(modal, 'viewImageFileModal')) {
           return (
-              <ViewImageFileModal
-                  key={id}
-                  id={id}
-                  {...modal}
-              />
+            <ViewImageFileModal
+              key={id}
+              id={id}
+              {...modal}
+            />
           );
         }
 
