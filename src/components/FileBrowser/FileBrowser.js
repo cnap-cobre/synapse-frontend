@@ -13,7 +13,7 @@ import FavoritesBar from '../FavoritesBar/FavoritesBar';
 import Loader from '../Loader/Loader';
 
 import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
-
+import Notifications from 'react-notification-system-redux';
 import {
   addFocusedFile, removeFocusedFile, setFocusedFile, setFocusedFilesList,
 } from '../../store/ui/focusedFiles/FocusedFiles';
@@ -21,6 +21,9 @@ import { getFileViewFormat, getFocusedFilePaths } from '../../store/ui/reducer';
 import { fileActions, fileListActions } from '../../store/files/Files';
 import type { FileSystemType } from '../../types/fileSystemTypes';
 import type { FileType } from '../../types/fileTypes';
+import {addModal} from "../../store/ui/modals/Modals";
+import type {AnyModalType} from "../../types/modalTypes";
+import {getJupyterHubUsername} from "../../store/userProfile/reducer";
 
 const mapDispatchToProps = {
   $fetchFiles: fileListActions.pending,
@@ -31,6 +34,8 @@ const mapDispatchToProps = {
   $addFocusedFile: addFocusedFile,
   $setFocusedFilesList: setFocusedFilesList,
   $uploadFile: fileActions.uploadFile,
+  $addModal: addModal,
+  $createNotification: Notifications.warning,
 };
 
 type Props = {
@@ -45,6 +50,8 @@ type Props = {
   list: Array<FileType>,
   fileViewFormat: boolean,
   focusedFilePaths: Array<string>,
+  hasJupyterHub: boolean,
+  jupyterUsername: string,
   $uploadFile(File, string): void,
   $fetchFiles(string): void,
   $setBrowserPath(string, string): void,
@@ -53,6 +60,8 @@ type Props = {
   $setFocusedFile(string): void,
   $removeFocusedFile(string): void,
   $setFocusedFilesList(Array<string>): void,
+  $addModal(AnyModalType): void,
+  $createNotification(any): void,
 }
 
 class FileBrowser extends React.Component<Props> {
@@ -77,7 +86,7 @@ class FileBrowser extends React.Component<Props> {
 
   handleDoubleClick = (file: FileType) => {
     const {
-      system, path, $setBrowserPath, $push,
+      system, path, hasJupyterHub, jupyterUsername, $setBrowserPath, $push, $addModal, $createNotification
     } = this.props;
 
     if (file.type === 'dir') {
@@ -91,7 +100,46 @@ class FileBrowser extends React.Component<Props> {
         `${system.provider}.${system.id}`,
         `${pathUtil.resolve(path, file.name).slice(0)}/`,
       );
+
+      return;
     }
+
+    // Assume file.type === 'file'
+    if (file.mimeType && file.mimeType.match(/(^text|sh$)/i)) {
+      return $addModal({
+        modalType: 'viewTextFileModal',
+        file,
+      })
+    }
+
+    if (file.mimeType === 'application/jupyter-notebook') {
+      if (file.system.indexOf('beocat') === -1) {
+        return $createNotification({
+          title: 'Transfer Required',
+          message: 'To open this notebook in JupyterHub, you must first transfer it to Beocat.',
+          autoDismiss: 5,
+        })
+      }
+
+      if (!hasJupyterHub) {
+        return $createNotification({
+          title: 'Link your JupyterHub Account',
+          message: 'In order to open files with JupyterHub, you need to link your JupyterHub account.',
+          autoDismiss: 5,
+          action: {
+            label: 'Link JupyterHub Here',
+            callback: () => { window.open(`https://localhost/accounts/jupyterhub/login/?process=connect&next=/files/browse${path}`, '_blank') }
+          }
+        })
+      }
+      window.open(`https://jupyterhub.beocat.ksu.edu/user/${jupyterUsername}/notebooks/${path.split('/').slice(5).join('/')}${file.name}`)
+    }
+
+
+    $createNotification({
+      title: `${file.name} - File type not yet supported`,
+      message: 'If you would like to be able to open this file within Synapse, please send us a request at cnap-ni@cs.ksu.edu'
+    })
   };
 
   handleSingleClick = (
@@ -224,6 +272,8 @@ const mapStateToProps = (store, ownProps) => {
     list: list || [],
     fileViewFormat: getFileViewFormat(store),
     focusedFilePaths: getFocusedFilePaths(store),
+    hasJupyterHub: getJupyterHubUsername(store) !== null,
+    jupyterUsername: getJupyterHubUsername(store),
   };
 };
 

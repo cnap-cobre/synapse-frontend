@@ -1,6 +1,7 @@
 import fileDownload from 'js-file-download';
 import { fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
 import { syFetch } from '../util';
+import lookup from '../../util/mimeMapper';
 
 const listFiles = (csrftoken, filePath) => {
   const trimmedPath = filePath.slice('/agave'.length);
@@ -22,19 +23,26 @@ const listFiles = (csrftoken, filePath) => {
     .then(list => (list.map(file => ({
       ...file,
       provider: 'agave',
+      mimeType: lookup(file.path)
     }))));
 };
 
 const wget = (csrftoken, file) => {
   const url = `/agave/files/v2/media/system/${file.system}/${file.path}`;
 
-  const x = new XMLHttpRequest();
-  x.open('GET', url, true);
-  x.responseType = 'blob';
-  x.onload = () => {
-    fileDownload(x.response, file.name);
-  };
-  x.send();
+  return new Promise((resolve, reject) => {
+    const x = new XMLHttpRequest();
+    x.open('GET', url, true);
+    // x.responseType = 'blob';
+    x.onload = () => {
+      // fileDownload(x.response, file.name);
+      resolve(x.response);
+    };
+    x.onerror = () => {
+      reject(x.statusText)
+    };
+    x.send();
+  })
 };
 
 const rm = (csrftoken, file) => {

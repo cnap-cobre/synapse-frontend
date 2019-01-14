@@ -1,4 +1,4 @@
-import notifications from 'react-redux-notify';
+import {reducer as notifications} from 'react-notification-system-redux';
 import agaveFileSystems from './agaveFileSystems/reducer';
 import browserPaths from './ui/browserPaths/reducer';
 import csrf from './csrf/reducer';

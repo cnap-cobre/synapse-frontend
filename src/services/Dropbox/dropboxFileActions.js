@@ -75,15 +75,20 @@ const wget = (csrftoken, file) => {
     path: file.path,
   };
 
-  const x = new XMLHttpRequest();
-  x.open('POST', url, true);
-  x.responseType = 'blob';
-  x.setRequestHeader('X-CSRFToken', csrftoken);
-  x.setRequestHeader('Dropbox-API-Arg', JSON.stringify(form));
-  x.onload = () => {
-    fileDownload(x.response, file.name);
-  };
-  x.send();
+  return new Promise((resolve, reject) => {
+    const x = new XMLHttpRequest();
+    x.open('POST', url, true);
+    x.responseType = 'blob';
+    x.setRequestHeader('X-CSRFToken', csrftoken);
+    x.setRequestHeader('Dropbox-API-Arg', JSON.stringify(form));
+    x.onload = () => {
+      resolve(x.response)
+    };
+    x.onerror = () => {
+      reject(x.statusText)
+    };
+    x.send();
+  });
 };
 
 const rm = (csrftoken, file) => {

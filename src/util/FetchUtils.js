@@ -1,3 +1,6 @@
+import mime from 'mime-types';
+import lookup from './mimeMapper';
+
 export const fetchToJson = response => response.json();
 
 export function fetchErrorThrower(response) {
@@ -12,6 +15,7 @@ export function DropboxToAgaveFormat(response) {
     format: item['.tag'] === 'folder' ? 'folder' : 'raw',
     lastModified: item.server_modified,
     length: item.size,
+    mimeType: item['.tag'] === 'folder' ? 'text/directory' : lookup(item.path_display),
     name: item.name,
     path: item.path_display,
     permissions: '',

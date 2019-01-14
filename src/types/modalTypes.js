@@ -54,6 +54,11 @@ export type TransferModalType = BaseModal & {
   fileSystems: Array<FileSystemType>,
 }
 
+export type ViewTextFileModalType = BaseModal & {
+  viewTextFileModal: true,
+  file: FileType,
+}
+
 export type AnyModalType = DeleteFileModalType | LinkBeocatWizardModalType
     | MakeDirectoryModalType | MoveCopyModalType | RenameFileModalType
-    | SuccessMessageModalType | TransferModalType;
+    | SuccessMessageModalType | TransferModalType | ViewTextFileModalType;

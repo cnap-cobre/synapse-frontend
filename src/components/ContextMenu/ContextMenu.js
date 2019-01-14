@@ -196,7 +196,7 @@ class ContextMenu extends React.Component<Props, State> {
       .fullPath.split('/').slice(0, -1).join('/')}/`;
 
     dispatch(addModal({
-      modalType: 'moveCopyFileModal',
+      modalType: 'moveCopyModal',
       title: `Copy File${focusedFiles.length > 1 ? 's' : ''}`,
       files: focusedFiles,
       promptVerb: 'copy',
