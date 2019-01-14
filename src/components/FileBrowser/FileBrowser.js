@@ -105,6 +105,14 @@ class FileBrowser extends React.Component<Props> {
     }
 
     // Assume file.type === 'file'
+    if (file.mimeType && file.mimeType.match(/^image/i)) {
+      $addModal({
+        modalType: 'viewImageFileModal',
+        file,
+      });
+      return;
+    }
+
     if (file.mimeType && file.mimeType.match(/(^text|sh$)/i)) {
       $addModal({
         modalType: 'viewTextFileModal',

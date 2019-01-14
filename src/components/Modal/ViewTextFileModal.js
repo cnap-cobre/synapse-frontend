@@ -13,7 +13,7 @@ import { getJupyterHubUsername } from '../../store/userProfile/reducer';
 import jupytericon from '../SocialButtons/jupyterhub_icon.png'
 
 type Props = ViewTextFileModalType & {
-  $removeModal(string): typeof undefined,
+  $removeModal(string): void,
   csrftoken: string,
 }
 

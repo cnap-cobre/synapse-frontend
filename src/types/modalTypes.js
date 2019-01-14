@@ -59,6 +59,12 @@ export type ViewTextFileModalType = BaseModal & {
   file: FileType,
 }
 
+export type ViewImageFileModalType = BaseModal & {
+  viewImageFileModal: true,
+  file: FileType,
+}
+
 export type AnyModalType = DeleteFileModalType | LinkBeocatWizardModalType
     | MakeDirectoryModalType | MoveCopyModalType | RenameFileModalType
-    | SuccessMessageModalType | TransferModalType | ViewTextFileModalType;
+    | SuccessMessageModalType | TransferModalType | ViewTextFileModalType
+    | ViewImageFileModalType;

@@ -15,6 +15,10 @@ const lookup = (path) => {
     return 'text/x-python';
   }
 
+  if (path.match(/\.m$/i)) {
+    return 'text/x-m';
+  }
+
   if (path.match(/\.out$/i) && path.match(/slurm/i)) {
     return 'text/plain';
   }

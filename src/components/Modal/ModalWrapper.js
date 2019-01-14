@@ -9,6 +9,7 @@ import MoveCopyModal from './MoveCopyModal';
 import RenameFileModal from './RenameFileModal';
 import SuccessMessageModal from './SuccessMessageModal';
 import TransferModal from './TransferModal';
+import ViewImageFileModal from './ViewImageFileModal';
 import ViewTextFileModal from './ViewTextFileModal';
 import type {
   AnyModalType,
@@ -100,8 +101,17 @@ const ModalWrapper = (props: Props) => {
           );
         }
 
+        if (isType(modal, 'viewImageFileModal')) {
+          return (
+              <ViewImageFileModal
+                  key={id}
+                  id={id}
+                  {...modal}
+              />
+          );
+        }
+
         if (isType(modal, 'viewTextFileModal')) {
-          console.log('Displaying View Text File modal');
           return (
             <ViewTextFileModal
               key={id}
