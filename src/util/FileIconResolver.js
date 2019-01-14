@@ -38,6 +38,7 @@ const insetIconStyle = {
   fontSize: '0.4em',
   left: '-1.7em',
   marginRight: '-1em',
+  top: '-0.6em',
 };
 
 const fileExtensionMappings = [
