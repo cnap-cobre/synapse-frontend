@@ -1,13 +1,26 @@
 import {
-  all, call, put, select, takeEvery,
+  all, call, put, select, takeEvery, cancel, fork,
 } from 'redux-saga/effects';
+import { delay } from 'redux-saga'
 import * as types from './types';
 import Agave from '../../services/Agave/index';
 import Dropbox from '../../services/Dropbox/index';
 import { fileListActions } from './Files';
 import { removeFocusedFile } from '../ui/focusedFiles/FocusedFiles';
 
+/**
+ * Quick and dirty global (within this file) record for which paths are pending
+ * Example
+ *
+ * let ids = {
+ *   '/agave/beocat-prod/homes/kmdice/asdf/asdf/': true,
+ *   '/dropbox/home/asdf/': true,
+ * }
+ */
+const pendingPaths = {};
+const pendingTasks = {};
 
+// Selectors
 const getCsrf = state => state.csrf.token;
 const getFileStateAtPath = (state, path) => state.files[path];
 
@@ -60,11 +73,36 @@ function* getFileList(action) {
   }
 }
 
+function* debounceGetFileList(action) {
+  const { path } = action;
+
+  yield call(delay, 1000);
+  yield call(getFileList, action);
+
+  delete pendingPaths[path];
+  delete pendingTasks[path];
+}
+
+function* accumulateGetFileList(action) {
+  const { path } = action;
+
+  pendingPaths[path] = true;
+  if (pendingTasks[path]) {
+    yield cancel(pendingTasks[path]);
+  }
+  pendingTasks[path] = yield fork(debounceGetFileList, action);
+}
+
 function* copyFile(action) {
   try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
     yield call(ProviderService.cp, csrfToken, action.file, action.newPath);
+
+    // refresh directory listings for source and destination
+    const destinationDir = ['', action.file.provider, action.file.system, ...action.newPath.split('/').slice(1, -1), ''].join('/');
+
+    yield put(fileListActions.pending(destinationDir));
   } catch (e) {
     console.log(e);
     // Do something to handle the error
@@ -87,8 +125,16 @@ function* moveFile(action) {
   try {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.file.fullPath);
-    yield call(ProviderService.mv, csrfToken, action.file, action.newPath);
     yield put(removeFocusedFile(action.file.fullPath));
+    yield call(ProviderService.mv, csrfToken, action.file, action.newPath);
+    console.log('pizza', action)
+
+    // refresh directory listings for source and destination
+    const sourceDir = [...action.file.fullPath.split('/').slice(0, -1), ''].join('/');
+    const destinationDir = ['', action.file.provider, action.file.system, ...action.newPath.split('/').slice(1, -1)].join('/');
+
+    yield put(fileListActions.pending(sourceDir));
+    yield put(fileListActions.pending(destinationDir));
   } catch (e) {
     console.log(e);
     // Do something to handle the error
@@ -125,6 +171,7 @@ function* makeDirectory(action) {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.path);
     yield call(ProviderService.mkdir, csrfToken, action.path, action.name);
+    yield put(fileListActions.pending(action.path));
   } catch (e) {
     console.log(e);
     // Do something to handle the error
@@ -134,7 +181,7 @@ function* makeDirectory(action) {
 
 export default function* () {
   yield all([
-    takeEvery(types.GET_FILE_LIST_ASYNC.PENDING, getFileList),
+    takeEvery(types.GET_FILE_LIST_ASYNC.PENDING, accumulateGetFileList),
     takeEvery(types.GET_FILE_LIST_ASYNC.IF_NEEDED, getFileListIfNeeded),
 
     takeEvery(types.COPY_FILE, copyFile),
