@@ -78,6 +78,7 @@ class UploadFile extends React.Component<Props> {
           marginTop: '0.5em',
           float: 'right',
           marginRight: '0.5em',
+          marginLeft: '0.5em',
         }}
       >
         <FaArrowUp style={{

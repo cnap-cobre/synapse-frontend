@@ -41,23 +41,16 @@ const FileBrowserControls = (props: Props) => {
       >
         <BrowserRefresh handleRefresh={handleRefresh} />
 
+        <UploadFile path={path} />
+        <AddDirectoryButton path={path} />
+
+        <ListGridToggle />
         <DotfilesCheckBox
           id={id}
           showDotfiles={showDotfiles}
           toggleDotfiles={toggleDotfiles}
         />
-
-        <ListGridToggle />
       </div>
-
-      <div style={{
-        display: 'flex',
-      }}
-      >
-        <UploadFile path={path} />
-        <AddDirectoryButton path={path} />
-      </div>
-
 
     </div>
   );

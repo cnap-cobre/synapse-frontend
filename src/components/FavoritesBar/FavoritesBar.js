@@ -10,10 +10,11 @@ import { getBeocatSystems } from '../../store/agaveFileSystems/reducer';
 type Props = {
   username: string,
   beocatSystemUrlPrefix: string,
+  isBeocatSystem: boolean,
 }
 
 const FavoritesBar = (props: Props) => {
-  const { username, beocatSystemUrlPrefix } = props;
+  const { username, beocatSystemUrlPrefix, isBeocatSystem } = props;
 
   return (
     <div style={{
@@ -21,6 +22,7 @@ const FavoritesBar = (props: Props) => {
       padding: '5px 15px',
       borderRadius: '4px',
       marginBottom: '20px',
+      display: isBeocatSystem ? 'block' : 'none',
     }}
     >
 
@@ -29,7 +31,7 @@ const FavoritesBar = (props: Props) => {
         color: '#66615b',
       }}
       >
-            Shortcuts:&nbsp;&nbsp;
+            Beocat Shortcuts:&nbsp;&nbsp;
       </span>
 
       <Link to={`${beocatSystemUrlPrefix}homes/${username}/`}>
@@ -60,9 +62,11 @@ const FavoritesBar = (props: Props) => {
 const mapStateToProps = (store) => {
   const username = getJupyterHubUsername(store);
   const beocatSystem = getBeocatSystems(store)[0];
+
   return {
     username,
     beocatSystemUrlPrefix: `/files/browse/${beocatSystem.provider}/${beocatSystem.id}/`,
+    isBeocatSystem: store.router.pathname.indexOf('beocat') !== -1,
   };
 };
 
