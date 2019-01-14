@@ -7,6 +7,7 @@ import { removeModal } from '../../store/ui/modals/Modals';
 import agaveFileActions from '../../services/Agave/agaveFileActions';
 import Loader from '../Loader/Loader';
 import dropboxFileActions from '../../services/Dropbox/dropboxFileActions';
+import type { ViewTextFileModalType } from '../../types/modalTypes';
 
 type Props = ViewTextFileModalType & {
   $removeModal(string): typeof undefined,

@@ -22,7 +22,6 @@ import { fileActions, fileListActions } from '../../store/files/Files';
 import type { FileSystemType } from '../../types/fileSystemTypes';
 import type { FileType } from '../../types/fileTypes';
 import { addModal } from '../../store/ui/modals/Modals';
-import type { AnyModalType } from '../../types/modalTypes';
 import { getJupyterHubUsername } from '../../store/userProfile/reducer';
 
 const mapDispatchToProps = {
@@ -60,7 +59,7 @@ type Props = {
   $setFocusedFile(string): void,
   $removeFocusedFile(string): void,
   $setFocusedFilesList(Array<string>): void,
-  $addModal(AnyModalType): void,
+  $addModal(any): void,
   $createNotification(any): void,
 }
 

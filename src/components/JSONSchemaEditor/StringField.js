@@ -4,7 +4,9 @@ import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import './schemaEditor.css';
 
-const StringField = (props) => {
+type Props = any
+
+const StringField = (props: Props) => {
   const {
     WrappingComponent, field, updateField, index, // deleteField
   } = props;
