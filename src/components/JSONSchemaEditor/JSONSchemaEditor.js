@@ -10,7 +10,7 @@ import BooleanField from './BooleanField';
 type Props = {
   schema: any,
   updateSchema(any): void,
-  wrappingComponent: React.Node,
+  WrappingComponent: React.Node,
 }
 
 class JSONSchemaEditor extends React.Component<Props> {
@@ -30,7 +30,7 @@ class JSONSchemaEditor extends React.Component<Props> {
 
   updateField = (field, index) => {
     const { schema, updateSchema } = this.props;
-    updateSchema([
+    return updateSchema([
       ...schema.slice(0, index),
       field,
       ...schema.slice(index + 1, schema.length),
@@ -39,14 +39,14 @@ class JSONSchemaEditor extends React.Component<Props> {
 
   deleteField = (index) => {
     const { schema, updateSchema } = this.props;
-    updateSchema([
+    return updateSchema([
       ...schema.slice(0, index),
       ...schema.slice(index + 1, schema.length),
     ]);
   };
 
   render() {
-    const { schema, updateSchema, WrappingComponent } = this.props;
+    const { schema, WrappingComponent } = this.props;
     const fields = schema.map((field, index) => {
       if (field.type === 'string') {
         return (
@@ -81,6 +81,7 @@ class JSONSchemaEditor extends React.Component<Props> {
           />
         );
       }
+      return false;
     });
 
     return (

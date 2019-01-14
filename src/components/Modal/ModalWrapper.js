@@ -101,14 +101,14 @@ const ModalWrapper = (props: Props) => {
         }
 
         if (isType(modal, 'viewTextFileModal')) {
-          console.log('Displaying View Text File modal')
+          console.log('Displaying View Text File modal');
           return (
-              <ViewTextFileModal
-                key={id}
-                id={id}
-                {...modal}
-              />
-          )
+            <ViewTextFileModal
+              key={id}
+              id={id}
+              {...modal}
+            />
+          );
         }
 
         return null;

@@ -1,4 +1,4 @@
-import mime from "mime-types";
+import mime from 'mime-types';
 
 const lookup = (path) => {
   const result = mime.lookup(path);

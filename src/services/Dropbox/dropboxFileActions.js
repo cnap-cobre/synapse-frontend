@@ -1,5 +1,4 @@
 import { Dropbox } from 'dropbox';
-import fileDownload from 'js-file-download';
 import pathUtil from 'path';
 import { DropboxToAgaveFormat, fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
 import { syFetch } from '../util';
@@ -82,10 +81,10 @@ const wget = (csrftoken, file) => {
     x.setRequestHeader('X-CSRFToken', csrftoken);
     x.setRequestHeader('Dropbox-API-Arg', JSON.stringify(form));
     x.onload = () => {
-      resolve(x.response)
+      resolve(x.response);
     };
     x.onerror = () => {
-      reject(x.statusText)
+      reject(x.statusText);
     };
     x.send();
   });

@@ -1,7 +1,6 @@
 import {
   all, put, take, select,
 } from 'redux-saga/effects';
-import { push } from 'redux-json-router';
 import * as profileTypes from '../../userProfile/types';
 import * as agaveFilesystemTypes from '../../agaveFileSystems/types';
 import { getJupyterHubUsername } from '../../userProfile/reducer';

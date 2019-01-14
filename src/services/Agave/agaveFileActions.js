@@ -1,4 +1,3 @@
-import fileDownload from 'js-file-download';
 import { fetchErrorThrower, fetchToJson } from '../../util/FetchUtils';
 import { syFetch } from '../util';
 import lookup from '../../util/mimeMapper';
@@ -23,7 +22,7 @@ const listFiles = (csrftoken, filePath) => {
     .then(list => (list.map(file => ({
       ...file,
       provider: 'agave',
-      mimeType: lookup(file.path)
+      mimeType: lookup(file.path),
     }))));
 };
 
@@ -39,10 +38,10 @@ const wget = (csrftoken, file) => {
       resolve(x.response);
     };
     x.onerror = () => {
-      reject(x.statusText)
+      reject(x.statusText);
     };
     x.send();
-  })
+  });
 };
 
 const rm = (csrftoken, file) => {

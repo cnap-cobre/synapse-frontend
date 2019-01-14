@@ -14,11 +14,11 @@ type State = {
   currentSchema: Array<any>
 }
 
-const CardBox = props => (
-  <Card {...props}>
-    {props.children}
-  </Card>
-);
+// const CardBox = props => (
+//   <Card {...props}>
+//     {props.children}
+//   </Card>
+// );
 
 const mapFieldToLibFormat = fields => fields.reduce((acc, field) => {
   const { name, ...rest } = field;

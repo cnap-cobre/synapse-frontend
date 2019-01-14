@@ -6,7 +6,7 @@ import './schemaEditor.css';
 
 const StringField = (props) => {
   const {
-    WrappingComponent, field, updateField, deleteField, index,
+    WrappingComponent, field, updateField, index, // deleteField
   } = props;
   return (
     <WrappingComponent className="schemaField">

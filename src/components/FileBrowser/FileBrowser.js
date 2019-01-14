@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import { Link, push } from 'redux-json-router';
 import pathUtil from 'path';
+import Notifications from 'react-notification-system-redux';
 import FileBreadcrumbs from '../FileBreadcrumbs/FileBreadcrumbs';
 import FileBrowserControls from '../FileBrowserControls/FileBrowserControls';
 import FileBrowserGrid from '../FileBrowserGrid/FileBrowserGrid';
@@ -13,7 +14,6 @@ import FavoritesBar from '../FavoritesBar/FavoritesBar';
 import Loader from '../Loader/Loader';
 
 import { setBrowserPath } from '../../store/ui/browserPaths/BrowserPaths';
-import Notifications from 'react-notification-system-redux';
 import {
   addFocusedFile, removeFocusedFile, setFocusedFile, setFocusedFilesList,
 } from '../../store/ui/focusedFiles/FocusedFiles';
@@ -21,9 +21,9 @@ import { getFileViewFormat, getFocusedFilePaths } from '../../store/ui/reducer';
 import { fileActions, fileListActions } from '../../store/files/Files';
 import type { FileSystemType } from '../../types/fileSystemTypes';
 import type { FileType } from '../../types/fileTypes';
-import {addModal} from "../../store/ui/modals/Modals";
-import type {AnyModalType} from "../../types/modalTypes";
-import {getJupyterHubUsername} from "../../store/userProfile/reducer";
+import { addModal } from '../../store/ui/modals/Modals';
+import type { AnyModalType } from '../../types/modalTypes';
+import { getJupyterHubUsername } from '../../store/userProfile/reducer';
 
 const mapDispatchToProps = {
   $fetchFiles: fileListActions.pending,
@@ -86,7 +86,8 @@ class FileBrowser extends React.Component<Props> {
 
   handleDoubleClick = (file: FileType) => {
     const {
-      system, path, hasJupyterHub, jupyterUsername, $setBrowserPath, $push, $addModal, $createNotification
+      system, path, hasJupyterHub, jupyterUsername,
+      $setBrowserPath, $push, $addModal, $createNotification,
     } = this.props;
 
     if (file.type === 'dir') {
@@ -106,40 +107,43 @@ class FileBrowser extends React.Component<Props> {
 
     // Assume file.type === 'file'
     if (file.mimeType && file.mimeType.match(/(^text|sh$)/i)) {
-      return $addModal({
+      $addModal({
         modalType: 'viewTextFileModal',
         file,
-      })
+      });
+      return;
     }
 
     if (file.mimeType === 'application/jupyter-notebook') {
       if (file.system.indexOf('beocat') === -1) {
-        return $createNotification({
+        $createNotification({
           title: 'Transfer Required',
           message: 'To open this notebook in JupyterHub, you must first transfer it to Beocat.',
           autoDismiss: 5,
-        })
+        });
+        return;
       }
 
       if (!hasJupyterHub) {
-        return $createNotification({
+        $createNotification({
           title: 'Link your JupyterHub Account',
           message: 'In order to open files with JupyterHub, you need to link your JupyterHub account.',
           autoDismiss: 5,
           action: {
             label: 'Link JupyterHub Here',
-            callback: () => { window.open(`https://localhost/accounts/jupyterhub/login/?process=connect&next=/files/browse${path}`, '_blank') }
-          }
-        })
+            callback: () => { window.open(`https://localhost/accounts/jupyterhub/login/?process=connect&next=/files/browse${path}`, '_blank'); },
+          },
+        });
+        return;
       }
-      window.open(`https://jupyterhub.beocat.ksu.edu/user/${jupyterUsername}/notebooks/${path.split('/').slice(5).join('/')}${file.name}`)
+      window.open(`https://jupyterhub.beocat.ksu.edu/user/${jupyterUsername}/notebooks/${path.split('/').slice(5).join('/')}${file.name}`);
     }
 
 
     $createNotification({
       title: `${file.name} - File type not yet supported`,
-      message: 'If you would like to be able to open this file within Synapse, please send us a request at cnap-ni@cs.ksu.edu'
-    })
+      message: 'If you would like to be able to open this file within Synapse, please send us a request at cnap-ni@cs.ksu.edu',
+    });
   };
 
   handleSingleClick = (

@@ -1,4 +1,3 @@
-import mime from 'mime-types';
 import lookup from './mimeMapper';
 
 export const fetchToJson = response => response.json();
