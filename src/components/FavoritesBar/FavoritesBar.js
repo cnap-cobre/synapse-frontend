@@ -63,10 +63,20 @@ const mapStateToProps = (store) => {
   const username = getJupyterHubUsername(store);
   const beocatSystem = getBeocatSystems(store)[0];
 
+  const isBeocatSystem = store.router.pathname.indexOf('beocat') !== -1;
+
+  if (!isBeocatSystem) {
+    return {
+      username,
+      beocatSystemUrlPrefix: '',
+      isBeocatSystem,
+    }
+  }
+
   return {
     username,
     beocatSystemUrlPrefix: `/files/browse/${beocatSystem.provider}/${beocatSystem.id}/`,
-    isBeocatSystem: store.router.pathname.indexOf('beocat') !== -1,
+    isBeocatSystem,
   };
 };
 

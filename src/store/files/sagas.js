@@ -160,6 +160,8 @@ function* uploadFile(action) {
     const csrfToken = yield select(getCsrf);
     const ProviderService = resolveProviderService(action.path);
     yield call(ProviderService.uploadFile, csrfToken, action.file, action.path);
+    yield call(delay, 3000); // Arbitrary delay for consistency
+    yield put(fileListActions.pending(action.path))
   } catch (e) {
     console.log(e);
     // Do something to handle the error
