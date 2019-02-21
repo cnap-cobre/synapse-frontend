@@ -17,7 +17,7 @@
     "react": "^16.6.3",
     "react-ace": "^6.2.0",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.6.3",
+    "react-dom": "^16.8.3",
     "react-dropzone": "^7.0.1",
     "react-event-listener": "^0.6.4",
     "react-icons": "^3.2.2",
