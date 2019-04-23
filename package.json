@@ -5,7 +5,7 @@
   "repository": "https://github.com/cnap-cobre/synapse",
   "main": "index.js",
   "dependencies": {
-    "@craco/craco": "^3.2.3",
+    "@craco/craco": "^5.0.1",
     "brace": "^0.11.1",
     "date-fns": "^2.0.0-alpha.26",
     "dropbox": "^4.0.14",
