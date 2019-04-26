@@ -57,7 +57,7 @@
   "devDependencies": {
     "customize-cra": "^0.2.7",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-watch": "^4.0.2",
+    "eslint-watch": "^5.1.0",
     "flow-bin": "^0.89.0"
   },
   "greenkeeper": {
