@@ -29,7 +29,7 @@ const Login = (props) => {
           <Grid fluid>
             <Row>
               <Col md={4} sm={6} mdOffset={4} smOffset={3}>
-                <Card header={<h3 className="card-title">Login</h3>}>
+                <Card header={<h3 className="card-title">Login to Synapse</h3>}>
 
                   <form
                     action={`/accounts/login/?next=${next}`}
