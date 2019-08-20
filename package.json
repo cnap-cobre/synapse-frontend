@@ -10,7 +10,7 @@
     "date-fns": "^2.0.0-alpha.26",
     "dropbox": "^4.0.14",
     "js-cookie": "^2.2.0",
-    "js-file-download": "^0.4.4",
+    "js-file-download": "^0.4.8",
     "json-schema-generator": "^2.0.6",
     "mime-types": "^2.1.21",
     "node-sass": "^4.11.0",
