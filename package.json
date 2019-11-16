@@ -55,7 +55,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "customize-cra": "^0.2.7",
+    "customize-cra": "^0.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-watch": "^4.0.2",
     "flow-bin": "^0.89.0"
