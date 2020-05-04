@@ -13,7 +13,7 @@
     "js-file-download": "^0.4.4",
     "json-schema-generator": "^2.0.6",
     "mime-types": "^2.1.21",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.14.1",
     "react": "^16.6.3",
     "react-ace": "^6.2.0",
     "react-bootstrap": "^0.32.4",
